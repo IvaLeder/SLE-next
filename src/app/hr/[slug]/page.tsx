@@ -3,17 +3,12 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import remarkGfm from "remark-gfm";
-import rehypeRaw from "rehype-raw";
-import { mdxComponents } from "@/components/MdxComponents";
+import { mdxComponents } from "@/components/mdx";
 import { Metadata } from "next";
 import Image from "next/image";
 import TOC from "@/components/mdx/TOC";
 
-import {
-  getPostBySlug,
-  Post,
-  getPrevNextPosts,
-} from "@/lib/posts";
+import { getPostBySlug, Post, getPrevNextPosts } from "@/lib/posts";
 import { getRelatedPosts } from "@/lib/related";
 
 import {
@@ -22,8 +17,7 @@ import {
   generateBreadcrumbJsonLd,
 } from "@/lib/metadata";
 import JsonLd from "@/components/JsonLd";
-import { extractToc } from "@/lib/toc";
-import MarkdownImage from "@/components/MarkdownImage";
+import FloatingSubscribeCard from "@/components/FloatingSubscribeCard";
 
 // ------------------------------
 // Types
@@ -59,7 +53,7 @@ export default async function PostPage({ params }: Props) {
   const { prev, next } = getPrevNextPosts(post, post.lang);
 
   return (
-    <main className="max-w-3xl mx-auto p-4">
+    <main className="relative max-w-3xl mx-auto p-4">
       {/* JSON-LD */}
       <JsonLd data={articleJsonLd} />
       <JsonLd data={breadcrumbJsonLd} />
@@ -96,8 +90,9 @@ export default async function PostPage({ params }: Props) {
         </div>
       )}
 
-      <article className="prose prose-lg max-w-none">
-        <TOC />
+      <TOC />
+
+      <article id="post-content" className="prose prose-lg max-w-none">
         <MDXRemote
           source={post.content}
           components={mdxComponents}
@@ -105,7 +100,6 @@ export default async function PostPage({ params }: Props) {
             mdxOptions: {
               remarkPlugins: [remarkGfm],
               rehypePlugins: [
-                rehypeRaw,
                 rehypeSlug,
                 [rehypeAutolinkHeadings, { behavior: "wrap" }],
               ],
@@ -113,6 +107,7 @@ export default async function PostPage({ params }: Props) {
           }}
         />
       </article>
+
       <div className="mt-12 flex justify-between">
         {prev ? (
           <a
@@ -142,6 +137,7 @@ export default async function PostPage({ params }: Props) {
           <div className="flex-1" />
         )}
       </div>
+
       {relatedPosts.length > 0 && (
         <section className="mt-12 border-t pt-6">
           <h2 className="text-2xl font-bold mb-4">
@@ -164,6 +160,7 @@ export default async function PostPage({ params }: Props) {
           </div>
         </section>
       )}
+      <FloatingSubscribeCard />
     </main>
   );
 }
