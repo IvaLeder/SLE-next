@@ -3,7 +3,7 @@
 import { useState, useMemo } from "react";
 import PostCard from "./PostCard";
 import CategoryFilter from "./CategoryFilter";
-import { PostMeta } from "@/types/post";
+import { PostMeta } from "../lib/posts";
 
 export default function PostList({
   posts,

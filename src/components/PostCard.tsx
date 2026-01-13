@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { PostMeta } from "@/types/post";
+import { PostMeta } from "../lib/posts";
 
 export default function PostCard({
   post,

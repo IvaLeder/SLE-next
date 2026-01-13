@@ -28,20 +28,20 @@ export default function TOC() {
 
     function scanHeadings() {
       const headings = Array.from(
-        container.querySelectorAll("h2, h3, h4")
+        (container as HTMLElement).querySelectorAll("h2, h3, h4")
       ) as HTMLElement[];
 
       const seen = new Set<string>();
       const flat: TocItem[] = [];
 
       headings.forEach((h) => {
-        let text = h.textContent?.trim() ?? "";
+        const text = h.textContent?.trim() ?? "";
         if (!text) return;
 
         let id = h.id;
         if (!id) {
           id = generateId(text);
-          let base = id;
+          const base = id;
           let counter = 1;
           while (seen.has(id)) {
             id = `${base}-${counter++}`;
@@ -84,7 +84,7 @@ export default function TOC() {
 
     // Observe MDX hydration
     observerRef.current = new MutationObserver(scanHeadings);
-    observerRef.current.observe(container, {
+    observerRef.current.observe(container as HTMLElement, {
       childList: true,
       subtree: true,
     });
@@ -135,7 +135,7 @@ export default function TOC() {
             </a>
 
             {/* H3 inside H2 */}
-            {h2.children?.length > 0 && (
+            {h2.children && h2.children.length > 0 && (
               <div className="ml-4 space-y-1">
                 {h2.children.map((h3) => (
                   <div key={h3.id}>
@@ -148,7 +148,7 @@ export default function TOC() {
                     </a>
 
                     {/* H4 inside H3 */}
-                    {h3.children?.length > 0 && (
+                    {h3.children && h3.children.length > 0 && (
                       <div className="ml-4 space-y-1">
                         {h3.children.map((h4) => (
                           <a
