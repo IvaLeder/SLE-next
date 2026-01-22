@@ -1,5 +1,6 @@
 import { Post } from "./posts";
 import { Metadata } from "next";
+import { siteConfig } from "@/config/site";
 
 /**
  * Generate standard Next.js metadata for a post
@@ -14,18 +15,17 @@ export function generatePostMetadata(post: Post | null, lang: "en" | "hr"): Meta
 
   const description = post.excerpt || post.content.slice(0, 150);
   const urlPrefix = lang === "hr" ? "/hr" : "/en";
-  const fullUrl = `https://yourdomain.com${urlPrefix}/${post.slug}`;
+  const fullUrl = `${siteConfig.url}${urlPrefix}/${post.slug}`;
   const imageUrl = post.coverImage
-    ? `https://yourdomain.com${post.coverImage}`
-    : `https://yourdomain.com/default-og-image.jpg`;
+    ? `${siteConfig.url}${post.coverImage}`
+    : `${siteConfig.url}/default-og-image.jpg`;
 
       // Determine URLs for alternate languages
-  const siteUrl = "https://stemlittleexplorers.com";
   const alternates = {
-    canonical: `${siteUrl}/${lang}/${post.slug}`,
+    canonical: `${siteConfig.url}/${lang}/${post.slug}`,
     languages: {
-      en: `${siteUrl}/en/${post.slug}`,
-      hr: `${siteUrl}/hr/${post.slug}`,
+      en: `${siteConfig.url}/en/${post.slug}`,
+      hr: `${siteConfig.url}/hr/${post.slug}`,
     },
   };
 
@@ -54,10 +54,10 @@ export function generatePostMetadata(post: Post | null, lang: "en" | "hr"): Meta
  */
 export function generateJsonLd(post: Post, lang: "en" | "hr") {
   const urlPrefix = lang === "hr" ? "/hr" : "/en";
-  const fullUrl = `https://yourdomain.com${urlPrefix}/${post.slug}`;
+  const fullUrl = `${siteConfig.url}${urlPrefix}/${post.slug}`;
   const imageUrl = post.coverImage
-    ? `https://yourdomain.com${post.coverImage}`
-    : `https://yourdomain.com/default-og-image.jpg`;
+    ? `${siteConfig.url}${post.coverImage}`
+    : `${siteConfig.url}/default-og-image.jpg`;
 
   return {
     "@context": "https://schema.org",
@@ -65,7 +65,7 @@ export function generateJsonLd(post: Post, lang: "en" | "hr") {
     headline: post.title,
     description: post.excerpt || post.content.slice(0, 150),
     image: [imageUrl],
-    author: { "@type": "Person", name: "Your Name" },
+    author: { "@type": "Person", name: post.author },
     datePublished: post.date,
     mainEntityOfPage: fullUrl,
     inLanguage: lang,

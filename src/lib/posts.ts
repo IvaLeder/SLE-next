@@ -6,6 +6,7 @@ import matter from "gray-matter";
 export type PostMeta = {
   title: string;
   date: string;
+  author?: string;
   slug: string;
   lang: "en" | "hr";
   excerpt?: string;
