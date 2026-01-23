@@ -108,36 +108,6 @@ export default async function PostPage({ params }: Props) {
         />
       </article>
 
-      <div className="mt-12 flex justify-between">
-        {prev ? (
-          <a
-            href={`/${prev.lang}/${prev.slug}`}
-            className="flex-1 border p-4 rounded hover:shadow-md transition"
-          >
-            <p className="text-sm text-gray-500">
-              {post.lang === "en" ? "Previous Post" : "Prethodni članak"}
-            </p>
-            <h3 className="font-semibold">{prev.title}</h3>
-          </a>
-        ) : (
-          <div className="flex-1" />
-        )}
-
-        {next ? (
-          <a
-            href={`/${next.lang}/${next.slug}`}
-            className="flex-1 border p-4 rounded hover:shadow-md transition text-right"
-          >
-            <p className="text-sm text-gray-500">
-              {post.lang === "en" ? "Next Post" : "Sljedeći članak"}
-            </p>
-            <h3 className="font-semibold">{next.title}</h3>
-          </a>
-        ) : (
-          <div className="flex-1" />
-        )}
-      </div>
-
       {relatedPosts.length > 0 && (
         <section className="mt-12 border-t pt-6">
           <h2 className="text-2xl font-bold mb-4">

@@ -33,8 +33,6 @@ export default function PostCard({
           {post.title}
         </h3>
 
-        <p className="text-sm text-gray-600 line-clamp-3">{post.excerpt}</p>
-
         <span className="text-xs text-gray-400">
           {new Date(post.date).toLocaleDateString(
             lang === "en" ? "en-US" : "hr-HR",

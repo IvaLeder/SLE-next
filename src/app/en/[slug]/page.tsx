@@ -18,6 +18,7 @@ import {
 } from "@/lib/metadata";
 import JsonLd from "@/components/JsonLd";
 import FloatingSubscribeCard from "@/components/FloatingSubscribeCard";
+import PostCard from "@/components/PostCard";
 
 // ------------------------------
 // Types
@@ -108,36 +109,6 @@ export default async function PostPage({ params }: Props) {
         />
       </article>
 
-      <div className="mt-12 flex justify-between">
-        {prev ? (
-          <a
-            href={`/${prev.lang}/${prev.slug}`}
-            className="flex-1 border p-4 rounded hover:shadow-md transition"
-          >
-            <p className="text-sm text-gray-500">
-              {post.lang === "en" ? "Previous Post" : "Prethodni članak"}
-            </p>
-            <h3 className="font-semibold">{prev.title}</h3>
-          </a>
-        ) : (
-          <div className="flex-1" />
-        )}
-
-        {next ? (
-          <a
-            href={`/${next.lang}/${next.slug}`}
-            className="flex-1 border p-4 rounded hover:shadow-md transition text-right"
-          >
-            <p className="text-sm text-gray-500">
-              {post.lang === "en" ? "Next Post" : "Sljedeći članak"}
-            </p>
-            <h3 className="font-semibold">{next.title}</h3>
-          </a>
-        ) : (
-          <div className="flex-1" />
-        )}
-      </div>
-
       {relatedPosts.length > 0 && (
         <section className="mt-12 border-t pt-6">
           <h2 className="text-2xl font-bold mb-4">
@@ -146,16 +117,11 @@ export default async function PostPage({ params }: Props) {
 
           <div className="grid gap-4 md:grid-cols-3">
             {relatedPosts.map((r) => (
-              <a
+              <PostCard
                 key={r.slug}
-                href={`/${r.lang}/${r.slug}`}
-                className="block p-4 border rounded hover:shadow-md transition"
-              >
-                <h3 className="font-semibold text-lg mb-1">{r.title}</h3>
-                {r.excerpt && (
-                  <p className="text-gray-600 text-sm">{r.excerpt}</p>
-                )}
-              </a>
+                post={r}
+                lang={post.lang}
+              />
             ))}
           </div>
         </section>
