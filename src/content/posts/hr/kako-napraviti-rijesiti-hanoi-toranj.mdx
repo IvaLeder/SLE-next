@@ -1,0 +1,129 @@
+﻿---
+title: "Kako napraviti i riješiti Hanoi toranj"
+translationOf: "/en/make-and-solve-tower-of-hanoi/"
+slug: "kako-napraviti-rijesiti-hanoi-toranj"
+lang: "hr"
+subtitle: "Jeste li ikada pokušali rješavati Hanojski toranj? Još od 19. stoljeća ova nam mozgalica zagrijava moždane vijuge i pomaže u razvijanju matematičkih vještina i algoritamskog načina razmišljanja. Pokazat ćemo vam kako napraviti i riješiti Hanoi toranj koji je pogodan za sve uzraste radi lakog prilagođavanja težine."
+description: "Naučite napraviti Hanoi toranj i uživajte u odličnoj mozgalici. Vježbajte algoritme, uzorke i učite matematiku uz ovu zabavnu aktivnost."
+date: "2020-06-25"
+author: Vedran Leder
+coverImage: /images/posts/Kako-napraviti-i-riješiti-Hanoi-toranj.jpg
+categories: ["STEM", "matematika", "logika", "Aktivnosti"]
+---
+
+<YouTube id="S4HOSbrS4bY"
+  title="Kako napraviti i riješiti Hanoi toranj (Brahma Toranj ili Lucasov Toranj)"
+/>
+
+> Postoji legenda o hramu u Indiji s tri stupa na kojima se nalaze 64 zlatna diska. Svećenici u hramu rješavaju zagonetku od početka vremena, i kada konačno riješe Hanoi toranj, doći će do smaka svijeta.
+
+## Povijest imena Hanoi Toranj
+
+Ovu popularnu mozgalicu možemo naći pod nekoliko različitih imena. Prvo ime je **Lucasov toranj**, ime koje nosi po njegovom izumitelju, francuskom matematičaru Eduardu Lucasu koji je osmislio ovu mozgalicu 1883. godine.
+
+Drugo i najpopularnije ime je **Hanoi toranj** koje je nastalo po legendi o hramu koji se nalazi u glavnom gradu Vijetnama, Hanoi-u.
+
+Treće ime koje još često susrećemo je **Brahma Toranj** što je varijacija na legendu Hanoi tornja. Jedina je razlika da se hram nalazi u Indiji i ime je nastalo po Brahmanskim svećenicima i hramu posvećenom indijskom bogu Brahmi.
+
+## Kako funkcionira Hanoi Toranj
+
+Ovu (ne tako) jednostavnu matematičku mozgalicu najčešće susrećemo u sljedećem obliku: Imamo 3 štapa (nazovimo ih A, B i C) i određen broj diskova različitih veličina (minimalno 3, a maksimalno neograničeno).
+
+Svi diskovi se nalaze na štapu A poredani po veličini od najvećeg (nad dnu) do najmanjeg diska (na vrhu). **Cilj** je prebaciti sve diskove sa štapa A na štap C uz nekoliko pravila.
+
+![Hanoi Toranj (Brahma Toranj ili Lukasov toranj)](/images/posts/Hanoi-Toranj-Brahma-Toranj-ili-Lukasov-toranj.jpg)
+Cilj Hanoi Tornja mozgalice je prebaciti sve diskove sa startne točke na završnu, držeći se određenih pravila.
+
+Prvo pravilo je da možemo pomicati samo **jedan po jedan disk**. Drugo pravilo je da možemo pomicati isključivo **disk na vrhu**. Treće pravilo je da veći disk ne možemo staviti na manji disk, **samo manji disk može ići na veći**.
+
+U igri može biti diskova koliko god želimo. Sa svakim novim diskom, igra postaje znatno složenija i teža. **Dodatni izazov** je prebaciti diskove sa štapa A na štap C u što manjem broju poteza.
+
+## Matematika Hanoi Tornja
+
+Da li ste već pokušali riješiti zagonetku Hanoi Tornja i bilo je jednostavno? Probajte riješiti toranj s tri diska u 7 poteza. A s četiri diska u (minimalno) 15 poteza? Ovo je bilo malo kompliciranije? Ako probate s pet diskova, trebat će vam minimalno 31 potez da riješite zagonetku! Da li je to bilo jednostavno?
+
+Sa svakim novim diskom koji koristimo u zagonetki broj minimalno potrebnih poteza je duplo veći plus 1. Formula za izračunavanje je **2\*\***n\*\* **\- 1** pri čemu je **n** = broj diskova koji koristimo.
+
+Na primjer:
+
+**1 Disk**: 2^1 - 1 = 2 - 1 = 1 potez
+**2 Diska**: 2^2 - 1 = 4 - 1 = 3 poteza
+**3 Diska**: 2^3 - 1 = 8 - 1 = 7 poteza
+**4 Diska**: 2^4 - 1 = 16 - 1 = 15 poteza
+**5 Diska**: 2^5 - 1 = 32 - 1 = 31 potez
+...
+
+Sjećate se svećenika s početka priče i kraja svijeta? Oni slažu 64 diska. Da bi složili zagonetku, potrebno je napraviti 264 \- 1 poteza ili **18446744073709551615** poteza!!! Znate li pročitati ovaj broj? Ako svećenicima treba 1 sekunda za jedan potez, trebat će im oko **585 milijardi godina** da riješe zagonetku, što je 42 puta duže od dosadašnje procjene postojanja svemira. Znači, imamo još vremena prije kraja svijeta.
+
+Sada ćete naučiti kako napraviti svoj jednostavni Hanoi toranj, a za **algoritam rješavanja** ćete morati doći na kraj članka. Prvo pokušajte sami, ljepota mozgalica je u… mozganju!
+
+## Potrebni materijali za Hanoi Toranj
+
+![Potrebni materijali za napraviti Hanoi Toranj](/images/posts/Potrebni-materijali-za-napraviti-Hanoi-Toranj.jpg)
+Da bi napravili Hanoi Toranj, potrebni su nam stiropor (ili karton), šestar i ravnalo.
+
+- **Stiropor** ili **karton**. Koristit ćemo stiropor (karton može isto poslužiti kao odlična alternativa) kako bi napravili naše diskove za Hanoi toranj. Možete napraviti koliko god diskova želite, samo budite sigurni da su različitih veličina.
+- **Šestar**. Šestar će nam koristiti da nacrtamo krugove na stiroporu ili kartonu. Potreban je kako bismo napravili pravilne krugove različitih veličina.
+- **Ravnalo**. Koristi nam da izmjerimo različite radijuse koje ćemo crtati sa šestarom. Uzmite ravnalo i šestar i izmjerite 1 cm, to će biti polumjer prvog diska. Nacrtajte kružnicu na karton ili stiropor. Sada izmjerite 2 cm i ponovno nacrtajte kružnicu. Na ovaj način možete napraviti krugova koliko god želimo, samo je važno da svaki ima veći polumjer za 1 cm.
+- **Skalpel** ili **Škare**. Koristit ćemo skalpel ili škare kako bismo izrezali naše diskove. Skalpel je bolji ako koristimo stiropor, a škare ako smo se odlučili napraviti diskove od kartona.
+- **Flomasteri**. Flomasteri su bonus, i pomoću njih možemo ukrasiti naše diskove kako bi bili zanimljiviji te da ih lakše razlikujemo.
+- **A4** ili veći **papir**. Umjesto drvenih štapića, možemo koristiti običan papir i na njemu nacrtati 3 polja. Cilj je isti: prebaciti sve diskove s prvog polja na treće polje.
+
+## Postupak izrade Hanoi Tornja na lak način
+
+Za korak po korak video instrukcije izrade hanojskog tornja, pogledajte video na početku članka ili nastavite čitati.
+
+Pokazat ćemo vam kako napraviti Hanoi toranj s 5 diskova. Ako želite više, ili manje diskova, slijedite istu logiku tako da svaki disk bude za 1 cm veći.
+
+- Uzmite **šestar** i **ravnalo**, te izmjerite dužinu polumjera 5 cm (ili onoliko centimetara koliko krugova želite napraviti).
+- **Ocrtajte kružnicu** na stiroporu (ili kartonu) i izrežite je **skalpelom** (ili **škarama**). Ovim smo napravili naš prvi disk.
+- Sada ponovite postupak, ali ovaj put izmjerite dužinu polumjera 4 cm. Izrežite krug i ponavljajte isti postupak s krugovima koji imaju radijus 3 cm, 2 cm i 1 cm. Sada imate 5 diskova za Hanoi toranj. Ako želite veći izazov i igrati s još više diskova, napravite krugove sa 6+ cm polumjerom.
+- Upotrijebite **flomastere** za dodatno ukrašavanje krugova različitim bojama.
+- Od A4 papira možete napraviti ploču za igranje. Koristeći olovku, papir, po širini, podijelite na 3 jednaka dijela.
+- Polja označite sa **start** i **cilj** ili polja možete označiti brojevima **1**, **2** i **3**.
+- Neka igre započnu! Možete li pomaknuti sve diskove sa starta na kraj u najmanjem broju poteza? Uživajte u ovoj odličnoj mozgalici.
+
+## Kako riješiti Hanoi Toranj (Algoritam Hanoi Tornja)
+
+Algoritam Hanoi tornja je zapravo vrlo jednostavan i može se lako memorizirati za uspješno rješavanje s neograničenim brojem diskova u najmanjem mogućem broju poteza.
+
+Postoje dva algoritma, a koji ćemo koristiti ovisi o tome radimo li s parnim ili neparnim brojem diskova.
+
+Štapiće ili polja ćemo označiti s **A (start)**, **B (srednje polje)** i **C (cilj)**.
+
+![Primjer Hanoi tornja s 3 diska](/images/posts/Primjer-Hanoi-tornja-s-3-diska.jpg)
+Da bi riješili Hanoi Toranj s 3 diska, potrebno je napraviti minimalno 7 poteza.
+
+## Ako imamo parni broj diskova
+
+1. Napravite dozvoljeni potez između polja A i B
+2. Napravite dozvoljeni potez između polja A i C
+3. Napravite dozvoljeni potez između polja B i C
+4. Vratite se na **korak 1** i ponavljajte korake 1, 2 i 3.
+
+**Dozvoljeni potez -** manji disk može ići na veći disk, ne obratno.
+
+## Ako imamo neparni broj diskova
+
+1. Napravite dozvoljeni potez između polja A i C
+2. Napravite dozvoljeni potez između polja A i B
+3. Napravite dozvoljeni potez između polja B i C
+4. Vratite se na **korak 1** i ponavljajte korake 1, 2 i 3.
+
+**Dozvoljeni potez -** manji disk može ići na veći disk, ne obratno.
+
+Ovako gledajući djeluje pomalo apstraktno i teško za vizualizirati, ali kada pokušate slijediti ovaj obrazac, vidjet ćete kako jednostavno funkcionira. Držeći se koraka možemo pomoću algoritma riješiti izazov s bilo kojim brojem diskova u najmanjem mogućem broju poteza.
+
+## Što ćete naučiti i koje vještine ćete unaprijediti rješavajući Hanoi Toranj
+
+1. Matematičke vještine, algoritamski način razmišljanja i pristup rješavanju problema na najefikasniji način.
+2. Znanja iz tehnologije. Svi računalni programi se zasnivaju na algoritmima.
+3. Logičke vještine.
+
+Nadamo se da ste uživali u ovoj odličnoj mozgalici. Ako vas zanimaju i druge aktivnosti za vježbanje matematičkih i logičkih vještina, ili aktivnosti s brojevima, svakako pogledajte ove aktivnosti:
+
+- [Kako učiti razlomke pomoću Lego kocaka](http://www.stemlittleexplorers.com/hr/kako-nauciti-razlomke-na-lak-nacin/) i saznajte kako razlomci mogu biti zanimljivi.
+- [7 zabavnih aktivnosti za učenje slova i brojeva](http://www.stemlittleexplorers.com/hr/ucenje-abecede-brojeva/) - još jedan način zabavnog učenja brojeva i slova.
+- [Zabavne aktivnosti s nizovima](https://www.stemlittleexplorers.com/hr/zabavne-aktivnosti-s-nizovima/) - vježbajte logičko razmišljanje uz jednostavnu aktivnost s nizovima koja je pogodna za najmlađu dob.
+- [Kako napraviti kotač za šifriranje](https://www.stemlittleexplorers.com/hr/kako-napraviti-kotac-za-sifriranje/) - napravite autentičan kotač za šifriranje i učite o kriptografiji, nizovima i algoritmima.
+- [Učenje programiranja uz Scratch](http://www.stemlittleexplorers.com/hr/ucenje-programiranja-za-djecu/) - učite programirati uz najbolji programski jezik za početnike i naučite sve o varijablama, petljama i funkcijama.
