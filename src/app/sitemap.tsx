@@ -1,4 +1,4 @@
-import { getAllPosts, getTranslatedPost } from "@/lib/posts";
+import { getAllPosts, getTranslatedPostBySlug } from "@/lib/posts";
 import type { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -10,7 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     return posts.map((post) => {
       const otherLang = lang === "en" ? "hr" : "en";
       const translated = post.translationKey
-        ? getTranslatedPost(otherLang, post.translationKey)
+        ? getTranslatedPostBySlug(otherLang, post.translationKey)
         : null;
 
       return {
