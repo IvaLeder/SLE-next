@@ -15,7 +15,7 @@ export type PostMeta = {
   coverImage?: string;
   heroAlt?: string;
   downloadables?: { label: string; url: string }[];
-  translationOf?: string;  // <— ADD THIS LINE
+  translationKey: string;
 };
 
 // Type for full post
@@ -68,16 +68,20 @@ export function getPostBySlug(lang: "en" | "hr", slug: string): Post | null {
   return posts.find((p) => p.slug === slug) || null;
 }
 
-export function getTranslatedPost(lang: "en" | "hr", translationOf: string): PostMeta | null {
-  const posts = getAllPosts(lang);
-  return posts.find((p) => p.translationOf === translationOf) || null;
+export function getTranslatedPost(
+  current: Post
+): Post | null {
+  const targetLang =
+    current.lang === "en" ? "hr" : "en";
+
+  return (
+    getAllPosts(targetLang).find(
+      (p) =>
+        p.translationKey === current.translationKey
+    ) || null
+  );
 }
 
-export function getPostTranslations(translationOf: string): PostMeta[] {
-  const en = getTranslatedPost("en", translationOf);
-  const hr = getTranslatedPost("hr", translationOf);
-  return [en, hr].filter(Boolean) as PostMeta[];
-}
 
 // ------------------------------------------------------
 //  Get posts that belong to a given category
@@ -138,4 +142,24 @@ export function getPrevNextPosts(current: Post, lang: "en" | "hr") {
   const next = index < posts.length - 1 ? posts[index + 1] : null;
 
   return { prev, next };
+}
+
+export function getTranslatedPostBySlug(
+  currentLang: "en" | "hr",
+  slug: string
+): Post | null {
+  const currentPost = getPostBySlug(currentLang, slug);
+
+  if (!currentPost) return null;
+
+  const targetLang =
+    currentLang === "en" ? "hr" : "en";
+
+  return (
+    getAllPosts(targetLang).find(
+      (p) =>
+        p.translationKey ===
+        currentPost.translationKey
+    ) || null
+  );
 }

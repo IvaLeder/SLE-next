@@ -8,7 +8,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 import TOC from "@/components/mdx/TOC";
 
-import { getPostBySlug, Post, getPrevNextPosts } from "@/lib/posts";
+import { getPostBySlug, Post} from "@/lib/posts";
 import { getRelatedPosts } from "@/lib/related";
 
 import {
@@ -50,7 +50,6 @@ export default async function PostPage({ params }: Props) {
   const articleJsonLd = generateJsonLd(post, "hr");
   const breadcrumbJsonLd = generateBreadcrumbJsonLd(post);
   const relatedPosts = getRelatedPosts("hr", post);
-  const { prev, next } = getPrevNextPosts(post, post.lang);
 
   return (
     <main className="relative max-w-3xl mx-auto p-4">

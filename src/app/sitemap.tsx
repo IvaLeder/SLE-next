@@ -9,8 +9,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     return posts.map((post) => {
       const otherLang = lang === "en" ? "hr" : "en";
-      const translated = post.translationOf
-        ? getTranslatedPost(otherLang, post.translationOf)
+      const translated = post.translationKey
+        ? getTranslatedPost(otherLang, post.translationKey)
         : null;
 
       return {
