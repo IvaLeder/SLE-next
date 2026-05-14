@@ -8,7 +8,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 import TOC from "@/components/mdx/TOC";
 
-import { getPostBySlug, Post,  getTranslatedPost,} from "@/lib/posts";
+import { getPostBySlug, Post } from "@/lib/posts";
 import { getRelatedPosts } from "@/lib/related";
 
 import {
@@ -51,13 +51,6 @@ export default async function PostPage({ params }: Props) {
   const articleJsonLd = generateJsonLd(post, "en");
   const breadcrumbJsonLd = generateBreadcrumbJsonLd(post);
   const relatedPosts = getRelatedPosts("en", post);
-
-  const translatedPost =
-  getTranslatedPost(post);
-
-const switchUrl = translatedPost
-  ? `/${translatedPost.lang}/${translatedPost.slug}`
-  : `/${post.lang === "en" ? "hr" : "en"}`;
 
   return (
     <main className="relative max-w-3xl mx-auto p-4">

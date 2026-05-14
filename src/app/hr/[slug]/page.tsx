@@ -8,7 +8,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 import TOC from "@/components/mdx/TOC";
 
-import { getPostBySlug, Post} from "@/lib/posts";
+import { getPostBySlug, Post } from "@/lib/posts";
 import { getRelatedPosts } from "@/lib/related";
 
 import {
@@ -18,6 +18,7 @@ import {
 } from "@/lib/metadata";
 import JsonLd from "@/components/JsonLd";
 import FloatingSubscribeCard from "@/components/FloatingSubscribeCard";
+import PostCard from "@/components/PostCard";
 
 // ------------------------------
 // Types
@@ -115,16 +116,11 @@ export default async function PostPage({ params }: Props) {
 
           <div className="grid gap-4 md:grid-cols-3">
             {relatedPosts.map((r) => (
-              <a
+              <PostCard
                 key={r.slug}
-                href={`/${r.lang}/${r.slug}`}
-                className="block p-4 border rounded hover:shadow-md transition"
-              >
-                <h3 className="font-semibold text-lg mb-1">{r.title}</h3>
-                {r.excerpt && (
-                  <p className="text-gray-600 text-sm">{r.excerpt}</p>
-                )}
-              </a>
+                post={r}
+                lang={post.lang}
+              />
             ))}
           </div>
         </section>
