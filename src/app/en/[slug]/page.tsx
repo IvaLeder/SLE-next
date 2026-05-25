@@ -8,7 +8,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 import TOC from "@/components/mdx/TOC";
 
-import { getPostBySlug, Post } from "@/lib/posts";
+import { getPostBySlug, getAllPosts, Post } from "@/lib/posts";
 import { getRelatedPosts } from "@/lib/related";
 
 import {
@@ -26,6 +26,14 @@ import PostCard from "@/components/PostCard";
 type Props = {
   params: Promise<{ slug: string }>;
 };
+
+// ------------------------------
+// Static params (issue 15)
+// Pre-builds every EN article at deploy time instead of on first request.
+// ------------------------------
+export function generateStaticParams() {
+  return getAllPosts("en").map((post) => ({ slug: post.slug }));
+}
 
 // ------------------------------
 // SEO Metadata

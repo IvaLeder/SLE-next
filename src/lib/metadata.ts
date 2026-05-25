@@ -2,32 +2,35 @@ import { Post } from "./posts";
 import { Metadata } from "next";
 import { siteConfig } from "@/config/site";
 
-/**
- * Generate standard Next.js metadata for a post
- */
+const BASE_URL = siteConfig.url;
+
+// ---------------------------------------------------------------------------
+// Post page metadata  (issues 8, 9, 12)
+// ---------------------------------------------------------------------------
 export function generatePostMetadata(post: Post | null, lang: "en" | "hr"): Metadata {
   if (!post) {
     return {
       title: lang === "hr" ? "Članak nije pronađen" : "Post not found",
-      description: lang === "hr" ? "Traženi članak nije pronađen." : "The requested post could not be found.",
+      description:
+        lang === "hr"
+          ? "Traženi članak nije pronađen."
+          : "The requested post could not be found.",
     };
   }
 
-  const description = post.excerpt || post.content.slice(0, 150);
-  const urlPrefix = lang === "hr" ? "/hr" : "/en";
-  const fullUrl = `${siteConfig.url}${urlPrefix}/${post.slug}`;
-  const imageUrl = post.coverImage
-    ? `${siteConfig.url}${post.coverImage}`
-    : `${siteConfig.url}/default-og-image.jpg`;
+  // Issue 9: prefer the hand-written frontmatter description over the
+  // auto-generated excerpt so meta descriptions are intentional and keyword-rich.
+  const description =
+    post.description ||
+    post.excerpt ||
+    post.content.slice(0, 155).replace(/\n/g, " ");
 
-      // Determine URLs for alternate languages
-  const alternates = {
-    canonical: `${siteConfig.url}/${lang}/${post.slug}`,
-    languages: {
-      en: `${siteConfig.url}/en/${post.slug}`,
-      hr: `${siteConfig.url}/hr/${post.slug}`,
-    },
-  };
+  const fullUrl = `${BASE_URL}/${lang}/${post.slug}`;
+
+  // Issue 8: include dimensions so social platforms render the large card format.
+  const imageUrl = post.coverImage
+    ? `${BASE_URL}${post.coverImage}`
+    : `${BASE_URL}/default-og-image.jpg`;
 
   return {
     title: post.title,
@@ -37,7 +40,7 @@ export function generatePostMetadata(post: Post | null, lang: "en" | "hr"): Meta
       description,
       url: fullUrl,
       type: "article",
-      images: [{ url: imageUrl }],
+      images: [{ url: imageUrl, width: 1200, height: 630, alt: post.title }],
     },
     twitter: {
       card: "summary_large_image",
@@ -45,50 +48,92 @@ export function generatePostMetadata(post: Post | null, lang: "en" | "hr"): Meta
       description,
       images: [imageUrl],
     },
-    alternates
+    // Issue 12: x-default tells Google which version to show to unmatched locales.
+    alternates: {
+      canonical: fullUrl,
+      languages: {
+        en: `${BASE_URL}/en/${post.slug}`,
+        hr: `${BASE_URL}/hr/${post.slug}`,
+        "x-default": `${BASE_URL}/en/${post.slug}`,
+      },
+    },
   };
 }
 
-/**
- * Generate JSON-LD structured data for a post
- */
+// ---------------------------------------------------------------------------
+// Article JSON-LD  (issues 9, 10)
+// ---------------------------------------------------------------------------
 export function generateJsonLd(post: Post, lang: "en" | "hr") {
-  const urlPrefix = lang === "hr" ? "/hr" : "/en";
-  const fullUrl = `${siteConfig.url}${urlPrefix}/${post.slug}`;
+  const fullUrl = `${BASE_URL}/${lang}/${post.slug}`;
   const imageUrl = post.coverImage
-    ? `${siteConfig.url}${post.coverImage}`
-    : `${siteConfig.url}/default-og-image.jpg`;
+    ? `${BASE_URL}${post.coverImage}`
+    : `${BASE_URL}/default-og-image.jpg`;
+
+  // Issue 9: same description priority as metadata above.
+  const description =
+    post.description ||
+    post.excerpt ||
+    post.content.slice(0, 155).replace(/\n/g, " ");
 
   return {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: post.title,
-    description: post.excerpt || post.content.slice(0, 150),
+    description,
     image: [imageUrl],
-    author: { "@type": "Person", name: post.author },
+    author: { "@type": "Person", name: post.author ?? siteConfig.author.name },
+    // Issue 10: dateModified is required for Google's "Updated" label in SERPs.
+    // Fall back to datePublished if we don't track edits separately.
     datePublished: post.date,
+    dateModified: post.date,
     mainEntityOfPage: fullUrl,
+    publisher: {
+      "@type": "Organization",
+      name: siteConfig.name,
+      url: BASE_URL,
+    },
     inLanguage: lang,
   };
 }
 
+// ---------------------------------------------------------------------------
+// Breadcrumb JSON-LD  (issue 5 already fixed — kept clean here)
+// ---------------------------------------------------------------------------
 export function generateBreadcrumbJsonLd(post: Post) {
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    "itemListElement": [
+    itemListElement: [
       {
         "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": `https://stemlittleexplorers.com/${post.lang}`,
+        position: 1,
+        name: "Home",
+        item: `${BASE_URL}/${post.lang}`,
       },
       {
         "@type": "ListItem",
-        "position": 2,
-        "name": post.title,
-        "item": `https://stemlittleexplorers.com/${post.lang}/${post.slug}`,
+        position: 2,
+        name: post.title,
+        item: `${BASE_URL}/${post.lang}/${post.slug}`,
       },
     ],
+  };
+}
+
+// ---------------------------------------------------------------------------
+// WebSite JSON-LD  (issue 11)
+// Placed on the home page so Google can associate the schema with the site root.
+// ---------------------------------------------------------------------------
+export function generateWebsiteJsonLd(lang: "en" | "hr") {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: siteConfig.name,
+    url: `${BASE_URL}/${lang}`,
+    inLanguage: lang,
+    description:
+      lang === "hr"
+        ? "Zabavne STEM aktivnosti i psihološki savjeti za djecu i roditelje."
+        : siteConfig.description,
   };
 }

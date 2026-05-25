@@ -9,7 +9,8 @@ export type PostMeta = {
   author?: string;
   slug: string;
   lang: "en" | "hr";
-  excerpt?: string;
+  description?: string; // hand-written SEO description from frontmatter
+  excerpt?: string;     // auto-generated fallback
   categories: string[];
   tags?: string[];
   coverImage?: string;
