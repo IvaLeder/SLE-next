@@ -4,8 +4,8 @@ import ContactForm from "@/components/ContactForm";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "About STEM Little Explorers",
-  description: "Learn more about our blog and mission",
+  title: "Contact | STEM Little Explorers",
+  description: "Get in touch with the STEM Little Explorers team.",
   alternates: {
     canonical: "https://stemlittleexplorers.com/en/contact",
     languages: {

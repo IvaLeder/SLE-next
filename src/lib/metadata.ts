@@ -86,15 +86,9 @@ export function generateBreadcrumbJsonLd(post: Post) {
       {
         "@type": "ListItem",
         "position": 2,
-        "name": "Blog",
-        "item": `https://stemlittleexplorers.com/${post.lang}/blog`,
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
         "name": post.title,
         "item": `https://stemlittleexplorers.com/${post.lang}/${post.slug}`,
-      }
-    ]
+      },
+    ],
   };
 }

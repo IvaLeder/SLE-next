@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `Članci u ${category} | STEM Little Explorers`,
     description: `Članci u kategoriji ${category}.`,
     alternates: {
-      canonical: `https://stemlittleexplorers.com/en/category/${category}`,
+      canonical: `https://stemlittleexplorers.com/hr/category/${category}`,
     },
   };
 }

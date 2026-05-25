@@ -6,9 +6,12 @@ export function middleware(req: NextRequest) {
 
   const supportedLocales = ["/en", "/hr"];
 
-  // If user is already in a language path → do nothing
+  // If user is already in a language path → pass through, but stamp the pathname
+  // so the root layout can read it and set <html lang> correctly.
   if (supportedLocales.some((loc) => pathname.startsWith(loc))) {
-    return NextResponse.next();
+    const res = NextResponse.next();
+    res.headers.set("x-pathname", pathname);
+    return res;
   }
 
   // Redirect only the homepage "/"
@@ -20,7 +23,9 @@ export function middleware(req: NextRequest) {
     return NextResponse.redirect(new URL(`/${locale}`, req.url));
   }
 
-  return NextResponse.next();
+  const res = NextResponse.next();
+  res.headers.set("x-pathname", pathname);
+  return res;
 }
 
 export const config = {
