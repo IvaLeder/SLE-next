@@ -1,6 +1,9 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
+export { CATEGORY_SLUGS, CATEGORY_DISPLAY } from "./categories";
+export type { CategorySlug } from "./categories";
+import { CATEGORY_DISPLAY, CATEGORY_SLUGS } from "./categories";
 
 // Type for frontmatter
 export type PostMeta = {
@@ -92,34 +95,23 @@ export function getTranslatedPost(
 
 // ------------------------------------------------------
 //  Get posts that belong to a given category
+//  `slug` is always an ASCII English key (science, engineering, …)
 // ------------------------------------------------------
-export function getPostsByCategory(lang: "en" | "hr", category: string): Post[] {
+export function getPostsByCategory(lang: "en" | "hr", slug: string): Post[] {
   const all = getAllPosts(lang);
-
-  const normalizedCategory = category.trim().toLowerCase();
-
+  const displayName = CATEGORY_DISPLAY[lang]?.[slug.toLowerCase()];
+  if (!displayName) return [];
+  const target = displayName.toLowerCase();
   return all.filter((post) =>
-    post.categories?.some(
-      (cat) => cat.trim().toLowerCase() === normalizedCategory
-    )
+    post.categories?.some((cat) => cat.trim().toLowerCase() === target)
   );
 }
 
 // ------------------------------------------------------
-//  Get ALL categories that exist in a language
+//  Get ALL category slugs (English, ASCII-safe, URL-ready)
 // ------------------------------------------------------
-export function getAllCategories(lang: "en" | "hr"): string[] {
-  const posts = getAllPosts(lang);
-
-  const categories = new Set<string>();
-
-  posts.forEach((post) => {
-    post.categories?.forEach((cat) => {
-      categories.add(cat.trim());
-    });
-  });
-
-  return Array.from(categories).sort((a, b) => a.localeCompare(b));
+export function getAllCategories(_lang?: "en" | "hr"): string[] {
+  return [...CATEGORY_SLUGS];
 }
 
 // ------------------------------------------------------

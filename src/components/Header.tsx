@@ -19,11 +19,11 @@ const SUBJECTS = {
     { href: "/en/category/psychology",   label: "Psychology" },
   ],
   hr: [
-    { href: "/hr/category/znanost",      label: "Znanost" },
-    { href: "/hr/category/inženjerstvo", label: "Inženjerstvo" },
-    { href: "/hr/category/matematika",   label: "Matematika" },
-    { href: "/hr/category/tehnologija",  label: "Tehnologija" },
-    { href: "/hr/category/psihologija",  label: "Psihologija" },
+    { href: "/hr/category/science",     label: "Znanost" },
+    { href: "/hr/category/engineering", label: "Inženjerstvo" },
+    { href: "/hr/category/math",        label: "Matematika" },
+    { href: "/hr/category/technology",  label: "Tehnologija" },
+    { href: "/hr/category/psychology",  label: "Psihologija" },
   ],
 };
 

@@ -3,28 +3,21 @@
 import { useState, useEffect } from "react";
 import PostCard from "./PostCard";
 import { PostMeta } from "@/lib/posts";
+import { CATEGORY_DISPLAY } from "@/lib/categories";
 
 type Props = {
   posts: PostMeta[];
   lang: "en" | "hr";
 };
 
-const SUBJECTS = {
-  en: [
-    { key: "science",     label: "Science" },
-    { key: "engineering", label: "Engineering" },
-    { key: "math",        label: "Math" },
-    { key: "technology",  label: "Technology" },
-    { key: "psychology",  label: "Psychology" },
-  ],
-  hr: [
-    { key: "znanost",      label: "Znanost" },
-    { key: "inženjerstvo", label: "Inženjerstvo" },
-    { key: "matematika",   label: "Matematika" },
-    { key: "tehnologija",  label: "Tehnologija" },
-    { key: "psihologija",  label: "Psihologija" },
-  ],
-};
+// Subjects in fixed display order — keys are always ASCII English slugs
+const SUBJECTS: { key: string; label: Record<"en" | "hr", string> }[] = [
+  { key: "science",     label: { en: "Science",     hr: "Znanost" } },
+  { key: "engineering", label: { en: "Engineering",  hr: "Inženjerstvo" } },
+  { key: "math",        label: { en: "Math",         hr: "Matematika" } },
+  { key: "technology",  label: { en: "Technology",   hr: "Tehnologija" } },
+  { key: "psychology",  label: { en: "Psychology",   hr: "Psihologija" } },
+];
 
 const POSTS_PER_PAGE = 12;
 
@@ -32,33 +25,27 @@ export default function ActivitiesClient({ posts, lang }: Props) {
   const [activeSubject, setActiveSubject] = useState<string | null>(null);
   const [page, setPage] = useState(1);
 
-  const subjects = SUBJECTS[lang];
-  const allLabel  = lang === "en" ? "All" : "Sve";
+  const allLabel = lang === "en" ? "All" : "Sve";
 
   const filtered = activeSubject
-    ? posts.filter((p) =>
-        p.categories?.some(
-          (c) => c.toLowerCase() === activeSubject.toLowerCase()
-        )
-      )
+    ? posts.filter((p) => {
+        // Translate the English slug to the canonical display name for this lang
+        const canonicalName = CATEGORY_DISPLAY[lang]?.[activeSubject]?.toLowerCase();
+        return p.categories?.some(
+          (c) => c.trim().toLowerCase() === canonicalName
+        );
+      })
     : posts;
 
   const totalPages = Math.ceil(filtered.length / POSTS_PER_PAGE);
   const visible    = filtered.slice((page - 1) * POSTS_PER_PAGE, page * POSTS_PER_PAGE);
 
-  // Reset page when filter changes
+  // Reset to page 1 when filter changes
   useEffect(() => { setPage(1); }, [activeSubject]);
 
-  const selectSubject = (key: string | null) => {
-    setActiveSubject(key);
-  };
-
-  const btnBase =
-    "px-4 py-1.5 rounded-full text-sm font-medium transition-colors border";
-  const btnActive =
-    "bg-indigo-600 text-white border-indigo-600";
-  const btnInactive =
-    "bg-white text-gray-700 border-gray-300 hover:border-indigo-400 hover:text-indigo-600";
+  const btnBase    = "px-4 py-1.5 rounded-full text-sm font-medium transition-colors border";
+  const btnActive  = "bg-indigo-600 text-white border-indigo-600";
+  const btnInactive= "bg-white text-gray-700 border-gray-300 hover:border-indigo-400 hover:text-indigo-600";
 
   return (
     <>
@@ -69,22 +56,20 @@ export default function ActivitiesClient({ posts, lang }: Props) {
         aria-label={lang === "en" ? "Filter by subject" : "Filtriraj po predmetu"}
       >
         <button
-          onClick={() => selectSubject(null)}
+          onClick={() => setActiveSubject(null)}
           className={`${btnBase} ${activeSubject === null ? btnActive : btnInactive}`}
           aria-pressed={activeSubject === null}
         >
           {allLabel}
         </button>
-        {subjects.map((s) => (
+        {SUBJECTS.map((s) => (
           <button
             key={s.key}
-            onClick={() => selectSubject(s.key)}
-            className={`${btnBase} ${
-              activeSubject === s.key ? btnActive : btnInactive
-            }`}
+            onClick={() => setActiveSubject(s.key)}
+            className={`${btnBase} ${activeSubject === s.key ? btnActive : btnInactive}`}
             aria-pressed={activeSubject === s.key}
           >
-            {s.label}
+            {s.label[lang]}
           </button>
         ))}
       </div>

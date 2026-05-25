@@ -1,4 +1,4 @@
 export const heroImages = {
-  en: "/images/hero-en.jpg",
-  hr: "/images/hero-hr.jpg",
+  en: "/images/hero.jpg",
+  hr: "/images/hero.jpg",
 } as const;
