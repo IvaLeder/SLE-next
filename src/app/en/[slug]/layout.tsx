@@ -1,4 +1,5 @@
-import Layout from "@/components/Layout";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import {
   getTranslatedPostBySlug,
 } from "@/lib/posts";
@@ -20,11 +21,15 @@ export default async function PostLayout({
     : "/hr";
 
   return (
-    <Layout
-      lang="en"
-      switchUrl={switchUrl}
-    >
-      {children}
-    </Layout>
+    <>
+      <Header
+        lang="en"
+        switchUrl={switchUrl}
+      />
+      <main className="max-w-5xl mx-auto px-4 py-8">
+        {children}
+      </main>
+      <Footer lang="en" />
+    </>
   );
 }
