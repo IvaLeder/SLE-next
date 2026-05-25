@@ -128,6 +128,11 @@ export default function Header({ lang, switchUrl }: HeaderProps) {
       {/* Mobile menu */}
       {open && (
         <div className="md:hidden bg-white border-t">
+          {/* Search — first item in mobile menu so it's reachable on small screens */}
+          <div className="p-3 border-b">
+            <Search lang={lang} />
+          </div>
+
           <Link
             href={`/${lang}`}
             className="block px-4 py-3 border-b hover:bg-gray-50"

@@ -11,7 +11,12 @@ import TOC from "@/components/mdx/TOC";
 import { getPostBySlug, getAllPosts, Post } from "@/lib/posts";
 import { categorySlugFromName } from "@/lib/categories";
 import { getRelatedPosts } from "@/lib/related";
-import { generatePostMetadata, generateJsonLd, generateBreadcrumbJsonLd } from "@/lib/metadata";
+import {
+  generatePostMetadata,
+  generateJsonLd,
+  generateBreadcrumbJsonLd,
+  generateHowToJsonLd,
+} from "@/lib/metadata";
 
 import JsonLd from "@/components/JsonLd";
 import FloatingSubscribeCard from "@/components/FloatingSubscribeCard";
@@ -22,44 +27,47 @@ import { SubscribeButton } from "@/components/SubscribeButton";
 
 type Props = { params: Promise<{ slug: string }> };
 
-// Pre-build every HR article at deploy time (issue 15)
+// Pre-build every EN article at deploy time (issue 15)
 export function generateStaticParams() {
-  return getAllPosts("hr").map((post) => ({ slug: post.slug }));
+  return getAllPosts("en").map((post) => ({ slug: post.slug }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const post = getPostBySlug("hr", slug);
+  const post = getPostBySlug("en", slug);
   if (!post) return {};
-  return generatePostMetadata(post, "hr");
+  return generatePostMetadata(post, "en");
 }
 
 export default async function PostPage({ params }: Props) {
   const { slug } = await params;
-  const post: Post | null = getPostBySlug("hr", slug);
+  const post: Post | null = getPostBySlug("en", slug);
   if (!post) return notFound();
 
-  const articleJsonLd = generateJsonLd(post, "hr");
+  const articleJsonLd = generateJsonLd(post, "en");
   const breadcrumbJsonLd = generateBreadcrumbJsonLd(post);
-  const relatedPosts = getRelatedPosts("hr", post);
+  const howToJsonLd = generateHowToJsonLd(post, "en");
+  const relatedPosts = getRelatedPosts("en", post);
 
   // Build breadcrumb trail — include first category if available (issue 28)
   // Use the canonical English slug for the URL; display name for the label.
   const firstCat = post.categories?.[0];
   const firstCatSlug = firstCat ? categorySlugFromName(firstCat) : null;
   const crumbs = [
-    { label: "Naslovnica", href: "/hr" },
+    { label: "Home", href: "/en" },
     ...(firstCat && firstCatSlug
-      ? [{ label: firstCat, href: `/hr/category/${firstCatSlug}` }]
+      ? [{ label: firstCat, href: `/en/category/${firstCatSlug}` }]
       : []),
     { label: post.title },
   ];
 
   return (
-    // Issue 19: was <main> — layout already wraps children in <main>
+    // Issue 19: was <main> — the layout already wraps children in <main>,
+    // so this was producing invalid nested <main> elements.
     <div className="relative max-w-3xl mx-auto p-4">
       <JsonLd data={articleJsonLd} />
       <JsonLd data={breadcrumbJsonLd} />
+      {howToJsonLd && <JsonLd data={howToJsonLd} />}
 
       {/* Issue 28: visual breadcrumbs */}
       <Breadcrumbs crumbs={crumbs} />
@@ -85,7 +93,7 @@ export default async function PostPage({ params }: Props) {
         {post.readingTimeMin && (
           <>
             <span aria-hidden="true">·</span>
-            <span>{post.readingTimeMin} min čitanja</span>
+            <span>{post.readingTimeMin} min read</span>
           </>
         )}
       </div>
@@ -94,11 +102,12 @@ export default async function PostPage({ params }: Props) {
         <div className="flex flex-wrap gap-2 mb-4">
           {post.categories.map((cat) => {
             const slug = categorySlugFromName(cat);
+            // Skip uncategorised legacy values that don't map to a canonical slug.
             if (!slug) return null;
             return (
               <a
                 key={cat}
-                href={`/hr/category/${slug}`}
+                href={`/en/category/${slug}`}
                 className="text-sm bg-blue-100 text-blue-700 px-2 py-1 rounded hover:bg-blue-200"
               >
                 {cat}
@@ -127,29 +136,30 @@ export default async function PostPage({ params }: Props) {
       </article>
 
       {/* Issue 21: author bio below the article body */}
-      <AuthorBio name={post.author} lang="hr" />
+      <AuthorBio name={post.author} lang="en" />
 
-      {/* Issue 24: inline subscribe CTA for mobile */}
+      {/* Issue 24: inline subscribe CTA — visible on mobile, hidden on lg
+          where the floating card is already visible */}
       <div className="lg:hidden mt-10 p-6 bg-indigo-50 rounded-xl text-center">
-        <p className="font-semibold text-gray-800 mb-1">Sviđa vam se ovaj članak?</p>
+        <p className="font-semibold text-gray-800 mb-1">Enjoyed this article?</p>
         <p className="text-sm text-gray-600 mb-4">
-          Pretplatite se i primajte nove objave ravno u inbox.
+          Subscribe to get new posts straight to your inbox.
         </p>
-        <SubscribeButton lang="hr" />
+        <SubscribeButton lang="en" />
       </div>
 
       {relatedPosts.length > 0 && (
         <section className="mt-12 border-t pt-6">
-          <h2 className="text-2xl font-bold mb-4">Srodni članci</h2>
+          <h2 className="text-2xl font-bold mb-4">Related Posts</h2>
           <div className="grid gap-4 md:grid-cols-3">
             {relatedPosts.map((r) => (
-              <PostCard key={r.slug} post={r} lang="hr" />
+              <PostCard key={r.slug} post={r} lang="en" />
             ))}
           </div>
         </section>
       )}
 
-      <FloatingSubscribeCard lang="hr" />
+      <FloatingSubscribeCard lang="en" />
     </div>
   );
 }

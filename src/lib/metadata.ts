@@ -123,6 +123,71 @@ export function generateBreadcrumbJsonLd(post: Post) {
 }
 
 // ---------------------------------------------------------------------------
+// HowTo JSON-LD  (P1-14: rich-results eligibility for activity posts)
+// Returns null if the post is not a hands-on guide (no `activity` tag).
+// Extracts H2 headings from the MDX content as step names — Google uses these
+// to render the HowTo carousel in SERPs.
+// ---------------------------------------------------------------------------
+export function generateHowToJsonLd(post: Post, lang: "en" | "hr") {
+  const isActivity = post.tags?.includes("activity");
+  if (!isActivity) return null;
+
+  // Extract H2 headings from raw MDX. We strip leading `## `, trailing whitespace,
+  // and any inline markdown emphasis so step names are clean.
+  const stepLines = post.content
+    .split("\n")
+    .filter((line) => /^##\s+/.test(line))
+    .map((line) =>
+      line
+        .replace(/^##\s+/, "")
+        .replace(/[*_`]/g, "")
+        .trim()
+    )
+    .filter(Boolean);
+
+  // A HowTo with fewer than 2 steps isn't useful — Google won't render it.
+  if (stepLines.length < 2) return null;
+
+  const fullUrl = `${BASE_URL}/${lang}/${post.slug}`;
+  const imageUrl = post.coverImage
+    ? `${BASE_URL}${post.coverImage}`
+    : `${BASE_URL}/opengraph-image`;
+
+  const description =
+    post.description ||
+    post.excerpt ||
+    post.content.slice(0, 155).replace(/\n/g, " ");
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: post.title,
+    description,
+    image: [imageUrl],
+    inLanguage: lang,
+    mainEntityOfPage: fullUrl,
+    totalTime: "PT30M", // default 30-minute estimate; can be overridden via frontmatter later
+    step: stepLines.map((name, i) => ({
+      "@type": "HowToStep",
+      position: i + 1,
+      name,
+      text: name,
+      url: `${fullUrl}#${slugify(name)}`,
+    })),
+  };
+}
+
+// Mirror of the slugify used by rehype-slug / mdx index — keep step #urls aligned
+// with the headings rendered on the page.
+function slugify(text: string): string {
+  return text
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, "")
+    .replace(/\s+/g, "-");
+}
+
+// ---------------------------------------------------------------------------
 // WebSite JSON-LD  (issue 11)
 // Placed on the home page so Google can associate the schema with the site root.
 // ---------------------------------------------------------------------------

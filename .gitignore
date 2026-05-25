@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+.image-backups/
+compress-images.mjs
+restore-larger-than-original.mjs
+convert-gifs.mjs

@@ -1,53 +1,122 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useState, useTransition, useEffect, useRef } from "react";
 import Link from "next/link";
 import { searchPostsServer } from "@/lib/search-action";
 
+type Result = {
+  slug: string;
+  lang: "en" | "hr";
+  title: string;
+  excerpt?: string;
+};
+
+const DEBOUNCE_MS = 250;
+
 export default function Search({ lang }: { lang: "en" | "hr" }) {
   const [query, setQuery] = useState("");
-  const [results, setResults] = useState<any[]>([]);
+  const [results, setResults] = useState<Result[]>([]);
   const [isPending, startTransition] = useTransition();
+  const [open, setOpen] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setQuery(value);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-    if (value.length > 2) {
-      startTransition(async () => {
-        const data = await searchPostsServer(value, lang);
-        setResults(data);
-      });
-    } else {
+  const placeholder = lang === "en" ? "Search posts…" : "Pretraži članke…";
+  const noResultsLabel = lang === "en" ? "No matches" : "Nema rezultata";
+  const searchingLabel = lang === "en" ? "Searching…" : "Tražim…";
+
+  // Debounced fetch — schedule a server call DEBOUNCE_MS after the last keystroke.
+  useEffect(() => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+
+    if (query.trim().length < 2) {
       setResults([]);
+      return;
     }
-  };
+
+    timerRef.current = setTimeout(() => {
+      startTransition(async () => {
+        const data = await searchPostsServer(query, lang);
+        setResults(data as unknown as Result[]);
+      });
+    }, DEBOUNCE_MS);
+
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, [query, lang]);
+
+  // Close dropdown on outside-click
+  useEffect(() => {
+    function onClick(e: MouseEvent) {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", onClick);
+    return () => document.removeEventListener("mousedown", onClick);
+  }, []);
+
+  // Close on ESC
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") setOpen(false);
+    }
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, []);
+
+  const showDropdown =
+    open && query.trim().length >= 2 && (isPending || results.length > 0 || !isPending);
 
   return (
-    <div className="relative max-w-md mx-auto">
+    <div ref={containerRef} className="relative w-full max-w-md">
       <input
-        type="text"
+        type="search"
         value={query}
-        onChange={handleChange}
-        placeholder={lang === "en" ? "Search posts..." : "Pretraži članke..."}
-        className="w-full border p-2 rounded"
+        onChange={(e) => {
+          setQuery(e.target.value);
+          setOpen(true);
+        }}
+        onFocus={() => query.trim().length >= 2 && setOpen(true)}
+        placeholder={placeholder}
+        aria-label={placeholder}
+        className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
       />
 
-      {isPending && <p className="text-sm text-gray-500">Searching…</p>}
+      {showDropdown && (
+        <div className="absolute left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg max-h-80 overflow-auto z-50">
+          {isPending && (
+            <p className="px-4 py-3 text-sm text-gray-500">{searchingLabel}</p>
+          )}
 
-      {results.length > 0 && (
-        <ul className="absolute bg-white border w-full mt-1 max-h-60 overflow-auto shadow-md rounded z-50">
-          {results.map((r) => (
-            <li key={r.slug} className="px-4 py-2 hover:bg-gray-100">
-              <Link href={`/${r.lang}/${r.slug}`} onClick={() => setQuery("")}>
-                <p className="font-semibold">{r.title}</p>
-                {r.excerpt && (
-                  <p className="text-sm text-gray-500">{r.excerpt}</p>
-                )}
-              </Link>
-            </li>
-          ))}
-        </ul>
+          {!isPending && results.length === 0 && (
+            <p className="px-4 py-3 text-sm text-gray-500">{noResultsLabel}</p>
+          )}
+
+          {!isPending && results.length > 0 && (
+            <ul>
+              {results.map((r) => (
+                <li key={r.slug}>
+                  <Link
+                    href={`/${r.lang}/${r.slug}`}
+                    onClick={() => {
+                      setQuery("");
+                      setOpen(false);
+                    }}
+                    className="block px-4 py-2 hover:bg-indigo-50"
+                  >
+                    <p className="font-semibold text-sm">{r.title}</p>
+                    {r.excerpt && (
+                      <p className="text-xs text-gray-500 line-clamp-2">{r.excerpt}</p>
+                    )}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
       )}
     </div>
   );
