@@ -13,14 +13,14 @@ export function getRelatedPosts(
       let score = 0;
 
       // Category overlap → strong signal
-      const sharedCategories = p.categories.filter((c) =>
-        currentPost.categories.includes(c)
+      const sharedCategories = (p.categories ?? []).filter((c) =>
+        (currentPost.categories ?? []).includes(c)
       );
       score += sharedCategories.length * 3;
 
       // Tag overlap → weak signal
-      const sharedTags = (p.tags || []).filter((t) =>
-        (currentPost.tags || []).includes(t)
+      const sharedTags = (p.tags ?? []).filter((t) =>
+        (currentPost.tags ?? []).includes(t)
       );
       score += sharedTags.length * 1;
 
