@@ -1,3 +1,5 @@
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -15,18 +17,22 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="max-w-3xl mx-auto px-4 py-10">
-      <h1 className="text-3xl font-bold mb-4">About STEM Little Explorers</h1>
-      <p className="text-lg leading-relaxed text-gray-700">
-        STEM Little Explorers is a space for young minds to discover science,
-        technology, engineering, and math through creativity and play. Our
-        mission is to make learning exciting, inclusive, and accessible for
-        every curious child.
-      </p>
-      <p className="mt-4 text-gray-700">
-        Here you’ll find articles, projects, and experiments that inspire
-        exploration and learning — both in English and Croatian.
-      </p>
-    </div>
+    <>
+      <Header lang="en" switchUrl="/hr/about" />
+      <main className="max-w-3xl mx-auto px-4 py-10">
+        <h1 className="text-3xl font-bold mb-4">About STEM Little Explorers</h1>
+        <p className="text-lg leading-relaxed text-gray-700">
+          STEM Little Explorers is a space for young minds to discover science,
+          technology, engineering, and math through creativity and play. Our
+          mission is to make learning exciting, inclusive, and accessible for
+          every curious child.
+        </p>
+        <p className="mt-4 text-gray-700">
+          Here you’ll find articles, projects, and experiments that inspire
+          exploration and learning — both in English and Croatian.
+        </p>
+      </main>
+      <Footer lang="en" />
+    </>
   );
 }

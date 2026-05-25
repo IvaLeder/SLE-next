@@ -1,6 +1,8 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 import { getPostsByCategory, getAllCategories } from "@/lib/posts";
 
@@ -51,34 +53,38 @@ export default async function CategoryPage({ params }: Props) {
     normalized.charAt(0).toUpperCase() + normalized.slice(1);
 
   return (
-    <main className="max-w-3xl mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-6">Kategorija: {titleCase}</h1>
+    <>
+      <Header lang="hr" switchUrl={`/en/category/${category}`} />
+      <main className="max-w-3xl mx-auto p-4">
+        <h1 className="text-3xl font-bold mb-6">Kategorija: {titleCase}</h1>
 
-      <div className="space-y-8">
-        {posts.map((post) => (
-          <article key={post.slug} className="border-b pb-6">
-            <Link
-              href={`/hr/${post.slug}`}
-              className="text-2xl font-semibold text-blue-700 hover:underline"
-            >
-              {post.title}
-            </Link>
+        <div className="space-y-8">
+          {posts.map((post) => (
+            <article key={post.slug} className="border-b pb-6">
+              <Link
+                href={`/hr/${post.slug}`}
+                className="text-2xl font-semibold text-blue-700 hover:underline"
+              >
+                {post.title}
+              </Link>
 
-            <p className="text-gray-500 mt-1">{post.date}</p>
+              <p className="text-gray-500 mt-1">{post.date}</p>
 
-            {post.excerpt && (
-              <p className="mt-2 text-gray-700">{post.excerpt}</p>
-            )}
+              {post.excerpt && (
+                <p className="mt-2 text-gray-700">{post.excerpt}</p>
+              )}
 
-            <Link
-              href={`/hr/${post.slug}`}
-              className="inline-block mt-3 text-sm text-blue-600 hover:underline"
-            >
-              Nastavi čitati →
-            </Link>
-          </article>
-        ))}
-      </div>
-    </main>
+              <Link
+                href={`/hr/${post.slug}`}
+                className="inline-block mt-3 text-sm text-blue-600 hover:underline"
+              >
+                Nastavi čitati →
+              </Link>
+            </article>
+          ))}
+        </div>
+      </main>
+      <Footer lang="hr" />
+    </>
   );
 }
