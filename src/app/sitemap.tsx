@@ -1,7 +1,9 @@
-import { getAllPosts } from "@/lib/posts";
+import { getAllPosts, CATEGORY_SLUGS } from "@/lib/posts";
+import { siteConfig } from "@/config/site";
 import type { MetadataRoute } from "next";
 
-const BASE_URL = "https://www.stemlittleexplorers.com";
+// IMPORTANT: must match the canonical host used everywhere else (no www).
+const BASE_URL = siteConfig.url;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const langs = ["en", "hr"] as const;
@@ -12,74 +14,77 @@ export default function sitemap(): MetadataRoute.Sitemap {
     hr: getAllPosts("hr"),
   };
 
-  // --- Static pages ---
-  const staticEntries: MetadataRoute.Sitemap = langs.flatMap((lang) => [
-    {
-      url: `${BASE_URL}/${lang}`,
-      lastModified: new Date(),
-      alternates: {
-        languages: {
-          en: `${BASE_URL}/en`,
-          hr: `${BASE_URL}/hr`,
-        },
-      },
-    },
-    {
-      url: `${BASE_URL}/${lang}/about`,
-      lastModified: new Date(),
-      alternates: {
-        languages: {
-          en: `${BASE_URL}/en/about`,
-          hr: `${BASE_URL}/hr/about`,
-        },
-      },
-    },
-    {
-      url: `${BASE_URL}/${lang}/contact`,
-      lastModified: new Date(),
-      alternates: {
-        languages: {
-          en: `${BASE_URL}/en/contact`,
-          hr: `${BASE_URL}/hr/contact`,
-        },
-      },
-    },
-  ]);
+  const now = new Date();
 
-  // --- Post entries ---
+  // Helper: build a bilingual entry that lists both language URLs as alternates.
+  const bilingual = (
+    path: string,
+    lastModified: Date = now,
+    priority?: number,
+    changeFrequency?: MetadataRoute.Sitemap[number]["changeFrequency"]
+  ): MetadataRoute.Sitemap =>
+    langs.map((lang) => ({
+      url: `${BASE_URL}/${lang}${path}`,
+      lastModified,
+      changeFrequency,
+      priority,
+      alternates: {
+        languages: {
+          en: `${BASE_URL}/en${path}`,
+          hr: `${BASE_URL}/hr${path}`,
+        },
+      },
+    }));
+
+  // --- Static pages ---
+  const staticEntries: MetadataRoute.Sitemap = [
+    ...bilingual("",            now, 1.0, "weekly"),
+    ...bilingual("/activities", now, 0.9, "weekly"),
+    ...bilingual("/about",      now, 0.5, "monthly"),
+    ...bilingual("/contact",    now, 0.4, "yearly"),
+    ...bilingual("/privacy",    now, 0.2, "yearly"),
+    ...bilingual("/terms",      now, 0.2, "yearly"),
+  ];
+
+  // --- Category pages (one per slug per language) ---
+  const categoryEntries: MetadataRoute.Sitemap = CATEGORY_SLUGS.flatMap((slug) =>
+    bilingual(`/category/${slug}`, now, 0.7, "weekly")
+  );
+
+  // --- Post entries with translation alternates ---
   const postEntries: MetadataRoute.Sitemap = langs.flatMap((lang) => {
     const otherLang = lang === "en" ? "hr" : "en";
 
     return postsByLang[lang].map((post) => {
-      // Match by translationKey, not by slug
       const translated = post.translationKey
         ? postsByLang[otherLang].find(
             (p) => p.translationKey === post.translationKey
           )
         : null;
 
+      // Always include self in language alternates; add the translation if found.
+      const languages: Record<string, string> = {
+        [lang]: `${BASE_URL}/${lang}/${post.slug}`,
+      };
+      if (translated) {
+        languages[otherLang] = `${BASE_URL}/${otherLang}/${translated.slug}`;
+      }
+
       return {
         url: `${BASE_URL}/${lang}/${post.slug}`,
         lastModified: new Date(post.date),
-        alternates: translated
-          ? {
-              languages: {
-                [otherLang]: `${BASE_URL}/${translated.lang}/${translated.slug}`,
-              },
-            }
-          : undefined,
+        changeFrequency: "monthly" as const,
+        priority: 0.6,
+        alternates: { languages },
       };
     });
   });
 
-  // Deduplicate static entries (flatMap over both langs produces duplicates
-  // for the symmetric alternates — keep only unique URLs)
+  // Deduplicate by URL
   const seen = new Set<string>();
-  const deduped = [...staticEntries, ...postEntries].filter((entry) => {
-    if (seen.has(entry.url)) return false;
-    seen.add(entry.url);
+  return [...staticEntries, ...categoryEntries, ...postEntries].filter((e) => {
+    if (seen.has(e.url)) return false;
+    seen.add(e.url);
     return true;
   });
-
-  return deduped;
 }

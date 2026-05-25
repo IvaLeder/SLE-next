@@ -28,9 +28,11 @@ export function generatePostMetadata(post: Post | null, lang: "en" | "hr"): Meta
   const fullUrl = `${BASE_URL}/${lang}/${post.slug}`;
 
   // Issue 8: include dimensions so social platforms render the large card format.
+  // When a post has no coverImage, fall back to the auto-generated OG image
+  // produced by src/app/opengraph-image.tsx (Next.js mounts it at /opengraph-image).
   const imageUrl = post.coverImage
     ? `${BASE_URL}${post.coverImage}`
-    : `${BASE_URL}/default-og-image.jpg`;
+    : `${BASE_URL}/opengraph-image`;
 
   return {
     title: post.title,
@@ -67,7 +69,7 @@ export function generateJsonLd(post: Post, lang: "en" | "hr") {
   const fullUrl = `${BASE_URL}/${lang}/${post.slug}`;
   const imageUrl = post.coverImage
     ? `${BASE_URL}${post.coverImage}`
-    : `${BASE_URL}/default-og-image.jpg`;
+    : `${BASE_URL}/opengraph-image`;
 
   // Issue 9: same description priority as metadata above.
   const description =

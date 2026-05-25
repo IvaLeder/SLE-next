@@ -18,7 +18,7 @@ export default function PostCard({
     >
       <div className="relative w-full h-48">
         <Image
-          src={post.coverImage || "/placeholder.jpg"}
+          src={post.coverImage || "/images/placeholder.svg"}
           alt={post.heroAlt || post.title}
           fill
           sizes="(max-width: 768px) 100vw, 33vw"

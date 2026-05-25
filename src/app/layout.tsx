@@ -1,13 +1,25 @@
 import "./globals.css";
 import { Lora } from "next/font/google";
-import Script from "next/script";
 import { headers } from "next/headers";
+import type { Metadata, Viewport } from "next";
+import { siteConfig } from "@/config/site";
 
 const lora = Lora({
   subsets: ["latin", "latin-ext"],
   display: "swap",
   weight: ["400", "700"],
 });
+
+// Single source of truth for absolute URLs (OG images, alternates, etc.)
+// Also silences the Next.js metadataBase warning.
+export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.url),
+};
+
+// Drives the mobile browser chrome (address bar) tint.
+export const viewport: Viewport = {
+  themeColor: "#4f46e5",
+};
 
 export default async function RootLayout({
   children,
@@ -23,15 +35,7 @@ export default async function RootLayout({
 
   return (
     <html lang={lang} className={lora.className}>
-      <body>
-        {children}
-
-        <Script
-          id="mcjs"
-          src="https://chimpstatic.com/mcjs-connected/js/users/375a897a3f9418343fcbaf481/c773f4cf05070574aec78bc84.js"
-          strategy="afterInteractive" />
-
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

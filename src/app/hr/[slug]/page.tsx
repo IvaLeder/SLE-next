@@ -9,6 +9,7 @@ import Image from "next/image";
 import TOC from "@/components/mdx/TOC";
 
 import { getPostBySlug, getAllPosts, Post } from "@/lib/posts";
+import { categorySlugFromName } from "@/lib/categories";
 import { getRelatedPosts } from "@/lib/related";
 import { generatePostMetadata, generateJsonLd, generateBreadcrumbJsonLd } from "@/lib/metadata";
 
@@ -43,10 +44,13 @@ export default async function PostPage({ params }: Props) {
   const relatedPosts = getRelatedPosts("hr", post);
 
   // Build breadcrumb trail — include first category if available (issue 28)
+  // Use the canonical English slug for the URL; display name for the label.
+  const firstCat = post.categories?.[0];
+  const firstCatSlug = firstCat ? categorySlugFromName(firstCat) : null;
   const crumbs = [
     { label: "Naslovnica", href: "/hr" },
-    ...(post.categories?.[0]
-      ? [{ label: post.categories[0], href: `/hr/category/${post.categories[0].toLowerCase()}` }]
+    ...(firstCat && firstCatSlug
+      ? [{ label: firstCat, href: `/hr/category/${firstCatSlug}` }]
       : []),
     { label: post.title },
   ];
@@ -88,15 +92,19 @@ export default async function PostPage({ params }: Props) {
 
       {post.categories?.length > 0 && (
         <div className="flex flex-wrap gap-2 mb-4">
-          {post.categories.map((cat) => (
-            <a
-              key={cat}
-              href={`/hr/category/${cat.toLowerCase()}`}
-              className="text-sm bg-blue-100 text-blue-700 px-2 py-1 rounded hover:bg-blue-200"
-            >
-              {cat}
-            </a>
-          ))}
+          {post.categories.map((cat) => {
+            const slug = categorySlugFromName(cat);
+            if (!slug) return null;
+            return (
+              <a
+                key={cat}
+                href={`/hr/category/${slug}`}
+                className="text-sm bg-blue-100 text-blue-700 px-2 py-1 rounded hover:bg-blue-200"
+              >
+                {cat}
+              </a>
+            );
+          })}
         </div>
       )}
 
