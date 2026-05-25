@@ -9,8 +9,9 @@ export type PostMeta = {
   author?: string;
   slug: string;
   lang: "en" | "hr";
-  description?: string; // hand-written SEO description from frontmatter
-  excerpt?: string;     // auto-generated fallback
+  description?: string;    // hand-written SEO description from frontmatter
+  excerpt?: string;        // auto-generated fallback
+  readingTimeMin?: number; // estimated reading time in minutes
   categories: string[];
   tags?: string[];
   coverImage?: string;
@@ -46,9 +47,14 @@ export function getAllPosts(lang: "en" | "hr"): Post[] {
         throw new Error(`Missing required frontmatter in ${filename}`);
       }
 
+      // Estimate reading time (avg. 200 words/min)
+      const wordCount = content.trim().split(/\s+/).filter(Boolean).length;
+      const readingTimeMin = Math.max(1, Math.ceil(wordCount / 200));
+
       const post: Post = {
         ...data,
         excerpt,
+        readingTimeMin,
         content,
       } as Post;
 

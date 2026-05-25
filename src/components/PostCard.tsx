@@ -9,6 +9,8 @@ export default function PostCard({
   post: PostMeta;
   lang: "en" | "hr";
 }) {
+  const readLabel = lang === "hr" ? "min čitanja" : "min read";
+
   return (
     <Link
       href={`/${lang}/${post.slug}`}
@@ -20,7 +22,7 @@ export default function PostCard({
           alt={post.heroAlt || post.title}
           fill
           sizes="(max-width: 768px) 100vw, 33vw"
-          className="object-cover group-hover:scale-105 transition-transform"
+          className="object-cover group-hover:scale-105 transition-transform duration-300"
         />
       </div>
 
@@ -29,16 +31,25 @@ export default function PostCard({
           {post.categories?.[0]}
         </div>
 
-        <h3 className="font-serif text-lg font-bold group-hover:text-indigo-700">
+        <h3 className="font-serif text-lg font-bold leading-snug group-hover:text-indigo-700 transition-colors">
           {post.title}
         </h3>
 
-        <span className="text-xs text-gray-400">
-          {new Date(post.date).toLocaleDateString(
-            lang === "en" ? "en-US" : "hr-HR",
-            { year: "numeric", month: "short", day: "numeric" }
+        {/* Issue 17: date + reading time in one meta line */}
+        <div className="flex items-center gap-2 text-xs text-gray-400">
+          <time dateTime={post.date}>
+            {new Date(post.date).toLocaleDateString(
+              lang === "en" ? "en-US" : "hr-HR",
+              { year: "numeric", month: "short", day: "numeric" }
+            )}
+          </time>
+          {post.readingTimeMin && (
+            <>
+              <span aria-hidden="true">·</span>
+              <span>{post.readingTimeMin} {readLabel}</span>
+            </>
           )}
-        </span>
+        </div>
       </div>
     </Link>
   );

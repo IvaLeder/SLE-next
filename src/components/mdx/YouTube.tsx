@@ -4,12 +4,14 @@ import { useState } from "react";
 
 interface YouTubeProps {
   id: string;
+  title?: string; // Issue 25: was defined but unused — now passed to iframe & aria-label
 }
 
-export default function YouTube({ id }: YouTubeProps) {
+export default function YouTube({ id, title }: YouTubeProps) {
   const [isPlaying, setIsPlaying] = useState(false);
 
   const thumbnail = `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
+  const videoTitle = title || "YouTube video";
 
   return (
     <div className="relative w-full pb-[56.25%] h-0 overflow-hidden rounded-lg bg-black">
@@ -17,18 +19,19 @@ export default function YouTube({ id }: YouTubeProps) {
         <iframe
           className="absolute top-0 left-0 w-full h-full"
           src={`https://www.youtube.com/embed/${id}?autoplay=1`}
-          title="YouTube video"
+          title={videoTitle}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
         />
       ) : (
         <button
           onClick={() => setIsPlaying(true)}
+          aria-label={`Play: ${videoTitle}`}
           className="absolute inset-0 w-full h-full group"
         >
           <img
             src={thumbnail}
-            alt="YouTube thumbnail"
+            alt={`Thumbnail for: ${videoTitle}`}
             className="w-full h-full object-cover"
           />
 
@@ -42,6 +45,7 @@ export default function YouTube({ id }: YouTubeProps) {
                 className="w-7 h-7 text-black ml-1"
                 fill="currentColor"
                 viewBox="0 0 24 24"
+                aria-hidden="true"
               >
                 <path d="M8 5v14l11-7z" />
               </svg>

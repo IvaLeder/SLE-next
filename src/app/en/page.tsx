@@ -2,6 +2,7 @@ import { getAllPosts } from "@/lib/posts";
 import PostList from "@/components/PostList";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Hero from "@/components/Hero";
 import { Metadata } from "next";
 import JsonLd from "@/components/JsonLd";
 import { generateWebsiteJsonLd } from "@/lib/metadata";
@@ -27,6 +28,8 @@ export default function EnglishHomePage() {
     <>
       <JsonLd data={generateWebsiteJsonLd("en")} />
       <Header lang="en" />
+      {/* Issues 16 & 26: hero with value proposition replaces the empty top area */}
+      <Hero lang="en" />
       <main className="max-w-4xl mx-auto px-4 py-10">
         <PostList posts={posts} lang="en" />
       </main>
