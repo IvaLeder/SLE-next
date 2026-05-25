@@ -22,11 +22,27 @@ export default function PostList({
     setPage(1);
   }, [category]);
 
+  // Canonical display order for each language
+  const CATEGORY_ORDER: Record<string, string[]> = {
+    en: ["Science", "Engineering", "Math", "Technology", "Psychology"],
+    hr: ["Znanost", "Inženjerstvo", "Matematika", "Tehnologija", "Psihologija"],
+  };
+
   const categories = useMemo(() => {
     const set = new Set<string>();
     posts.forEach((p) => p.categories?.forEach((cat) => set.add(cat)));
-    return Array.from(set).sort();
-  }, [posts]);
+    const order = CATEGORY_ORDER[lang] ?? [];
+    return Array.from(set).sort(
+      (a, b) => {
+        const ai = order.indexOf(a);
+        const bi = order.indexOf(b);
+        if (ai === -1 && bi === -1) return a.localeCompare(b);
+        if (ai === -1) return 1;
+        if (bi === -1) return -1;
+        return ai - bi;
+      }
+    );
+  }, [posts, lang]);
 
   const filtered = useMemo(() => {
     if (!category) return posts;

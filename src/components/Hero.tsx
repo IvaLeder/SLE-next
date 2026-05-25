@@ -8,14 +8,14 @@ const content = {
     headline: "STEM & Science\nfor Curious Kids",
     sub: "Hands-on experiments, child development guides and psychology insights — practical ideas you can try today.",
     cta: "Browse activities",
-    ctaHref: "/en/category/activities",
+    ctaHref: "/en/activities",
   },
   hr: {
     tag: "Za roditelje i odgajatelje",
     headline: "STEM i Znanosti\nza Znatiželjnu Djecu",
     sub: "Praktični pokusi, vodiči za razvoj djeteta i savjeti iz psihologije — ideje koje možete isprobati odmah.",
     cta: "Pregledaj aktivnosti",
-    ctaHref: "/hr/category/aktivnosti",
+    ctaHref: "/hr/activities",
   },
 };
 

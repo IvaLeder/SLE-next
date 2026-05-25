@@ -122,6 +122,29 @@ export function getAllCategories(lang: "en" | "hr"): string[] {
   return Array.from(categories).sort((a, b) => a.localeCompare(b));
 }
 
+// ------------------------------------------------------
+//  Get posts that have a given tag
+// ------------------------------------------------------
+export function getPostsByTag(lang: "en" | "hr", tag: string): Post[] {
+  const all = getAllPosts(lang);
+  const normalizedTag = tag.trim().toLowerCase();
+  return all.filter((post) =>
+    (post.tags ?? []).some((t) => t.trim().toLowerCase() === normalizedTag)
+  );
+}
+
+// ------------------------------------------------------
+//  Get ALL tags that exist in a language
+// ------------------------------------------------------
+export function getAllTags(lang: "en" | "hr"): string[] {
+  const posts = getAllPosts(lang);
+  const tags = new Set<string>();
+  posts.forEach((post) => {
+    (post.tags ?? []).forEach((t) => tags.add(t.trim()));
+  });
+  return Array.from(tags).sort((a, b) => a.localeCompare(b));
+}
+
 /**
  * Get posts related to the current post by category
  */
