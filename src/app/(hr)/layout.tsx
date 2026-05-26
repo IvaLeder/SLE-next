@@ -1,7 +1,7 @@
 // Root layout for CROATIAN routes (route group `(hr)`).
 // Counterpart to app/(en)/layout.tsx. Each language gets its own static root.
 import "../globals.css";
-import { Lora } from "next/font/google";
+import { Lora, Inter } from "next/font/google";
 import type { Metadata, Viewport } from "next";
 import { siteConfig } from "@/config/site";
 import { Analytics } from "@vercel/analytics/next";
@@ -11,6 +11,15 @@ const lora = Lora({
   subsets: ["latin", "latin-ext"],
   display: "swap",
   weight: ["400", "700"],
+  style: ["normal", "italic"],
+  variable: "--font-lora",
+});
+
+const inter = Inter({
+  subsets: ["latin", "latin-ext"],
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-inter",
 });
 
 export const metadata: Metadata = {
@@ -37,7 +46,7 @@ export default function HrRootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="hr" className={lora.className}>
+    <html lang="hr" className={`${lora.variable} ${inter.variable}`}>
       <body>
         {/* Keyboard-first skip link — visible only when focused */}
         <a

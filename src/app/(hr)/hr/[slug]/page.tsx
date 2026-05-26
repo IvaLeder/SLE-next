@@ -90,7 +90,7 @@ export default async function PostPage({ params }: Props) {
         </div>
       )}
 
-      <h1 className="text-3xl font-bold mb-2">{post.title}</h1>
+      <h1 className="text-3xl md:text-4xl font-bold mb-2">{post.title}</h1>
 
       {/* Date display: same logic as the EN article page. "Updated …" shown
           prominently when dateModified is set AND >30 days after original date;
@@ -108,8 +108,8 @@ export default async function PostPage({ params }: Props) {
           new Date(post.dateModified).getTime() - new Date(post.date).getTime() > THIRTY_DAYS_MS;
 
         return (
-          <div className="mb-6">
-            <div className="flex items-center gap-2 text-sm text-gray-500">
+          <div className="mb-6 font-sans">
+            <div className="flex items-center gap-2 text-sm text-gray-500 tabular-nums">
               <time dateTime={hasUpdate ? post.dateModified : post.date}>
                 {hasUpdate ? `Ažurirano ${fmt(post.dateModified!)}` : fmt(post.date)}
               </time>
@@ -121,7 +121,7 @@ export default async function PostPage({ params }: Props) {
               )}
             </div>
             {hasUpdate && (
-              <p className="text-xs text-gray-400 mt-0.5">
+              <p className="text-xs text-gray-500 mt-0.5 tabular-nums">
                 Izvorno objavljeno <time dateTime={post.date}>{fmt(post.date)}</time>
               </p>
             )}
@@ -138,7 +138,7 @@ export default async function PostPage({ params }: Props) {
               <a
                 key={cat}
                 href={`/hr/category/${slug}`}
-                className="text-sm bg-blue-100 text-blue-700 px-2 py-1 rounded hover:bg-blue-200"
+                className="text-sm bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full hover:bg-indigo-200 transition-colors"
               >
                 {cat}
               </a>

@@ -86,7 +86,7 @@ export default function Footer({ lang }: { lang: "en" | "hr" }) {
   ].filter((s) => s.href && s.href !== "#");
 
   return (
-    <footer className="mt-16 border-t bg-gray-50">
+    <footer className="mt-16 border-t bg-gray-50 font-sans">
       <div className="max-w-6xl mx-auto px-6 py-10 grid gap-8 md:grid-cols-4 text-sm">
 
         {/* Brand + tagline + social */}

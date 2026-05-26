@@ -64,7 +64,7 @@ export default function Header({ lang, switchUrl }: HeaderProps) {
   }, []);
 
   return (
-    <header className="border-b bg-white sticky top-0 z-50">
+    <header className="border-b bg-white sticky top-0 z-50 font-sans">
       {/* Compact mobile bar (~48px tall) — expands on md+ */}
       <div className="max-w-5xl mx-auto flex items-center justify-between px-4 py-2 md:py-4">
         <Link href={`/${lang}`} className="text-base md:text-xl font-bold">
@@ -183,7 +183,7 @@ export default function Header({ lang, switchUrl }: HeaderProps) {
 
           {/* Subjects — flat list in mobile */}
           <div className="border-b">
-            <p className="px-4 pt-2 pb-1 text-xs font-semibold text-gray-400 uppercase tracking-wide">
+            <p className="px-4 pt-2 pb-1 text-xs font-semibold text-gray-500 uppercase tracking-wide">
               {lang === "en" ? "Subjects" : "Kategorije"}
             </p>
             {subjects.map((s) => (

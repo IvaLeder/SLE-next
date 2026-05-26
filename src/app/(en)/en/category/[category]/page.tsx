@@ -4,7 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PostCard from "@/components/PostCard";
 import { getPostsByCategory, getAllCategories } from "@/lib/posts";
-import { CATEGORY_DISPLAY } from "@/lib/categories";
+import { CATEGORY_DISPLAY, CATEGORY_DESCRIPTION } from "@/lib/categories";
 
 type Props = { params: Promise<{ category: string }> };
 
@@ -13,9 +13,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const slug = category.toLowerCase();
   const displayName = CATEGORY_DISPLAY["en"][slug] ?? (slug.charAt(0).toUpperCase() + slug.slice(1));
 
+  // Use the same intro paragraph rendered on the page as the meta description —
+  // keeps the on-page and SERP copy aligned and gives Google real content.
+  const description =
+    CATEGORY_DESCRIPTION["en"][slug] ??
+    `Browse all articles in the ${displayName} category on STEM Little Explorers.`;
+
   return {
     title: `${displayName} | STEM Little Explorers`,
-    description: `Browse all articles in the ${displayName} category on STEM Little Explorers.`,
+    description,
     alternates: {
       canonical: `https://stemlittleexplorers.com/en/category/${slug}`,
       languages: {
@@ -47,17 +53,25 @@ export default async function CategoryPage({ params }: Props) {
   if (!posts || posts.length === 0) return notFound();
 
   const displayName = CATEGORY_DISPLAY["en"][slug] ?? (slug.charAt(0).toUpperCase() + slug.slice(1));
+  const description = CATEGORY_DESCRIPTION["en"][slug];
 
   return (
     <>
       <Header lang="en" switchUrl={`/hr/category/${slug}`} />
       <main id="main-content" className="max-w-4xl mx-auto px-4 py-10">
-        <h1 className="text-3xl font-bold mb-8">
-          {displayName}
-          <span className="ml-3 text-lg font-normal text-gray-400">
-            ({posts.length} {posts.length === 1 ? "article" : "articles"})
-          </span>
-        </h1>
+        <header className="mb-8">
+          <h1 className="text-3xl md:text-4xl font-bold mb-3">
+            {displayName}
+            <span className="ml-3 text-lg font-normal text-gray-500 font-sans tabular-nums">
+              ({posts.length} {posts.length === 1 ? "article" : "articles"})
+            </span>
+          </h1>
+          {description && (
+            <p className="text-lg text-gray-700 max-w-2xl leading-relaxed">
+              {description}
+            </p>
+          )}
+        </header>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {posts.map((post, i) => (

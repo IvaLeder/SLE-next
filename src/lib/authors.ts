@@ -48,3 +48,34 @@ export function getAuthor(idOrName?: string | null): AuthorInfo | null {
   }
   return null;
 }
+
+/**
+ * URL-safe slug for an author. "Iva Leder" → "iva-leder".
+ * Used by /[lang]/author/[slug] route. Lowercase + spaces → hyphens.
+ */
+export function authorSlug(name: string): string {
+  return name
+    .toLowerCase()
+    .trim()
+    .replace(/[^\w\s-]/g, "")
+    .replace(/\s+/g, "-");
+}
+
+/**
+ * Reverse lookup: slug → AuthorInfo. Used by the /author/[slug] page to
+ * resolve the URL segment back to the directory entry.
+ */
+export function getAuthorBySlug(slug: string): AuthorInfo | null {
+  const needle = slug.toLowerCase();
+  for (const info of Object.values(authors)) {
+    if (authorSlug(info.name) === needle) return info;
+  }
+  return null;
+}
+
+/**
+ * All known author slugs, used by generateStaticParams.
+ */
+export function getAllAuthorSlugs(): string[] {
+  return Object.values(authors).map((a) => authorSlug(a.name));
+}

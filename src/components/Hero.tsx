@@ -43,7 +43,7 @@ export default function Hero({ lang }: { lang: "en" | "hr" }) {
         </span>
 
         {/* h1 on the homepage — good for SEO, describes the page purpose */}
-        <h1 className="text-3xl md:text-5xl font-bold text-white leading-tight whitespace-pre-line mb-4">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight whitespace-pre-line mb-4">
           {t.headline}
         </h1>
 
@@ -51,16 +51,16 @@ export default function Hero({ lang }: { lang: "en" | "hr" }) {
           {t.sub}
         </p>
 
-        <div className="flex flex-wrap gap-3">
+        <div className="flex flex-wrap gap-3 font-sans">
           <Link
             href={t.primary.href}
-            className="inline-block px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold rounded-lg transition"
+            className="inline-block px-5 py-2.5 bg-brand hover:bg-brand-hover text-white text-sm font-semibold rounded-lg transition-colors"
           >
             {t.primary.label} →
           </Link>
           <Link
             href={t.secondary.href}
-            className="inline-block px-5 py-2.5 bg-white/10 hover:bg-white/20 backdrop-blur text-white text-sm font-semibold rounded-lg ring-1 ring-white/30 transition"
+            className="inline-block px-5 py-2.5 bg-white/10 hover:bg-white/20 backdrop-blur text-white text-sm font-semibold rounded-lg ring-1 ring-white/30 transition-colors"
           >
             {t.secondary.label}
           </Link>

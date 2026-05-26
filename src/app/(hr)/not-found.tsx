@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function NotFound() {
   return (
     <main id="main-content" className="max-w-2xl mx-auto p-6 text-center">
-      <h1 className="text-4xl font-bold mb-4">Stranica nije pronađena</h1>
+      <h1 className="text-3xl md:text-4xl font-bold mb-4">Stranica nije pronađena</h1>
       <p className="text-gray-600 mb-6">
         Žao nam je, tražena stranica ne postoji.
       </p>

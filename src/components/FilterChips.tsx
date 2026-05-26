@@ -27,9 +27,12 @@ export default function FilterChips<T extends string>({
   allLabel,
   ariaLabel,
 }: Props<T>) {
-  const btnBase     = "px-4 py-1.5 rounded-full text-sm font-medium transition-colors border";
-  const btnActive   = "bg-indigo-600 text-white border-indigo-600";
-  const btnInactive = "bg-white text-gray-700 border-gray-300 hover:border-indigo-400 hover:text-indigo-600";
+  // min-h-[44px] meets the WCAG / Apple HIG 44×44 px touch-target minimum.
+  // inline-flex + items-center centres the label inside the larger hit area
+  // without making the chip look visually bigger.
+  const btnBase     = "inline-flex items-center min-h-[44px] px-4 py-1.5 rounded-full text-sm font-medium font-sans transition-colors border";
+  const btnActive   = "bg-brand text-white border-brand";
+  const btnInactive = "bg-white text-gray-700 border-gray-300 hover:border-indigo-400 hover:text-brand";
 
   return (
     <div className="flex flex-wrap gap-2" role="group" aria-label={ariaLabel}>

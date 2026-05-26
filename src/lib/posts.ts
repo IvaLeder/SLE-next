@@ -136,6 +136,16 @@ export function getAllCategories(): string[] {
 }
 
 // ------------------------------------------------------
+//  Get all posts written by a given author (matched by the frontmatter
+//  `author` field — same string used as the key in src/lib/authors.ts).
+// ------------------------------------------------------
+export function getPostsByAuthor(lang: "en" | "hr", authorName: string): Post[] {
+  const all = getAllPosts(lang);
+  const needle = authorName.trim().toLowerCase();
+  return all.filter((p) => p.author?.trim().toLowerCase() === needle);
+}
+
+// ------------------------------------------------------
 //  Get posts that have a given tag
 // ------------------------------------------------------
 export function getPostsByTag(lang: "en" | "hr", tag: string): Post[] {

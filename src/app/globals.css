@@ -2,10 +2,35 @@
 @plugin '@tailwindcss/typography';
 @import "prism-themes/themes/prism-dracula.css";
 
-/* Lora is applied via the className on <html> in the root layout (next/font/google).
-   We just set the background and text colour here — the font cascades from <html>. */
+/* ─── Design tokens ────────────────────────────────────────────────────────
+   Single source of truth for brand identity. Components reference tokens
+   (font-sans, font-serif, bg-brand, etc.) — change a value here to rebrand
+   the whole site in one place.
+
+   The two `--font-lora` and `--font-inter` CSS variables are defined by
+   `next/font/google` via the `variable:` option in the root layouts. We
+   re-export them as Tailwind tokens here so utilities work everywhere. */
+@theme inline {
+  /* Typography */
+  --font-serif: var(--font-lora), Georgia, serif;
+  --font-sans:  var(--font-inter), system-ui, -apple-system, sans-serif;
+
+  /* Brand colour — aliases of indigo. Rebrand by editing these 4 lines. */
+  --color-brand:       var(--color-indigo-600);
+  --color-brand-hover: var(--color-indigo-700);
+  --color-brand-soft:  var(--color-indigo-50);
+  --color-brand-ring:  var(--color-indigo-500);
+
+  /* Newsletter CTA — intentionally OFF-brand pink so it stands out.
+     Use only on the subscribe button; don't introduce more pink elsewhere. */
+  --color-newsletter:       var(--color-pink-600);
+  --color-newsletter-hover: var(--color-pink-700);
+}
+
+/* Body inherits the Lora serif via the html className from next/font.
+   Tailwind's `font-sans` utility (Inter) is applied to UI chrome explicitly. */
 body {
-  @apply bg-gray-50 text-gray-900;
+  @apply font-serif bg-gray-50 text-gray-900;
 }
 
 /* ─── Print styles ─────────────────────────────────────────────────────────

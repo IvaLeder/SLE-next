@@ -12,7 +12,7 @@ export function SubscribeButton({ lang = "en" }: { lang?: "en" | "hr" }) {
       href={MC_URL}
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-block px-4 py-2 rounded-lg bg-pink-600 hover:bg-pink-700 text-white text-sm font-medium transition"
+      className="inline-block px-4 py-2 rounded-lg bg-newsletter hover:bg-newsletter-hover text-white text-sm font-medium font-sans transition-colors"
     >
       {LABEL[lang]}
     </a>

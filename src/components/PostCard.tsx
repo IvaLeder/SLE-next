@@ -26,38 +26,38 @@ export default function PostCard({
   return (
     <Link
       href={`/${lang}/${post.slug}`}
-      className="group block rounded-xl overflow-hidden bg-white shadow hover:shadow-lg transition-all border border-gray-100"
+      className="group block rounded-xl overflow-hidden bg-white shadow hover:shadow-lg transition-[transform,box-shadow,color] border border-gray-100"
     >
-      <div className="relative w-full h-48">
+      <div className="relative w-full h-48 overflow-hidden">
         <Image
           src={post.coverImage || "/images/placeholder.svg"}
           alt={post.heroAlt || post.title}
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           priority={priority}
-          className="object-cover group-hover:scale-105 transition-transform duration-300"
+          // motion-safe + hover-media guards: don't animate for reduced-motion
+          // users or on touch devices (where the scale lingers after tap).
+          className="object-cover transition-transform duration-300 motion-safe:[@media(hover:hover)]:group-hover:scale-105"
         />
         {isRecentlyUpdated && (
-          <span className="absolute top-2 left-2 px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wide bg-indigo-600 text-white shadow">
+          <span className="absolute top-2 left-2 px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wide bg-brand text-white shadow font-sans">
             {updatedLabel}
           </span>
         )}
       </div>
 
       <div className="p-4 space-y-2">
-        <div className="text-xs uppercase font-semibold text-indigo-600 tracking-wide">
+        <div className="text-xs uppercase font-semibold text-brand tracking-wide font-sans">
           {post.categories?.[0]}
         </div>
 
-        <h3 className="font-serif text-lg font-bold leading-snug group-hover:text-indigo-700 transition-colors">
+        <h3 className="font-serif text-lg font-bold leading-snug group-hover:text-brand transition-colors">
           {post.title}
         </h3>
 
-        {/* Issue 17: date + reading time in one meta line.
-            Date shown is `dateModified` when set, otherwise the publish date —
-            cards stay single-line; the "Updated" chip (top-left of cover)
-            already tells readers the article has been refreshed. */}
-        <div className="flex items-center gap-2 text-xs text-gray-400">
+        {/* date + reading time in one meta line — UI sans + tabular figures so
+            counts vertically align across cards in a grid. */}
+        <div className="flex items-center gap-2 text-xs text-gray-500 font-sans tabular-nums">
           <time dateTime={displayDate}>
             {new Date(displayDate).toLocaleDateString(
               lang === "en" ? "en-US" : "hr-HR",

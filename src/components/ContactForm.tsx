@@ -84,7 +84,7 @@ export default function ContactForm({ lang }: Props) {
     // The wrapper page already provides <main>, so use a div here to avoid
     // nested <main> elements (invalid HTML).
     <div className="max-w-xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6">{t.title}</h1>
+      <h1 className="text-3xl md:text-4xl font-bold mb-6">{t.title}</h1>
 
       {status === "success" && (
         <div className="p-4 mb-4 text-green-800 bg-green-100 border border-green-200 rounded" role="status">
@@ -98,7 +98,7 @@ export default function ContactForm({ lang }: Props) {
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-4" noValidate>
+      <form onSubmit={handleSubmit} className="space-y-4 font-sans" noValidate>
         {/* Honeypot — hidden from real users via CSS, autocomplete off,
             tabindex=-1 so keyboard users skip it, aria-hidden so screen
             readers ignore it. Bots fill ALL inputs blindly and get caught. */}
@@ -169,7 +169,7 @@ export default function ContactForm({ lang }: Props) {
           />
           <p
             id="message-counter"
-            className={`mt-1 text-xs text-right ${messageRemaining < 100 ? "text-amber-600" : "text-gray-400"}`}
+            className={`mt-1 text-xs text-right ${messageRemaining < 100 ? "text-amber-600" : "text-gray-500"}`}
             aria-live="polite"
           >
             {t.charsRemaining(messageRemaining)}
@@ -183,7 +183,7 @@ export default function ContactForm({ lang }: Props) {
         <button
           type="submit"
           disabled={status === "submitting"}
-          className="bg-indigo-600 text-white px-5 py-2 rounded-lg hover:bg-indigo-700 disabled:opacity-50 transition"
+          className="bg-brand text-white px-5 py-2 rounded-lg hover:bg-brand-hover disabled:opacity-50 transition-colors"
         >
           {status === "submitting" ? t.sending : t.send}
         </button>

@@ -1,4 +1,6 @@
 import { getAllPosts, CATEGORY_SLUGS } from "@/lib/posts";
+import { KNOWN_TAGS } from "@/lib/tags";
+import { getAllAuthorSlugs } from "@/lib/authors";
 import { siteConfig } from "@/config/site";
 import type { MetadataRoute } from "next";
 
@@ -51,6 +53,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     bilingual(`/category/${slug}`, now, 0.7, "weekly")
   );
 
+  // --- Tag pages (one per known tag per language) ---
+  const tagEntries: MetadataRoute.Sitemap = KNOWN_TAGS.flatMap((slug) =>
+    bilingual(`/tag/${slug}`, now, 0.6, "weekly")
+  );
+
+  // --- Author pages (one per author per language) ---
+  const authorEntries: MetadataRoute.Sitemap = getAllAuthorSlugs().flatMap((slug) =>
+    bilingual(`/author/${slug}`, now, 0.5, "monthly")
+  );
+
   // --- Post entries with translation alternates ---
   const postEntries: MetadataRoute.Sitemap = langs.flatMap((lang) => {
     const otherLang = lang === "en" ? "hr" : "en";
@@ -90,7 +102,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Deduplicate by URL
   const seen = new Set<string>();
-  return [...staticEntries, ...categoryEntries, ...postEntries].filter((e) => {
+  return [...staticEntries, ...categoryEntries, ...tagEntries, ...authorEntries, ...postEntries].filter((e) => {
     if (seen.has(e.url)) return false;
     seen.add(e.url);
     return true;
