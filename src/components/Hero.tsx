@@ -15,7 +15,7 @@ const content = {
     headline: "STEM i Znanosti\nza Znatiželjnu Djecu",
     sub: "Praktični pokusi, vodiči za razvoj djeteta i savjeti iz psihologije — ideje koje možete isprobati odmah.",
     primary: { label: "Pregledaj aktivnosti", href: "/hr/activities" },
-    secondary: { label: "Pregledaj po predmetu", href: "/hr/category/science" },
+    secondary: { label: "Pregledaj po kategoriji", href: "/hr/category/science" },
   },
 };
 

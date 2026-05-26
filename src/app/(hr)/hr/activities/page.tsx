@@ -7,7 +7,7 @@ import { getPostsByTag } from "@/lib/posts";
 export const metadata: Metadata = {
   title: "STEM Aktivnosti za Djecu | STEM Little Explorers",
   description:
-    "Pregledajte praktične STEM aktivnosti i eksperimente za djecu — znanost, inženjerstvo, matematika, tehnologija i više. Filtrirajte po predmetu.",
+    "Pregledajte praktične STEM aktivnosti i eksperimente za djecu — znanost, inženjerstvo, matematika, tehnologija i više. Filtrirajte po kategoriji.",
   alternates: {
     canonical: "https://stemlittleexplorers.com/hr/activities",
     languages: {

@@ -95,7 +95,7 @@ export default function Header({ lang, switchUrl }: HeaderProps) {
               aria-haspopup="true"
               aria-expanded={subjectsOpen}
             >
-              {lang === "en" ? "Subjects" : "Predmeti"}
+              {lang === "en" ? "Subjects" : "Kategorije"}
               <svg
                 className="w-3 h-3 mt-0.5"
                 viewBox="0 0 10 6"
@@ -184,7 +184,7 @@ export default function Header({ lang, switchUrl }: HeaderProps) {
           {/* Subjects — flat list in mobile */}
           <div className="border-b">
             <p className="px-4 pt-2 pb-1 text-xs font-semibold text-gray-400 uppercase tracking-wide">
-              {lang === "en" ? "Subjects" : "Predmeti"}
+              {lang === "en" ? "Subjects" : "Kategorije"}
             </p>
             {subjects.map((s) => (
               <Link

@@ -60,7 +60,7 @@ export default function Footer({ lang }: { lang: "en" | "hr" }) {
       tagline:     "STEM aktivnosti i psihološki savjeti za djecu i roditelje.",
       explore:     "Istraži",
       activities:  "Sve aktivnosti",
-      subjects:    "Predmeti",
+      subjects:    "Kategorije",
       science:     "Znanost",
       engineering: "Inženjerstvo",
       math:        "Matematika",

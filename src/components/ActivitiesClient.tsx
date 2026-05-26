@@ -57,7 +57,7 @@ export default function ActivitiesClient({ posts, lang }: Props) {
           active={activeSubject}
           onChange={setActiveSubject}
           allLabel={allLabel}
-          ariaLabel={lang === "en" ? "Filter by subject" : "Filtriraj po predmetu"}
+          ariaLabel={lang === "en" ? "Filter by subject" : "Filtriraj po kategoriji"}
         />
       </div>
 
