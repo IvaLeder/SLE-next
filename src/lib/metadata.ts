@@ -109,26 +109,51 @@ export function generateJsonLd(post: Post, lang: "en" | "hr") {
 }
 
 // ---------------------------------------------------------------------------
-// Breadcrumb JSON-LD  (issue 5 already fixed — kept clean here)
+// Breadcrumb JSON-LD — must match what's rendered on-screen so Google sees
+// the same trail visible to users (Home › Category › Title).
 // ---------------------------------------------------------------------------
+import { categorySlugFromName, CATEGORY_DISPLAY } from "./categories";
+
 export function generateBreadcrumbJsonLd(post: Post) {
+  const homeLabel = post.lang === "hr" ? "Naslovnica" : "Home";
+
+  const items: Array<{
+    "@type": "ListItem";
+    position: number;
+    name: string;
+    item: string;
+  }> = [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: homeLabel,
+      item: `${BASE_URL}/${post.lang}`,
+    },
+  ];
+
+  // Insert the canonical category step if the post has one.
+  const firstCat = post.categories?.[0];
+  const catSlug = firstCat ? categorySlugFromName(firstCat) : null;
+  if (firstCat && catSlug) {
+    items.push({
+      "@type": "ListItem",
+      position: 2,
+      name: CATEGORY_DISPLAY[post.lang]?.[catSlug] ?? firstCat,
+      item: `${BASE_URL}/${post.lang}/category/${catSlug}`,
+    });
+  }
+
+  items.push({
+    "@type": "ListItem",
+    position: items.length + 1,
+    name: post.title,
+    item: `${BASE_URL}/${post.lang}/${post.slug}`,
+  });
+
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: `${BASE_URL}/${post.lang}`,
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: post.title,
-        item: `${BASE_URL}/${post.lang}/${post.slug}`,
-      },
-    ],
+    itemListElement: items,
   };
 }
 

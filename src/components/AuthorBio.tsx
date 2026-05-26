@@ -1,4 +1,4 @@
-import { authors } from "@/lib/authors";
+import { getAuthor } from "@/lib/authors";
 
 export default function AuthorBio({
   name,
@@ -7,11 +7,10 @@ export default function AuthorBio({
   name?: string;
   lang: "en" | "hr";
 }) {
-  if (!name) return null;
-  const author = authors[name];
+  const author = getAuthor(name);
   if (!author) return null;
 
-  const initial = name.charAt(0).toUpperCase();
+  const initial = author.name.charAt(0).toUpperCase();
 
   return (
     <div className="mt-10 pt-6 border-t flex gap-4 items-start">

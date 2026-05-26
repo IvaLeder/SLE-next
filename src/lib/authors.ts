@@ -6,6 +6,12 @@ export type AuthorInfo = {
   bioHr: string;
 };
 
+/**
+ * Author directory. Keys are the canonical identifiers used in post frontmatter
+ * (`author: "Iva Leder"`). Treat the key as an id — to change a display name,
+ * update the `name` field, not the key. That way 160+ post files don't need
+ * to be touched.
+ */
 export const authors: Record<string, AuthorInfo> = {
   "Iva Leder": {
     name: "Iva Leder",
@@ -22,3 +28,23 @@ export const authors: Record<string, AuthorInfo> = {
     bioHr: "Vedran je inženjer i tata koji voli pretvarati svakodnevne materijale u praktične STEM pokuse. Osmišljava aktivnosti i inženjerske izazove koji djeci čine znanost pristupačnom i uzbudljivom.",
   },
 };
+
+/**
+ * Look up an author by the value stored in post frontmatter.
+ * Returns null when the key is missing OR the author isn't in the directory.
+ * Case-insensitive and whitespace-tolerant — guards against minor typos
+ * like `"iva leder"` or `" Iva Leder "` in frontmatter.
+ */
+export function getAuthor(idOrName?: string | null): AuthorInfo | null {
+  if (!idOrName) return null;
+
+  // Fast path: exact match
+  if (authors[idOrName]) return authors[idOrName];
+
+  // Fallback: case-insensitive scan (rare, only on frontmatter typos)
+  const needle = idOrName.trim().toLowerCase();
+  for (const [key, info] of Object.entries(authors)) {
+    if (key.toLowerCase() === needle) return info;
+  }
+  return null;
+}

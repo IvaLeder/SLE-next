@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import PostCard from "./PostCard";
+import FilterChips from "./FilterChips";
 import { PostMeta } from "@/lib/posts";
 import { CATEGORY_DISPLAY } from "@/lib/categories";
 
@@ -43,35 +44,16 @@ export default function ActivitiesClient({ posts, lang }: Props) {
   // Reset to page 1 when filter changes
   useEffect(() => { setPage(1); }, [activeSubject]);
 
-  const btnBase    = "px-4 py-1.5 rounded-full text-sm font-medium transition-colors border";
-  const btnActive  = "bg-indigo-600 text-white border-indigo-600";
-  const btnInactive= "bg-white text-gray-700 border-gray-300 hover:border-indigo-400 hover:text-indigo-600";
-
   return (
     <>
-      {/* Subject filter chips */}
-      <div
-        className="flex flex-wrap gap-2 mb-8"
-        role="group"
-        aria-label={lang === "en" ? "Filter by subject" : "Filtriraj po predmetu"}
-      >
-        <button
-          onClick={() => setActiveSubject(null)}
-          className={`${btnBase} ${activeSubject === null ? btnActive : btnInactive}`}
-          aria-pressed={activeSubject === null}
-        >
-          {allLabel}
-        </button>
-        {SUBJECTS.map((s) => (
-          <button
-            key={s.key}
-            onClick={() => setActiveSubject(s.key)}
-            className={`${btnBase} ${activeSubject === s.key ? btnActive : btnInactive}`}
-            aria-pressed={activeSubject === s.key}
-          >
-            {s.label[lang]}
-          </button>
-        ))}
+      <div className="mb-8">
+        <FilterChips
+          chips={SUBJECTS.map((s) => ({ key: s.key, label: s.label[lang] }))}
+          active={activeSubject}
+          onChange={setActiveSubject}
+          allLabel={allLabel}
+          ariaLabel={lang === "en" ? "Filter by subject" : "Filtriraj po predmetu"}
+        />
       </div>
 
       {/* Result count */}

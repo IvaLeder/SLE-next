@@ -90,7 +90,13 @@ export default async function PostPage({ params }: Props) {
 
       {/* Issue 17: reading time next to the date */}
       <div className="flex items-center gap-2 text-sm text-gray-500 mb-6">
-        <time dateTime={post.date}>{post.date}</time>
+        <time dateTime={post.date}>
+          {new Date(post.date).toLocaleDateString("hr-HR", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })}
+        </time>
         {post.readingTimeMin && (
           <>
             <span aria-hidden="true">·</span>
