@@ -53,8 +53,9 @@ export default function Header({ lang, switchUrl }: HeaderProps) {
 
   return (
     <header className="border-b bg-white sticky top-0 z-50">
-      <div className="max-w-5xl mx-auto flex items-center justify-between p-4">
-        <Link href={`/${lang}`} className="text-xl font-bold">
+      {/* Compact mobile bar (~48px tall) — expands on md+ */}
+      <div className="max-w-5xl mx-auto flex items-center justify-between px-4 py-2 md:py-4">
+        <Link href={`/${lang}`} className="text-base md:text-xl font-bold">
           STEM Explorers
         </Link>
 
@@ -120,8 +121,13 @@ export default function Header({ lang, switchUrl }: HeaderProps) {
           <Search lang={lang} />
         </nav>
 
-        <button className="md:hidden" onClick={() => setOpen(!open)} aria-label="Open menu">
-          ☰
+        <button
+          className="md:hidden p-2 -mr-2 text-xl leading-none"
+          onClick={() => setOpen(!open)}
+          aria-label={open ? "Close menu" : "Open menu"}
+          aria-expanded={open}
+        >
+          {open ? "✕" : "☰"}
         </button>
       </div>
 

@@ -12,6 +12,8 @@
     "@next/mdx": "^16.1.1",
     "@tailwindcss/typography": "^0.5.19",
     "@types/nodemailer": "^7.0.3",
+    "@vercel/analytics": "^2.0.1",
+    "@vercel/speed-insights": "^2.0.0",
     "gray-matter": "^4.0.3",
     "mdx": "^0.2.3",
     "minisearch": "^7.2.0",

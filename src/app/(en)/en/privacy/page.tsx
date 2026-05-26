@@ -5,6 +5,9 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Privacy Policy | STEM Little Explorers",
   description: "How STEM Little Explorers collects, uses and protects your personal data.",
+  // Keep legal pages out of search results — they shouldn't compete with content.
+  // `follow` keeps any outbound links discoverable.
+  robots: { index: false, follow: true },
   alternates: {
     canonical: "https://stemlittleexplorers.com/en/privacy",
     languages: {
@@ -18,7 +21,7 @@ export default function PrivacyPage() {
   return (
     <>
       <Header lang="en" switchUrl="/hr/privacy" />
-      <main className="max-w-3xl mx-auto px-4 py-10 prose prose-lg">
+      <main id="main-content" className="max-w-3xl mx-auto px-4 py-10 prose prose-lg">
         <h1>Privacy Policy</h1>
         <p className="text-gray-500 text-sm">Last updated: {new Date().getFullYear()}</p>
 

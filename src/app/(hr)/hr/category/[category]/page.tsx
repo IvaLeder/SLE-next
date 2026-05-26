@@ -43,7 +43,7 @@ export default async function CategoryPage({ params }: Props) {
     <>
       {/* switchUrl uses the same ASCII slug — works in both languages */}
       <Header lang="hr" switchUrl={`/en/category/${slug}`} />
-      <main className="max-w-4xl mx-auto px-4 py-10">
+      <main id="main-content" className="max-w-4xl mx-auto px-4 py-10">
         <h1 className="text-3xl font-bold mb-8">
           {displayName}
           <span className="ml-3 text-lg font-normal text-gray-400">

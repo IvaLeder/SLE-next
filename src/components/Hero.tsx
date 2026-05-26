@@ -7,15 +7,15 @@ const content = {
     tag: "For parents & educators",
     headline: "STEM & Science\nfor Curious Kids",
     sub: "Hands-on experiments, child development guides and psychology insights — practical ideas you can try today.",
-    cta: "Browse activities",
-    ctaHref: "/en/activities",
+    primary: { label: "Browse activities", href: "/en/activities" },
+    secondary: { label: "Browse by subject", href: "/en/category/science" },
   },
   hr: {
     tag: "Za roditelje i odgajatelje",
     headline: "STEM i Znanosti\nza Znatiželjnu Djecu",
     sub: "Praktični pokusi, vodiči za razvoj djeteta i savjeti iz psihologije — ideje koje možete isprobati odmah.",
-    cta: "Pregledaj aktivnosti",
-    ctaHref: "/hr/activities",
+    primary: { label: "Pregledaj aktivnosti", href: "/hr/activities" },
+    secondary: { label: "Pregledaj po predmetu", href: "/hr/category/science" },
   },
 };
 
@@ -51,12 +51,20 @@ export default function Hero({ lang }: { lang: "en" | "hr" }) {
           {t.sub}
         </p>
 
-        <Link
-          href={t.ctaHref}
-          className="inline-block w-fit px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold rounded-lg transition"
-        >
-          {t.cta} →
-        </Link>
+        <div className="flex flex-wrap gap-3">
+          <Link
+            href={t.primary.href}
+            className="inline-block px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold rounded-lg transition"
+          >
+            {t.primary.label} →
+          </Link>
+          <Link
+            href={t.secondary.href}
+            className="inline-block px-5 py-2.5 bg-white/10 hover:bg-white/20 backdrop-blur text-white text-sm font-semibold rounded-lg ring-1 ring-white/30 transition"
+          >
+            {t.secondary.label}
+          </Link>
+        </div>
       </div>
     </div>
   );

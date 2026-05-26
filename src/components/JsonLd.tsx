@@ -1,7 +1,6 @@
-"use client";
-
+// Pure server component — emits a structured-data script tag with no client JS.
 type JsonLdProps = {
-  data: Record<string, any>;
+  data: Record<string, unknown>;
 };
 
 export default function JsonLd({ data }: JsonLdProps) {

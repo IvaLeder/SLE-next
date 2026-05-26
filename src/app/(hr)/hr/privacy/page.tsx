@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Politika privatnosti | STEM Little Explorers",
   description: "Kako STEM Little Explorers prikuplja, koristi i štiti vaše osobne podatke.",
+  robots: { index: false, follow: true },
   alternates: {
     canonical: "https://stemlittleexplorers.com/hr/privacy",
     languages: {
@@ -18,7 +19,7 @@ export default function PrivacyPage() {
   return (
     <>
       <Header lang="hr" switchUrl="/en/privacy" />
-      <main className="max-w-3xl mx-auto px-4 py-10 prose prose-lg">
+      <main id="main-content" className="max-w-3xl mx-auto px-4 py-10 prose prose-lg">
         <h1>Politika privatnosti</h1>
         <p className="text-gray-500 text-sm">Zadnja izmjena: {new Date().getFullYear()}.</p>
 

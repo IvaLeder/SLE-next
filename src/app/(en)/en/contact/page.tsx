@@ -19,7 +19,7 @@ export default function ContactPage() {
   return (
     <>
       <Header lang="en" switchUrl="/hr/contact" />
-      <main className="max-w-4xl mx-auto px-4 py-10">
+      <main id="main-content" className="max-w-4xl mx-auto px-4 py-10">
         <ContactForm lang="en" />
       </main>
       <Footer lang="en" />

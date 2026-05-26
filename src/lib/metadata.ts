@@ -4,6 +4,25 @@ import { siteConfig } from "@/config/site";
 
 const BASE_URL = siteConfig.url;
 
+/**
+ * Produce a clean SEO/meta description from a post.
+ * Priority: hand-written description → excerpt → first 155 chars of body.
+ * In all cases we strip Markdown/MDX markers so descriptions read as plain prose.
+ */
+function makeDescription(post: Post): string {
+  if (post.description) return post.description;
+  if (post.excerpt && !post.excerpt.startsWith("---")) return post.excerpt;
+
+  return post.content
+    .replace(/<[^>]+>/g, " ")              // JSX/HTML tags (e.g. <YouTube …/>)
+    .replace(/!?\[([^\]]*)\]\([^)]+\)/g, "$1")  // images & links → alt/text
+    .replace(/^---[\s\S]*?---/m, "")       // any stray frontmatter
+    .replace(/[#*_`>]+/g, "")              // markdown emphasis / headings / quotes
+    .replace(/\s+/g, " ")                  // collapse whitespace
+    .trim()
+    .slice(0, 155);
+}
+
 // ---------------------------------------------------------------------------
 // Post page metadata  (issues 8, 9, 12)
 // ---------------------------------------------------------------------------
@@ -18,12 +37,7 @@ export function generatePostMetadata(post: Post | null, lang: "en" | "hr"): Meta
     };
   }
 
-  // Issue 9: prefer the hand-written frontmatter description over the
-  // auto-generated excerpt so meta descriptions are intentional and keyword-rich.
-  const description =
-    post.description ||
-    post.excerpt ||
-    post.content.slice(0, 155).replace(/\n/g, " ");
+  const description = makeDescription(post);
 
   const fullUrl = `${BASE_URL}/${lang}/${post.slug}`;
 
@@ -71,11 +85,7 @@ export function generateJsonLd(post: Post, lang: "en" | "hr") {
     ? `${BASE_URL}${post.coverImage}`
     : `${BASE_URL}/opengraph-image`;
 
-  // Issue 9: same description priority as metadata above.
-  const description =
-    post.description ||
-    post.excerpt ||
-    post.content.slice(0, 155).replace(/\n/g, " ");
+  const description = makeDescription(post);
 
   return {
     "@context": "https://schema.org",
@@ -153,10 +163,7 @@ export function generateHowToJsonLd(post: Post, lang: "en" | "hr") {
     ? `${BASE_URL}${post.coverImage}`
     : `${BASE_URL}/opengraph-image`;
 
-  const description =
-    post.description ||
-    post.excerpt ||
-    post.content.slice(0, 155).replace(/\n/g, " ");
+  const description = makeDescription(post);
 
   return {
     "@context": "https://schema.org",

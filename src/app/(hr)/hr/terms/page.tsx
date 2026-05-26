@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Uvjeti korištenja | STEM Little Explorers",
   description: "Uvjeti i odredbe korištenja web stranice STEM Little Explorers.",
+  robots: { index: false, follow: true },
   alternates: {
     canonical: "https://stemlittleexplorers.com/hr/terms",
     languages: {
@@ -18,7 +19,7 @@ export default function TermsPage() {
   return (
     <>
       <Header lang="hr" switchUrl="/en/terms" />
-      <main className="max-w-3xl mx-auto px-4 py-10 prose prose-lg">
+      <main id="main-content" className="max-w-3xl mx-auto px-4 py-10 prose prose-lg">
         <h1>Uvjeti korištenja</h1>
         <p className="text-gray-500 text-sm">Zadnja izmjena: {new Date().getFullYear()}.</p>
 

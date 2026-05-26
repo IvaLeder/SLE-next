@@ -30,7 +30,7 @@ export default function EnglishHomePage() {
       <Header lang="en" />
       {/* Issues 16 & 26: hero with value proposition replaces the empty top area */}
       <Hero lang="en" />
-      <main className="max-w-4xl mx-auto px-4 py-10">
+      <main id="main-content" className="max-w-4xl mx-auto px-4 py-10">
         <PostList posts={posts} lang="en" />
       </main>
       <Footer lang="en" />

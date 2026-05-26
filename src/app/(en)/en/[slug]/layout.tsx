@@ -22,11 +22,17 @@ export default async function PostLayout({
 
   return (
     <>
+      {/* Many activity posts embed YouTube — warm up the connection so the
+          first click on a video saves ~200–400 ms of DNS + TLS. */}
+      <link rel="preconnect" href="https://www.youtube.com" />
+      <link rel="preconnect" href="https://i.ytimg.com" />
+      <link rel="preconnect" href="https://img.youtube.com" />
+
       <Header
         lang="en"
         switchUrl={switchUrl}
       />
-      <main className="max-w-5xl mx-auto px-4 py-8">
+      <main id="main-content" className="max-w-5xl mx-auto px-4 py-8">
         {children}
       </main>
       <Footer lang="en" />

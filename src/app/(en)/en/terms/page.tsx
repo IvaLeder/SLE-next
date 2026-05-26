@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Terms of Use | STEM Little Explorers",
   description: "Terms and conditions for using the STEM Little Explorers website.",
+  robots: { index: false, follow: true },
   alternates: {
     canonical: "https://stemlittleexplorers.com/en/terms",
     languages: {
@@ -18,7 +19,7 @@ export default function TermsPage() {
   return (
     <>
       <Header lang="en" switchUrl="/hr/terms" />
-      <main className="max-w-3xl mx-auto px-4 py-10 prose prose-lg">
+      <main id="main-content" className="max-w-3xl mx-auto px-4 py-10 prose prose-lg">
         <h1>Terms of Use</h1>
         <p className="text-gray-500 text-sm">Last updated: {new Date().getFullYear()}</p>
 

@@ -23,7 +23,9 @@ import FloatingSubscribeCard from "@/components/FloatingSubscribeCard";
 import PostCard from "@/components/PostCard";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import AuthorBio from "@/components/AuthorBio";
+import ShareButtons from "@/components/ShareButtons";
 import { SubscribeButton } from "@/components/SubscribeButton";
+import { siteConfig } from "@/config/site";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -132,6 +134,14 @@ export default async function PostPage({ params }: Props) {
           }}
         />
       </article>
+
+      {/* Social-share row directly under the article body */}
+      <ShareButtons
+        url={`${siteConfig.url}/hr/${post.slug}`}
+        title={post.title}
+        image={post.coverImage ? `${siteConfig.url}${post.coverImage}` : undefined}
+        lang="hr"
+      />
 
       {/* Issue 21: author bio below the article body */}
       <AuthorBio name={post.author} lang="hr" />
