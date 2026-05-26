@@ -19,3 +19,10 @@ npm run build
 # 4. Validate content (run before committing new posts)
 npm run validate
 ```
+
+---
+
+## Copyright
+
+© 2026 Iva Leder. All rights reserved. Code and content are published here
+for portfolio purposes only — see [COPYRIGHT.md](./COPYRIGHT.md).
