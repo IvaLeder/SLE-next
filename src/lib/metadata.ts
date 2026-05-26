@@ -117,7 +117,9 @@ export function generateJsonLd(post: Post, lang: "en" | "hr") {
       url: `${BASE_URL}/${lang}/about`,
     },
     datePublished: post.date,
-    dateModified: post.date,
+    // dateModified surfaces the "Updated" label in Google SERPs. Falls back
+    // to publish date when the post hasn't been edited — same as before.
+    dateModified: post.dateModified ?? post.date,
     mainEntityOfPage: fullUrl,
     publisher: {
       "@type": "Organization",

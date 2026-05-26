@@ -122,6 +122,29 @@ function checkPost(filePath, lang) {
     error(filePath, `\`date: ${data.date}\` is not a valid date`);
   }
 
+  // ── dateModified sanity (optional field) ────────────────────────────────
+  if (data.dateModified) {
+    const mod = new Date(data.dateModified).getTime();
+    if (isNaN(mod)) {
+      error(filePath, `\`dateModified: ${data.dateModified}\` is not a valid date`);
+    } else {
+      // dateModified must be ≥ date (you can't "modify" before you publish)
+      if (!isNaN(new Date(data.date).getTime()) && mod < new Date(data.date).getTime()) {
+        error(
+          filePath,
+          `\`dateModified: ${data.dateModified}\` is before \`date: ${data.date}\` — likely a typo.`
+        );
+      }
+      // dateModified shouldn't be in the future (more than 1 day grace for timezones)
+      if (mod - Date.now() > 24 * 60 * 60 * 1000) {
+        error(
+          filePath,
+          `\`dateModified: ${data.dateModified}\` is in the future — likely a typo.`
+        );
+      }
+    }
+  }
+
   // ── Category must be canonical ──────────────────────────────────────────
   if (Array.isArray(data.categories)) {
     const valid = CANONICAL_CATEGORIES[lang] ?? [];

@@ -13,6 +13,15 @@ export default function PostCard({
   priority?: boolean;
 }) {
   const readLabel = lang === "hr" ? "min čitanja" : "min read";
+  const updatedLabel = lang === "hr" ? "Ažurirano" : "Updated";
+
+  // Show the more recent of (dateModified, date) on the card itself —
+  // readers care about freshness more than original publish on a grid view.
+  const displayDate = post.dateModified ?? post.date;
+
+  // `isRecentlyUpdated` is derived at build time in getAllPosts() so this
+  // render stays pure (no Date.now() call here — React 19 purity rule).
+  const isRecentlyUpdated = post.isRecentlyUpdated ?? false;
 
   return (
     <Link
@@ -28,6 +37,11 @@ export default function PostCard({
           priority={priority}
           className="object-cover group-hover:scale-105 transition-transform duration-300"
         />
+        {isRecentlyUpdated && (
+          <span className="absolute top-2 left-2 px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wide bg-indigo-600 text-white shadow">
+            {updatedLabel}
+          </span>
+        )}
       </div>
 
       <div className="p-4 space-y-2">
@@ -39,10 +53,13 @@ export default function PostCard({
           {post.title}
         </h3>
 
-        {/* Issue 17: date + reading time in one meta line */}
+        {/* Issue 17: date + reading time in one meta line.
+            Date shown is `dateModified` when set, otherwise the publish date —
+            cards stay single-line; the "Updated" chip (top-left of cover)
+            already tells readers the article has been refreshed. */}
         <div className="flex items-center gap-2 text-xs text-gray-400">
-          <time dateTime={post.date}>
-            {new Date(post.date).toLocaleDateString(
+          <time dateTime={displayDate}>
+            {new Date(displayDate).toLocaleDateString(
               lang === "en" ? "en-US" : "hr-HR",
               { year: "numeric", month: "short", day: "numeric" }
             )}

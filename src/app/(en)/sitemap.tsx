@@ -72,7 +72,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
       return {
         url: `${BASE_URL}/${lang}/${post.slug}`,
-        lastModified: new Date(post.date),
+        // Prefer dateModified when set — tells crawlers to re-index edits.
+        lastModified: new Date(post.dateModified ?? post.date),
         changeFrequency: "monthly" as const,
         priority: 0.6,
         alternates: { languages },

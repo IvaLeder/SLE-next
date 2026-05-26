@@ -93,22 +93,43 @@ export default async function PostPage({ params }: Props) {
 
       <h1 className="text-3xl font-bold mb-2">{post.title}</h1>
 
-      {/* Issue 17: reading time next to the date */}
-      <div className="flex items-center gap-2 text-sm text-gray-500 mb-6">
-        <time dateTime={post.date}>
-          {new Date(post.date).toLocaleDateString("en-US", {
+      {/* Date display: when the post has been meaningfully edited (dateModified
+          is set AND >30 days after original date), show "Updated …" prominently
+          with "Originally published …" as a secondary line. Otherwise just the
+          original date. */}
+      {(() => {
+        const fmt = (iso: string) =>
+          new Date(iso).toLocaleDateString("en-US", {
             year: "numeric",
             month: "long",
             day: "numeric",
-          })}
-        </time>
-        {post.readingTimeMin && (
-          <>
-            <span aria-hidden="true">·</span>
-            <span>{post.readingTimeMin} min read</span>
-          </>
-        )}
-      </div>
+          });
+        const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
+        const hasUpdate =
+          post.dateModified &&
+          new Date(post.dateModified).getTime() - new Date(post.date).getTime() > THIRTY_DAYS_MS;
+
+        return (
+          <div className="mb-6">
+            <div className="flex items-center gap-2 text-sm text-gray-500">
+              <time dateTime={hasUpdate ? post.dateModified : post.date}>
+                {hasUpdate ? `Updated ${fmt(post.dateModified!)}` : fmt(post.date)}
+              </time>
+              {post.readingTimeMin && (
+                <>
+                  <span aria-hidden="true">·</span>
+                  <span>{post.readingTimeMin} min read</span>
+                </>
+              )}
+            </div>
+            {hasUpdate && (
+              <p className="text-xs text-gray-400 mt-0.5">
+                Originally published <time dateTime={post.date}>{fmt(post.date)}</time>
+              </p>
+            )}
+          </div>
+        );
+      })()}
 
       {post.categories?.length > 0 && (
         <div className="flex flex-wrap gap-2 mb-4">

@@ -8,13 +8,18 @@ import { CATEGORY_DISPLAY, CATEGORY_SLUGS } from "./categories";
 // Type for frontmatter
 export type PostMeta = {
   title: string;
-  date: string;
+  date: string;             // original publication date — never bumped after launch
+  dateModified?: string;    // optional; set when the article has been meaningfully edited
   author?: string;
   slug: string;
   lang: "en" | "hr";
   description?: string;    // hand-written SEO description from frontmatter
   excerpt?: string;        // auto-generated fallback
   readingTimeMin?: number; // estimated reading time in minutes
+  /** Derived at build time in getAllPosts(): true when dateModified is set
+   *  AND within the last 90 days. Kept on PostMeta so components can render
+   *  the "Updated" chip without calling impure Date.now() in render. */
+  isRecentlyUpdated?: boolean;
   categories: string[];
   tags?: string[];
   coverImage?: string;
@@ -38,6 +43,12 @@ export function getAllPosts(lang: "en" | "hr"): Post[] {
   const langDir = path.join(postsDirectory, lang);
   const filenames = fs.readdirSync(langDir);
 
+  // Single "now" reference per build so isRecentlyUpdated is stable across
+  // all posts in this build. Build-time evaluation also keeps render pure
+  // (no Date.now() in React components).
+  const NOW = Date.now();
+  const NINETY_DAYS_MS = 90 * 24 * 60 * 60 * 1000;
+
   const posts = filenames
     .filter((fn) => fn.endsWith(".md") || fn.endsWith(".mdx"))
     .map((filename) => {
@@ -54,10 +65,17 @@ export function getAllPosts(lang: "en" | "hr"): Post[] {
       const wordCount = content.trim().split(/\s+/).filter(Boolean).length;
       const readingTimeMin = Math.max(1, Math.ceil(wordCount / 200));
 
+      // "Updated" chip eligibility — frozen at build time.
+      const isRecentlyUpdated =
+        !!data.dateModified &&
+        data.dateModified !== data.date &&
+        NOW - new Date(data.dateModified).getTime() < NINETY_DAYS_MS;
+
       const post: Post = {
         ...data,
         excerpt,
         readingTimeMin,
+        isRecentlyUpdated,
         content,
       } as Post;
 
