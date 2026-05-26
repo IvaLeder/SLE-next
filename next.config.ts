@@ -8,10 +8,11 @@ const withMDX = createMDX({
 const config: NextConfig = {
   pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
 
-  // Pin the workspace root to this project so Next.js doesn't mistake a stray
-  // /Users/iva/package-lock.json for the workspace root.
+  // Pin the workspace root so Next.js doesn't mistake a stray parent-directory
+  // lockfile for the workspace root. process.cwd() resolves to wherever
+  // `next` is invoked from — i.e. the project root for npm scripts.
   turbopack: {
-    root: '/Users/iva/my-blog',
+    root: process.cwd(),
   },
 
   images: {

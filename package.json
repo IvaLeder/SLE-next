@@ -6,7 +6,10 @@
     "dev": "next dev --webpack",
     "build": "next build --webpack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "validate": "node scripts/validate-posts.mjs",
+    "validate:strict": "node scripts/validate-posts.mjs --strict",
+    "new-post": "node scripts/new-post.mjs"
   },
   "dependencies": {
     "@next/mdx": "^16.1.1",
