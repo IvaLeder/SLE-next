@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+# Cancel any in-flight runs for the same branch/PR — most recent push wins.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      # Catches bad frontmatter, missing images, broken translation pairs,
+      # MDX component typos, truncated YouTube ids, etc.
+      - name: Validate posts
+        run: npm run validate
+
+      - name: TypeScript check
+        run: npx tsc --noEmit
+
+      - name: Lint
+        run: npm run lint
+
+      # Real safety net — every page is statically pre-rendered, so a single
+      # MDX bug breaks the whole site. Build catches what `validate` doesn't.
+      - name: Build
+        run: npm run build
+        env:
+          # Stub env so Next.js doesn't complain about missing optional vars
+          # during build. Real secrets live in Vercel's project settings.
+          RECAPTCHA_SECRET_KEY: ci-stub
+          NEXT_PUBLIC_RECAPTCHA_SITE_KEY: ci-stub
+          EMAIL_USER: ci@example.com
+          EMAIL_PASS: ci-stub

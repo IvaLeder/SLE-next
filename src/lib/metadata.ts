@@ -4,6 +4,13 @@ import { siteConfig } from "@/config/site";
 
 const BASE_URL = siteConfig.url;
 
+// Facebook-flavoured locale strings for og:locale. Map our short codes once.
+const OG_LOCALE: Record<"en" | "hr", string> = {
+  en: "en_US",
+  hr: "hr_HR",
+};
+const otherLang = (lang: "en" | "hr") => (lang === "en" ? "hr" : "en");
+
 /**
  * Produce a clean SEO/meta description from a post.
  * Priority: hand-written description → excerpt → first 155 chars of body.
@@ -41,12 +48,12 @@ export function generatePostMetadata(post: Post | null, lang: "en" | "hr"): Meta
 
   const fullUrl = `${BASE_URL}/${lang}/${post.slug}`;
 
-  // Issue 8: include dimensions so social platforms render the large card format.
-  // When a post has no coverImage, fall back to the auto-generated OG image
-  // produced by src/app/opengraph-image.tsx (Next.js mounts it at /opengraph-image).
-  const imageUrl = post.coverImage
-    ? `${BASE_URL}${post.coverImage}`
-    : `${BASE_URL}/opengraph-image`;
+  // OG image precedence:
+  //  1. If the post has a coverImage, use it (real activity photo wins).
+  //  2. Otherwise, OMIT the override — Next.js auto-injects the per-post
+  //     dynamic OG image from src/app/(lang)/lang/[slug]/opengraph-image.tsx
+  //     which is a branded card with title + category badge.
+  const explicitImage = post.coverImage ? `${BASE_URL}${post.coverImage}` : null;
 
   return {
     title: post.title,
@@ -56,13 +63,20 @@ export function generatePostMetadata(post: Post | null, lang: "en" | "hr"): Meta
       description,
       url: fullUrl,
       type: "article",
-      images: [{ url: imageUrl, width: 1200, height: 630, alt: post.title }],
+      // og:locale tells Facebook which language card to show; alternateLocale
+      // signals the translation exists. Helps multilingual social previews.
+      locale: OG_LOCALE[lang],
+      alternateLocale: [OG_LOCALE[otherLang(lang)]],
+      siteName: siteConfig.name,
+      ...(explicitImage && {
+        images: [{ url: explicitImage, width: 1200, height: 630, alt: post.heroAlt || post.title }],
+      }),
     },
     twitter: {
       card: "summary_large_image",
       title: post.title,
       description,
-      images: [imageUrl],
+      ...(explicitImage && { images: [explicitImage] }),
     },
     // Issue 12: x-default tells Google which version to show to unmatched locales.
     alternates: {
@@ -81,21 +95,27 @@ export function generatePostMetadata(post: Post | null, lang: "en" | "hr"): Meta
 // ---------------------------------------------------------------------------
 export function generateJsonLd(post: Post, lang: "en" | "hr") {
   const fullUrl = `${BASE_URL}/${lang}/${post.slug}`;
+  // Fall back to the per-post generated OG image (branded card) when no
+  // explicit coverImage is set — looks much better than the site default.
   const imageUrl = post.coverImage
     ? `${BASE_URL}${post.coverImage}`
-    : `${BASE_URL}/opengraph-image`;
+    : `${fullUrl}/opengraph-image`;
 
   const description = makeDescription(post);
 
   return {
     "@context": "https://schema.org",
-    "@type": "Article",
+    // BlogPosting is a subtype of Article specifically for blog content —
+    // Google treats it identically but the narrower type helps the knowledge graph.
+    "@type": "BlogPosting",
     headline: post.title,
     description,
     image: [imageUrl],
-    author: { "@type": "Person", name: post.author ?? siteConfig.author.name },
-    // Issue 10: dateModified is required for Google's "Updated" label in SERPs.
-    // Fall back to datePublished if we don't track edits separately.
+    author: {
+      "@type": "Person",
+      name: post.author ?? siteConfig.author.name,
+      url: `${BASE_URL}/${lang}/about`,
+    },
     datePublished: post.date,
     dateModified: post.date,
     mainEntityOfPage: fullUrl,
@@ -103,6 +123,10 @@ export function generateJsonLd(post: Post, lang: "en" | "hr") {
       "@type": "Organization",
       name: siteConfig.name,
       url: BASE_URL,
+      logo: {
+        "@type": "ImageObject",
+        url: `${BASE_URL}/icon`,
+      },
     },
     inLanguage: lang,
   };
@@ -184,9 +208,10 @@ export function generateHowToJsonLd(post: Post, lang: "en" | "hr") {
   if (stepLines.length < 2) return null;
 
   const fullUrl = `${BASE_URL}/${lang}/${post.slug}`;
+  // Same precedence as BlogPosting: cover photo first, per-post generated card second.
   const imageUrl = post.coverImage
     ? `${BASE_URL}${post.coverImage}`
-    : `${BASE_URL}/opengraph-image`;
+    : `${fullUrl}/opengraph-image`;
 
   const description = makeDescription(post);
 
@@ -234,5 +259,49 @@ export function generateWebsiteJsonLd(lang: "en" | "hr") {
       lang === "hr"
         ? "Zabavne STEM aktivnosti i psihološki savjeti za djecu i roditelje."
         : siteConfig.description,
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Person JSON-LD — one entry per author bio on /about. Establishes authorship
+// signals beyond what BlogPosting carries inline, and links the person to the
+// publishing organisation. Render on /about (both languages).
+// ---------------------------------------------------------------------------
+import { authors } from "./authors";
+
+export function generateAuthorsJsonLd(lang: "en" | "hr") {
+  return Object.values(authors).map((a) => ({
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: a.name,
+    url: `${BASE_URL}/${lang}/about#${a.name.toLowerCase().replace(/\s+/g, "-")}`,
+    jobTitle: lang === "hr" ? a.roleHr : a.role,
+    description: lang === "hr" ? a.bioHr : a.bio,
+    worksFor: {
+      "@type": "Organization",
+      name: siteConfig.name,
+      url: BASE_URL,
+    },
+  }));
+}
+
+// ---------------------------------------------------------------------------
+// Organization JSON-LD — establishes the brand entity for Google's knowledge
+// graph. Render on the homepage. `sameAs` lists every live social profile so
+// Google can unify the brand with its off-site presence.
+// ---------------------------------------------------------------------------
+export function generateOrganizationJsonLd() {
+  // Filter out placeholder URLs (still set to "#" in site.ts) so we don't ship
+  // dead sameAs links — Google would treat those as broken brand signals.
+  const sameAs = Object.values(siteConfig.social).filter((url) => url && url !== "#");
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: siteConfig.name,
+    url: BASE_URL,
+    logo: `${BASE_URL}/icon`,
+    description: siteConfig.description,
+    ...(sameAs.length > 0 && { sameAs }),
   };
 }

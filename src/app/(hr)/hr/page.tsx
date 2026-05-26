@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 import { Metadata } from "next";
 import JsonLd from "@/components/JsonLd";
-import { generateWebsiteJsonLd } from "@/lib/metadata";
+import { generateWebsiteJsonLd, generateOrganizationJsonLd } from "@/lib/metadata";
 
 export const metadata: Metadata = {
   title: "STEM Little Explorers",
@@ -26,6 +26,7 @@ export default function CroatianHomePage() {
   return (
     <>
       <JsonLd data={generateWebsiteJsonLd("hr")} />
+      <JsonLd data={generateOrganizationJsonLd()} />
       <Header lang="hr" />
       <Hero lang="hr" />
       <main id="main-content" className="max-w-4xl mx-auto px-4 py-10">

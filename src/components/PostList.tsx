@@ -1,11 +1,18 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo } from "react";
 import PostCard from "./PostCard";
 import CategoryFilter from "./CategoryFilter";
 import { PostMeta } from "../lib/posts";
 
 const POSTS_PER_PAGE = 12;
+
+// Canonical display order for each language. Hoisted out of the component
+// so it's a stable reference (otherwise useMemo deps complain).
+const CATEGORY_ORDER: Record<string, string[]> = {
+  en: ["Science", "Engineering", "Math", "Technology", "Psychology"],
+  hr: ["Znanost", "Inženjerstvo", "Matematika", "Tehnologija", "Psihologija"],
+};
 
 export default function PostList({
   posts,
@@ -17,16 +24,14 @@ export default function PostList({
   const [category, setCategory] = useState<string | null>(null);
   const [page, setPage] = useState(1);
 
-  // Reset to page 1 whenever the category filter changes (issue 29)
-  useEffect(() => {
+  // React 19 prefers "adjust state during render" over useEffect-based resets.
+  // When the active filter changes, snap page back to 1 immediately — this
+  // happens during the same render pass, no cascading re-render.
+  const [prevCategory, setPrevCategory] = useState(category);
+  if (prevCategory !== category) {
+    setPrevCategory(category);
     setPage(1);
-  }, [category]);
-
-  // Canonical display order for each language
-  const CATEGORY_ORDER: Record<string, string[]> = {
-    en: ["Science", "Engineering", "Math", "Technology", "Psychology"],
-    hr: ["Znanost", "Inženjerstvo", "Matematika", "Tehnologija", "Psihologija"],
-  };
+  }
 
   const categories = useMemo(() => {
     const set = new Set<string>();
@@ -78,8 +83,9 @@ export default function PostList({
       ) : (
         <>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {paginated.map((post) => (
-              <PostCard key={post.slug} post={post} lang={lang} />
+            {paginated.map((post, i) => (
+              // First 3 cards are above-the-fold on most viewports → priority load
+              <PostCard key={post.slug} post={post} lang={lang} priority={i < 3} />
             ))}
           </div>
 

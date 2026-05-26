@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Link from "next/link";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -34,7 +35,7 @@ export default function TermsPage() {
           All articles, activities and resources on this site are provided for
           informational and educational purposes only. They are not a substitute for
           professional medical, psychological or educational advice. Always consult a
-          qualified professional for concerns about your child's health or development.
+          qualified professional for concerns about your child&rsquo;s health or development.
         </p>
 
         <h2>Intellectual property</h2>
@@ -67,7 +68,7 @@ export default function TermsPage() {
         <h2>Contact</h2>
         <p>
           Questions? Reach us via the{" "}
-          <a href="/en/contact">contact page</a>.
+          <Link href="/en/contact">contact page</Link>.
         </p>
       </main>
       <Footer lang="en" />

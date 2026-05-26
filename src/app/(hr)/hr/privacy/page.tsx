@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Link from "next/link";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -61,13 +62,13 @@ export default function PrivacyPage() {
         <p>
           Ako se nalazite u EU/EEA, imate pravo pristupa, ispravka ili brisanja osobnih
           podataka koje čuvamo o vama. Za ostvarivanje ovih prava kontaktirajte nas putem{" "}
-          <a href="/hr/contact">stranice za kontakt</a>.
+          <Link href="/hr/contact">stranice za kontakt</Link>.
         </p>
 
         <h2>Kontakt</h2>
         <p>
           Imate pitanja o ovoj politici? Koristite{" "}
-          <a href="/hr/contact">kontaktni obrazac</a> i odgovorit ćemo što je brže
+          <Link href="/hr/contact">kontaktni obrazac</Link> i odgovorit ćemo što je brže
           moguće.
         </p>
       </main>

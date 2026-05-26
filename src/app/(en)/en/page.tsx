@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 import { Metadata } from "next";
 import JsonLd from "@/components/JsonLd";
-import { generateWebsiteJsonLd } from "@/lib/metadata";
+import { generateWebsiteJsonLd, generateOrganizationJsonLd } from "@/lib/metadata";
 
 export const metadata: Metadata = {
   title: "STEM Little Explorers",
@@ -27,6 +27,7 @@ export default function EnglishHomePage() {
   return (
     <>
       <JsonLd data={generateWebsiteJsonLd("en")} />
+      <JsonLd data={generateOrganizationJsonLd()} />
       <Header lang="en" />
       {/* Issues 16 & 26: hero with value proposition replaces the empty top area */}
       <Hero lang="en" />

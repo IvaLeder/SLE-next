@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import PostCard from "./PostCard";
 import FilterChips from "./FilterChips";
 import { PostMeta } from "@/lib/posts";
@@ -38,11 +38,16 @@ export default function ActivitiesClient({ posts, lang }: Props) {
       })
     : posts;
 
+  // React 19 prefers "adjust state during render" over effect-based resets.
+  // When the active filter changes, snap page back to 1 immediately.
+  const [prevSubject, setPrevSubject] = useState(activeSubject);
+  if (prevSubject !== activeSubject) {
+    setPrevSubject(activeSubject);
+    setPage(1);
+  }
+
   const totalPages = Math.ceil(filtered.length / POSTS_PER_PAGE);
   const visible    = filtered.slice((page - 1) * POSTS_PER_PAGE, page * POSTS_PER_PAGE);
-
-  // Reset to page 1 when filter changes
-  useEffect(() => { setPage(1); }, [activeSubject]);
 
   return (
     <>
@@ -70,8 +75,9 @@ export default function ActivitiesClient({ posts, lang }: Props) {
         </p>
       ) : (
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {visible.map((post) => (
-            <PostCard key={post.slug} post={post} lang={lang} />
+          {visible.map((post, i) => (
+            // First 3 cards are above-the-fold on most viewports → priority load
+            <PostCard key={post.slug} post={post} lang={lang} priority={i < 3} />
           ))}
         </div>
       )}

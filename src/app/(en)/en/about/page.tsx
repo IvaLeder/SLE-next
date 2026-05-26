@@ -1,7 +1,10 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import JsonLd from "@/components/JsonLd";
+import Link from "next/link";
 import { Metadata } from "next";
 import { authors } from "@/lib/authors";
+import { generateAuthorsJsonLd } from "@/lib/metadata";
 
 export const metadata: Metadata = {
   title: "About | STEM Little Explorers",
@@ -19,6 +22,9 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <>
+      {generateAuthorsJsonLd("en").map((data, i) => (
+        <JsonLd key={i} data={data} />
+      ))}
       <Header lang="en" switchUrl="/hr/about" />
       <main id="main-content" className="max-w-3xl mx-auto px-4 py-10">
 
@@ -27,7 +33,7 @@ export default function AboutPage() {
         <p className="text-lg leading-relaxed text-gray-700 mb-4">
           STEM Little Explorers is a bilingual blog (English & Croatian) dedicated to
           making science, technology, engineering, maths and child psychology
-          accessible to every family. We believe that curiosity is a child's greatest
+          accessible to every family. We believe that curiosity is a child&rsquo;s greatest
           superpower — and that parents and educators are the best people to nurture it.
         </p>
 
@@ -38,8 +44,8 @@ export default function AboutPage() {
         </p>
 
         <p className="text-gray-700 mb-10">
-          Whether you're looking for a quick science experiment, a guide to a
-          developmental milestone, or an evidence-based parenting tip, you'll find
+          Whether you&rsquo;re looking for a quick science experiment, a guide to a
+          developmental milestone, or an evidence-based parenting tip, you&rsquo;ll find
           it here — in English and Croatian.
         </p>
 
@@ -69,12 +75,12 @@ export default function AboutPage() {
           <p className="text-gray-700 mb-4">
             Have a question, a topic suggestion or just want to say hello?
           </p>
-          <a
+          <Link
             href="/en/contact"
             className="inline-block px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold rounded-lg transition"
           >
             Contact us →
-          </a>
+          </Link>
         </div>
 
       </main>

@@ -1,7 +1,10 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import JsonLd from "@/components/JsonLd";
+import Link from "next/link";
 import { Metadata } from "next";
 import { authors } from "@/lib/authors";
+import { generateAuthorsJsonLd } from "@/lib/metadata";
 
 export const metadata: Metadata = {
   title: "O nama | STEM Little Explorers",
@@ -19,6 +22,9 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <>
+      {generateAuthorsJsonLd("hr").map((data, i) => (
+        <JsonLd key={i} data={data} />
+      ))}
       <Header lang="hr" switchUrl="/en/about" />
       <main id="main-content" className="max-w-3xl mx-auto px-4 py-10">
 
@@ -69,12 +75,12 @@ export default function AboutPage() {
           <p className="text-gray-700 mb-4">
             Imate pitanje, prijedlog teme ili samo želite pozdraviti?
           </p>
-          <a
+          <Link
             href="/hr/contact"
             className="inline-block px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold rounded-lg transition"
           >
             Kontakt →
-          </a>
+          </Link>
         </div>
 
       </main>

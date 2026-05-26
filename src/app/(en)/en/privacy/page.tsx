@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Link from "next/link";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -37,7 +38,7 @@ export default function PrivacyPage() {
             <strong>Newsletter sign-ups</strong> — email address, collected and stored
             by Mailchimp. See{" "}
             <a href="https://mailchimp.com/legal/privacy/" target="_blank" rel="noreferrer">
-              Mailchimp's Privacy Policy
+              Mailchimp&rsquo;s Privacy Policy
             </a>
             .
           </li>
@@ -64,13 +65,13 @@ export default function PrivacyPage() {
           If you are located in the EU/EEA, you have the right to access, correct or
           delete any personal data we hold about you. To exercise these rights, please
           contact us via the{" "}
-          <a href="/en/contact">contact page</a>.
+          <Link href="/en/contact">contact page</Link>.
         </p>
 
         <h2>Contact</h2>
         <p>
           Questions about this policy? Use the{" "}
-          <a href="/en/contact">contact form</a> and we will respond as soon as
+          <Link href="/en/contact">contact form</Link> and we will respond as soon as
           possible.
         </p>
       </main>

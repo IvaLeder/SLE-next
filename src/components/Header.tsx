@@ -12,38 +12,50 @@ type HeaderProps = {
 
 const SUBJECTS = {
   en: [
-    { href: "/en/category/science",      label: "Science" },
-    { href: "/en/category/engineering",  label: "Engineering" },
-    { href: "/en/category/math",         label: "Math" },
-    { href: "/en/category/technology",   label: "Technology" },
-    { href: "/en/category/psychology",   label: "Psychology" },
+    { href: "/en/category/science", label: "Science" },
+    { href: "/en/category/engineering", label: "Engineering" },
+    { href: "/en/category/math", label: "Math" },
+    { href: "/en/category/technology", label: "Technology" },
+    { href: "/en/category/psychology", label: "Psychology" },
   ],
   hr: [
-    { href: "/hr/category/science",     label: "Znanost" },
+    { href: "/hr/category/science", label: "Znanost" },
     { href: "/hr/category/engineering", label: "Inženjerstvo" },
-    { href: "/hr/category/math",        label: "Matematika" },
-    { href: "/hr/category/technology",  label: "Tehnologija" },
-    { href: "/hr/category/psychology",  label: "Psihologija" },
+    { href: "/hr/category/math", label: "Matematika" },
+    { href: "/hr/category/technology", label: "Tehnologija" },
+    { href: "/hr/category/psychology", label: "Psihologija" },
   ],
 };
 
 export default function Header({ lang, switchUrl }: HeaderProps) {
-  const [open, setOpen]           = useState(false);
+  const [open, setOpen] = useState(false);
   const [subjectsOpen, setSubjectsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const pathname   = usePathname();
+  const pathname = usePathname();
   const switchLang = lang === "en" ? "hr" : "en";
 
   const fallbackSwitchUrl = "/" + switchLang + pathname.replace(`/${lang}`, "");
-  const finalSwitchUrl    = switchUrl || fallbackSwitchUrl;
+  const finalSwitchUrl = switchUrl || fallbackSwitchUrl;
 
   const subjects = SUBJECTS[lang];
+
+  // aria-current value for a nav Link. `/{lang}` (home) only matches exactly;
+  // everything else matches as a prefix so /en/category/science highlights the
+  // Subjects parent too.
+  const homeHref = `/${lang}`;
+  const ariaCurrent = (href: string): "page" | undefined => {
+    if (href === homeHref) return pathname === homeHref ? "page" : undefined;
+    return pathname === href || pathname.startsWith(href + "/") ? "page" : undefined;
+  };
 
   // Close dropdown when clicking outside
   useEffect(() => {
     function handleClick(e: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(e.target as Node)
+      ) {
         setSubjectsOpen(false);
       }
     }
@@ -56,19 +68,20 @@ export default function Header({ lang, switchUrl }: HeaderProps) {
       {/* Compact mobile bar (~48px tall) — expands on md+ */}
       <div className="max-w-5xl mx-auto flex items-center justify-between px-4 py-2 md:py-4">
         <Link href={`/${lang}`} className="text-base md:text-xl font-bold">
-          STEM Explorers
+          STEM Little Explorers
         </Link>
 
         {/* Desktop nav */}
         <nav className="hidden md:flex gap-6 items-center text-sm">
-          <Link href={`/${lang}`} className="hover:opacity-70">
+          <Link href={`/${lang}`} aria-current={ariaCurrent(`/${lang}`)} className="hover:opacity-70 aria-[current=page]:font-semibold">
             {lang === "en" ? "Home" : "Naslovnica"}
           </Link>
 
           {/* Activities — tag-based page */}
           <Link
             href={`/${lang}/activities`}
-            className="flex items-center gap-1 font-semibold text-indigo-600 hover:text-indigo-800"
+            aria-current={ariaCurrent(`/${lang}/activities`)}
+            className="flex items-center gap-1 font-semibold text-indigo-600 hover:text-indigo-800 aria-[current=page]:underline aria-[current=page]:underline-offset-4"
           >
             <span aria-hidden="true">⚡</span>
             {lang === "en" ? "Activities" : "Aktivnosti"}
@@ -83,7 +96,11 @@ export default function Header({ lang, switchUrl }: HeaderProps) {
               aria-expanded={subjectsOpen}
             >
               {lang === "en" ? "Subjects" : "Predmeti"}
-              <svg className="w-3 h-3 mt-0.5" viewBox="0 0 10 6" fill="currentColor">
+              <svg
+                className="w-3 h-3 mt-0.5"
+                viewBox="0 0 10 6"
+                fill="currentColor"
+              >
                 <path d="M0 0l5 6 5-6z" />
               </svg>
             </button>
@@ -93,7 +110,8 @@ export default function Header({ lang, switchUrl }: HeaderProps) {
                   <Link
                     key={s.href}
                     href={s.href}
-                    className="block px-4 py-2 text-sm hover:bg-indigo-50 hover:text-indigo-700"
+                    aria-current={ariaCurrent(s.href)}
+                    className="block px-4 py-2 text-sm hover:bg-indigo-50 hover:text-indigo-700 aria-[current=page]:bg-indigo-100 aria-[current=page]:text-indigo-700 aria-[current=page]:font-semibold"
                     onClick={() => setSubjectsOpen(false)}
                   >
                     {s.label}
@@ -103,11 +121,19 @@ export default function Header({ lang, switchUrl }: HeaderProps) {
             )}
           </div>
 
-          <Link href={`/${lang}/about`} className="hover:opacity-70">
+          <Link
+            href={`/${lang}/about`}
+            aria-current={ariaCurrent(`/${lang}/about`)}
+            className="hover:opacity-70 aria-[current=page]:font-semibold"
+          >
             {lang === "en" ? "About" : "O nama"}
           </Link>
 
-          <Link href={`/${lang}/contact`} className="hover:opacity-70">
+          <Link
+            href={`/${lang}/contact`}
+            aria-current={ariaCurrent(`/${lang}/contact`)}
+            className="hover:opacity-70 aria-[current=page]:font-semibold"
+          >
             {lang === "en" ? "Contact" : "Kontakt"}
           </Link>
 

@@ -72,7 +72,7 @@ export default function ShareButtons({ url, title, image, lang }: Props) {
   const btn = "w-9 h-9 inline-flex items-center justify-center rounded-full bg-white border border-gray-200 text-gray-600 hover:text-indigo-600 hover:border-indigo-400 transition";
 
   return (
-    <div className="mt-10 pt-6 border-t flex items-center gap-3 flex-wrap">
+    <div data-no-print className="mt-10 pt-6 border-t flex items-center gap-3 flex-wrap">
       <span className="text-sm font-semibold text-gray-700 mr-1">{t.heading}:</span>
 
       <a href={fbHref} target="_blank" rel="noopener noreferrer" aria-label={t.facebook} className={btn}>

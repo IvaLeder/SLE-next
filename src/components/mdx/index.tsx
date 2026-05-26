@@ -1,16 +1,12 @@
 import YouTube from "./YouTube";
 import { Callout } from "./Callout";
 import NextImage, { type ImageProps } from "next/image";
+import Lightbox from "./Lightbox";
 import { SubscribeButton } from "../SubscribeButton";
 
-// Markdown ![alt](src) gets rewritten to <NextImage>. The rehype-slug plugin
-// already assigns IDs to h1/h2/h3 so we don't override them here — overriding
-// would either no-op (id was already set by rehype-slug, and JSX spread is
-// last-write-wins) or double-slugify.
-//
-// Image dimensions: Markdown doesn't carry width/height. Without them we'd
-// get layout shift, so we render with a fixed aspect-ratio wrapper and let
-// Next.js fill responsively. Authors can override via <Image src=… width=… />.
+// Markdown ![alt](src) and <Image src=…/> in MDX both flow through here.
+// Routed to <Lightbox> so any inline content image is tap-to-zoom.
+// rehype-slug already assigns IDs to h1/h2/h3 so we don't override headings.
 type MdxImgProps = {
   src?: string;
   alt?: string;
@@ -20,39 +16,36 @@ type MdxImgProps = {
 
 function MdxImg({ src, alt = "", width, height }: MdxImgProps) {
   if (!src) return null;
-
-  // If explicit dimensions are provided in MDX (e.g. via the <Image /> JSX form),
-  // use them verbatim — no aspect-ratio wrapper needed.
-  if (width && height) {
-    return (
-      <NextImage
-        src={src}
-        alt={alt}
-        width={Number(width)}
-        height={Number(height)}
-        sizes="(min-width: 768px) 768px, 100vw"
-        className="my-6 rounded-md w-full h-auto"
-      />
-    );
-  }
-
-  // Markdown-style image: known src, unknown intrinsic size. Use fill mode with
-  // a 16:9 aspect-ratio wrapper so the slot is reserved before the image loads
-  // (zero CLS) without lying about dimensions.
   return (
-    <div className="my-6 relative w-full aspect-[16/9] overflow-hidden rounded-md">
-      <NextImage
-        src={src}
-        alt={alt}
-        fill
-        sizes="(min-width: 768px) 768px, 100vw"
-        className="object-cover"
-      />
-    </div>
+    <Lightbox
+      src={src}
+      alt={alt}
+      width={width ? Number(width) : undefined}
+      height={height ? Number(height) : undefined}
+    />
+  );
+}
+
+// `a` in MDX → secure external links. Same-origin links pass through unchanged.
+// Heuristic: anything starting with http(s):// is treated as external.
+function MdxLink({
+  href,
+  children,
+  ...rest
+}: React.AnchorHTMLAttributes<HTMLAnchorElement>) {
+  const isExternal = typeof href === "string" && /^https?:\/\//i.test(href);
+  if (!isExternal) {
+    return <a href={href} {...rest}>{children}</a>;
+  }
+  return (
+    <a href={href} target="_blank" rel="noopener noreferrer" {...rest}>
+      {children}
+    </a>
   );
 }
 
 export const mdxComponents = {
+  a: MdxLink,
   img: MdxImg,
   Image: (props: ImageProps) => <NextImage {...props} className="my-6 rounded-md" />,
   Subscribe: SubscribeButton,

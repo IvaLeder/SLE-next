@@ -76,6 +76,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
         changeFrequency: "monthly" as const,
         priority: 0.6,
         alternates: { languages },
+        // Image sitemap protocol — surfaces cover photos in Google Images.
+        // Falls back to the auto-generated OG image when no cover is set.
+        images: [
+          post.coverImage
+            ? `${BASE_URL}${post.coverImage}`
+            : `${BASE_URL}/opengraph-image`,
+        ],
       };
     });
   });

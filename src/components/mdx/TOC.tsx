@@ -79,6 +79,11 @@ export default function TOC() {
       }
     }
 
+    // Legitimate use of setState in effect: this synchronises with the DOM
+    // (an external system), which is exactly what useEffect is for. The lint
+    // rule's typical concern (cascading re-renders) doesn't apply since this
+    // runs once after mount and never again.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setItems(tree);
     // MDX content is static after hydration — scan once, no observer needed.
   }, []);

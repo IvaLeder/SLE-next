@@ -5,9 +5,12 @@ import { PostMeta } from "../lib/posts";
 export default function PostCard({
   post,
   lang,
+  priority = false,
 }: {
   post: PostMeta;
   lang: "en" | "hr";
+  /** Set true for above-the-fold cards (LCP candidate). Default false → lazy-loaded. */
+  priority?: boolean;
 }) {
   const readLabel = lang === "hr" ? "min čitanja" : "min read";
 
@@ -21,7 +24,8 @@ export default function PostCard({
           src={post.coverImage || "/images/placeholder.svg"}
           alt={post.heroAlt || post.title}
           fill
-          sizes="(max-width: 768px) 100vw, 33vw"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          priority={priority}
           className="object-cover group-hover:scale-105 transition-transform duration-300"
         />
       </div>

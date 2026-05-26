@@ -9,7 +9,8 @@
     "lint": "eslint",
     "validate": "node scripts/validate-posts.mjs",
     "validate:strict": "node scripts/validate-posts.mjs --strict",
-    "new-post": "node scripts/new-post.mjs"
+    "new-post": "node scripts/new-post.mjs",
+    "prepare": "husky"
   },
   "dependencies": {
     "@next/mdx": "^16.1.1",
@@ -40,7 +41,20 @@
     "@types/react-google-recaptcha": "^2.1.9",
     "eslint": "^9",
     "eslint-config-next": "16.0.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "overrides": {
+    "postcss": "^8.5.15"
+  },
+  "lint-staged": {
+    "src/content/posts/**/*.{md,mdx}": [
+      "node scripts/validate-posts.mjs"
+    ],
+    "*.{ts,tsx}": [
+      "eslint --fix"
+    ]
   }
 }

@@ -23,6 +23,7 @@ import FloatingSubscribeCard from "@/components/FloatingSubscribeCard";
 import PostCard from "@/components/PostCard";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import AuthorBio from "@/components/AuthorBio";
+import ReadingProgress from "@/components/ReadingProgress";
 import ShareButtons from "@/components/ShareButtons";
 import { SubscribeButton } from "@/components/SubscribeButton";
 import { siteConfig } from "@/config/site";
@@ -80,7 +81,10 @@ export default async function PostPage({ params }: Props) {
             alt={post.heroAlt || post.title}
             fill
             priority
-            sizes="100vw"
+            // Article body is capped at max-w-3xl (~768 px). Above that
+            // breakpoint the image never gets wider than 768 px, so don't
+            // fetch 1920 px variants on a 4K screen.
+            sizes="(min-width: 768px) 768px, 100vw"
             className="object-cover rounded"
           />
         </div>
@@ -153,7 +157,7 @@ export default async function PostPage({ params }: Props) {
       <AuthorBio name={post.author} lang="hr" />
 
       {/* Issue 24: inline subscribe CTA for mobile */}
-      <div className="lg:hidden mt-10 p-6 bg-indigo-50 rounded-xl text-center">
+      <div data-no-print className="lg:hidden mt-10 p-6 bg-indigo-50 rounded-xl text-center">
         <p className="font-semibold text-gray-800 mb-1">Sviđa vam se ovaj članak?</p>
         <p className="text-sm text-gray-600 mb-4">
           Pretplatite se i primajte nove objave ravno u inbox.
@@ -162,7 +166,7 @@ export default async function PostPage({ params }: Props) {
       </div>
 
       {relatedPosts.length > 0 && (
-        <section className="mt-12 border-t pt-6">
+        <section data-no-print className="mt-12 border-t pt-6">
           <h2 className="text-2xl font-bold mb-4">Srodni članci</h2>
           <div className="grid gap-4 md:grid-cols-3">
             {relatedPosts.map((r) => (
@@ -173,6 +177,7 @@ export default async function PostPage({ params }: Props) {
       )}
 
       <FloatingSubscribeCard lang="hr" />
+      <ReadingProgress lang="hr" />
     </div>
   );
 }

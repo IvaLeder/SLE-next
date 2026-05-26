@@ -7,3 +7,49 @@
 body {
   @apply bg-gray-50 text-gray-900;
 }
+
+/* ─── Print styles ─────────────────────────────────────────────────────────
+   Parents print activity instructions. Hide all the page chrome that wastes
+   ink (header, footer, share buttons, subscribe CTA, TOC, breadcrumbs, etc.)
+   and reflow the article body to full page width.
+   Components opt out of printing by adding the `data-no-print` attribute. */
+@media print {
+  /* Hide global chrome */
+  header,
+  footer,
+  aside,
+  nav,
+  [data-no-print] {
+    display: none !important;
+  }
+
+  /* Drop coloured backgrounds and let content fill the page */
+  body {
+    background: #fff !important;
+    color: #000 !important;
+  }
+  main, article, .prose {
+    max-width: none !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Make links useful on paper — print the URL after each external link */
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.85em;
+    color: #555;
+    word-break: break-all;
+  }
+
+  /* Don't split images or callouts across page breaks */
+  img, figure, .callout {
+    break-inside: avoid;
+  }
+
+  /* Heading break hints */
+  h1, h2, h3 {
+    break-after: avoid;
+  }
+}

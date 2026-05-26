@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import Link from "next/link";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -67,7 +68,7 @@ export default function TermsPage() {
         <h2>Kontakt</h2>
         <p>
           Imate pitanja? Kontaktirajte nas putem{" "}
-          <a href="/hr/contact">stranice za kontakt</a>.
+          <Link href="/hr/contact">stranice za kontakt</Link>.
         </p>
       </main>
       <Footer lang="hr" />

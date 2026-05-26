@@ -22,12 +22,21 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         en: `https://stemlittleexplorers.com/en/category/${slug}`,
         hr: `https://stemlittleexplorers.com/hr/category/${slug}`,
       },
+      // Advertise the per-category RSS feed so feed readers can discover it.
+      types: {
+        "application/rss+xml": [
+          {
+            url: `https://stemlittleexplorers.com/rss-en-${slug}.xml`,
+            title: `${displayName} — STEM Little Explorers (EN)`,
+          },
+        ],
+      },
     },
   };
 }
 
 export async function generateStaticParams() {
-  return getAllCategories("en").map((slug) => ({ category: slug }));
+  return getAllCategories().map((slug) => ({ category: slug }));
 }
 
 export default async function CategoryPage({ params }: Props) {
@@ -51,8 +60,8 @@ export default async function CategoryPage({ params }: Props) {
         </h1>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {posts.map((post) => (
-            <PostCard key={post.slug} post={post} lang="en" />
+          {posts.map((post, i) => (
+            <PostCard key={post.slug} post={post} lang="en" priority={i < 3} />
           ))}
         </div>
       </main>

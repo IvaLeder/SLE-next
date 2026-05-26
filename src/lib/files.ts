@@ -8,7 +8,7 @@ export function getFileSize(filePath: string): string | null {
     const sizeInBytes = stats.size;
     const sizeInMB = sizeInBytes / (1024 * 1024);
     return `${sizeInMB.toFixed(1)} MB`;
-  } catch (error) {
+  } catch {
     console.warn("Could not get file size for:", filePath);
     return null;
   }

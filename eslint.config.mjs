@@ -12,6 +12,16 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Root-level one-shot helper scripts — Node tooling, not app code.
+    // They use CommonJS or have throwaway-quality. Don't lint them.
+    "check-translations.js",
+    "migrate-categories.js",
+    "compress-images.mjs",
+    "convert-gifs.mjs",
+    "restore-larger-than-original.mjs",
+    "scripts/**",
+    // Husky's generated shim files
+    ".husky/**",
   ]),
 ]);
 

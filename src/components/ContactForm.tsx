@@ -7,8 +7,16 @@ type Props = {
   lang: "en" | "hr";
 };
 
+// Field caps — keep these aligned with the server (api/contact/route.ts).
+const MAX_NAME = 100;
+const MAX_EMAIL = 254;
+const MAX_MESSAGE = 5000;
+
 export default function ContactForm({ lang }: Props) {
-  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
+  // The `website` field is a honeypot — invisible to humans, irresistible to bots.
+  // If a request hits the API with `website` non-empty, the server silently
+  // discards it.
+  const [formData, setFormData] = useState({ name: "", email: "", message: "", website: "" });
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const recaptchaRef = useRef<ReCAPTCHA>(null);
 
@@ -34,7 +42,7 @@ export default function ContactForm({ lang }: Props) {
 
       if (res.ok) {
         setStatus("success");
-        setFormData({ name: "", email: "", message: "" });
+        setFormData({ name: "", email: "", message: "", website: "" });
       } else {
         setStatus("error");
       }
@@ -55,6 +63,7 @@ export default function ContactForm({ lang }: Props) {
       sending: "Sending...",
       success: "✅ Thank you! Your message has been sent.",
       error: "❌ Something went wrong. Please try again later.",
+      charsRemaining: (n: number) => `${n} characters remaining`,
     },
     hr: {
       title: "Kontakt",
@@ -65,26 +74,47 @@ export default function ContactForm({ lang }: Props) {
       sending: "Šaljem...",
       success: "✅ Hvala! Vaša poruka je poslana.",
       error: "❌ Nešto je pošlo po zlu. Pokušajte ponovo kasnije.",
+      charsRemaining: (n: number) => `${n} preostalih znakova`,
     },
   }[lang];
 
+  const messageRemaining = MAX_MESSAGE - formData.message.length;
+
   return (
-    <main className="max-w-xl mx-auto p-6">
+    // The wrapper page already provides <main>, so use a div here to avoid
+    // nested <main> elements (invalid HTML).
+    <div className="max-w-xl mx-auto p-6">
       <h1 className="text-3xl font-bold mb-6">{t.title}</h1>
 
       {status === "success" && (
-        <div className="p-4 mb-4 text-green-800 bg-green-100 border border-green-200 rounded">
+        <div className="p-4 mb-4 text-green-800 bg-green-100 border border-green-200 rounded" role="status">
           {t.success}
         </div>
       )}
 
       {status === "error" && (
-        <div className="p-4 mb-4 text-red-800 bg-red-100 border border-red-200 rounded">
+        <div className="p-4 mb-4 text-red-800 bg-red-100 border border-red-200 rounded" role="alert">
           {t.error}
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-4" noValidate>
+        {/* Honeypot — hidden from real users via CSS, autocomplete off,
+            tabindex=-1 so keyboard users skip it, aria-hidden so screen
+            readers ignore it. Bots fill ALL inputs blindly and get caught. */}
+        <div className="absolute -left-[10000px] w-px h-px overflow-hidden" aria-hidden="true">
+          <label htmlFor="website">Website (leave blank)</label>
+          <input
+            id="website"
+            name="website"
+            type="text"
+            tabIndex={-1}
+            autoComplete="off"
+            value={formData.website}
+            onChange={handleChange}
+          />
+        </div>
+
         {/* Name */}
         <div>
           <label htmlFor="name" className="block text-sm font-medium mb-1">
@@ -96,7 +126,9 @@ export default function ContactForm({ lang }: Props) {
             value={formData.name}
             onChange={handleChange}
             required
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            maxLength={MAX_NAME}
+            autoComplete="name"
+            className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
         </div>
 
@@ -112,7 +144,10 @@ export default function ContactForm({ lang }: Props) {
             value={formData.email}
             onChange={handleChange}
             required
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            maxLength={MAX_EMAIL}
+            autoComplete="email"
+            inputMode="email"
+            className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
         </div>
 
@@ -128,8 +163,17 @@ export default function ContactForm({ lang }: Props) {
             value={formData.message}
             onChange={handleChange}
             required
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            maxLength={MAX_MESSAGE}
+            aria-describedby="message-counter"
+            className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
+          <p
+            id="message-counter"
+            className={`mt-1 text-xs text-right ${messageRemaining < 100 ? "text-amber-600" : "text-gray-400"}`}
+            aria-live="polite"
+          >
+            {t.charsRemaining(messageRemaining)}
+          </p>
         </div>
 
         {/* reCAPTCHA */}
@@ -139,11 +183,11 @@ export default function ContactForm({ lang }: Props) {
         <button
           type="submit"
           disabled={status === "submitting"}
-          className="bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700 disabled:opacity-50"
+          className="bg-indigo-600 text-white px-5 py-2 rounded-lg hover:bg-indigo-700 disabled:opacity-50 transition"
         >
           {status === "submitting" ? t.sending : t.send}
         </button>
       </form>
-    </main>
+    </div>
   );
 }

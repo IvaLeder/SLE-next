@@ -108,9 +108,12 @@ export function getPostsByCategory(lang: "en" | "hr", slug: string): Post[] {
 }
 
 // ------------------------------------------------------
-//  Get ALL category slugs (English, ASCII-safe, URL-ready)
+//  Get ALL category slugs (English, ASCII-safe, URL-ready).
+//  The slugs are language-neutral by design; both `/en/category/science`
+//  and `/hr/category/science` route to the same slug — the page resolves
+//  the display name via CATEGORY_DISPLAY[lang].
 // ------------------------------------------------------
-export function getAllCategories(_lang?: "en" | "hr"): string[] {
+export function getAllCategories(): string[] {
   return [...CATEGORY_SLUGS];
 }
 

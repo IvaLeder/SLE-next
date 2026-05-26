@@ -33,6 +33,40 @@ const config: NextConfig = {
       { protocol: 'https', hostname: 'img.youtube.com', pathname: '/vi/**' },
     ],
   },
+
+  // ─── Security headers ─────────────────────────────────────────────────
+  // Defence-in-depth: each header closes one well-known attack class.
+  // Applied to ALL routes via `source: '/(.*)'`.
+  async headers() {
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          // Tell browsers to always use HTTPS for this domain (2 years, with subdomains + preload-list eligible).
+          { key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubDomains; preload' },
+
+          // Block this site from being framed by other origins (clickjacking).
+          { key: 'X-Frame-Options', value: 'DENY' },
+
+          // Prevent browsers from MIME-sniffing a response away from the declared content-type.
+          { key: 'X-Content-Type-Options', value: 'nosniff' },
+
+          // When navigating off-site, only send the origin (not the full URL with path/query).
+          { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+
+          // Explicitly opt out of powerful APIs we never use.
+          {
+            key: 'Permissions-Policy',
+            value: 'camera=(), microphone=(), geolocation=(), interest-cohort=(), browsing-topics=()',
+          },
+
+          // Cross-origin protections — modest values that don't break embeds (YouTube etc.).
+          { key: 'Cross-Origin-Opener-Policy', value: 'same-origin' },
+          { key: 'X-DNS-Prefetch-Control', value: 'on' },
+        ],
+      },
+    ];
+  },
 };
 
 export default withMDX(config);
