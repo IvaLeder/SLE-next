@@ -6,6 +6,7 @@ import type { Metadata, Viewport } from "next";
 import { siteConfig } from "@/config/site";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import GtmWithConsent from "@/components/GtmWithConsent";
 
 const lora = Lora({
   subsets: ["latin", "latin-ext"],
@@ -58,6 +59,8 @@ export default function HrRootLayout({
         {children}
         <Analytics />
         <SpeedInsights />
+        {/* GTM + Consent Mode v2 defaults — no-ops when NEXT_PUBLIC_GTM_ID is unset */}
+        <GtmWithConsent />
       </body>
     </html>
   );

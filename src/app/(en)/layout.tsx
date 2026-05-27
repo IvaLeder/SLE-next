@@ -7,6 +7,7 @@ import type { Metadata, Viewport } from "next";
 import { siteConfig } from "@/config/site";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import GtmWithConsent from "@/components/GtmWithConsent";
 
 // Lora drives body copy + article prose + page titles (editorial feel).
 // Italic is now included so MDX *italics* render with a real italic face
@@ -64,6 +65,8 @@ export default function EnRootLayout({
         {children}
         <Analytics />
         <SpeedInsights />
+        {/* GTM + Consent Mode v2 defaults — no-ops when NEXT_PUBLIC_GTM_ID is unset */}
+        <GtmWithConsent />
       </body>
     </html>
   );
