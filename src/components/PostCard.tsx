@@ -6,12 +6,22 @@ export default function PostCard({
   post,
   lang,
   priority = false,
+  headingLevel = "h3",
 }: {
   post: PostMeta;
   lang: "en" | "hr";
   /** Set true for above-the-fold cards (LCP candidate). Default false → lazy-loaded. */
   priority?: boolean;
+  /**
+   * Heading tag for the card title. Use `"h2"` on listing pages where the card
+   * is a top-level section (homepage, /activities, category, tag, author, 404
+   * suggestions) so the page outline reads h1 → h2 with no skipped levels.
+   * Default `"h3"` is correct under article "Related Posts" grids where an
+   * `<h2>` already labels the surrounding section.
+   */
+  headingLevel?: "h2" | "h3";
 }) {
+  const HeadingTag = headingLevel;
   const readLabel = lang === "hr" ? "min čitanja" : "min read";
   const updatedLabel = lang === "hr" ? "Ažurirano" : "Updated";
 
@@ -51,9 +61,9 @@ export default function PostCard({
           {post.categories?.[0]}
         </div>
 
-        <h3 className="font-serif text-lg font-bold leading-snug group-hover:text-brand transition-colors">
+        <HeadingTag className="font-serif text-lg font-bold leading-snug group-hover:text-brand transition-colors">
           {post.title}
-        </h3>
+        </HeadingTag>
 
         {/* date + reading time in one meta line — UI sans + tabular figures so
             counts vertically align across cards in a grid. */}

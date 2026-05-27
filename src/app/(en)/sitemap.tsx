@@ -90,12 +90,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
         priority: 0.6,
         alternates: { languages },
         // Image sitemap protocol — surfaces cover photos in Google Images.
-        // Falls back to the auto-generated OG image when no cover is set.
-        images: [
-          post.coverImage
-            ? `${BASE_URL}${post.coverImage}`
-            : `${BASE_URL}/opengraph-image`,
-        ],
+        // Only emit when a real cover photo exists: the bare `/opengraph-image`
+        // URL 404s (Next.js serves it at a hashed path), so falling back to it
+        // would feed Google broken image references.
+        ...(post.coverImage && {
+          images: [`${BASE_URL}${post.coverImage}`],
+        }),
       };
     });
   });

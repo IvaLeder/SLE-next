@@ -85,7 +85,7 @@ export default function PostList({
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {paginated.map((post, i) => (
               // First 3 cards are above-the-fold on most viewports → priority load
-              <PostCard key={post.slug} post={post} lang={lang} priority={i < 3} />
+              <PostCard key={post.slug} post={post} lang={lang} priority={i < 3} headingLevel="h2" />
             ))}
           </div>
 

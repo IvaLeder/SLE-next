@@ -95,11 +95,10 @@ export function generatePostMetadata(post: Post | null, lang: "en" | "hr"): Meta
 // ---------------------------------------------------------------------------
 export function generateJsonLd(post: Post, lang: "en" | "hr") {
   const fullUrl = `${BASE_URL}/${lang}/${post.slug}`;
-  // Fall back to the per-post generated OG image (branded card) when no
-  // explicit coverImage is set — looks much better than the site default.
-  const imageUrl = post.coverImage
-    ? `${BASE_URL}${post.coverImage}`
-    : `${fullUrl}/opengraph-image`;
+  // Only emit `image` when we have a real cover photo. The per-post OG image
+  // route is served at a hashed URL (e.g. `/opengraph-image-35z9bs.png`), so
+  // a bare `/opengraph-image` link would 404 in the JSON-LD payload.
+  const imageUrl = post.coverImage ? `${BASE_URL}${post.coverImage}` : null;
 
   const description = makeDescription(post);
 
@@ -110,7 +109,7 @@ export function generateJsonLd(post: Post, lang: "en" | "hr") {
     "@type": "BlogPosting",
     headline: post.title,
     description,
-    image: [imageUrl],
+    ...(imageUrl && { image: [imageUrl] }),
     author: {
       "@type": "Person",
       name: post.author ?? siteConfig.author.name,
@@ -210,10 +209,9 @@ export function generateHowToJsonLd(post: Post, lang: "en" | "hr") {
   if (stepLines.length < 2) return null;
 
   const fullUrl = `${BASE_URL}/${lang}/${post.slug}`;
-  // Same precedence as BlogPosting: cover photo first, per-post generated card second.
-  const imageUrl = post.coverImage
-    ? `${BASE_URL}${post.coverImage}`
-    : `${fullUrl}/opengraph-image`;
+  // Same precedence as BlogPosting — only emit `image` when we have a real
+  // cover photo (bare `/opengraph-image` 404s; Next.js serves a hashed URL).
+  const imageUrl = post.coverImage ? `${BASE_URL}${post.coverImage}` : null;
 
   const description = makeDescription(post);
 
@@ -222,7 +220,7 @@ export function generateHowToJsonLd(post: Post, lang: "en" | "hr") {
     "@type": "HowTo",
     name: post.title,
     description,
-    image: [imageUrl],
+    ...(imageUrl && { image: [imageUrl] }),
     inLanguage: lang,
     mainEntityOfPage: fullUrl,
     totalTime: "PT30M", // default 30-minute estimate; can be overridden via frontmatter later
