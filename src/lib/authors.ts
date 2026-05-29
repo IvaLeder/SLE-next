@@ -4,6 +4,7 @@ export type AuthorInfo = {
   roleHr: string;
   bio: string;
   bioHr: string;
+  avatar?: string;
 };
 
 /**
@@ -14,21 +15,21 @@ export type AuthorInfo = {
  */
 export const authors: Record<string, AuthorInfo> = {
   "Iva Leder": {
+    avatar: "/images/iva-leder.jpg",
     name: "Iva Leder",
-    role: "Educator & Child Development Writer",
-    roleHr: "Pedagoginja i autorica",
-    bio: "Iva is a mother and educator with a passion for child psychology and early development. She writes practical guides to help parents and educators support children's growth through play, science and creativity.",
-    bioHr: "Iva je majka i pedagoginja s velikim interesom za dječju psihologiju i rani razvoj djeteta. Piše praktične vodiče koji roditeljima i odgajateljima pomažu podupirati djetetov razvoj kroz igru, znanost i kreativnost.",
+    role: "Psychologist",
+    roleHr: "magistra psihologije",
+    bio: "Founder of the idea for a website and a big lover of technology and everything that has some form of code in it. She has a few years of working with children under her belt and thinks it’s important to prepare them for the challenges that the future brings. With her vast database, I mean knowledge, she always strives to find new ways to teach more efficiently and creatively. She sees great potential in every child and her job is to find the right method to express that potential.",
+    bioHr: "Idejni začetnik web stranice i veliki ljubitelj tehnologije i svega što sadrži bilo kakvu formu koda u sebi. Iva ima nekoliko godina iskustva u radu s djecom, a cilj joj je pripremiti ih za izazove koje donosi budućnost. Sa svojom ogromnom bazom podataka, ovaj, znanjem, njezina neprestana misija je pronalaženje novih načina kako bolje i efikasnije podučavati. Iva vidi ogroman potencijal u svakom djetetu, a njezin posao je pronaći najbolju metodu da se taj potencijal i ostvari."
   },
-  "Vedran Leder": {
+    "Vedran Leder": {
     name: "Vedran Leder",
-    role: "Engineer & STEM Education Writer",
-    roleHr: "Inženjer i STEM autor",
-    bio: "Vedran is an engineer and father who loves turning everyday materials into hands-on STEM experiments. He designs the activities and engineering challenges that make science accessible and exciting for young explorers.",
-    bioHr: "Vedran je inženjer i tata koji voli pretvarati svakodnevne materijale u praktične STEM pokuse. Osmišljava aktivnosti i inženjerske izazove koji djeci čine znanost pristupačnom i uzbudljivom.",
-  },
-};
-
+    role: "Psychologist",
+    roleHr: "magistar psihologije",
+    bio: "He always thought classical learning to be boring and bland. He likes to experiment and to learn by doing. With his childish nature, he always blended with children seamlessly. He finds that games and play are the best way to learn and always tries to include them in his working methods. He is fascinated with every new gadget (toy) and thinks that technology creates many opportunities for engaging and fun learning.",
+    bioHr: "Oduvijek je mislio kako je klasično učenje dosadno i jednolično. Vedran voli eksperimentirati i zagovornik je iskustvenog učenja. Mlad u duši, uvijek se bez problema uklapao među djecu, bez obzira na dob. Smatra kako su igre i igranje najbolji način za stjecanje novih znanja i uvijek ih pokušava uključiti u svoje metode podučavanja. Fasciniran je svakom novom tehnološkom stvarčicom te smatra kako nam tehnologija može obogatiti iskustvo učenja i učiniti ga zabavnim."
+},
+}
 /**
  * Look up an author by the value stored in post frontmatter.
  * Returns null when the key is missing OR the author isn't in the directory.
