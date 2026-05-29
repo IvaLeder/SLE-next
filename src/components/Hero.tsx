@@ -1,6 +1,4 @@
-import Image from "next/image";
 import Link from "next/link";
-import { heroImages } from "@/lib/hero-images";
 
 const content = {
   en: {
@@ -23,22 +21,12 @@ export default function Hero({ lang }: { lang: "en" | "hr" }) {
   const t = content[lang];
 
   return (
-    <div className="relative w-full h-[340px] md:h-[440px] overflow-hidden">
-      <Image
-        src={heroImages[lang]}
-        alt={t.headline.replace("\n", " ")}
-        fill
-        priority
-        sizes="100vw"
-        className="object-cover"
-      />
-
-      {/* Gradient overlay — left-heavy so text is readable, right stays open */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/65 via-black/35 to-transparent" />
-
+    // Brand gradient hero — no image, so no LCP cost and nothing to stretch.
+    // The diagonal indigo→violet pour reads as intentional brand colour.
+    <div className="relative w-full h-[340px] md:h-[440px] overflow-hidden bg-gradient-to-br from-indigo-600 via-indigo-700 to-violet-800">
       {/* Text content */}
       <div className="absolute inset-0 flex flex-col justify-center px-8 md:px-16 max-w-2xl">
-        <span className="text-xs font-semibold uppercase tracking-widest text-indigo-300 mb-3">
+        <span className="font-sans text-xs font-semibold uppercase tracking-widest text-indigo-200 mb-3">
           {t.tag}
         </span>
 
@@ -47,20 +35,21 @@ export default function Hero({ lang }: { lang: "en" | "hr" }) {
           {t.headline}
         </h1>
 
-        <p className="text-gray-200 text-sm md:text-base mb-6 max-w-sm leading-relaxed">
+        <p className="text-indigo-100 text-sm md:text-base mb-6 max-w-sm leading-relaxed">
           {t.sub}
         </p>
 
         <div className="flex flex-wrap gap-3 font-sans">
+          {/* Primary is white-on-gradient so it pops against the indigo field. */}
           <Link
             href={t.primary.href}
-            className="inline-block px-5 py-2.5 bg-brand hover:bg-brand-hover text-white text-sm font-semibold rounded-lg transition-colors"
+            className="inline-block px-5 py-2.5 bg-white hover:bg-indigo-50 text-brand text-sm font-semibold rounded-lg transition-colors"
           >
             {t.primary.label} →
           </Link>
           <Link
             href={t.secondary.href}
-            className="inline-block px-5 py-2.5 bg-white/10 hover:bg-white/20 backdrop-blur text-white text-sm font-semibold rounded-lg ring-1 ring-white/30 transition-colors"
+            className="inline-block px-5 py-2.5 bg-white/10 hover:bg-white/20 backdrop-blur text-white text-sm font-semibold rounded-lg ring-1 ring-white/40 transition-colors"
           >
             {t.secondary.label}
           </Link>
