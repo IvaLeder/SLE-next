@@ -22,10 +22,45 @@ export default function Hero({ lang }: { lang: "en" | "hr" }) {
 
   return (
     // Brand gradient hero — no image, so no LCP cost and nothing to stretch.
-    // The diagonal indigo→violet pour reads as intentional brand colour.
-    <div className="relative w-full h-[340px] md:h-[440px] overflow-hidden bg-gradient-to-br from-indigo-600 via-indigo-700 to-violet-800">
-      {/* Text content */}
-      <div className="absolute inset-0 flex flex-col justify-center px-8 md:px-16 max-w-2xl">
+    // A slightly deepened indigo→slate pour gives the aurora glow room to read.
+    <div className="relative w-full h-[340px] md:h-[440px] overflow-hidden bg-gradient-to-br from-indigo-700 via-indigo-800 to-slate-900">
+      {/* Aurora glow blobs — soft coloured light for depth. Decorative only. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -left-24 -top-32 h-[360px] w-[360px] rounded-full blur-3xl"
+        style={{ background: "radial-gradient(circle, rgba(139,92,246,.55), transparent 70%)" }}
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-28 -bottom-40 h-[420px] w-[420px] rounded-full blur-3xl"
+        style={{ background: "radial-gradient(circle, rgba(236,72,153,.40), transparent 70%)" }}
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute right-[18%] -top-32 h-[300px] w-[300px] rounded-full blur-3xl"
+        style={{ background: "radial-gradient(circle, rgba(56,189,248,.40), transparent 70%)" }}
+      />
+
+      {/* Faint STEM doodles — theme texture, hidden on small screens to avoid clutter. */}
+      <svg
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 hidden h-full w-full md:block"
+        fill="none"
+        stroke="rgba(255,255,255,0.16)"
+        strokeWidth={2}
+      >
+        <circle cx="13%" cy="28%" r="30" />
+        <circle cx="13%" cy="28%" r="12" />
+        <rect x="8%" y="66%" width="42" height="56" rx="4" />
+        <circle cx="89%" cy="70%" r="24" />
+      </svg>
+      <div aria-hidden="true" className="pointer-events-none absolute hidden font-sans text-4xl font-bold md:block" style={{ left: "9%", top: "16%", color: "rgba(255,255,255,0.16)" }}>π</div>
+      <div aria-hidden="true" className="pointer-events-none absolute hidden font-sans text-5xl font-bold md:block" style={{ left: "90%", top: "28%", color: "rgba(255,255,255,0.16)" }}>+</div>
+      <div aria-hidden="true" className="pointer-events-none absolute hidden text-3xl md:block" style={{ left: "90%", top: "74%", opacity: 0.4 }}>🚀</div>
+      <div aria-hidden="true" className="pointer-events-none absolute hidden text-3xl md:block" style={{ left: "5%", top: "46%", opacity: 0.35 }}>🧪</div>
+
+      {/* Text content — centred over the glow */}
+      <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center">
         <span className="font-sans text-xs font-semibold uppercase tracking-widest text-indigo-200 mb-3">
           {t.tag}
         </span>
@@ -35,11 +70,11 @@ export default function Hero({ lang }: { lang: "en" | "hr" }) {
           {t.headline}
         </h1>
 
-        <p className="text-indigo-100 text-sm md:text-base mb-6 max-w-sm leading-relaxed">
+        <p className="text-indigo-100 text-sm md:text-base mb-6 max-w-md leading-relaxed">
           {t.sub}
         </p>
 
-        <div className="flex flex-wrap gap-3 font-sans">
+        <div className="flex flex-wrap justify-center gap-3 font-sans">
           {/* Primary is white-on-gradient so it pops against the indigo field. */}
           <Link
             href={t.primary.href}

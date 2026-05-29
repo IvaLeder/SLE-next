@@ -37,11 +37,11 @@ export default function AboutPage() {
             Making STEM fun for every family
           </h1>
           <p className="text-lg leading-relaxed text-gray-700">
-            STEM Little Explorers is a bilingual blog — in English and Croatian —
-            that makes science, technology, engineering, maths and child
+            STEM Little Explorers is a bilingual blog — in English and Croatian
+            — that makes science, technology, engineering, maths and child
             psychology accessible to every family. We believe curiosity is a
-            child&rsquo;s greatest superpower, and that parents and educators are
-            the best people to nurture it.
+            child&rsquo;s greatest superpower, and that parents and educators
+            are the best people to nurture it.
           </p>
         </header>
 
@@ -81,7 +81,9 @@ export default function AboutPage() {
 
         {/* Authors */}
         <section>
-          <h2 className="font-sans text-2xl font-bold mb-6">Meet the authors</h2>
+          <h2 className="font-sans text-2xl font-bold mb-6">
+            Meet the authors
+          </h2>
           <div className="grid gap-6 sm:grid-cols-2">
             {Object.values(authors).map((author) => {
               const firstName = author.name.split(" ")[0];
