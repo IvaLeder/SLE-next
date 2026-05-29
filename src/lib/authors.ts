@@ -19,16 +19,16 @@ export const authors: Record<string, AuthorInfo> = {
     name: "Iva Leder",
     role: "Psychologist",
     roleHr: "magistra psihologije",
-    bio: "Founder of the idea for a website and a big lover of technology and everything that has some form of code in it. She has a few years of working with children under her belt and thinks it’s important to prepare them for the challenges that the future brings. With her vast database, I mean knowledge, she always strives to find new ways to teach more efficiently and creatively. She sees great potential in every child and her job is to find the right method to express that potential.",
-    bioHr: "Idejni začetnik web stranice i veliki ljubitelj tehnologije i svega što sadrži bilo kakvu formu koda u sebi. Iva ima nekoliko godina iskustva u radu s djecom, a cilj joj je pripremiti ih za izazove koje donosi budućnost. Sa svojom ogromnom bazom podataka, ovaj, znanjem, njezina neprestana misija je pronalaženje novih načina kako bolje i efikasnije podučavati. Iva vidi ogroman potencijal u svakom djetetu, a njezin posao je pronaći najbolju metodu da se taj potencijal i ostvari."
+    bio: "The founder behind the site and a devoted lover of technology — and anything with a bit of code in it. With several years of experience working with children, she is driven by the belief that we should prepare them for the challenges ahead. She is always searching for new, more creative and effective ways to teach, and sees real potential in every child — her job is simply to find the right way to unlock it.",
+    bioHr: "Idejna začetnica stranice i velika ljubiteljica tehnologije — i svega što u sebi sadrži barem malo koda. S nekoliko godina iskustva u radu s djecom, vodi je uvjerenje da ih treba pripremiti za izazove koji dolaze. Neprestano traži nove, kreativnije i učinkovitije načine podučavanja te vidi velik potencijal u svakom djetetu — njezin je posao pronaći pravi način da ga oslobodi."
   },
     "Vedran Leder": {
     avatar: "/images/vedran-leder.jpg",
     name: "Vedran Leder",
     role: "Psychologist",
     roleHr: "magistar psihologije",
-    bio: "He always thought classical learning to be boring and bland. He likes to experiment and to learn by doing. With his childish nature, he always blended with children seamlessly. He finds that games and play are the best way to learn and always tries to include them in his working methods. He is fascinated with every new gadget (toy) and thinks that technology creates many opportunities for engaging and fun learning.",
-    bioHr: "Oduvijek je mislio kako je klasično učenje dosadno i jednolično. Vedran voli eksperimentirati i zagovornik je iskustvenog učenja. Mlad u duši, uvijek se bez problema uklapao među djecu, bez obzira na dob. Smatra kako su igre i igranje najbolji način za stjecanje novih znanja i uvijek ih pokušava uključiti u svoje metode podučavanja. Fasciniran je svakom novom tehnološkom stvarčicom te smatra kako nam tehnologija može obogatiti iskustvo učenja i učiniti ga zabavnim."
+    bio: "He always found classical learning a little dull — he would rather experiment and learn by doing. Young at heart, he blends in with children effortlessly, and believes games and play are the best way to learn, weaving them into everything he teaches. Every new gadget (read: toy) fascinates him, and he is convinced technology opens up endless opportunities for fun, hands-on learning.",
+    bioHr: "Oduvijek je klasično učenje smatrao pomalo dosadnim — radije eksperimentira i zagovornik je iskustvenog učenja. Mlad u duši, bez problema se uklapa među djecu bez obzira na dob, i vjeruje da su igra i igranje najbolji način za stjecanje znanja pa ih uključuje u svaku svoju metodu podučavanja. Fascinira ga svaka nova tehnološka stvarčica (čitaj: igračka) i uvjeren je da tehnologija može obogatiti učenje i učiniti ga zabavnim."
 },
 }
 /**

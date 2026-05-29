@@ -2,8 +2,9 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
 import Link from "next/link";
+import Image from "next/image";
 import { Metadata } from "next";
-import { authors } from "@/lib/authors";
+import { authors, authorSlug } from "@/lib/authors";
 import { generateAuthorsJsonLd } from "@/lib/metadata";
 
 export const metadata: Metadata = {
@@ -26,63 +27,122 @@ export default function AboutPage() {
         <JsonLd key={i} data={data} />
       ))}
       <Header lang="hr" switchUrl="/en/about" />
-      <main id="main-content" className="max-w-3xl mx-auto px-4 py-10">
+      <main id="main-content" className="max-w-3xl mx-auto px-4 py-12">
+        {/* Uvod */}
+        <header className="mb-12">
+          <p className="font-sans text-sm font-semibold uppercase tracking-wide text-brand mb-3">
+            O nama
+          </p>
+          <h1 className="text-3xl md:text-4xl font-bold mb-5 leading-tight">
+            STEM zabavan za svaku obitelj
+          </h1>
+          <p className="text-lg leading-relaxed text-gray-700">
+            STEM Little Explorers dvojezični je blog — na hrvatskom i engleskom —
+            koji znanost, tehnologiju, inženjerstvo, matematiku i dječju
+            psihologiju čini dostupnima svakoj obitelji. Vjerujemo da je
+            znatiželja djetetova najveća supermoć i da su roditelji i odgajatelji
+            ti koji je najbolje mogu njegovati.
+          </p>
+        </header>
 
-        <h1 className="text-3xl md:text-4xl font-bold mb-4">O projektu STEM Little Explorers</h1>
+        {/* Misija + Vizija */}
+        <section className="grid gap-5 sm:grid-cols-2 mb-12">
+          <div className="rounded-2xl bg-brand-soft p-6">
+            <h2 className="font-sans text-lg font-bold text-brand mb-2">
+              Naša misija
+            </h2>
+            <p className="text-gray-700 leading-relaxed">
+              Pružiti roditeljima i odgajateljima jednostavne i pristupačne ideje
+              za poticanje STEM vještina kod djece. Znanost, tehnologija,
+              inženjerstvo i matematika oblikuju budućnost — i ne moraju izgledati
+              zastrašujuće. Pokazujemo kako mogu biti razigrane, praktične i
+              istinski zabavne, da lakše probudite tu iskru i održite je.
+            </p>
+          </div>
+          <div className="rounded-2xl bg-gray-100 p-6">
+            <h2 className="font-sans text-lg font-bold text-gray-900 mb-2">
+              Naša vizija
+            </h2>
+            <p className="text-gray-700 leading-relaxed">
+              Biti prvo mjesto za jeftine, jednostavne i zabavne STEM aktivnosti.
+              Zagovaramo učenje kroz rad — djecu koja istražuju, grade i
+              eksperimentiraju umjesto da samo gledaju ili slušaju — i želimo da
+              svako dijete upozna STEM od rane dobi, jer će ga svijet tražiti sve
+              više.
+            </p>
+          </div>
+        </section>
 
-        <p className="text-lg leading-relaxed text-gray-700 mb-4">
-          STEM Little Explorers dvojezični je blog (hrvatski i engleski) posvećen
-          tome da svaka obitelj ima pristup sadržajima o znanosti, tehnologiji,
-          inženjerstvu, matematici i dječjoj psihologiji. Vjerujemo da je znatiželja
-          djetetova najveća supermoć — i da su roditelji i odgajatelji ti koji je
-          najljepše mogu njegovati.
+        <p className="text-gray-700 leading-relaxed mb-14">
+          Tražite li brzi pokus, vodič kroz razvojni stadij ili savjet o odgoju
+          utemeljen na dokazima — sve pronađite ovdje.
         </p>
 
-        <p className="text-gray-700 mb-4">
-          Svaki članak temelji se na stvarnim istraživanjima, ali pisan je
-          razumljivim jezikom — kako biste ideju mogli pokupit u utorak navečer i
-          isprobati je u srijedu ujutro, bez posebne opreme ili stručnog znanja.
-        </p>
+        {/* Autori */}
+        <section>
+          <h2 className="font-sans text-2xl font-bold mb-6">Upoznajte autore</h2>
+          <div className="grid gap-6 sm:grid-cols-2">
+            {Object.values(authors).map((author) => {
+              const firstName = author.name.split(" ")[0];
+              return (
+                <article
+                  key={author.name}
+                  className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm"
+                >
+                  <div className="flex items-center gap-4 mb-4">
+                    {author.avatar ? (
+                      <Image
+                        src={author.avatar}
+                        alt={author.name}
+                        width={72}
+                        height={72}
+                        className="h-[72px] w-[72px] flex-shrink-0 rounded-full object-cover ring-2 ring-brand-soft"
+                      />
+                    ) : (
+                      <div
+                        className="flex h-[72px] w-[72px] flex-shrink-0 items-center justify-center rounded-full bg-indigo-100 text-2xl font-bold text-brand"
+                        aria-hidden="true"
+                      >
+                        {author.name.charAt(0)}
+                      </div>
+                    )}
+                    <div>
+                      <p className="font-sans text-lg font-semibold text-gray-900">
+                        {author.name}
+                      </p>
+                      <p className="font-sans text-sm text-brand">
+                        {author.roleHr}
+                      </p>
+                    </div>
+                  </div>
+                  <p className="text-[15px] leading-relaxed text-gray-600">
+                    {author.bioHr}
+                  </p>
+                  <Link
+                    href={`/hr/author/${authorSlug(author.name)}`}
+                    className="mt-4 inline-block font-sans text-sm font-semibold text-brand transition-colors hover:text-brand-hover"
+                  >
+                    Više od {firstName} →
+                  </Link>
+                </article>
+              );
+            })}
+          </div>
+        </section>
 
-        <p className="text-gray-700 mb-10">
-          Tražite li brzi pokus, vodič o razvojnom stadiju ili savjet iz psihologije
-          odgoja — sve to pronađite ovdje, na hrvatskom i engleskom jeziku.
-        </p>
-
-        {/* Authors section */}
-        <h2 className="text-2xl font-bold mb-6">Upoznajte autore</h2>
-
-        <div className="space-y-8">
-          {Object.values(authors).map((author) => (
-            <div key={author.name} className="flex gap-4 items-start">
-              <div
-                className="flex-shrink-0 w-14 h-14 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-700 font-bold text-xl"
-                aria-hidden="true"
-              >
-                {author.name.charAt(0)}
-              </div>
-              <div>
-                <p className="font-semibold text-gray-900 text-lg">{author.name}</p>
-                <p className="text-sm text-indigo-600 mb-2">{author.roleHr}</p>
-                <p className="text-gray-600 leading-relaxed">{author.bioHr}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-12 p-6 bg-indigo-50 rounded-xl">
-          <h2 className="text-xl font-bold mb-2">Kontaktirajte nas</h2>
-          <p className="text-gray-700 mb-4">
+        {/* Kontakt CTA */}
+        <div className="mt-14 rounded-2xl bg-brand-soft p-8 text-center">
+          <h2 className="font-sans text-xl font-bold mb-2">Kontaktirajte nas</h2>
+          <p className="text-gray-700 mb-5">
             Imate pitanje, prijedlog teme ili samo želite pozdraviti?
           </p>
           <Link
             href="/hr/contact"
-            className="inline-block px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold rounded-lg transition"
+            className="inline-block rounded-lg bg-brand px-5 py-2.5 font-sans text-sm font-semibold text-white transition-colors hover:bg-brand-hover"
           >
             Kontakt →
           </Link>
         </div>
-
       </main>
       <Footer lang="hr" />
     </>
