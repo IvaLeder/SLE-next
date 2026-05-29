@@ -23,6 +23,7 @@ export const authors: Record<string, AuthorInfo> = {
     bioHr: "Idejni začetnik web stranice i veliki ljubitelj tehnologije i svega što sadrži bilo kakvu formu koda u sebi. Iva ima nekoliko godina iskustva u radu s djecom, a cilj joj je pripremiti ih za izazove koje donosi budućnost. Sa svojom ogromnom bazom podataka, ovaj, znanjem, njezina neprestana misija je pronalaženje novih načina kako bolje i efikasnije podučavati. Iva vidi ogroman potencijal u svakom djetetu, a njezin posao je pronaći najbolju metodu da se taj potencijal i ostvari."
   },
     "Vedran Leder": {
+    avatar: "/images/vedran-leder.jpg",
     name: "Vedran Leder",
     role: "Psychologist",
     roleHr: "magistar psihologije",
