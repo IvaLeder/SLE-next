@@ -4,7 +4,7 @@ import { useState } from "react";
 import PostCard from "./PostCard";
 import FilterChips from "./FilterChips";
 import { PostMeta } from "@/lib/posts";
-import { CATEGORY_DISPLAY } from "@/lib/categories";
+import { CATEGORY_DISPLAY, CATEGORY_ICONS } from "@/lib/categories";
 
 type Props = {
   posts: PostMeta[];
@@ -53,7 +53,7 @@ export default function ActivitiesClient({ posts, lang }: Props) {
     <>
       <div className="mb-8">
         <FilterChips
-          chips={SUBJECTS.map((s) => ({ key: s.key, label: s.label[lang] }))}
+          chips={SUBJECTS.map((s) => ({ key: s.key, label: s.label[lang], icon: CATEGORY_ICONS[s.key] }))}
           active={activeSubject}
           onChange={setActiveSubject}
           allLabel={allLabel}

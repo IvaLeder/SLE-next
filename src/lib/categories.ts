@@ -17,6 +17,19 @@ export const CATEGORY_SLUGS = [
 export type CategorySlug = (typeof CATEGORY_SLUGS)[number];
 
 /**
+ * Emoji icon per English slug. Language-independent, so a single map serves
+ * both locales. Used to make subject chips/nav more recognisable at a glance
+ * (Activities filter, CategoryFilter, CategoryNav).
+ */
+export const CATEGORY_ICONS: Record<string, string> = {
+  science:     "🔬",
+  engineering: "⚙️",
+  math:        "📐",
+  technology:  "💻",
+  psychology:  "🧠",
+};
+
+/**
  * English slug → localised display name.
  * Use this to render headings / filter labels; never put display names in URLs.
  */

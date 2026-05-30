@@ -2,16 +2,7 @@
 
 import { useState } from "react";
 import FilterChips from "./FilterChips";
-import { categorySlugFromName } from "@/lib/categories";
-
-// Emoji keyed by canonical subject slug so it works across both languages.
-const CATEGORY_ICONS: Record<string, string> = {
-  science: "🔬",
-  engineering: "⚙️",
-  math: "📐",
-  technology: "💻",
-  psychology: "🧠",
-};
+import { categorySlugFromName, CATEGORY_ICONS } from "@/lib/categories";
 
 export default function CategoryFilter({
   categories,

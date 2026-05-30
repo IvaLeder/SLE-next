@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PostCard from "@/components/PostCard";
+import CategoryNav from "@/components/CategoryNav";
 import { getPostsByCategory, getAllCategories } from "@/lib/posts";
 import { CATEGORY_DISPLAY, CATEGORY_DESCRIPTION } from "@/lib/categories";
 
@@ -71,6 +72,12 @@ export default async function CategoryPage({ params }: Props) {
             </p>
           )}
         </header>
+
+        {/* Subject switcher — lets visitors jump between categories without
+            digging through the header/footer. */}
+        <div className="mb-8">
+          <CategoryNav lang="hr" activeSlug={slug} />
+        </div>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {posts.map((post, i) => (
