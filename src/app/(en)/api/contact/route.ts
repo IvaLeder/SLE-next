@@ -48,7 +48,7 @@ export async function POST(req: Request) {
     // Rate-limit first — cheapest possible reject.
     const ip = getClientIp(req);
     if (isRateLimited(ip)) {
-      return Response.json({ error: "Too many requests" }, {
+      return Response.json({ error: "Too many requests", code: "rate_limited" }, {
         status: 429,
         headers: { "Retry-After": String(Math.ceil(WINDOW_MS / 1000)) },
       });
@@ -57,7 +57,7 @@ export async function POST(req: Request) {
     // Reject obviously oversized payloads before parsing.
     const len = Number(req.headers.get("content-length") ?? 0);
     if (len > 20_000) {
-      return Response.json({ error: "Payload too large" }, { status: 413 });
+      return Response.json({ error: "Payload too large", code: "too_large" }, { status: 413 });
     }
 
     const { name, email, message, token, website } = await req.json();
@@ -69,17 +69,22 @@ export async function POST(req: Request) {
     }
 
     // ── Validation ─────────────────────────────────────────────────────────
-    if (!name || !email || !message || !token) {
-      return Response.json({ error: "Missing required fields" }, { status: 400 });
+    // A missing reCAPTCHA token is its own case — usually means the widget
+    // failed to issue one (e.g. unlisted domain), so flag it distinctly.
+    if (!token) {
+      return Response.json({ error: "Missing reCAPTCHA token", code: "recaptcha_failed" }, { status: 400 });
+    }
+    if (!name || !email || !message) {
+      return Response.json({ error: "Missing required fields", code: "missing_fields" }, { status: 400 });
     }
     if (typeof name !== "string" || typeof email !== "string" || typeof message !== "string") {
-      return Response.json({ error: "Invalid field types" }, { status: 400 });
+      return Response.json({ error: "Invalid field types", code: "invalid_fields" }, { status: 400 });
     }
     if (name.length > MAX_NAME || email.length > MAX_EMAIL || message.length > MAX_MESSAGE) {
-      return Response.json({ error: "Field exceeds maximum length" }, { status: 400 });
+      return Response.json({ error: "Field exceeds maximum length", code: "too_long" }, { status: 400 });
     }
     if (!EMAIL_RE.test(email)) {
-      return Response.json({ error: "Invalid email" }, { status: 400 });
+      return Response.json({ error: "Invalid email", code: "invalid_email" }, { status: 400 });
     }
 
     // ── reCAPTCHA verification ─────────────────────────────────────────────
@@ -90,7 +95,7 @@ export async function POST(req: Request) {
     });
     const verifyData = await verifyRes.json();
     if (!verifyData.success) {
-      return Response.json({ error: "reCAPTCHA verification failed" }, { status: 400 });
+      return Response.json({ error: "reCAPTCHA verification failed", code: "recaptcha_failed" }, { status: 400 });
     }
 
     // ── Send mail ──────────────────────────────────────────────────────────
@@ -117,6 +122,6 @@ export async function POST(req: Request) {
     return Response.json({ success: true });
   } catch (error) {
     console.error("Contact form error:", error);
-    return Response.json({ error: "Failed to send message" }, { status: 500 });
+    return Response.json({ error: "Failed to send message", code: "send_failed" }, { status: 500 });
   }
 }

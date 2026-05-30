@@ -18,22 +18,59 @@ export default function ContactForm({ lang }: Props) {
   // discards it.
   const [formData, setFormData] = useState({ name: "", email: "", message: "", website: "" });
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  // Holds the reason for the most recent failure so we can show a specific,
+  // actionable message instead of a generic "something went wrong".
+  const [errorCode, setErrorCode] = useState<string>("generic");
   const recaptchaRef = useRef<ReCAPTCHA>(null);
 
   const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
+  // If the public site key never made it into the build, the widget can't
+  // render a usable challenge — fail loud and early rather than letting the
+  // user fill everything in only to hit an opaque error on submit.
+  const recaptchaMisconfigured = !siteKey;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    // Clear a previous failure as soon as the user starts fixing things.
+    if (status === "error") setStatus("idle");
+  };
+
+  const fail = (code: string) => {
+    setErrorCode(code);
+    setStatus("error");
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (recaptchaMisconfigured) {
+      fail("recaptcha");
+      return;
+    }
+
     setStatus("submitting");
 
+    // ── 1. Get a reCAPTCHA token ──────────────────────────────────────────
+    // executeAsync can throw (network) or resolve to null (e.g. the site key's
+    // domain list doesn't include the current host — the exact case that broke
+    // this form on the Vercel preview URL). Treat both as a reCAPTCHA failure.
+    let token: string | null | undefined;
     try {
-      const token = await recaptchaRef.current?.executeAsync();
+      token = await recaptchaRef.current?.executeAsync();
       recaptchaRef.current?.reset();
+    } catch (err) {
+      console.error("reCAPTCHA error:", err);
+      recaptchaRef.current?.reset();
+      fail("recaptcha");
+      return;
+    }
+    if (!token) {
+      fail("recaptcha");
+      return;
+    }
 
+    // ── 2. Submit to the API ──────────────────────────────────────────────
+    try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -43,12 +80,15 @@ export default function ContactForm({ lang }: Props) {
       if (res.ok) {
         setStatus("success");
         setFormData({ name: "", email: "", message: "", website: "" });
-      } else {
-        setStatus("error");
+        return;
       }
+
+      // Map the server's stable error code to a friendly message.
+      const data = await res.json().catch(() => ({}));
+      fail(typeof data?.code === "string" ? data.code : "generic");
     } catch (err) {
       console.error(err);
-      setStatus("error");
+      fail("network");
     }
   };
 
@@ -62,8 +102,16 @@ export default function ContactForm({ lang }: Props) {
       send: "Send message",
       sending: "Sending...",
       success: "✅ Thank you! Your message has been sent.",
-      error: "❌ Something went wrong. Please try again later.",
       charsRemaining: (n: number) => `${n} characters remaining`,
+      errors: {
+        recaptcha:    "❌ We couldn't verify you're human. Please reload the page and try again.",
+        rate_limited: "❌ Too many attempts. Please wait a few minutes and try again.",
+        invalid_email:"❌ Please enter a valid email address.",
+        validation:   "❌ Please check the form and try again.",
+        send_failed:  "❌ We couldn't send your message right now. Please try again later, or email us directly at stem.littleexplorers@gmail.com.",
+        network:      "❌ Network problem. Please check your connection and try again.",
+        generic:      "❌ Something went wrong. Please try again later.",
+      } as Record<string, string>,
     },
     hr: {
       title: "Kontakt",
@@ -73,12 +121,37 @@ export default function ContactForm({ lang }: Props) {
       send: "Pošalji poruku",
       sending: "Šaljem...",
       success: "✅ Hvala! Vaša poruka je poslana.",
-      error: "❌ Nešto je pošlo po zlu. Pokušajte ponovo kasnije.",
       charsRemaining: (n: number) => `${n} preostalih znakova`,
+      errors: {
+        recaptcha:    "❌ Nismo uspjeli potvrditi da niste robot. Osvježite stranicu i pokušajte ponovo.",
+        rate_limited: "❌ Previše pokušaja. Pričekajte nekoliko minuta i pokušajte ponovo.",
+        invalid_email:"❌ Unesite ispravnu adresu e-pošte.",
+        validation:   "❌ Provjerite obrazac i pokušajte ponovo.",
+        send_failed:  "❌ Trenutačno ne možemo poslati vašu poruku. Pokušajte kasnije ili nam pišite izravno na stem.littleexplorers@gmail.com.",
+        network:      "❌ Problem s mrežom. Provjerite vezu i pokušajte ponovo.",
+        generic:      "❌ Nešto je pošlo po zlu. Pokušajte ponovo kasnije.",
+      } as Record<string, string>,
     },
   }[lang];
 
   const messageRemaining = MAX_MESSAGE - formData.message.length;
+
+  // Normalise the various server/client codes to one of the message buckets.
+  const errorMessage = (() => {
+    const map: Record<string, string> = {
+      recaptcha_failed: "recaptcha",
+      recaptcha:        "recaptcha",
+      rate_limited:     "rate_limited",
+      invalid_email:    "invalid_email",
+      missing_fields:   "validation",
+      invalid_fields:   "validation",
+      too_long:         "validation",
+      too_large:        "validation",
+      send_failed:      "send_failed",
+      network:          "network",
+    };
+    return t.errors[map[errorCode] ?? "generic"] ?? t.errors.generic;
+  })();
 
   return (
     // The wrapper page already provides <main>, so use a div here to avoid
@@ -94,7 +167,7 @@ export default function ContactForm({ lang }: Props) {
 
       {status === "error" && (
         <div className="p-4 mb-4 text-red-800 bg-red-100 border border-red-200 rounded" role="alert">
-          {t.error}
+          {errorMessage}
         </div>
       )}
 
@@ -176,8 +249,11 @@ export default function ContactForm({ lang }: Props) {
           </p>
         </div>
 
-        {/* reCAPTCHA */}
-        <ReCAPTCHA ref={recaptchaRef} size="invisible" sitekey={siteKey as string} />
+        {/* reCAPTCHA — only mount when we actually have a key, otherwise the
+            widget renders its own opaque "Invalid site key" error box. */}
+        {siteKey && (
+          <ReCAPTCHA ref={recaptchaRef} size="invisible" sitekey={siteKey} />
+        )}
 
         {/* Button */}
         <button
