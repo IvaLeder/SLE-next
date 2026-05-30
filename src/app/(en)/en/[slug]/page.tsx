@@ -22,6 +22,7 @@ import JsonLd from "@/components/JsonLd";
 import FloatingSubscribeCard from "@/components/FloatingSubscribeCard";
 import PostCard from "@/components/PostCard";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import ArticleHeader from "@/components/ArticleHeader";
 import AuthorBio from "@/components/AuthorBio";
 import ReadingProgress from "@/components/ReadingProgress";
 import ShareButtons from "@/components/ShareButtons";
@@ -86,69 +87,12 @@ export default async function PostPage({ params }: Props) {
             // breakpoint the image never gets wider than 768 px, so don't
             // fetch 1920 px variants on a 4K screen.
             sizes="(min-width: 768px) 768px, 100vw"
-            className="object-cover rounded"
+            className="object-cover rounded-2xl ring-1 ring-black/5"
           />
         </div>
       )}
 
-      <h1 className="text-3xl md:text-4xl font-bold mb-2">{post.title}</h1>
-
-      {/* Date display: when the post has been meaningfully edited (dateModified
-          is set AND >30 days after original date), show "Updated …" prominently
-          with "Originally published …" as a secondary line. Otherwise just the
-          original date. */}
-      {(() => {
-        const fmt = (iso: string) =>
-          new Date(iso).toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-          });
-        const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
-        const hasUpdate =
-          post.dateModified &&
-          new Date(post.dateModified).getTime() - new Date(post.date).getTime() > THIRTY_DAYS_MS;
-
-        return (
-          <div className="mb-6 font-sans">
-            <div className="flex items-center gap-2 text-sm text-gray-500 tabular-nums">
-              <time dateTime={hasUpdate ? post.dateModified : post.date}>
-                {hasUpdate ? `Updated ${fmt(post.dateModified!)}` : fmt(post.date)}
-              </time>
-              {post.readingTimeMin && (
-                <>
-                  <span aria-hidden="true">·</span>
-                  <span>{post.readingTimeMin} min read</span>
-                </>
-              )}
-            </div>
-            {hasUpdate && (
-              <p className="text-xs text-gray-500 mt-0.5 tabular-nums">
-                Originally published <time dateTime={post.date}>{fmt(post.date)}</time>
-              </p>
-            )}
-          </div>
-        );
-      })()}
-
-      {post.categories?.length > 0 && (
-        <div className="flex flex-wrap gap-2 mb-4">
-          {post.categories.map((cat) => {
-            const slug = categorySlugFromName(cat);
-            // Skip uncategorised legacy values that don't map to a canonical slug.
-            if (!slug) return null;
-            return (
-              <a
-                key={cat}
-                href={`/en/category/${slug}`}
-                className="text-sm bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full hover:bg-indigo-200 transition-colors"
-              >
-                {cat}
-              </a>
-            );
-          })}
-        </div>
-      )}
+      <ArticleHeader post={post} lang="en" />
 
       <TOC />
 

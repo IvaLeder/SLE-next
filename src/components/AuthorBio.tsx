@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { getAuthor, authorSlug } from "@/lib/authors";
 
 export default function AuthorBio({
@@ -18,13 +19,26 @@ export default function AuthorBio({
   return (
     <div className="mt-10 pt-6 border-t flex gap-4 items-start">
       {/* Avatar links to the author archive — readers who like the article can
-          discover more from the same author with one tap. */}
+          discover more from the same author with one tap. Real photo when we
+          have one, falling back to the initial for authors without an avatar. */}
       <Link
         href={archiveHref}
         aria-label={author.name}
-        className="flex-shrink-0 w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center text-brand font-bold text-lg select-none hover:bg-indigo-200 transition-colors"
+        className="flex-shrink-0 rounded-full transition-opacity hover:opacity-90"
       >
-        {initial}
+        {author.avatar ? (
+          <Image
+            src={author.avatar}
+            alt={author.name}
+            width={56}
+            height={56}
+            className="h-14 w-14 rounded-full object-cover ring-2 ring-brand-soft"
+          />
+        ) : (
+          <span className="flex h-14 w-14 items-center justify-center rounded-full bg-indigo-100 text-lg font-bold text-brand select-none">
+            {initial}
+          </span>
+        )}
       </Link>
 
       <div>

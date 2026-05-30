@@ -33,6 +33,25 @@ body {
   @apply font-serif bg-gray-50 text-gray-900;
 }
 
+/* ─── Article typography (Tailwind Typography plugin) ──────────────────────
+   Tie prose links and accents to the brand palette so article bodies feel on
+   brand rather than stock-blue. Heading anchors (injected by
+   rehype-autolink-headings with behavior:"wrap") are reset to inherit, so a
+   wrapped heading keeps its heading colour instead of turning into a link. */
+.prose {
+  --tw-prose-links: var(--color-brand);
+  --tw-prose-bullets: var(--color-brand);
+  --tw-prose-quote-borders: var(--color-brand-soft);
+}
+.prose a:hover {
+  color: var(--color-brand-hover);
+}
+.prose :where(h1, h2, h3, h4, h5, h6) a {
+  color: inherit;
+  font-weight: inherit;
+  text-decoration: none;
+}
+
 /* ─── Print styles ─────────────────────────────────────────────────────────
    Parents print activity instructions. Hide all the page chrome that wastes
    ink (header, footer, share buttons, subscribe CTA, TOC, breadcrumbs, etc.)

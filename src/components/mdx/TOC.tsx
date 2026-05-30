@@ -91,47 +91,66 @@ export default function TOC() {
   if (items.length === 0) return null;
 
   return (
-    <aside className="mb-8 text-sm">
+    <aside className="mb-8 text-sm font-sans">
       {/* Mobile toggle */}
       <button
         onClick={() => setOpen((o) => !o)}
-        className="md:hidden font-semibold mb-3 py-2 px-3 bg-gray-100 rounded w-full text-left"
+        className="md:hidden flex w-full items-center justify-between rounded-xl border border-gray-100 bg-gray-50 px-4 py-3 font-semibold text-gray-700"
         aria-expanded={open}
       >
-        On this page {open ? "▲" : "▼"}
+        <span>On this page</span>
+        <span aria-hidden="true" className="text-gray-400">{open ? "▲" : "▼"}</span>
       </button>
 
-      <div className={`border-l pl-4 space-y-2 ${open ? "block" : "hidden md:block"}`}>
-        <div className="font-semibold mb-2 hidden md:block">On this page</div>
+      <div
+        className={`rounded-xl border border-gray-100 bg-gray-50 p-4 md:p-5 ${
+          open ? "mt-3 block" : "hidden md:block"
+        }`}
+      >
+        <div className="mb-3 hidden text-xs font-semibold uppercase tracking-wide text-gray-500 md:block">
+          On this page
+        </div>
 
-        {items.map((h2) => (
-          <div key={h2.id}>
-            <a href={`#${h2.id}`} className="block hover:underline font-medium">
-              {h2.text}
-            </a>
+        <div className="space-y-2">
+          {items.map((h2) => (
+            <div key={h2.id}>
+              <a
+                href={`#${h2.id}`}
+                className="block font-medium text-gray-700 transition-colors hover:text-brand"
+              >
+                {h2.text}
+              </a>
 
-            {h2.children && h2.children.length > 0 && (
-              <div className="ml-4 space-y-1">
-                {h2.children.map((h3) => (
-                  <div key={h3.id}>
-                    <a href={`#${h3.id}`} className="block hover:underline text-gray-600">
-                      {h3.text}
-                    </a>
-                    {h3.children && h3.children.length > 0 && (
-                      <div className="ml-4 space-y-1">
-                        {h3.children.map((h4) => (
-                          <a key={h4.id} href={`#${h4.id}`} className="block hover:underline text-gray-500">
-                            {h4.text}
-                          </a>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        ))}
+              {h2.children && h2.children.length > 0 && (
+                <div className="mt-1 ml-3 space-y-1 border-l border-gray-200 pl-3">
+                  {h2.children.map((h3) => (
+                    <div key={h3.id}>
+                      <a
+                        href={`#${h3.id}`}
+                        className="block text-gray-600 transition-colors hover:text-brand"
+                      >
+                        {h3.text}
+                      </a>
+                      {h3.children && h3.children.length > 0 && (
+                        <div className="mt-1 ml-3 space-y-1 border-l border-gray-200 pl-3">
+                          {h3.children.map((h4) => (
+                            <a
+                              key={h4.id}
+                              href={`#${h4.id}`}
+                              className="block text-gray-500 transition-colors hover:text-brand"
+                            >
+                              {h4.text}
+                            </a>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
     </aside>
   );
