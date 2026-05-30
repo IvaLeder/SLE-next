@@ -64,16 +64,26 @@ export default function Header({ lang, switchUrl }: HeaderProps) {
   }, []);
 
   return (
-    <header className="border-b bg-white sticky top-0 z-50 font-sans">
-      {/* Compact mobile bar (~48px tall) — expands on md+ */}
-      <div className="max-w-5xl mx-auto flex items-center justify-between px-4 py-2 md:py-4">
-        <Link href={`/${lang}`} className="text-base md:text-xl font-bold">
-          STEM Little Explorers
+    <header className="sticky top-0 z-50 font-sans border-b border-gray-200/70 bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/75">
+      {/* Compact mobile bar (~48px tall) — expands on lg+ */}
+      <div className="max-w-5xl mx-auto flex items-center justify-between px-4 py-2 lg:py-4">
+        <Link
+          href={`/${lang}`}
+          className="flex items-center gap-2 text-base md:text-xl font-bold"
+        >
+          <span
+            aria-hidden="true"
+            className="inline-flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-lg bg-brand text-sm"
+          >
+            🔬
+          </span>
+          <span>STEM Little Explorers</span>
         </Link>
 
-        {/* Desktop nav */}
-        <nav className="hidden md:flex gap-6 items-center text-sm">
-          <Link href={`/${lang}`} aria-current={ariaCurrent(`/${lang}`)} className="hover:opacity-70 aria-[current=page]:font-semibold">
+        {/* Desktop nav — switches on at lg so the longer Croatian labels have
+            room (at md they overflowed and wrapped mid-word). */}
+        <nav className="hidden lg:flex gap-5 items-center text-sm">
+          <Link href={`/${lang}`} aria-current={ariaCurrent(`/${lang}`)} className="whitespace-nowrap hover:opacity-70 aria-[current=page]:font-semibold">
             {lang === "en" ? "Home" : "Naslovnica"}
           </Link>
 
@@ -81,7 +91,7 @@ export default function Header({ lang, switchUrl }: HeaderProps) {
           <Link
             href={`/${lang}/activities`}
             aria-current={ariaCurrent(`/${lang}/activities`)}
-            className="flex items-center gap-1 font-semibold text-indigo-600 hover:text-indigo-800 aria-[current=page]:underline aria-[current=page]:underline-offset-4"
+            className="flex items-center gap-1 whitespace-nowrap font-semibold text-brand hover:text-brand-hover aria-[current=page]:underline aria-[current=page]:underline-offset-4"
           >
             <span aria-hidden="true">⚡</span>
             {lang === "en" ? "Activities" : "Aktivnosti"}
@@ -91,7 +101,7 @@ export default function Header({ lang, switchUrl }: HeaderProps) {
           <div className="relative" ref={dropdownRef}>
             <button
               onClick={() => setSubjectsOpen((v) => !v)}
-              className="flex items-center gap-1 hover:opacity-70"
+              className="flex items-center gap-1 whitespace-nowrap hover:opacity-70"
               aria-haspopup="true"
               aria-expanded={subjectsOpen}
             >
@@ -124,7 +134,7 @@ export default function Header({ lang, switchUrl }: HeaderProps) {
           <Link
             href={`/${lang}/about`}
             aria-current={ariaCurrent(`/${lang}/about`)}
-            className="hover:opacity-70 aria-[current=page]:font-semibold"
+            className="whitespace-nowrap hover:opacity-70 aria-[current=page]:font-semibold"
           >
             {lang === "en" ? "About" : "O nama"}
           </Link>
@@ -132,14 +142,14 @@ export default function Header({ lang, switchUrl }: HeaderProps) {
           <Link
             href={`/${lang}/contact`}
             aria-current={ariaCurrent(`/${lang}/contact`)}
-            className="hover:opacity-70 aria-[current=page]:font-semibold"
+            className="whitespace-nowrap hover:opacity-70 aria-[current=page]:font-semibold"
           >
             {lang === "en" ? "Contact" : "Kontakt"}
           </Link>
 
           <Link
             href={finalSwitchUrl}
-            className="px-3 py-1 border rounded hover:bg-gray-100"
+            className="whitespace-nowrap px-3 py-1 border rounded hover:bg-gray-100"
           >
             {switchLang.toUpperCase()}
           </Link>
@@ -148,7 +158,7 @@ export default function Header({ lang, switchUrl }: HeaderProps) {
         </nav>
 
         <button
-          className="md:hidden p-2 -mr-2 text-xl leading-none"
+          className="lg:hidden p-2 -mr-2 text-xl leading-none"
           onClick={() => setOpen(!open)}
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
@@ -159,7 +169,7 @@ export default function Header({ lang, switchUrl }: HeaderProps) {
 
       {/* Mobile menu */}
       {open && (
-        <div className="md:hidden bg-white border-t">
+        <div className="lg:hidden bg-white border-t">
           {/* Search — first item in mobile menu so it's reachable on small screens */}
           <div className="p-3 border-b">
             <Search lang={lang} />
@@ -175,7 +185,7 @@ export default function Header({ lang, switchUrl }: HeaderProps) {
 
           <Link
             href={`/${lang}/activities`}
-            className="block px-4 py-3 border-b font-semibold text-indigo-600 hover:bg-indigo-50"
+            className="block px-4 py-3 border-b font-semibold text-brand hover:bg-indigo-50"
             onClick={() => setOpen(false)}
           >
             ⚡ {lang === "en" ? "Activities" : "Aktivnosti"}

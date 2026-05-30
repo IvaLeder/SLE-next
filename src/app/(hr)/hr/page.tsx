@@ -29,7 +29,15 @@ export default function CroatianHomePage() {
       <JsonLd data={generateOrganizationJsonLd()} />
       <Header lang="hr" />
       <Hero lang="hr" />
-      <main id="main-content" className="max-w-4xl mx-auto px-4 py-10">
+      <main id="main-content" className="max-w-6xl mx-auto px-4 py-10">
+        <div className="mb-2">
+          <h2 className="font-sans text-2xl md:text-3xl font-bold tracking-tight">
+            Najnovije objave
+          </h2>
+          <p className="mt-1 text-gray-600">
+            Praktični pokusi i savjeti za roditelje — svježe objavljeno.
+          </p>
+        </div>
         <PostList posts={posts} lang="hr" />
       </main>
       <Footer lang="hr" />

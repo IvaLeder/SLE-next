@@ -55,6 +55,8 @@ export default function Footer({ lang }: { lang: "en" | "hr" }) {
       privacy:     "Privacy Policy",
       terms:       "Terms of Use",
       follow:      "Follow us",
+      rights:      "All rights reserved.",
+      madeWith:    "Made for curious kids.",
     },
     hr: {
       tagline:     "STEM aktivnosti i psihološki savjeti za djecu i roditelje.",
@@ -74,6 +76,8 @@ export default function Footer({ lang }: { lang: "en" | "hr" }) {
       privacy:     "Politika privatnosti",
       terms:       "Uvjeti korištenja",
       follow:      "Pratite nas",
+      rights:      "Sva prava pridržana.",
+      madeWith:    "Stvoreno za znatiželjnu djecu.",
     },
   }[lang];
 
@@ -107,7 +111,7 @@ export default function Footer({ lang }: { lang: "en" | "hr" }) {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={name}
-                    className="w-9 h-9 inline-flex items-center justify-center rounded-full bg-white border border-gray-200 text-gray-600 hover:text-indigo-600 hover:border-indigo-400 transition"
+                    className="w-9 h-9 inline-flex items-center justify-center rounded-full bg-white border border-gray-200 text-gray-600 hover:text-brand hover:border-brand transition"
                   >
                     <Icon className="w-4 h-4" aria-hidden="true" />
                   </a>
@@ -119,12 +123,12 @@ export default function Footer({ lang }: { lang: "en" | "hr" }) {
 
         {/* Explore — Activities + Subjects */}
         <div>
-          <h3 className="font-semibold mb-3">{t.explore}</h3>
+          <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-gray-500">{t.explore}</h3>
           <ul className="space-y-1.5">
             <li>
               <Link
                 href={`/${lang}/activities`}
-                className="text-indigo-600 hover:text-indigo-800 hover:underline font-medium"
+                className="text-brand hover:text-brand-hover hover:underline font-medium"
               >
                 ⚡ {t.activities}
               </Link>
@@ -139,7 +143,7 @@ export default function Footer({ lang }: { lang: "en" | "hr" }) {
               <li key={key}>
                 <Link
                   href={`/${lang}/category/${key}`}
-                  className="text-gray-700 hover:text-indigo-600 hover:underline"
+                  className="text-gray-700 hover:text-brand hover:underline"
                 >
                   {t[key]}
                 </Link>
@@ -150,15 +154,15 @@ export default function Footer({ lang }: { lang: "en" | "hr" }) {
 
         {/* About */}
         <div>
-          <h3 className="font-semibold mb-3">{t.about}</h3>
+          <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-gray-500">{t.about}</h3>
           <ul className="space-y-1.5">
             <li>
-              <Link href={`/${lang}/about`} className="text-gray-700 hover:text-indigo-600 hover:underline">
+              <Link href={`/${lang}/about`} className="text-gray-700 hover:text-brand hover:underline">
                 {t.aboutPage}
               </Link>
             </li>
             <li>
-              <Link href={`/${lang}/contact`} className="text-gray-700 hover:text-indigo-600 hover:underline">
+              <Link href={`/${lang}/contact`} className="text-gray-700 hover:text-brand hover:underline">
                 {t.contact}
               </Link>
             </li>
@@ -166,7 +170,7 @@ export default function Footer({ lang }: { lang: "en" | "hr" }) {
               <a
                 href={`/rss-${lang}.xml`}
                 type="application/rss+xml"
-                className="text-gray-700 hover:text-indigo-600 hover:underline"
+                className="text-gray-700 hover:text-brand hover:underline"
               >
                 {t.rss}
               </a>
@@ -176,15 +180,15 @@ export default function Footer({ lang }: { lang: "en" | "hr" }) {
 
         {/* Legal */}
         <div>
-          <h3 className="font-semibold mb-3">{t.legal}</h3>
+          <h3 className="mb-3 text-xs font-semibold uppercase tracking-wide text-gray-500">{t.legal}</h3>
           <ul className="space-y-1.5">
             <li>
-              <Link href={`/${lang}/privacy`} className="text-gray-700 hover:text-indigo-600 hover:underline">
+              <Link href={`/${lang}/privacy`} className="text-gray-700 hover:text-brand hover:underline">
                 {t.privacy}
               </Link>
             </li>
             <li>
-              <Link href={`/${lang}/terms`} className="text-gray-700 hover:text-indigo-600 hover:underline">
+              <Link href={`/${lang}/terms`} className="text-gray-700 hover:text-brand hover:underline">
                 {t.terms}
               </Link>
             </li>
@@ -192,8 +196,11 @@ export default function Footer({ lang }: { lang: "en" | "hr" }) {
         </div>
       </div>
 
-      <div className="border-t py-4 text-center text-xs text-gray-500">
-        © {new Date().getFullYear()} {siteConfig.name}
+      <div className="border-t border-gray-200">
+        <div className="max-w-6xl mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-1.5 text-xs text-gray-500">
+          <p>© {new Date().getFullYear()} {siteConfig.name}. {t.rights}</p>
+          <p>{t.madeWith}</p>
+        </div>
       </div>
     </footer>
   );
