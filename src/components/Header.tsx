@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Search from "./Search";
@@ -71,12 +72,14 @@ export default function Header({ lang, switchUrl }: HeaderProps) {
           href={`/${lang}`}
           className="flex items-center gap-2 text-base md:text-xl font-bold"
         >
-          <span
-            aria-hidden="true"
-            className="inline-flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-lg bg-brand text-sm"
-          >
-            🔬
-          </span>
+          <Image
+            src="/images/logo.png"
+            alt=""
+            width={36}
+            height={36}
+            priority
+            className="h-9 w-9 flex-shrink-0 object-contain"
+          />
           <span>STEM Little Explorers</span>
         </Link>
 
