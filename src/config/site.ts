@@ -9,12 +9,10 @@ export const siteConfig = {
     "Hands-on STEM activities, psychology insights, and educational resources for curious kids and parents.",
   locale: "en",
   languages: ["en", "hr"],
-  // TODO: replace placeholder URLs once social profiles are live.
-  // Leaving as "#" hides the link in the Footer (see Footer.tsx).
+
   social: {
-    facebook:  "#",
-    instagram: "#",
-    pinterest: "#",
-    youtube:   "#",
+    facebook:  "https://www.facebook.com/stemlittleexplorers",
+    pinterest: "https://www.pinterest.com/STEM_Little_Explorers/",
+    youtube:   "https://www.youtube.com/@STEMLittleExplorers",
   },
 } as const;
