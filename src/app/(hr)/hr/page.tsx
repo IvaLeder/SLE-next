@@ -35,7 +35,7 @@ export default function CroatianHomePage() {
             Najnovije objave
           </h2>
           <p className="mt-1 text-gray-600">
-            Praktični pokusi i savjeti za roditelje — svježe objavljeno.
+            Praktični pokusi i savjeti za roditelje i edukatore
           </p>
         </div>
         <PostList posts={posts} lang="hr" />

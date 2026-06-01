@@ -37,7 +37,7 @@ export default function EnglishHomePage() {
             Latest articles
           </h2>
           <p className="mt-1 text-gray-600">
-            Hands-on experiments and parenting insights, freshly published.
+            Hands-on experiments and parenting insights
           </p>
         </div>
         <PostList posts={posts} lang="en" />
