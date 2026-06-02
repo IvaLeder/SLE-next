@@ -38,8 +38,10 @@ export default function Lightbox({ src, alt, width, height }: Props) {
     return () => document.removeEventListener("keydown", onKey);
   }, [open]);
 
+  const hasDims = Boolean(width && height);
+
   // ── Inline image (the normal article view) ────────────────────────────────
-  const inlineImage = width && height
+  const inlineImage = hasDims
     ? (
       <NextImage
         src={src}
@@ -47,7 +49,9 @@ export default function Lightbox({ src, alt, width, height }: Props) {
         width={width}
         height={height}
         sizes="(min-width: 768px) 768px, 100vw"
-        className="rounded-md w-full h-auto cursor-zoom-in"
+        // Render at natural size (never upscaled past the column), cap very tall
+        // images, and centre anything narrower than the column with mx-auto.
+        className="mx-auto block h-auto w-auto max-w-full max-h-[70vh] rounded-md cursor-zoom-in"
       />
     )
     : (
@@ -68,7 +72,7 @@ export default function Lightbox({ src, alt, width, height }: Props) {
         onClick={() => setOpen(true)}
         aria-label={alt ? `Open image: ${alt}` : "Open image"}
         className={
-          width && height
+          hasDims
             ? "block my-6 w-full bg-transparent border-0 p-0 cursor-zoom-in"
             : "block my-6 relative w-full aspect-[16/9] overflow-hidden rounded-md bg-transparent border-0 p-0 cursor-zoom-in"
         }

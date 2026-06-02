@@ -1,3 +1,6 @@
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+import { imageSize } from "image-size";
 import YouTube from "./YouTube";
 import { Callout } from "./Callout";
 import NextImage, { type ImageProps } from "next/image";
@@ -14,16 +17,49 @@ type MdxImgProps = {
   height?: number | string;
 };
 
+// Build-time cache so the same image isn't read off disk twice.
+const dimsCache = new Map<string, { width: number; height: number } | null>();
+
+/**
+ * Read a local image's real pixel dimensions from disk (build-time only).
+ * Markdown `![](src)` can't carry width/height, which forced Lightbox into a
+ * 16:9 `object-cover` crop. Reading the true size here lets every inline image
+ * render at its natural aspect ratio — uncropped, and still zero-CLS because
+ * next/image reserves space from the dimensions. Returns null for remote URLs
+ * or anything we can't measure (falls back to the old 16:9 box).
+ */
+function localImageDimensions(src: string): { width: number; height: number } | null {
+  if (!src.startsWith("/")) return null;
+  if (dimsCache.has(src)) return dimsCache.get(src)!;
+
+  let result: { width: number; height: number } | null = null;
+  try {
+    const { width, height } = imageSize(readFileSync(join(process.cwd(), "public", src)));
+    if (width && height) result = { width, height };
+  } catch {
+    result = null;
+  }
+  dimsCache.set(src, result);
+  return result;
+}
+
 function MdxImg({ src, alt = "", width, height }: MdxImgProps) {
   if (!src) return null;
-  return (
-    <Lightbox
-      src={src}
-      alt={alt}
-      width={width ? Number(width) : undefined}
-      height={height ? Number(height) : undefined}
-    />
-  );
+
+  let w = width ? Number(width) : undefined;
+  let h = height ? Number(height) : undefined;
+
+  // Fill in dimensions for local images that didn't supply them (i.e. Markdown
+  // images), so they render uncropped at their natural ratio.
+  if (!w || !h) {
+    const dims = localImageDimensions(src);
+    if (dims) {
+      w = dims.width;
+      h = dims.height;
+    }
+  }
+
+  return <Lightbox src={src} alt={alt} width={w} height={h} />;
 }
 
 // `a` in MDX → secure external links. Same-origin links pass through unchanged.

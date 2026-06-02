@@ -52,6 +52,22 @@ body {
   text-decoration: none;
 }
 
+/* Raw <img> written as literal HTML in MDX (e.g. inside a <figure> with a
+   caption) renders natively — it bypasses next/image and the Lightbox. Centre
+   it, keep it at its natural size (never upscaled past the column), and cap the
+   height so tall images don't dominate — matching the Markdown-image behaviour.
+   Markdown ![](…) images are centred/capped by the Lightbox itself. */
+.prose figure img {
+  margin-inline: auto;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 70vh;
+}
+.prose figure {
+  text-align: center;
+}
+
 /* ─── Print styles ─────────────────────────────────────────────────────────
    Parents print activity instructions. Hide all the page chrome that wastes
    ink (header, footer, share buttons, subscribe CTA, TOC, breadcrumbs, etc.)
