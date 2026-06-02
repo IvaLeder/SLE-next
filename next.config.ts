@@ -80,6 +80,9 @@ const config: NextConfig = {
       ['/hr/category/stem-hr/origami', '/hr/tag/origami'],
       // Tag slug rename
       ['/hr/tag/origami-hr', '/hr/tag/origami'],
+      // Post slug corrected after migration (old interim slug 404'd external links)
+      ['/en/learn-letters-and-numbers', '/en/learning-letters-for-preschoolers-activity'],
+      ['/hr/ucenje-abecede-brojeva', '/hr/aktivnost-ucenja-slova-kod-predskolaca'],
     ];
 
     return moved.map(([source, destination]) => ({ source, destination, permanent: true }));
