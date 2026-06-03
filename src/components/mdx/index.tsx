@@ -5,6 +5,7 @@ import YouTube from "./YouTube";
 import { Callout } from "./Callout";
 import NextImage, { type ImageProps } from "next/image";
 import Lightbox from "./Lightbox";
+import Figure from "./Figure";
 import { SubscribeButton } from "../SubscribeButton";
 
 // Markdown ![alt](src) and <Image src=…/> in MDX both flow through here.
@@ -84,6 +85,7 @@ export const mdxComponents = {
   a: MdxLink,
   img: MdxImg,
   Image: (props: ImageProps) => <NextImage {...props} className="my-6 rounded-md" />,
+  Figure,
   Subscribe: SubscribeButton,
   YouTube,
   Callout,

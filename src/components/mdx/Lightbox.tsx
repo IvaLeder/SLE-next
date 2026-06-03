@@ -9,6 +9,9 @@ type Props = {
   /** Optional explicit dimensions — used when MDX <Image width=… height=…/> form is used. */
   width?: number;
   height?: number;
+  /** Vertical-margin utility for the wrapper button. Defaults to `my-6` for
+   *  standalone images; <Figure> passes `""` since the <figure> owns spacing. */
+  marginClass?: string;
 };
 
 /**
@@ -19,7 +22,7 @@ type Props = {
  * Closing: ESC, click outside, or close button. Locks body scroll while open.
  * Respects prefers-reduced-motion (no fade).
  */
-export default function Lightbox({ src, alt, width, height }: Props) {
+export default function Lightbox({ src, alt, width, height, marginClass = "my-6" }: Props) {
   const [open, setOpen] = useState(false);
 
   // Lock body scroll while the lightbox is open + restore on close.
@@ -73,8 +76,8 @@ export default function Lightbox({ src, alt, width, height }: Props) {
         aria-label={alt ? `Open image: ${alt}` : "Open image"}
         className={
           hasDims
-            ? "block my-6 w-full bg-transparent border-0 p-0 cursor-zoom-in"
-            : "block my-6 relative w-full aspect-[16/9] overflow-hidden rounded-md bg-transparent border-0 p-0 cursor-zoom-in"
+            ? `block ${marginClass} w-full bg-transparent border-0 p-0 cursor-zoom-in`
+            : `block ${marginClass} relative w-full aspect-[16/9] overflow-hidden rounded-md bg-transparent border-0 p-0 cursor-zoom-in`
         }
       >
         {inlineImage}

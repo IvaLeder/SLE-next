@@ -46,6 +46,7 @@ const KNOWN_MDX_COMPONENTS = new Set([
   "Subscribe",
   "Callout",
   "Image",
+  "Figure",
 ]);
 
 const POSTS_DIR  = "src/content/posts";
@@ -270,6 +271,20 @@ function checkMdxContent(filePath, content) {
       : join(PUBLIC_DIR, "images/posts", src.replace(/^\.?\//, ""));
     if (!existsSync(onDisk)) {
       error(filePath, `Image reference "${src}" not found at \`${relPath(onDisk)}\``);
+    }
+  }
+
+  // <Figure src="…" /> — same on-disk check for captioned images. (Raw <img>
+  // used to escape validation entirely; <Figure> brings it back under coverage.)
+  const figRegex = /<Figure\b[^>]*?\bsrc=["']([^"']+)["']/g;
+  while ((m = figRegex.exec(cleaned)) !== null) {
+    const src = m[1].trim();
+    if (!src || src.startsWith("http") || src.startsWith("data:")) continue;
+    const onDisk = src.startsWith("/")
+      ? join(PUBLIC_DIR, src.replace(/^\//, ""))
+      : join(PUBLIC_DIR, "images/posts", src.replace(/^\.?\//, ""));
+    if (!existsSync(onDisk)) {
+      error(filePath, `<Figure> src "${src}" not found at \`${relPath(onDisk)}\``);
     }
   }
 }
