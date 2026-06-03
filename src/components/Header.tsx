@@ -64,6 +64,50 @@ export default function Header({ lang, switchUrl }: HeaderProps) {
     return () => document.removeEventListener("mousedown", handleClick);
   }, []);
 
+  // ── Subjects dropdown keyboard support (disclosure pattern) ───────────────
+  // Trigger is a button; items stay <Link>s (so SRs announce them as links).
+  // Arrow keys / Home / End rove focus; Escape closes and returns focus to the
+  // button; Tab closes and moves on naturally.
+  const subjectsBtnRef = useRef<HTMLButtonElement>(null);
+  const subjectItemsRef = useRef<(HTMLAnchorElement | null)[]>([]);
+
+  const focusSubjectItem = (index: number) => {
+    const items = subjectItemsRef.current.filter(Boolean) as HTMLAnchorElement[];
+    if (!items.length) return;
+    items[(index + items.length) % items.length]?.focus();
+  };
+
+  const onSubjectsButtonKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setSubjectsOpen(true);
+      requestAnimationFrame(() => focusSubjectItem(0));
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setSubjectsOpen(true);
+      requestAnimationFrame(() => focusSubjectItem(-1));
+    } else if (e.key === "Escape" && subjectsOpen) {
+      setSubjectsOpen(false);
+    }
+  };
+
+  const onSubjectsMenuKeyDown = (e: React.KeyboardEvent) => {
+    const items = subjectItemsRef.current.filter(Boolean) as HTMLAnchorElement[];
+    const current = items.indexOf(document.activeElement as HTMLAnchorElement);
+    switch (e.key) {
+      case "ArrowDown": e.preventDefault(); focusSubjectItem(current + 1); break;
+      case "ArrowUp":   e.preventDefault(); focusSubjectItem(current - 1); break;
+      case "Home":      e.preventDefault(); focusSubjectItem(0); break;
+      case "End":       e.preventDefault(); focusSubjectItem(-1); break;
+      case "Escape":
+        e.preventDefault();
+        setSubjectsOpen(false);
+        subjectsBtnRef.current?.focus();
+        break;
+      // Tab is handled by the container's onBlur (closes once focus leaves).
+    }
+  };
+
   return (
     <header className="sticky top-0 z-50 font-sans border-b border-gray-200/70 bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/75">
       {/* Compact mobile bar (~48px tall) — expands on lg+ */}
@@ -101,30 +145,48 @@ export default function Header({ lang, switchUrl }: HeaderProps) {
           </Link>
 
           {/* Subjects dropdown */}
-          <div className="relative" ref={dropdownRef}>
+          <div
+            className="relative"
+            ref={dropdownRef}
+            onBlur={(e) => {
+              // Close once focus leaves the dropdown entirely (Tab/Shift+Tab out).
+              if (!e.currentTarget.contains(e.relatedTarget as Node)) {
+                setSubjectsOpen(false);
+              }
+            }}
+          >
             <button
+              ref={subjectsBtnRef}
               onClick={() => setSubjectsOpen((v) => !v)}
+              onKeyDown={onSubjectsButtonKeyDown}
               className="flex items-center gap-1 whitespace-nowrap hover:opacity-70"
               aria-haspopup="true"
               aria-expanded={subjectsOpen}
+              aria-controls="subjects-menu"
             >
               {lang === "en" ? "Subjects" : "Kategorije"}
               <svg
                 className="w-3 h-3 mt-0.5"
                 viewBox="0 0 10 6"
                 fill="currentColor"
+                aria-hidden="true"
               >
                 <path d="M0 0l5 6 5-6z" />
               </svg>
             </button>
             {subjectsOpen && (
-              <div className="absolute left-0 top-full mt-2 w-44 bg-white border rounded-lg shadow-lg py-1 z-50">
-                {subjects.map((s) => (
+              <div
+                id="subjects-menu"
+                onKeyDown={onSubjectsMenuKeyDown}
+                className="absolute left-0 top-full mt-2 w-44 bg-white border rounded-lg shadow-lg py-1 z-50"
+              >
+                {subjects.map((s, i) => (
                   <Link
                     key={s.href}
                     href={s.href}
+                    ref={(el) => { subjectItemsRef.current[i] = el; }}
                     aria-current={ariaCurrent(s.href)}
-                    className="block px-4 py-2 text-sm hover:bg-indigo-50 hover:text-indigo-700 aria-[current=page]:bg-indigo-100 aria-[current=page]:text-indigo-700 aria-[current=page]:font-semibold"
+                    className="block px-4 py-2 text-sm hover:bg-indigo-50 hover:text-indigo-700 focus-visible:bg-indigo-50 focus-visible:text-indigo-700 aria-[current=page]:bg-indigo-100 aria-[current=page]:text-indigo-700 aria-[current=page]:font-semibold"
                     onClick={() => setSubjectsOpen(false)}
                   >
                     {s.label}

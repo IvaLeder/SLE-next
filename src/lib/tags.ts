@@ -73,9 +73,9 @@ export const TAG_DESCRIPTION: Record<"en" | "hr", Record<TagSlug, string>> = {
   },
   hr: {
     activity:
-      "Sve praktične aktivnosti na jednom mjestu_ kemijski pokusi, inženjerske gradnje, origami, senzorne igre i više. Birajte po temi ili pregledajte cijeli popis ispod.",
+      "Sve praktične aktivnosti na jednom mjestu: kemijski pokusi, inženjerski pothvati, origami, senzorne igre i više. Birajte po temi ili pregledajte cijeli popis ispod.",
     chemistry:
-      "Kiseline i baze, polimeri, polaritet, topljivost... Sve što pjeni, otapa, boji ili mijenja oblik. Svi projekti koriste jednostavne kuhinjske sastojke; nije potrebna posebna oprema.",
+      "Kiseline i baze, polimeri, polaritet, topljivost... Sve što se pjeni, otapa, mijenja oblik ili boju. Svi projekti koriste jednostavne kuhinjske sastojke; nije potrebna posebna oprema.",
     physics:
       "Sile, gibanje, tlak, svjetlost, toplina: znanost o tome kako se svijet kreće. Od domaćih raketa do demonstracija loma svjetlosti, smišljeno da pojasni apstraktne koncepte.",
     origami:
@@ -85,11 +85,11 @@ export const TAG_DESCRIPTION: Record<"en" | "hr", Record<TagSlug, string>> = {
     parenting:
       "Praktične, na istraživanjima utemeljene roditeljske teme: razvoj govora, kognitivni razvoj, izazovi u ponašanju, poticanje znatiželje.",
     "child-development":
-      "Članci o tome što očekivati u svakoj fazi razvoja: fizički, kognitivni, društveni, emocionalni razvoj. Utemeljeno na pedijatrijskim i psihološkim istraživanjima i čestim pitanjima roditelja.",
+      "Članci o tome što očekivati u svakoj fazi razvoja. Pratimo i opisujemo fizički, kognitivni, socijalni i emocionalni razvoj. Utemeljeno na pedijatrijskim i psihološkim istraživanjima i čestim pitanjima roditelja.",
     milestone:
-      "Mjesečni vodiči za razvojne prekretnice prve tri godine. Razmatramo što je tipično, na što pripaziti i kada se obratiti stručnjaku.",
+      "Mjesečni vodiči za razvojne skokove prve tri godine. Razmatramo što je tipično, na što pripaziti i kada se obratiti stručnjacima.",
     experiment:
-      "Testiranje hipoteza: predvidi, testiraj, promatraj, zaključi. Ove aktivnosti pomažu u razvoju i primjeni znanstvenih metoda.",
+      "Testiranje hipoteza: predviđamo, testiramo, promatramo i zaključujemo. Ove aktivnosti pomažu u razvoju i primjeni znanstvenih metoda.",
   },
 };
 
