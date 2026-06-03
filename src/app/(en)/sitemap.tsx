@@ -42,6 +42,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticEntries: MetadataRoute.Sitemap = [
     ...bilingual("",            now, 1.0, "weekly"),
     ...bilingual("/activities", now, 0.9, "weekly"),
+    ...bilingual("/topics",     now, 0.7, "weekly"),
     ...bilingual("/about",      now, 0.5, "monthly"),
     ...bilingual("/contact",    now, 0.4, "yearly"),
     ...bilingual("/privacy",    now, 0.2, "yearly"),

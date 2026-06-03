@@ -44,6 +44,7 @@ export default function Footer({ lang }: { lang: "en" | "hr" }) {
       activities:  "All activities",
       subjects:    "Subjects",
       topics:      "Topics",
+      allTopics:   "All topics",
       science:     "Science",
       engineering: "Engineering",
       math:        "Math",
@@ -66,6 +67,7 @@ export default function Footer({ lang }: { lang: "en" | "hr" }) {
       activities:  "Sve aktivnosti",
       subjects:    "Kategorije",
       topics:      "Teme",
+      allTopics:   "Sve teme",
       science:     "Znanost",
       engineering: "Inženjerstvo",
       math:        "Matematika",
@@ -168,6 +170,14 @@ export default function Footer({ lang }: { lang: "en" | "hr" }) {
                 </Link>
               </li>
             ))}
+            <li>
+              <Link
+                href={`/${lang}/topics`}
+                className="text-brand hover:text-brand-hover hover:underline font-medium"
+              >
+                {t.allTopics} →
+              </Link>
+            </li>
           </ul>
         </div>
 

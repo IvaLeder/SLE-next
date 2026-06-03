@@ -135,6 +135,14 @@ export default function Header({ lang, switchUrl }: HeaderProps) {
           </div>
 
           <Link
+            href={`/${lang}/topics`}
+            aria-current={ariaCurrent(`/${lang}/topics`)}
+            className="whitespace-nowrap hover:opacity-70 aria-[current=page]:font-semibold"
+          >
+            {lang === "en" ? "Topics" : "Teme"}
+          </Link>
+
+          <Link
             href={`/${lang}/about`}
             aria-current={ariaCurrent(`/${lang}/about`)}
             className="whitespace-nowrap hover:opacity-70 aria-[current=page]:font-semibold"
@@ -210,6 +218,14 @@ export default function Header({ lang, switchUrl }: HeaderProps) {
               </Link>
             ))}
           </div>
+
+          <Link
+            href={`/${lang}/topics`}
+            className="block px-4 py-3 border-b hover:bg-gray-50"
+            onClick={() => setOpen(false)}
+          >
+            {lang === "en" ? "Topics" : "Teme"}
+          </Link>
 
           <Link
             href={`/${lang}/about`}

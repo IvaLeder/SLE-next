@@ -3,8 +3,9 @@ import { notFound } from "next/navigation";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PostCard from "@/components/PostCard";
+import TagChips from "@/components/TagChips";
 import { getPostsByTag } from "@/lib/posts";
-import { KNOWN_TAGS, TAG_DISPLAY, TAG_DESCRIPTION, isKnownTag } from "@/lib/tags";
+import { KNOWN_TAGS, SURFACED_TAGS, TAG_DISPLAY, TAG_DESCRIPTION, isKnownTag } from "@/lib/tags";
 import { siteConfig } from "@/config/site";
 
 type Props = { params: Promise<{ tag: string }> };
@@ -64,6 +65,11 @@ export default async function TagPage({ params }: Props) {
             {description}
           </p>
         </header>
+
+        {/* Browse other topics — highlights the current one */}
+        <div className="mb-8">
+          <TagChips lang="en" tags={SURFACED_TAGS} activeSlug={slug} ariaLabel="Browse topics" />
+        </div>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {posts.map((post, i) => (
