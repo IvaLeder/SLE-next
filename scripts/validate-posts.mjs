@@ -80,7 +80,7 @@ function checkPost(filePath, lang) {
     parsed = matter(text);
   } catch (e) {
     error(filePath, `Frontmatter is unparseable — ${e.message}`);
-    return null;
+    return { data: null, content: null };
   }
 
   const { data, content } = parsed;
@@ -98,7 +98,7 @@ function checkPost(filePath, lang) {
   }
 
   // Stop early if scalars are missing — most downstream checks need them.
-  if (!data.title || !data.date || !data.slug || !data.lang) return data;
+  if (!data.title || !data.date || !data.slug || !data.lang) return { data, content };
 
   // ── lang sanity ─────────────────────────────────────────────────────────
   if (data.lang !== "en" && data.lang !== "hr") {
@@ -218,7 +218,7 @@ function checkPost(filePath, lang) {
   // ── MDX content checks ──────────────────────────────────────────────────
   checkMdxContent(filePath, content);
 
-  return data;
+  return { data, content };
 }
 
 function checkMdxContent(filePath, content) {
@@ -328,6 +328,120 @@ function checkTranslationPairing(allPosts) {
 }
 
 // ────────────────────────────────────────────────────────────────────────────
+// In-page anchor links must resolve to a real heading id
+//
+// Heading ids on the rendered page are produced by `rehype-slug` (github-slugger).
+// We re-implement that slug algorithm here (faithful for the heading text this
+// repo uses — verified against github-slugger across the whole corpus) so we can
+// check that every internal link's `#fragment` actually points at a heading.
+// This catches the old WordPress-style `#Capitalised%20Heading` anchors, which
+// silently jump to the top of the page instead of the section.
+// ────────────────────────────────────────────────────────────────────────────
+
+// One github-slugger-compatible slug. Keeps letters, marks, decimal digits,
+// letter-numbers, underscore and hyphen; lowercases; spaces → hyphens; strips
+// everything else. Does NOT collapse repeats (so "a - b" → "a---b"), matching
+// github-slugger exactly.
+function slugBase(text) {
+  return text
+    .toLowerCase()
+    .replace(/[^\p{L}\p{M}\p{Nd}\p{Nl} _-]/gu, "")
+    .replace(/ /g, "-");
+}
+
+// A per-document slugger with github-slugger's duplicate-suffixing (-1, -2, …).
+function makeSlugger() {
+  const seen = Object.create(null);
+  return (text) => {
+    const base = slugBase(text);
+    let result = base;
+    while (result in seen) {
+      seen[base] = (seen[base] || 0) + 1;
+      result = `${base}-${seen[base]}`;
+    }
+    seen[result] = 0;
+    return result;
+  };
+}
+
+// Collect the set of heading ids a post's body will render (ATX headings only,
+// skipping fenced code blocks — a `#` inside ``` is not a heading).
+function headingIdsOf(content) {
+  const slugger = makeSlugger();
+  const ids = new Set();
+  let fenced = false;
+  for (const line of content.split("\n")) {
+    if (/^\s*(```|~~~)/.test(line)) { fenced = !fenced; continue; }
+    if (fenced) continue;
+    const m = line.match(/^#{1,6}\s+(.*?)\s*#*\s*$/);
+    if (!m) continue;
+    ids.add(slugger(m[1]));
+  }
+  return ids;
+}
+
+function checkInternalAnchors(allPosts) {
+  // Index every post by "lang/slug" → set of heading ids it renders.
+  const idIndex = new Map();
+  for (const { data, content } of allPosts) {
+    if (!data || !content || !data.slug || !data.lang) continue;
+    idIndex.set(`${data.lang}/${data.slug}`, headingIdsOf(content));
+  }
+
+  for (const { file, data, content, lang } of allPosts) {
+    if (!data || !content || !data.slug) continue;
+    const selfKey = `${lang}/${data.slug}`;
+
+    // Strip comments first (same as checkMdxContent) so example links in
+    // comments don't trip the check.
+    const cleaned = content
+      .replace(/\{\/\*[\s\S]*?\*\/\}/g, "")
+      .replace(/<!--[\s\S]*?-->/g, "");
+
+    // Markdown links: ](url) or ](url "title"). URLs hold no spaces/parens.
+    const linkRe = /\]\(\s*([^)\s]+)(?:\s+["'][^"']*["'])?\s*\)/g;
+    let m;
+    while ((m = linkRe.exec(cleaned)) !== null) {
+      const href = m[1];
+      const hashIdx = href.indexOf("#");
+      if (hashIdx === -1) continue;                 // no fragment — not our concern
+      const rawFrag = href.slice(hashIdx + 1);
+      if (!rawFrag) continue;                        // bare "#"
+      const pathPart = href.slice(0, hashIdx);
+      if (/^[a-z]+:/i.test(pathPart)) continue;      // external (http:, mailto:, …)
+
+      let fragment;
+      try { fragment = decodeURIComponent(rawFrag); } catch { fragment = rawFrag; }
+
+      // Resolve the target post. "" = same page; otherwise only single-segment
+      // post paths (/en/<slug>) — category/tag/author/about/etc. are skipped
+      // because we don't index their heading ids here.
+      let key;
+      if (pathPart === "") {
+        key = selfKey;
+      } else {
+        const mt = pathPart.match(/^\/(en|hr)\/([^/]+)\/?$/);
+        if (!mt) continue;
+        key = `${mt[1]}/${mt[2]}`;
+      }
+
+      const ids = idIndex.get(key);
+      if (!ids) continue;                            // unknown/non-post target — out of scope
+
+      if (!ids.has(fragment)) {
+        error(
+          file,
+          `Broken in-page anchor \`#${rawFrag}\` in link \`${href}\` — ` +
+            `no heading in ${key} has id "${fragment}". ` +
+            `Anchor fragments must match a rehype-slug heading id ` +
+            `(lowercase, spaces→hyphens, punctuation stripped; e.g. \`#what-is-polarity\`).`
+        );
+      }
+    }
+  }
+}
+
+// ────────────────────────────────────────────────────────────────────────────
 // Main
 // ────────────────────────────────────────────────────────────────────────────
 function main() {
@@ -342,12 +456,13 @@ function main() {
     for (const filename of readdirSync(dir).sort()) {
       if (!/\.mdx?$/.test(filename)) continue;
       const file = join(dir, filename);
-      const data = checkPost(file, lang);
-      allPosts.push({ file, data, lang });
+      const { data, content } = checkPost(file, lang);
+      allPosts.push({ file, data, content, lang });
     }
   }
 
   checkTranslationPairing(allPosts);
+  checkInternalAnchors(allPosts);
 
   // ── Report ──────────────────────────────────────────────────────────────
   const errors = findings.filter((f) => f.level === "error");
