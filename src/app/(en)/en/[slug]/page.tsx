@@ -27,6 +27,8 @@ import AuthorBio from "@/components/AuthorBio";
 import ReadingProgress from "@/components/ReadingProgress";
 import ShareButtons from "@/components/ShareButtons";
 import { SubscribeButton } from "@/components/SubscribeButton";
+import TagChips from "@/components/TagChips";
+import { surfacedTagsOf } from "@/lib/tags";
 import { siteConfig } from "@/config/site";
 
 type Props = { params: Promise<{ slug: string }> };
@@ -52,6 +54,7 @@ export default async function PostPage({ params }: Props) {
   const breadcrumbJsonLd = generateBreadcrumbJsonLd(post);
   const howToJsonLd = generateHowToJsonLd(post, "en");
   const relatedPosts = getRelatedPosts("en", post);
+  const topicTags = surfacedTagsOf(post.tags);
 
   // Build breadcrumb trail — include first category if available (issue 28)
   // Use the canonical English slug for the URL; display name for the label.
@@ -111,6 +114,16 @@ export default async function PostPage({ params }: Props) {
           }}
         />
       </article>
+
+      {/* Topic tags — links to tag landing pages for "more like this" */}
+      {topicTags.length > 0 && (
+        <div className="mt-8 flex flex-wrap items-center gap-2">
+          <span className="text-xs font-semibold uppercase tracking-wide text-gray-500 font-sans">
+            Topics
+          </span>
+          <TagChips lang="en" tags={topicTags} />
+        </div>
+      )}
 
       {/* Social-share row directly under the article body */}
       <ShareButtons

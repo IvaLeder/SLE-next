@@ -93,7 +93,36 @@ export const TAG_DESCRIPTION: Record<"en" | "hr", Record<TagSlug, string>> = {
   },
 };
 
+/**
+ * Tags surfaced in the UI as discovery chips (article footers, footer "Topics").
+ *
+ * A curated *topical* subset — what a post is ABOUT. The structural/audience
+ * tags (`activity`, `parenting`, `milestone`, `child-development`) still have
+ * fully working tag pages and power features like `/activities`, but we don't
+ * push them as chips: they overlap with categories + the Activities page and
+ * would add noise. To surface a tag, add its slug here. Order = display order.
+ */
+export const SURFACED_TAGS: readonly TagSlug[] = [
+  "origami",
+  "chemistry",
+  "physics",
+  "sensory",
+  "experiment",
+];
+
 /** Type guard: is `slug` a known tag? */
 export function isKnownTag(slug: string): slug is TagSlug {
   return (KNOWN_TAGS as readonly string[]).includes(slug);
+}
+
+/**
+ * A post's tags, filtered to the surfaced topical set and returned in
+ * `SURFACED_TAGS` display order (so chips render consistently regardless of the
+ * order tags appear in frontmatter). Posts whose only tags are structural
+ * return `[]` and render no chip row.
+ */
+export function surfacedTagsOf(tags: readonly string[] | undefined): TagSlug[] {
+  if (!tags || tags.length === 0) return [];
+  const present = new Set(tags.map((t) => t.trim().toLowerCase()));
+  return SURFACED_TAGS.filter((t) => present.has(t));
 }

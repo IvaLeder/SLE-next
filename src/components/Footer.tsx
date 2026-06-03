@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
+import { SURFACED_TAGS, TAG_DISPLAY } from "@/lib/tags";
 
 // Inline SVG icons — avoid pulling a whole icon library for four glyphs.
 function FacebookIcon(props: React.SVGProps<SVGSVGElement>) {
@@ -42,6 +43,7 @@ export default function Footer({ lang }: { lang: "en" | "hr" }) {
       explore:     "Explore",
       activities:  "All activities",
       subjects:    "Subjects",
+      topics:      "Topics",
       science:     "Science",
       engineering: "Engineering",
       math:        "Math",
@@ -63,6 +65,7 @@ export default function Footer({ lang }: { lang: "en" | "hr" }) {
       explore:     "Istraži",
       activities:  "Sve aktivnosti",
       subjects:    "Kategorije",
+      topics:      "Teme",
       science:     "Znanost",
       engineering: "Inženjerstvo",
       math:        "Matematika",
@@ -146,6 +149,22 @@ export default function Footer({ lang }: { lang: "en" | "hr" }) {
                   className="text-gray-700 hover:text-brand hover:underline"
                 >
                   {t[key]}
+                </Link>
+              </li>
+            ))}
+          </ul>
+
+          <h4 className="font-semibold mt-5 mb-2 text-xs uppercase tracking-wide text-gray-500">
+            {t.topics}
+          </h4>
+          <ul className="space-y-1.5">
+            {SURFACED_TAGS.map((slug) => (
+              <li key={slug}>
+                <Link
+                  href={`/${lang}/tag/${slug}`}
+                  className="text-gray-700 hover:text-brand hover:underline"
+                >
+                  {TAG_DISPLAY[lang][slug]}
                 </Link>
               </li>
             ))}

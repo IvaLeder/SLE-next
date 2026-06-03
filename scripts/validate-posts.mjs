@@ -327,6 +327,38 @@ function checkTranslationPairing(allPosts) {
   }
 }
 
+// Tags are language-neutral ASCII slugs (display labels are localised at render
+// time — see src/lib/tags.ts), so a translation pair should carry the SAME set
+// of tags. Drift means the same article shows different topic chips / appears on
+// different tag pages per language. Reported once per pair, on the EN file.
+function checkTagParity(allPosts) {
+  const byKey = new Map(); // translationKey → { en?, hr? } each { file, tags:Set }
+
+  for (const { file, data, lang } of allPosts) {
+    if (!data || !data.translationKey) continue;
+    const tags = new Set((data.tags ?? []).map((t) => String(t).trim().toLowerCase()));
+    const entry = byKey.get(data.translationKey) ?? {};
+    entry[lang] = { file, tags };
+    byKey.set(data.translationKey, entry);
+  }
+
+  for (const [, { en, hr }] of byKey) {
+    if (!en || !hr) continue; // missing counterpart is handled by the orphan check
+    const onlyEn = [...en.tags].filter((t) => !hr.tags.has(t));
+    const onlyHr = [...hr.tags].filter((t) => !en.tags.has(t));
+    if (onlyEn.length === 0 && onlyHr.length === 0) continue;
+
+    const parts = [];
+    if (onlyEn.length) parts.push(`only in EN: ${onlyEn.join(", ")}`);
+    if (onlyHr.length) parts.push(`only in HR: ${onlyHr.join(", ")}`);
+    warn(
+      en.file,
+      `Tag mismatch with HR counterpart (${relPath(hr.file)}) — ${parts.join("; ")}. ` +
+        `Tags are language-neutral slugs and should match across a translation pair.`
+    );
+  }
+}
+
 // ────────────────────────────────────────────────────────────────────────────
 // In-page anchor links must resolve to a real heading id
 //
@@ -462,6 +494,7 @@ function main() {
   }
 
   checkTranslationPairing(allPosts);
+  checkTagParity(allPosts);
   checkInternalAnchors(allPosts);
 
   // ── Report ──────────────────────────────────────────────────────────────
