@@ -37,8 +37,8 @@ export default function AboutPage() {
             Making STEM fun for every family
           </h1>
           <p className="text-lg leading-relaxed text-gray-700">
-            STEM Little Explorers is a bilingual blog — in English and Croatian
-            — that makes science, technology, engineering, maths and child
+            STEM Little Explorers is a bilingual blog in English and Croatian
+            that makes science, technology, engineering, maths and child
             psychology accessible to every family. We believe curiosity is a
             child&rsquo;s greatest superpower, and that parents and educators
             are the best people to nurture it.
@@ -54,7 +54,7 @@ export default function AboutPage() {
             <p className="text-gray-700 leading-relaxed">
               To give parents and educators simple, affordable ideas for
               sparking STEM skills in children. Science, technology, engineering
-              and maths shape the future — and they don&rsquo;t have to feel
+              and maths shape the future and they don&rsquo;t have to feel
               intimidating. We show how they can be playful, hands-on and
               genuinely fun, so you can help that spark grow and keep it lit.
             </p>

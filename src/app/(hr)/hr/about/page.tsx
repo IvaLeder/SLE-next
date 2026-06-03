@@ -10,7 +10,7 @@ import { generateAuthorsJsonLd } from "@/lib/metadata";
 export const metadata: Metadata = {
   title: "O nama | STEM Little Explorers",
   description:
-    "Upoznajte tim iza STEM Little Explorers — praktične STEM aktivnosti i vodiči za razvoj djeteta za roditelje i odgajatelje.",
+    "Upoznajte tim iza STEM Little Explorers koji smišljaju praktične STEM aktivnosti i vodiče za razvoj djeteta za roditelje i odgajatelje.",
   alternates: {
     canonical: "https://stemlittleexplorers.com/hr/about",
     languages: {
@@ -37,11 +37,11 @@ export default function AboutPage() {
             STEM zabavan za svaku obitelj
           </h1>
           <p className="text-lg leading-relaxed text-gray-700">
-            STEM Little Explorers dvojezični je blog — na hrvatskom i engleskom —
-            koji znanost, tehnologiju, inženjerstvo, matematiku i dječju
+            STEM Little Explorers dvojezični je blog na hrvatskom i engleskom
+            jeziku koji znanost, tehnologiju, inženjerstvo, matematiku i dječju
             psihologiju čini dostupnima svakoj obitelji. Vjerujemo da je
-            znatiželja djetetova najveća supermoć i da su roditelji i odgajatelji
-            ti koji je najbolje mogu njegovati.
+            znatiželja djetetova najveća supermoć i da su roditelji i
+            odgajatelji ti koji je mogu najbolje njegovati.
           </p>
         </header>
 
@@ -52,11 +52,11 @@ export default function AboutPage() {
               Naša misija
             </h2>
             <p className="text-gray-700 leading-relaxed">
-              Pružiti roditeljima i odgajateljima jednostavne i pristupačne ideje
-              za poticanje STEM vještina kod djece. Znanost, tehnologija,
-              inženjerstvo i matematika oblikuju budućnost — i ne moraju izgledati
+              Pružiti roditeljima i odgajateljima jednostavne i pristupačne
+              ideje za poticanje STEM vještina kod djece. Znanost, tehnologija,
+              inženjerstvo i matematika oblikuju budućnost i ne moraju izgledati
               zastrašujuće. Pokazujemo kako mogu biti razigrane, praktične i
-              istinski zabavne, da lakše probudite tu iskru i održite je.
+              istinski zabavne.
             </p>
           </div>
           <div className="rounded-2xl bg-gray-100 p-6">
@@ -64,23 +64,26 @@ export default function AboutPage() {
               Naša vizija
             </h2>
             <p className="text-gray-700 leading-relaxed">
-              Biti prvo mjesto za jeftine, jednostavne i zabavne STEM aktivnosti.
-              Zagovaramo učenje kroz rad — djecu koja istražuju, grade i
-              eksperimentiraju umjesto da samo gledaju ili slušaju — i želimo da
-              svako dijete upozna STEM od rane dobi, jer će ga svijet tražiti sve
-              više.
+              Biti prvo mjesto za jeftine, jednostavne i zabavne STEM
+              aktivnosti. Potičemo iskustveno učenje i djecu koja istražuju,
+              grade i eksperimentiraju umjesto da samo gledaju ili slušaju.
+              Želimo da svako dijete doživi znatiželju i
+              radost otkrivanja i da njihovi odrasli imaju alate da im pomognu u
+              tome.
             </p>
           </div>
         </section>
 
         <p className="text-gray-700 leading-relaxed mb-14">
           Tražite li brzi pokus, vodič kroz razvojni stadij ili savjet o odgoju
-          utemeljen na dokazima — sve pronađite ovdje.
+          utemeljen na dokazima? Sve to i još mnogo toga pronaći ćete ovdje, na STEM Little Explorers.
         </p>
 
         {/* Autori */}
         <section>
-          <h2 className="font-sans text-2xl font-bold mb-6">Upoznajte autore</h2>
+          <h2 className="font-sans text-2xl font-bold mb-6">
+            Upoznajte autore
+          </h2>
           <div className="grid gap-6 sm:grid-cols-2">
             {Object.values(authors).map((author) => {
               const firstName = author.name.split(" ")[0];
@@ -132,7 +135,9 @@ export default function AboutPage() {
 
         {/* Kontakt CTA */}
         <div className="mt-14 rounded-2xl bg-brand-soft p-8 text-center">
-          <h2 className="font-sans text-xl font-bold mb-2">Kontaktirajte nas</h2>
+          <h2 className="font-sans text-xl font-bold mb-2">
+            Kontaktirajte nas
+          </h2>
           <p className="text-gray-700 mb-5">
             Imate pitanje, prijedlog teme ili samo želite pozdraviti?
           </p>

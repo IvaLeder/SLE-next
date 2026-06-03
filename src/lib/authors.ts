@@ -19,8 +19,8 @@ export const authors: Record<string, AuthorInfo> = {
     name: "Iva Leder",
     role: "Psychologist",
     roleHr: "magistra psihologije",
-    bio: "The founder behind the site and a devoted lover of technology — and anything with a bit of code in it. With several years of experience working with children, she is driven by the belief that we should prepare them for the challenges ahead. She is always searching for new, more creative and effective ways to teach, and sees real potential in every child — her job is simply to find the right way to unlock it.",
-    bioHr: "Idejna začetnica stranice i velika ljubiteljica tehnologije — i svega što u sebi sadrži barem malo koda. S nekoliko godina iskustva u radu s djecom, vodi je uvjerenje da ih treba pripremiti za izazove koji dolaze. Neprestano traži nove, kreativnije i učinkovitije načine podučavanja te vidi velik potencijal u svakom djetetu — njezin je posao pronaći pravi način da ga oslobodi."
+    bio: "The founder behind the site and a devoted lover of knowledge and learning in any shape or form. She has several years of experience in the field and is a strong believer in the power of education to transform lives. She is always searching for new, more creative and effective ways to teach, and sees real potential in every child — her job is simply to find the right way to unlock it.",
+    bioHr: "Idejna začetnica stranice i velika ljubiteljica znanja i učenja u bilo kojoj formi. Ima nekoliko godina iskustva u radu s djecom i vjeruje da edukacija može promijeniti živote nabolje. Neprestano traži nove, kreativnije i učinkovitije načine podučavanja te vidi velik potencijal u svakom djetetu — njezin je posao pronaći pravi način da ga oslobodi."
   },
     "Vedran Leder": {
     avatar: "/images/vedran-leder.jpg",

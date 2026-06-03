@@ -53,43 +53,43 @@ export const TAG_DISPLAY: Record<"en" | "hr", Record<TagSlug, string>> = {
 export const TAG_DESCRIPTION: Record<"en" | "hr", Record<TagSlug, string>> = {
   en: {
     activity:
-      "Every hands-on project, in one place — chemistry experiments, engineering builds, origami, sensory play and more. Pick by subject above or browse the full list below.",
+      "Every hands-on project, in one place: chemistry experiments, engineering builds, origami, sensory play and more. Pick by subject above or browse the full list below.",
     chemistry:
-      "Acid–base reactions, polymers, polarity, solubility — everything that fizzes, dissolves, dyes or transforms. All projects use kitchen ingredients; no lab equipment required.",
+      "Acid–base reactions, polymers, polarity, solubility: everything that fizzes, dissolves, dyes or transforms. All projects use kitchen ingredients; no lab equipment required.",
     physics:
-      "Forces, motion, pressure, light, heat — the science of how the world moves. From homemade rockets to refraction demos, designed to make abstract concepts visible.",
+      "Forces, motion, pressure, light, heat: the science of how the world moves. From homemade rockets to refraction demos, designed to make abstract concepts visible.",
     origami:
-      "Paper folding for math, focus and patience. Each project teaches a geometry concept (symmetry, fractions, spatial reasoning) alongside the fold sequence.",
+      "Paper folding for math, focus and patience. Each project implicitly teaches a geometry concept (symmetry, fractions, spatial reasoning).",
     sensory:
-      "Tactile, visual and movement-based play for younger children — supporting sensorimotor development through textures, materials and exploration.",
+      "Tactile, visual and movement-based play for younger children designed to support sensorimotor development through textures, materials and exploration.",
     parenting:
-      "Practical, evidence-informed parenting topics — temper tantrums, speech development, cognitive growth, encouraging curiosity. Written for everyday family life.",
+      "Practical, evidence-informed parenting topics: speech development, cognitive growth, behavioral challenges, encouraging curiosity. Written for everyday family life.",
     "child-development":
-      "Articles tracking what to expect at each stage — physical, cognitive, social, emotional. Grounded in pediatric research and common parenting questions.",
+      "Articles tracking what to expect at each stage: physical, cognitive, social, emotional. Grounded in pediatric and psychological research and common parenting questions.",
     milestone:
-      "Month-by-month developmental milestone guides for the first three years. What to look for, what's typical, when to ask the doctor.",
+      "Month-by-month developmental milestone guides for the first three years. What to look for, what's typical, when to ask the expert.",
     experiment:
-      "Activities with a hypothesis — predict, test, observe, conclude. Builds scientific method skills alongside the topic-specific learning.",
+      "Activities with a hypothesis: predict, test, observe, conclude. Builds scientific method skills alongside the topic-specific learning.",
   },
   hr: {
     activity:
-      "Sve praktične aktivnosti na jednom mjestu — kemijski pokusi, inženjerske gradnje, origami, senzorne igre i više. Odaberite predmet iznad ili pregledajte cijelu listu ispod.",
+      "Sve praktične aktivnosti na jednom mjestu_ kemijski pokusi, inženjerske gradnje, origami, senzorne igre i više. Birajte po temi ili pregledajte cijeli popis ispod.",
     chemistry:
-      "Acidi i baze, polimeri, polaritet, topljivost — sve što pjeni, otapa, boji ili mijenja oblik. Svi projekti koriste kuhinjske sastojke; nije potrebna laboratorijska oprema.",
+      "Kiseline i baze, polimeri, polaritet, topljivost... Sve što pjeni, otapa, boji ili mijenja oblik. Svi projekti koriste jednostavne kuhinjske sastojke; nije potrebna posebna oprema.",
     physics:
-      "Sile, gibanje, tlak, svjetlost, toplina — znanost o tome kako se svijet kreće. Od domaćih raketa do demonstracija loma svjetlosti, dizajnirano da apstraktne koncepte čini vidljivima.",
+      "Sile, gibanje, tlak, svjetlost, toplina: znanost o tome kako se svijet kreće. Od domaćih raketa do demonstracija loma svjetlosti, smišljeno da pojasni apstraktne koncepte.",
     origami:
-      "Savijanje papira za matematiku, koncentraciju i strpljenje. Svaki projekt podučava geometrijski koncept (simetrija, razlomci, prostorno razmišljanje) uz slijed savijanja.",
+      "Savijanje papira idealno za razvijanje matematičkog razmišljanja, koncentracije i strpljenja. Svaki projekt implicitno podučava geometrijski koncept (simetrija, razlomci, prostorno razmišljanje).",
     sensory:
-      "Taktilne, vizualne i pokretne igre za mlađu djecu — podržavaju senzomotorički razvoj kroz teksture, materijale i istraživanje.",
+      "Taktilne, vizualne i pokretne igre za mlađu djecu: podržavaju senzomotorički razvoj kroz teksture, materijale i istraživanje.",
     parenting:
-      "Praktične, na istraživanjima utemeljene roditeljske teme — ispadi bijesa, razvoj govora, kognitivni rast, poticanje znatiželje. Pisano za svakodnevni obiteljski život.",
+      "Praktične, na istraživanjima utemeljene roditeljske teme: razvoj govora, kognitivni razvoj, izazovi u ponašanju, poticanje znatiželje.",
     "child-development":
-      "Članci o tome što očekivati u svakoj fazi — fizički, kognitivni, društveni, emocionalni razvoj. Utemeljeno na pedijatrijskim istraživanjima i čestim pitanjima roditelja.",
+      "Članci o tome što očekivati u svakoj fazi razvoja: fizički, kognitivni, društveni, emocionalni razvoj. Utemeljeno na pedijatrijskim i psihološkim istraživanjima i čestim pitanjima roditelja.",
     milestone:
-      "Mjesečni vodiči za razvojne prekretnice prve tri godine. Što tražiti, što je tipično, kada se obratiti liječniku.",
+      "Mjesečni vodiči za razvojne prekretnice prve tri godine. Razmatramo što je tipično, na što pripaziti i kada se obratiti stručnjaku.",
     experiment:
-      "Aktivnosti s hipotezom — predvidi, testiraj, promatraj, zaključi. Razvija vještine znanstvene metode uz učenje teme.",
+      "Testiranje hipoteza: predvidi, testiraj, promatraj, zaključi. Ove aktivnosti pomažu u razvoju i primjeni znanstvenih metoda.",
   },
 };
 

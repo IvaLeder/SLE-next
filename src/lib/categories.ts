@@ -61,27 +61,27 @@ export const CATEGORY_DISPLAY: Record<"en" | "hr", Record<string, string>> = {
 export const CATEGORY_DESCRIPTION: Record<"en" | "hr", Record<string, string>> = {
   en: {
     science:
-      "Hands-on chemistry, biology and physics experiments you can run at the kitchen table. Each project explains the science in plain language before the steps, so kids understand what they're seeing — not just how to do it.",
+      "Hands-on chemistry, biology and physics experiments you can run at the kitchen table. Each project explains the science in plain language before the steps, so kids understand what they're seeing and not just how to do it.",
     engineering:
-      "Build-it activities that teach how things work — structures, simple machines, circuits, propulsion. Materials are everyday: cardboard, tape, paperclips, the recycling bin.",
+      "Build-it activities that teach how things work: structures, simple machines, circuits, propulsion. Materials are everyday: cardboard, tape, paperclips, the recycling bin.",
     math:
-      "Number sense, geometry and logic through play. From origami (spatial reasoning) and Tower of Hanoi (recursion) to homemade clocks and pattern matching — math without worksheets.",
+      "Number sense, geometry and logic through play. From origami (spatial reasoning) and Tower of Hanoi (recursion) to homemade clocks and pattern matching.",
     technology:
       "Introductions to programming, computers and how digital tools work, designed for kids learning their first concepts. Visual and tactile wherever possible.",
     psychology:
-      "Evidence-informed guides to child development — what to expect month by month, how to encourage speech, why temper tantrums happen and what helps. Written for parents and educators, grounded in research.",
+      "Evidence-informed guides to child development: what to expect month by month, how to encourage speech, why temper tantrums happen and what helps. Written for parents and educators, grounded in research.",
   },
   hr: {
     science:
-      "Praktični kemijski, biološki i fizički pokusi koje možete izvesti u kuhinji. Svaki projekt jednostavnim jezikom objašnjava znanost iza koraka, pa djeca razumiju što vide — ne samo kako to napraviti.",
+      "Praktični kemijski i fizikalni pokusi koje možete izvesti u kuhinji. Svaki projekt jednostavnim jezikom objašnjava znanost, pa djeca razumiju i koncepte. a ne samo kako to napraviti.",
     engineering:
-      "Aktivnosti gradnje kojima djeca uče kako stvari rade — konstrukcije, jednostavni strojevi, strujni krugovi, pogon. Materijali su svakodnevni: karton, ljepljiva traka, spajalice, sadržaj kante za reciklažu.",
+      "Aktivnosti gradnje kojima djeca uče kako stvari rade: konstrukcije, jednostavni strojevi, strujni krugovi, pogon. Materijali su svakodnevni: karton, ljepljiva traka, spajalice, sadržaj kante za reciklažu.",
     math:
-      "Osjećaj za brojeve, geometrija i logika kroz igru. Od origamija (prostorno razmišljanje) i Hanojskog tornja (rekurzija) do satova od kartona i prepoznavanja uzoraka — matematika bez radnih listova.",
+      "Osjećaj za brojeve, geometrija i logika kroz igru. Od origamija (prostorno razmišljanje) i Hanojskog tornja (rekurzija) do satova od kartona i prepoznavanja uzoraka.",
     technology:
-      "Uvod u programiranje, računala i digitalne alate, prilagođen djeci koja tek upoznaju ove koncepte. Vizualno i opipljivo kad god je moguće.",
+      "Uvod u programiranje, računala i digitalne alate, prilagođen djeci koja tek upoznaju ove koncepte. Trudimo se da učenje bude vizualno i opipljivo..",
     psychology:
-      "Vodiči o razvoju djeteta utemeljeni na istraživanjima — što očekivati iz mjeseca u mjesec, kako poticati govor, zašto se javljaju ispadi bijesa i što pomaže. Pisano za roditelje i odgajatelje.",
+      "Vodiči o razvoju djeteta utemeljeni na istraživanjima: što očekivati iz mjeseca u mjesec, kako poticati govor, zašto se javljaju ispadi bijesa i što može pomoći. Pisano za roditelje i odgajatelje.",
   },
 };
 
