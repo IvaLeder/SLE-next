@@ -1,5 +1,6 @@
 import Script from "next/script";
 import { GoogleTagManager } from "@next/third-parties/google";
+import ConsentBanner from "./ConsentBanner";
 
 // Public env var — bundled into the client. Absent in local/preview =>
 // nothing is injected, so dev traffic stays out of analytics.
@@ -18,20 +19,24 @@ const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
  *
  * GDPR posture:
  *   - All storage categories default to "denied" → no analytics/ads cookies
- *     are written until consent is granted (deny-by-default = GDPR-defensible).
+ *     are written until the visitor accepts (deny-by-default = GDPR-defensible).
  *   - `security_storage: granted` covers fraud-prevention / CSRF, which has a
  *     legitimate-interest basis and doesn't need explicit consent.
- *   - `wait_for_update: 500` gives a future consent banner up to 500 ms to
- *     resolve before GTM gives up and proceeds with denied defaults. Drop the
- *     value when a banner is wired in.
+ *   - Consent is granted by <ConsentBanner>, which calls
+ *     `gtag('consent','update', …)` and stores the choice. Returning visitors
+ *     who accepted are re-granted synchronously below — BEFORE GTM evaluates —
+ *     so their first pageview is consented (not just subsequent ones).
+ *   - `window.gtag` is exposed here so the banner reuses this exact shim (the
+ *     `arguments`-object shape Consent Mode requires).
  *
  * Loading order is critical:
  *   - `beforeInteractive` runs in <head> during SSR, before any GTM script
  *     can execute. Only works in root layouts — that's where we render it.
  *   - GoogleTagManager uses `afterInteractive` internally, which fires after
- *     hydration. By then the consent defaults are already on the dataLayer.
+ *     hydration. By then the consent defaults (and any stored grant) are on
+ *     the dataLayer.
  */
-export default function GtmWithConsent() {
+export default function GtmWithConsent({ lang }: { lang: "en" | "hr" }) {
   if (!GTM_ID) return null;
 
   return (
@@ -44,7 +49,7 @@ export default function GtmWithConsent() {
       <Script id="gtm-consent-defaults" strategy="beforeInteractive">
         {`
           window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
+          window.gtag = function(){ dataLayer.push(arguments); };
           gtag('consent', 'default', {
             ad_storage: 'denied',
             ad_user_data: 'denied',
@@ -52,12 +57,24 @@ export default function GtmWithConsent() {
             analytics_storage: 'denied',
             functionality_storage: 'denied',
             personalization_storage: 'denied',
-            security_storage: 'granted',
-            wait_for_update: 500
+            security_storage: 'granted'
           });
+          try {
+            if (localStorage.getItem('cookie-consent') === 'granted') {
+              gtag('consent', 'update', {
+                ad_storage: 'granted',
+                ad_user_data: 'granted',
+                ad_personalization: 'granted',
+                analytics_storage: 'granted',
+                functionality_storage: 'granted',
+                personalization_storage: 'granted'
+              });
+            }
+          } catch (e) {}
         `}
       </Script>
       <GoogleTagManager gtmId={GTM_ID} />
+      <ConsentBanner lang={lang} />
     </>
   );
 }

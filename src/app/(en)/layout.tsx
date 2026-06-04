@@ -65,8 +65,8 @@ export default function EnRootLayout({
         {children}
         <Analytics />
         <SpeedInsights />
-        {/* GTM + Consent Mode v2 defaults — no-ops when NEXT_PUBLIC_GTM_ID is unset */}
-        <GtmWithConsent />
+        {/* GTM + Consent Mode v2 defaults + consent banner — no-ops when NEXT_PUBLIC_GTM_ID is unset */}
+        <GtmWithConsent lang="en" />
       </body>
     </html>
   );
