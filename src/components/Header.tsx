@@ -127,9 +127,11 @@ export default function Header({ lang, switchUrl }: HeaderProps) {
           <span>STEM Little Explorers</span>
         </Link>
 
-        {/* Desktop nav — switches on at lg so the longer Croatian labels have
-            room (at md they overflowed and wrapped mid-word). */}
-        <nav className="hidden lg:flex gap-5 items-center text-sm">
+        {/* Desktop nav — switches on at lg because the Croatian labels need the
+            full 1024px container (brand + nav ≈ 992px at `gap-4`); they overflow
+            below that. `gap-4` (not `gap-5`) keeps a small headroom buffer so
+            adding a nav item doesn't tip HR into overflow at exactly 1024px. */}
+        <nav className="hidden lg:flex gap-4 items-center text-sm">
           <Link href={`/${lang}`} aria-current={ariaCurrent(`/${lang}`)} className="whitespace-nowrap hover:opacity-70 aria-[current=page]:font-semibold">
             {lang === "en" ? "Home" : "Naslovnica"}
           </Link>

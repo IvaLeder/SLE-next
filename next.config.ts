@@ -5,6 +5,59 @@ const withMDX = createMDX({
   extension: /\.mdx?$/,
 });
 
+// ─── Content-Security-Policy ────────────────────────────────────────────────
+// This site is fully static (every page SSG), so a nonce-based "strict" CSP
+// isn't viable — nonces require per-request dynamic rendering, which would undo
+// the static-first architecture. Instead we ship a header-based policy that is
+// tight on every directive; `script`/`style` fall back to 'unsafe-inline'
+// because there's no per-request nonce to bind to. Even so, the host allow-lists
+// (an injected <script src="evil.com"> is still blocked) plus object-src/base-uri/
+// frame-ancestors/form-action/connect-src give real defence-in-depth.
+//
+// ROLLOUT: ships in **Report-Only** mode — it logs violations to the browser
+// console and blocks nothing. Flip CSP_REPORT_ONLY to `false` to ENFORCE, but
+// only after confirming the live deploy logs zero CSP violations while
+// exercising: the contact form (reCAPTCHA), a YouTube embed, GTM/Analytics, and
+// Speed Insights. (Some directives like upgrade-insecure-requests are inert in
+// report-only mode — that's expected; they activate on enforce.)
+const CSP_REPORT_ONLY = true;
+
+// The Vercel toolbar / Live comments run ONLY on preview & dev deployments and
+// load from vercel.live (+ Pusher websockets). Allow those origins on
+// non-production builds so the toolbar works and doesn't flood the Report-Only
+// console with preview-only noise — while keeping the production policy tight.
+const isProduction = process.env.VERCEL_ENV === "production";
+const live        = isProduction ? "" : " https://vercel.live";
+const liveConnect = isProduction ? "" : " https://vercel.live wss://*.pusher.com https://*.pusher.com";
+const liveImg     = isProduction ? "" : " https://vercel.live https://vercel.com";
+const liveFont    = isProduction ? "" : " https://vercel.live https://assets.vercel.com";
+
+const contentSecurityPolicy = [
+  "default-src 'self'",
+  "base-uri 'self'",
+  "object-src 'none'",
+  "frame-ancestors 'none'",          // clickjacking — complements X-Frame-Options
+  "form-action 'self'",              // contact form posts to same-origin /api/contact
+  // Scripts: app bundles (self) + Vercel + GTM/GA + reCAPTCHA. 'unsafe-inline'
+  // covers Next's hydration scripts and the GTM consent-defaults inline script.
+  // (Nonces would be stricter but require per-request rendering — incompatible
+  // with this site's fully-static output.)
+  `script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://www.google.com https://www.gstatic.com https://va.vercel-scripts.com${live}`,
+  // Styles: Tailwind sheet (self) + React/next-image/reCAPTCHA inline styles.
+  `style-src 'self' 'unsafe-inline'${live}`,
+  // Images: local/optimised + YouTube thumbnails + GTM/GA tracking pixels.
+  `img-src 'self' data: blob: https://i.ytimg.com https://img.youtube.com https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://www.google.com https://www.gstatic.com${liveImg}`,
+  `font-src 'self' data:${liveFont}`,  // Lora is self-hosted via next/font (no Google Fonts CDN)
+  // XHR/fetch/beacons: GA/GTM collect + Vercel Speed-Insights vitals.
+  `connect-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://analytics.google.com https://www.google.com https://vitals.vercel-insights.com https://va.vercel-scripts.com${liveConnect}`,
+  // Iframes: YouTube embeds + reCAPTCHA challenge.
+  `frame-src https://www.youtube.com https://www.youtube-nocookie.com https://www.google.com https://recaptcha.google.com${live}`,
+  "worker-src 'self' blob:",
+  "manifest-src 'self'",
+  "media-src 'self'",
+  "upgrade-insecure-requests",
+].join("; ");
+
 const config: NextConfig = {
   pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
 
@@ -117,6 +170,13 @@ const config: NextConfig = {
           // Cross-origin protections — modest values that don't break embeds (YouTube etc.).
           { key: 'Cross-Origin-Opener-Policy', value: 'same-origin' },
           { key: 'X-DNS-Prefetch-Control', value: 'on' },
+
+          // Content-Security-Policy (see contentSecurityPolicy above). Ships in
+          // Report-Only mode; flip CSP_REPORT_ONLY to enforce.
+          {
+            key: CSP_REPORT_ONLY ? 'Content-Security-Policy-Report-Only' : 'Content-Security-Policy',
+            value: contentSecurityPolicy,
+          },
         ],
       },
     ];
