@@ -131,8 +131,16 @@ const config: NextConfig = {
       ['/hr/category/razvoj-djeteta/druga-godina-djetetovog-zivota', '/hr/category/psychology'],
       ['/en/category/stem-en/origami', '/en/tag/origami'],
       ['/hr/category/stem-hr/origami', '/hr/tag/origami'],
+      // Old top-level WordPress "STEM" category — no 1:1 category in the new
+      // taxonomy (STEM is split into Science/Engineering/Math/Technology), so
+      // point it at the all-activities browse page, the closest equivalent.
+      ['/en/category/stem-en', '/en/activities'],
+      ['/hr/category/stem-hr', '/hr/activities'],
       // Tag slug rename
       ['/hr/tag/origami-hr', '/hr/tag/origami'],
+      // Static pages renamed from WordPress (about page)
+      ['/en/about-us', '/en/about'],
+      ['/hr/o-nama', '/hr/about'],
       // Post slug corrected after migration (old interim slug 404'd external links)
       ['/en/learn-letters-and-numbers', '/en/learning-letters-for-preschoolers-activity'],
       ['/hr/ucenje-abecede-brojeva', '/hr/aktivnost-ucenja-slova-kod-predskolaca'],
