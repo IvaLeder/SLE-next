@@ -1,12 +1,10 @@
 import { notFound } from "next/navigation";
-import { MDXRemote } from "next-mdx-remote/rsc";
-import rehypeSlug from "rehype-slug";
-import rehypeAutolinkHeadings from "rehype-autolink-headings";
-import remarkGfm from "remark-gfm";
-import { mdxComponents } from "@/components/mdx";
 import { Metadata } from "next";
 import Image from "next/image";
 import TOC from "@/components/mdx/TOC";
+import PostBody from "@/components/PostBody";
+import AdSlot from "@/components/AdSlot";
+import { AD_SLOTS, splitContentForMidAd } from "@/lib/ads";
 
 import { getPostBySlug, getAllPosts, Post } from "@/lib/posts";
 import { categorySlugFromName } from "@/lib/categories";
@@ -55,6 +53,7 @@ export default async function PostPage({ params }: Props) {
   const howToJsonLd = generateHowToJsonLd(post, "en");
   const relatedPosts = getRelatedPosts("en", post);
   const topicTags = surfacedTagsOf(post.tags);
+  const [bodyBefore, bodyAfter] = splitContentForMidAd(post.content);
 
   // Build breadcrumb trail — include first category if available (issue 28)
   // Use the canonical English slug for the URL; display name for the label.
@@ -100,19 +99,13 @@ export default async function PostPage({ params }: Props) {
       <TOC />
 
       <article id="post-content" className="prose prose-lg max-w-none">
-        <MDXRemote
-          source={post.content}
-          components={mdxComponents}
-          options={{
-            mdxOptions: {
-              remarkPlugins: [remarkGfm],
-              rehypePlugins: [
-                rehypeSlug,
-                [rehypeAutolinkHeadings, { behavior: "wrap" }],
-              ],
-            },
-          }}
-        />
+        <PostBody source={bodyBefore} />
+        {bodyAfter && (
+          <>
+            <AdSlot slot={AD_SLOTS.inArticle} lang="en" />
+            <PostBody source={bodyAfter} />
+          </>
+        )}
       </article>
 
       {/* Topic tags — links to tag landing pages for "more like this" */}
@@ -145,6 +138,9 @@ export default async function PostPage({ params }: Props) {
         </p>
         <SubscribeButton lang="en" />
       </div>
+
+      {/* End-of-article ad — engaged readers who reached the bottom */}
+      <AdSlot slot={AD_SLOTS.endOfArticle} lang="en" />
 
       {relatedPosts.length > 0 && (
         <section data-no-print className="mt-12 border-t pt-6">

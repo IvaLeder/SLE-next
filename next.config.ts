@@ -32,6 +32,16 @@ const liveConnect = isProduction ? "" : " https://vercel.live wss://*.pusher.com
 const liveImg     = isProduction ? "" : " https://vercel.live https://vercel.com";
 const liveFont    = isProduction ? "" : " https://vercel.live https://assets.vercel.com";
 
+// Google AdSense pulls scripts, frames, pixels and beacons from a broad set of
+// Google ad domains (the creative itself can load from many of them). We start
+// deliberately permissive here because the CSP is Report-Only — tighten from
+// real violation reports before flipping to enforce. Leading space so these
+// concatenate cleanly onto the directive strings below.
+const adsScript  = " https://pagead2.googlesyndication.com https://*.googlesyndication.com https://*.googleadservices.com https://adservice.google.com https://*.adtrafficquality.google";
+const adsImg     = " https://*.googlesyndication.com https://*.g.doubleclick.net https://*.doubleclick.net https://*.google.com https://*.gstatic.com https://*.adtrafficquality.google";
+const adsConnect = " https://pagead2.googlesyndication.com https://*.googlesyndication.com https://*.g.doubleclick.net https://*.doubleclick.net https://*.google.com https://*.adtrafficquality.google";
+const adsFrame   = " https://googleads.g.doubleclick.net https://*.googlesyndication.com https://*.doubleclick.net https://*.adtrafficquality.google";
+
 const contentSecurityPolicy = [
   "default-src 'self'",
   "base-uri 'self'",
@@ -42,16 +52,16 @@ const contentSecurityPolicy = [
   // covers Next's hydration scripts and the GTM consent-defaults inline script.
   // (Nonces would be stricter but require per-request rendering — incompatible
   // with this site's fully-static output.)
-  `script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://www.google.com https://www.gstatic.com https://va.vercel-scripts.com${live}`,
+  `script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://www.google.com https://www.gstatic.com https://va.vercel-scripts.com${adsScript}${live}`,
   // Styles: Tailwind sheet (self) + React/next-image/reCAPTCHA inline styles.
   `style-src 'self' 'unsafe-inline'${live}`,
   // Images: local/optimised + YouTube thumbnails + GTM/GA tracking pixels.
-  `img-src 'self' data: blob: https://i.ytimg.com https://img.youtube.com https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://www.google.com https://www.gstatic.com${liveImg}`,
+  `img-src 'self' data: blob: https://i.ytimg.com https://img.youtube.com https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://www.google.com https://www.gstatic.com${adsImg}${liveImg}`,
   `font-src 'self' data:${liveFont}`,  // Lora is self-hosted via next/font (no Google Fonts CDN)
   // XHR/fetch/beacons: GA/GTM collect + Vercel Speed-Insights vitals.
-  `connect-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://analytics.google.com https://www.google.com https://vitals.vercel-insights.com https://va.vercel-scripts.com${liveConnect}`,
-  // Iframes: YouTube embeds + reCAPTCHA challenge.
-  `frame-src https://www.youtube.com https://www.youtube-nocookie.com https://www.google.com https://recaptcha.google.com${live}`,
+  `connect-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://analytics.google.com https://www.google.com https://vitals.vercel-insights.com https://va.vercel-scripts.com${adsConnect}${liveConnect}`,
+  // Iframes: YouTube embeds + reCAPTCHA challenge + AdSense ad frames.
+  `frame-src https://www.youtube.com https://www.youtube-nocookie.com https://www.google.com https://recaptcha.google.com${adsFrame}${live}`,
   "worker-src 'self' blob:",
   "manifest-src 'self'",
   "media-src 'self'",

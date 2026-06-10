@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import AdSenseScript from "@/components/AdSenseScript";
 import {
   getTranslatedPostBySlug,
 } from "@/lib/posts";
@@ -27,6 +28,10 @@ export default async function PostLayout({
       <link rel="preconnect" href="https://www.youtube.com" />
       <link rel="preconnect" href="https://i.ytimg.com" />
       <link rel="preconnect" href="https://img.youtube.com" />
+
+      {/* AdSense library (no-op until NEXT_PUBLIC_ADSENSE_CLIENT is set) */}
+      <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
+      <AdSenseScript />
 
       <Header
         lang="hr"

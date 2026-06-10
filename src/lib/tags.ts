@@ -19,6 +19,7 @@ export const KNOWN_TAGS = [
   "child-development",
   "milestone",
   "experiment",
+  "coding",
 ] as const;
 
 export type TagSlug = (typeof KNOWN_TAGS)[number];
@@ -35,6 +36,7 @@ export const TAG_DISPLAY: Record<"en" | "hr", Record<TagSlug, string>> = {
     "child-development": "Child development",
     milestone:           "Milestones",
     experiment:          "Experiments",
+    coding:              "Coding",
   },
   hr: {
     activity:            "Aktivnosti",
@@ -46,6 +48,7 @@ export const TAG_DISPLAY: Record<"en" | "hr", Record<TagSlug, string>> = {
     "child-development": "Razvoj djeteta",
     milestone:           "Razvojne prekretnice",
     experiment:          "Eksperimenti",
+    coding:              "Programiranje",
   },
 };
 
@@ -70,6 +73,8 @@ export const TAG_DESCRIPTION: Record<"en" | "hr", Record<TagSlug, string>> = {
       "Month-by-month developmental milestone guides for the first three years. What to look for, what's typical, when to ask the expert.",
     experiment:
       "Activities with a hypothesis: predict, test, observe, conclude. Builds scientific method skills alongside the topic-specific learning.",
+    coding:
+      "Computer-science basics, mostly unplugged: algorithms, binary, encoding and logic. Learn how computers think — usually with no screen required.",
   },
   hr: {
     activity:
@@ -90,6 +95,8 @@ export const TAG_DESCRIPTION: Record<"en" | "hr", Record<TagSlug, string>> = {
       "Mjesečni vodiči za razvojne skokove prve tri godine. Razmatramo što je tipično, na što pripaziti i kada se obratiti stručnjacima.",
     experiment:
       "Testiranje hipoteza: predviđamo, testiramo, promatramo i zaključujemo. Ove aktivnosti pomažu u razvoju i primjeni znanstvenih metoda.",
+    coding:
+      "Osnove informatike, uglavnom bez ekrana: algoritmi, binarni kod, kodiranje i logika. Naučite kako računala razmišljaju.",
   },
 };
 
@@ -108,6 +115,7 @@ export const SURFACED_TAGS: readonly TagSlug[] = [
   "physics",
   "sensory",
   "experiment",
+  "coding",
 ];
 
 /** Type guard: is `slug` a known tag? */

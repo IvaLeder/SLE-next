@@ -44,4 +44,5 @@ next-env.d.ts
 compress-images.mjs
 restore-larger-than-original.mjs
 convert-gifs.mjs
+audit-image-sizes.mjs
 dev-quickstart.md
