@@ -81,7 +81,7 @@ export default function Lightbox({ src, alt, width, height, marginClass = "my-6"
         sizes="(min-width: 768px) 768px, 100vw"
         // Render at natural size (never upscaled past the column), cap very tall
         // images, and centre anything narrower than the column with mx-auto.
-        className="mx-auto block h-auto w-auto max-w-full max-h-[70vh] rounded-md cursor-zoom-in"
+        className="mx-auto block h-auto w-auto max-w-full max-h-[80vh] rounded-md cursor-zoom-in"
       />
     )
     : (
