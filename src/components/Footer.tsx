@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import { SURFACED_TAGS, TAG_DISPLAY } from "@/lib/tags";
+import CookieSettingsButton from "./CookieSettingsButton";
 
 // Inline SVG icons — avoid pulling a whole icon library for four glyphs.
 function FacebookIcon(props: React.SVGProps<SVGSVGElement>) {
@@ -220,6 +221,9 @@ export default function Footer({ lang }: { lang: "en" | "hr" }) {
               <Link href={`/${lang}/terms`} className="text-gray-700 hover:text-brand hover:underline">
                 {t.terms}
               </Link>
+            </li>
+            <li>
+              <CookieSettingsButton lang={lang} />
             </li>
           </ul>
         </div>

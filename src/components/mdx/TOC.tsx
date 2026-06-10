@@ -13,7 +13,9 @@ type TocItem = {
 // cleaner than measuring with JS. The value should match the header height.
 const SCROLL_MARGIN_PX = 72;
 
-export default function TOC() {
+const LABEL = { en: "On this page", hr: "Na ovoj stranici" } as const;
+
+export default function TOC({ lang = "en" }: { lang?: "en" | "hr" }) {
   const [items, setItems] = useState<TocItem[]>([]);
   const [open,  setOpen]  = useState(false); // mobile collapse
 
@@ -98,7 +100,7 @@ export default function TOC() {
         className="md:hidden flex w-full items-center justify-between rounded-xl border border-gray-100 bg-gray-50 px-4 py-3 font-semibold text-gray-700"
         aria-expanded={open}
       >
-        <span>On this page</span>
+        <span>{LABEL[lang]}</span>
         <span aria-hidden="true" className="text-gray-400">{open ? "▲" : "▼"}</span>
       </button>
 
@@ -108,7 +110,7 @@ export default function TOC() {
         }`}
       >
         <div className="mb-3 hidden text-xs font-semibold uppercase tracking-wide text-gray-500 md:block">
-          On this page
+          {LABEL[lang]}
         </div>
 
         <div className="space-y-2">

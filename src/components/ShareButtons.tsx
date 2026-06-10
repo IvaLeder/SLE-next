@@ -94,9 +94,11 @@ export default function ShareButtons({ url, title, image, lang }: Props) {
         {copied ? <CheckIcon className="w-4 h-4 text-green-600" /> : <LinkIcon className="w-4 h-4" />}
       </button>
 
-      {copied && (
-        <span className="text-xs text-green-700" aria-live="polite">{t.copied}</span>
-      )}
+      {/* Persistent live region — if it only mounted on copy, screen readers
+          could miss the announcement entirely. */}
+      <span className="text-xs text-green-700" role="status" aria-live="polite">
+        {copied ? t.copied : ""}
+      </span>
     </div>
   );
 }

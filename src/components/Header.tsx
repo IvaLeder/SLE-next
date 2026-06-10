@@ -50,6 +50,16 @@ export default function Header({ lang, switchUrl }: HeaderProps) {
     return pathname === href || pathname.startsWith(href + "/") ? "page" : undefined;
   };
 
+  // Close the mobile menu on Escape (parity with the Subjects dropdown).
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [open]);
+
   // Close dropdown when clicking outside
   useEffect(() => {
     function handleClick(e: MouseEvent) {
@@ -235,7 +245,11 @@ export default function Header({ lang, switchUrl }: HeaderProps) {
         <button
           className="lg:hidden p-2 -mr-2 text-xl leading-none"
           onClick={() => setOpen(!open)}
-          aria-label={open ? "Close menu" : "Open menu"}
+          aria-label={
+            open
+              ? lang === "hr" ? "Zatvori izbornik" : "Close menu"
+              : lang === "hr" ? "Otvori izbornik" : "Open menu"
+          }
           aria-expanded={open}
         >
           {open ? "✕" : "☰"}

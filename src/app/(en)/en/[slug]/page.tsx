@@ -13,7 +13,6 @@ import {
   generatePostMetadata,
   generateJsonLd,
   generateBreadcrumbJsonLd,
-  generateHowToJsonLd,
 } from "@/lib/metadata";
 
 import JsonLd from "@/components/JsonLd";
@@ -50,7 +49,6 @@ export default async function PostPage({ params }: Props) {
 
   const articleJsonLd = generateJsonLd(post, "en");
   const breadcrumbJsonLd = generateBreadcrumbJsonLd(post);
-  const howToJsonLd = generateHowToJsonLd(post, "en");
   const relatedPosts = getRelatedPosts("en", post);
   const topicTags = surfacedTagsOf(post.tags);
   const [bodyBefore, bodyAfter] = splitContentForMidAd(post.content);
@@ -73,7 +71,6 @@ export default async function PostPage({ params }: Props) {
     <div className="relative max-w-3xl mx-auto p-4">
       <JsonLd data={articleJsonLd} />
       <JsonLd data={breadcrumbJsonLd} />
-      {howToJsonLd && <JsonLd data={howToJsonLd} />}
 
       {/* Issue 28: visual breadcrumbs */}
       <Breadcrumbs crumbs={crumbs} />
@@ -96,14 +93,14 @@ export default async function PostPage({ params }: Props) {
 
       <ArticleHeader post={post} lang="en" />
 
-      <TOC />
+      <TOC lang="en" />
 
       <article id="post-content" className="prose prose-lg max-w-none">
-        <PostBody source={bodyBefore} />
+        <PostBody source={bodyBefore} lang="en" />
         {bodyAfter && (
           <>
             <AdSlot slot={AD_SLOTS.inArticle} lang="en" />
-            <PostBody source={bodyAfter} />
+            <PostBody source={bodyAfter} lang="en" />
           </>
         )}
       </article>

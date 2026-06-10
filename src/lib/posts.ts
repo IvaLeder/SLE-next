@@ -36,10 +36,23 @@ export type Post = PostMeta & {
 // Base folder for posts
 const postsDirectory = path.join(process.cwd(), "src/content/posts");
 
+// Build-time cache. getAllPosts is hit by every page's generateStaticParams /
+// generateMetadata / render, and each call used to re-read and re-parse every
+// MDX file per language (O(pages × posts) disk reads per build). Production
+// only, so `next dev` still picks up content edits without a restart. Callers
+// get a shallow copy because some (getPrevNextPosts) sort the array in place.
+const postsCache = new Map<"en" | "hr", Post[]>();
+const cacheEnabled = process.env.NODE_ENV === "production";
+
 /**
  * Read all posts for a given language
  */
 export function getAllPosts(lang: "en" | "hr"): Post[] {
+  if (cacheEnabled) {
+    const cached = postsCache.get(lang);
+    if (cached) return [...cached];
+  }
+
   const langDir = path.join(postsDirectory, lang);
   const filenames = fs.readdirSync(langDir);
 
@@ -85,7 +98,8 @@ export function getAllPosts(lang: "en" | "hr"): Post[] {
   // Sort by date descending
   posts.sort((a, b) => (a.date < b.date ? 1 : -1));
 
-  return posts;
+  if (cacheEnabled) postsCache.set(lang, posts);
+  return cacheEnabled ? [...posts] : posts;
 }
 
 /**

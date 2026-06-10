@@ -111,11 +111,15 @@ export async function POST(req: Request) {
     // The user's email goes in `replyTo` so we can hit Reply directly.
     // Previously this had `from: email` which got messages caught by spam
     // filters or, worse, treated as a spoofed sender by strict providers.
+    // Newlines never belong in a header value (header-injection guard); the
+    // raw name still appears intact in the body below.
+    const subjectName = name.replace(/[\r\n]+/g, " ").trim();
+
     await transporter.sendMail({
       from:    process.env.EMAIL_USER,
       to:      process.env.EMAIL_TO || process.env.EMAIL_USER,
       replyTo: email,
-      subject: `[Contact form] ${name}`,
+      subject: `[Contact form] ${subjectName}`,
       text: `From: ${name} <${email}>\n\n${message}`,
     });
 

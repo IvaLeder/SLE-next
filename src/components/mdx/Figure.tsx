@@ -19,12 +19,14 @@ export default function Figure({
   alt = "",
   width,
   height,
+  lang = "en",
   children,
 }: {
   src: string;
   alt?: string;
   width?: number | string;
   height?: number | string;
+  lang?: "en" | "hr";
   children?: React.ReactNode;
 }) {
   if (!src) return null;
@@ -35,7 +37,7 @@ export default function Figure({
   return (
     <figure>
       {/* marginClass="" — the <figure> owns the outer spacing, not the image. */}
-      <Lightbox src={src} alt={alt} width={w} height={h} marginClass="" />
+      <Lightbox src={src} alt={alt} width={w} height={h} marginClass="" lang={lang} />
       {children != null && children !== false && children !== "" ? (
         <figcaption className="mt-3 text-sm text-gray-500 [&>p]:m-0">
           {children}

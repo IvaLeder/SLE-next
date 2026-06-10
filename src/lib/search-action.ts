@@ -31,10 +31,14 @@ function buildSearchIndex(lang: "en" | "hr") {
 }
 
 export async function searchPostsServer(query: string, lang: "en" | "hr") {
-  if (!query || query.trim().length === 0) return [];
+  if (typeof query !== "string" || query.trim().length === 0) return [];
+
+  // This is a public server action — cap the input so an oversized query
+  // can't make MiniSearch chew through an arbitrary amount of work.
+  const q = query.slice(0, 100);
 
   const index = buildSearchIndex(lang);
-  const results = index.search(query, { prefix: true, fuzzy: 0.2 });
+  const results = index.search(q, { prefix: true, fuzzy: 0.2 });
 
   // results are objects with the stored fields; return them directly
   return results;

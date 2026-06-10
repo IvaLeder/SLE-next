@@ -44,7 +44,7 @@ function localImageDimensions(src: string): { width: number; height: number } | 
   return result;
 }
 
-function MdxImg({ src, alt = "", width, height }: MdxImgProps) {
+function MdxImg({ src, alt = "", width, height, lang }: MdxImgProps & { lang: Lang }) {
   if (!src) return null;
 
   let w = width ? Number(width) : undefined;
@@ -60,7 +60,7 @@ function MdxImg({ src, alt = "", width, height }: MdxImgProps) {
     }
   }
 
-  return <Lightbox src={src} alt={alt} width={w} height={h} />;
+  return <Lightbox src={src} alt={alt} width={w} height={h} lang={lang} />;
 }
 
 // `a` in MDX → secure external links. Same-origin links pass through unchanged.
@@ -81,12 +81,25 @@ function MdxLink({
   );
 }
 
-export const mdxComponents = {
-  a: MdxLink,
-  img: MdxImg,
-  Image: (props: ImageProps) => <NextImage {...props} className="my-6 rounded-md" />,
-  Figure,
-  Subscribe: SubscribeButton,
-  YouTube,
-  Callout,
-};
+type Lang = "en" | "hr";
+
+// Components with user-facing labels (Lightbox zoom, YouTube play, Subscribe)
+// need the article's language for their aria-labels — MDX content can't carry
+// it, so the page binds it once here via PostBody.
+export function mdxComponents(lang: Lang = "en") {
+  return {
+    a: MdxLink,
+    img: (props: MdxImgProps) => <MdxImg {...props} lang={lang} />,
+    Image: (props: ImageProps) => <NextImage {...props} className="my-6 rounded-md" />,
+    Figure: (props: React.ComponentProps<typeof Figure>) => (
+      <Figure lang={lang} {...props} />
+    ),
+    Subscribe: (props: React.ComponentProps<typeof SubscribeButton>) => (
+      <SubscribeButton lang={lang} {...props} />
+    ),
+    YouTube: (props: React.ComponentProps<typeof YouTube>) => (
+      <YouTube lang={lang} {...props} />
+    ),
+    Callout,
+  };
+}

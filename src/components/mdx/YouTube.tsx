@@ -3,13 +3,20 @@
 import { useState } from "react";
 import Image from "next/image";
 
+const LABELS = {
+  en: { play: (t: string) => `Play: ${t}`, thumb: (t: string) => `Thumbnail for: ${t}` },
+  hr: { play: (t: string) => `Pokreni: ${t}`, thumb: (t: string) => `Sličica za: ${t}` },
+} as const;
+
 interface YouTubeProps {
   id: string;
   title?: string;
+  lang?: "en" | "hr";
 }
 
-export default function YouTube({ id, title }: YouTubeProps) {
+export default function YouTube({ id, title, lang = "en" }: YouTubeProps) {
   const [isPlaying, setIsPlaying] = useState(false);
+  const t = LABELS[lang];
 
   // hqdefault is 480×360 — enough for the lazy-loaded poster, far smaller than maxres
   const thumbnail = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
@@ -20,7 +27,9 @@ export default function YouTube({ id, title }: YouTubeProps) {
       {isPlaying ? (
         <iframe
           className="absolute inset-0 w-full h-full"
-          src={`https://www.youtube.com/embed/${id}?autoplay=1`}
+          // nocookie domain — no tracking cookies until the user actually plays,
+          // and even then YouTube uses its "privacy-enhanced mode" storage.
+          src={`https://www.youtube-nocookie.com/embed/${id}?autoplay=1`}
           title={videoTitle}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
@@ -29,12 +38,12 @@ export default function YouTube({ id, title }: YouTubeProps) {
         <button
           type="button"
           onClick={() => setIsPlaying(true)}
-          aria-label={`Play: ${videoTitle}`}
+          aria-label={t.play(videoTitle)}
           className="absolute inset-0 w-full h-full group"
         >
           <Image
             src={thumbnail}
-            alt={`Thumbnail for: ${videoTitle}`}
+            alt={t.thumb(videoTitle)}
             fill
             sizes="(min-width: 768px) 768px, 100vw"
             loading="lazy"

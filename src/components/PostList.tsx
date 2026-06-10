@@ -1,11 +1,34 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef, useSyncExternalStore } from "react";
 import PostCard from "./PostCard";
 import CategoryFilter from "./CategoryFilter";
 import { PostMeta } from "../lib/posts";
 
 const POSTS_PER_PAGE = 12;
+
+// ── ?page= as the source of truth ──────────────────────────────────────────
+// The page number lives in the URL so page 2+ is shareable/bookmarkable and
+// back/forward works. Read via useSyncExternalStore: the server snapshot is
+// always 1 (matching the prerendered HTML, so no hydration mismatch and the
+// page-1 grid stays in static HTML for crawlers); the client re-renders to the
+// real ?page= right after hydration. PAGE_EVENT covers same-tab pushState
+// (which doesn't fire popstate); popstate covers back/forward.
+const PAGE_EVENT = "postlist-pagechange";
+
+function subscribePage(cb: () => void) {
+  window.addEventListener("popstate", cb);
+  window.addEventListener(PAGE_EVENT, cb);
+  return () => {
+    window.removeEventListener("popstate", cb);
+    window.removeEventListener(PAGE_EVENT, cb);
+  };
+}
+function readPageFromUrl(): number {
+  const n = Number(new URLSearchParams(window.location.search).get("page"));
+  return Number.isInteger(n) && n > 1 ? n : 1;
+}
+const pageOnServer = () => 1;
 
 // Canonical display order for each language. Hoisted out of the component
 // so it's a stable reference (otherwise useMemo deps complain).
@@ -22,16 +45,31 @@ export default function PostList({
   lang: "en" | "hr";
 }) {
   const [category, setCategory] = useState<string | null>(null);
-  const [page, setPage] = useState(1);
+  const page = useSyncExternalStore(subscribePage, readPageFromUrl, pageOnServer);
+  const listRef = useRef<HTMLDivElement>(null);
 
-  // React 19 prefers "adjust state during render" over useEffect-based resets.
-  // When the active filter changes, snap page back to 1 immediately — this
-  // happens during the same render pass, no cascading re-render.
-  const [prevCategory, setPrevCategory] = useState(category);
-  if (prevCategory !== category) {
-    setPrevCategory(category);
-    setPage(1);
-  }
+  // Write the page to the URL. Prev/Next push (each page is a history entry,
+  // back button steps through); the filter-change reset replaces, so filtering
+  // doesn't pollute history.
+  const setPage = (n: number, opts?: { reset?: boolean }) => {
+    const url = new URL(window.location.href);
+    if (n > 1) url.searchParams.set("page", String(n));
+    else url.searchParams.delete("page");
+    if (opts?.reset) {
+      window.history.replaceState(null, "", url);
+    } else {
+      window.history.pushState(null, "", url);
+      // Paging from the bottom controls: bring the top of the new page's grid
+      // into view (instant for reduced-motion users).
+      listRef.current?.scrollIntoView({
+        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+          ? "auto"
+          : "smooth",
+        block: "start",
+      });
+    }
+    window.dispatchEvent(new Event(PAGE_EVENT));
+  };
 
   const categories = useMemo(() => {
     const set = new Set<string>();
@@ -57,7 +95,9 @@ export default function PostList({
   }, [posts, category]);
 
   const totalPages = Math.ceil(filtered.length / POSTS_PER_PAGE);
-  const paginated = filtered.slice((page - 1) * POSTS_PER_PAGE, page * POSTS_PER_PAGE);
+  // Clamp: ?page= can arrive out of range (hand-edited URL, shrunken filter).
+  const currentPage = Math.min(Math.max(1, page), Math.max(1, totalPages));
+  const paginated = filtered.slice((currentPage - 1) * POSTS_PER_PAGE, currentPage * POSTS_PER_PAGE);
 
   const t = {
     en: {
@@ -75,8 +115,16 @@ export default function PostList({
   }[lang];
 
   return (
-    <div>
-      <CategoryFilter categories={categories} lang={lang} onChange={setCategory} />
+    // scroll-mt offsets the sticky header when paging scrolls back up here.
+    <div ref={listRef} className="scroll-mt-20">
+      <CategoryFilter
+        categories={categories}
+        lang={lang}
+        onChange={(c) => {
+          setCategory(c);
+          setPage(1, { reset: true });
+        }}
+      />
 
       {filtered.length === 0 ? (
         <p className="mt-6 text-gray-500 italic">{t.empty}</p>
@@ -93,8 +141,8 @@ export default function PostList({
           {totalPages > 1 && (
             <div className="mt-10 flex items-center justify-center gap-3">
               <button
-                onClick={() => setPage((p) => Math.max(1, p - 1))}
-                disabled={page === 1}
+                onClick={() => setPage(Math.max(1, currentPage - 1))}
+                disabled={currentPage === 1}
                 className="px-4 py-2 rounded-lg border text-sm font-medium transition
                   disabled:opacity-40 disabled:cursor-not-allowed
                   hover:bg-indigo-50 hover:border-indigo-400"
@@ -102,11 +150,11 @@ export default function PostList({
                 {t.prev}
               </button>
 
-              <span className="text-sm text-gray-500">{t.page(page, totalPages)}</span>
+              <span className="text-sm text-gray-500">{t.page(currentPage, totalPages)}</span>
 
               <button
-                onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-                disabled={page === totalPages}
+                onClick={() => setPage(Math.min(totalPages, currentPage + 1))}
+                disabled={currentPage === totalPages}
                 className="px-4 py-2 rounded-lg border text-sm font-medium transition
                   disabled:opacity-40 disabled:cursor-not-allowed
                   hover:bg-indigo-50 hover:border-indigo-400"

@@ -1,4 +1,4 @@
-import { Post } from "./posts";
+import { Post, getTranslatedPostBySlug } from "./posts";
 import { Metadata } from "next";
 import { siteConfig } from "@/config/site";
 
@@ -48,6 +48,20 @@ export function generatePostMetadata(post: Post | null, lang: "en" | "hr"): Meta
 
   const fullUrl = `${BASE_URL}/${lang}/${post.slug}`;
 
+  // hreflang alternates must point at the translation's REAL slug —
+  // translations are linked by `translationKey`, not by sharing a slug
+  // (e.g. en/5-amazing-balloon-experiments ↔ hr/5-odlicnih-eksperimenata-s-balonima).
+  // Same lookup the sitemap and the [slug] layouts use. When no translation
+  // exists, the alternate is omitted entirely rather than advertising a 404.
+  const other = otherLang(lang);
+  const translated = getTranslatedPostBySlug(lang, post.slug);
+  const languages: Record<string, string> = { [lang]: fullUrl };
+  if (translated) {
+    languages[other] = `${BASE_URL}/${other}/${translated.slug}`;
+  }
+  // x-default: the English version when one exists, otherwise this post.
+  languages["x-default"] = languages.en ?? fullUrl;
+
   // OG image precedence:
   //  1. If the post has a coverImage, use it (real activity photo wins).
   //  2. Otherwise, OMIT the override — Next.js auto-injects the per-post
@@ -81,11 +95,7 @@ export function generatePostMetadata(post: Post | null, lang: "en" | "hr"): Meta
     // Issue 12: x-default tells Google which version to show to unmatched locales.
     alternates: {
       canonical: fullUrl,
-      languages: {
-        en: `${BASE_URL}/en/${post.slug}`,
-        hr: `${BASE_URL}/hr/${post.slug}`,
-        "x-default": `${BASE_URL}/en/${post.slug}`,
-      },
+      languages,
     },
   };
 }
@@ -126,7 +136,9 @@ export function generateJsonLd(post: Post, lang: "en" | "hr") {
       url: BASE_URL,
       logo: {
         "@type": "ImageObject",
-        url: `${BASE_URL}/icon`,
+        // Must be a public, stable URL — the app-router icon route is served
+        // at a hashed path (`/icon-xxxx.png`), so bare `/icon` 404s.
+        url: `${BASE_URL}/images/icon-512.png`,
       },
     },
     inLanguage: lang,
@@ -182,67 +194,9 @@ export function generateBreadcrumbJsonLd(post: Post) {
   };
 }
 
-// ---------------------------------------------------------------------------
-// HowTo JSON-LD  (P1-14: rich-results eligibility for activity posts)
-// Returns null if the post is not a hands-on guide (no `activity` tag).
-// Extracts H2 headings from the MDX content as step names — Google uses these
-// to render the HowTo carousel in SERPs.
-// ---------------------------------------------------------------------------
-export function generateHowToJsonLd(post: Post, lang: "en" | "hr") {
-  const isActivity = post.tags?.includes("activity");
-  if (!isActivity) return null;
-
-  // Extract H2 headings from raw MDX. We strip leading `## `, trailing whitespace,
-  // and any inline markdown emphasis so step names are clean.
-  const stepLines = post.content
-    .split("\n")
-    .filter((line) => /^##\s+/.test(line))
-    .map((line) =>
-      line
-        .replace(/^##\s+/, "")
-        .replace(/[*_`]/g, "")
-        .trim()
-    )
-    .filter(Boolean);
-
-  // A HowTo with fewer than 2 steps isn't useful — Google won't render it.
-  if (stepLines.length < 2) return null;
-
-  const fullUrl = `${BASE_URL}/${lang}/${post.slug}`;
-  // Same precedence as BlogPosting — only emit `image` when we have a real
-  // cover photo (bare `/opengraph-image` 404s; Next.js serves a hashed URL).
-  const imageUrl = post.coverImage ? `${BASE_URL}${post.coverImage}` : null;
-
-  const description = makeDescription(post);
-
-  return {
-    "@context": "https://schema.org",
-    "@type": "HowTo",
-    name: post.title,
-    description,
-    ...(imageUrl && { image: [imageUrl] }),
-    inLanguage: lang,
-    mainEntityOfPage: fullUrl,
-    totalTime: "PT30M", // default 30-minute estimate; can be overridden via frontmatter later
-    step: stepLines.map((name, i) => ({
-      "@type": "HowToStep",
-      position: i + 1,
-      name,
-      text: name,
-      url: `${fullUrl}#${slugify(name)}`,
-    })),
-  };
-}
-
-// Mirror of the slugify used by rehype-slug / mdx index — keep step #urls aligned
-// with the headings rendered on the page.
-function slugify(text: string): string {
-  return text
-    .toLowerCase()
-    .trim()
-    .replace(/[^\w\s-]/g, "")
-    .replace(/\s+/g, "-");
-}
+// NOTE: HowTo JSON-LD was removed (2026-06): Google retired HowTo rich results
+// in 2023, so it earned nothing — and its hand-rolled slugify produced step
+// anchors that didn't match rehype-slug's ids on Croatian headings.
 
 // ---------------------------------------------------------------------------
 // WebSite JSON-LD  (issue 11)
@@ -300,7 +254,8 @@ export function generateOrganizationJsonLd() {
     "@type": "Organization",
     name: siteConfig.name,
     url: BASE_URL,
-    logo: `${BASE_URL}/icon`,
+    // Stable public URL — bare `/icon` 404s (app-router icons get hashed paths).
+    logo: `${BASE_URL}/images/icon-512.png`,
     description: siteConfig.description,
     ...(sameAs.length > 0 && { sameAs }),
   };

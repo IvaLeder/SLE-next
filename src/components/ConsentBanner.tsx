@@ -1,9 +1,12 @@
 "use client";
 
-import { useState, useSyncExternalStore } from "react";
+import { useSyncExternalStore } from "react";
 import Link from "next/link";
 
 const STORAGE_KEY = "cookie-consent";
+// Fired whenever the consent choice changes in THIS tab (choose/withdraw), so
+// the banner re-evaluates immediately. Cross-tab changes arrive via "storage".
+const CHANGE_EVENT = "cookie-consent-change";
 
 // Consent Mode v2 categories. `security_storage` stays granted (set in the
 // default script) — it's fraud-prevention and doesn't need consent.
@@ -49,19 +52,47 @@ const COPY = {
   },
 } as const;
 
+// Session-scoped fallback so a choice still dismisses the banner when
+// localStorage is blocked (e.g. Safari private mode).
+let sessionChoice: "granted" | "denied" | null = null;
+
 // Has the visitor already chosen? Read via useSyncExternalStore so SSR renders
 // nothing (server snapshot = true) and the client flips to the real value after
-// hydration — no hydration mismatch, and no setState-in-effect.
-const subscribeNoop = () => () => {};
+// hydration — no hydration mismatch, and no setState-in-effect. The store
+// notifies on CHANGE_EVENT (same tab) and "storage" (other tabs).
+function subscribe(cb: () => void) {
+  window.addEventListener(CHANGE_EVENT, cb);
+  window.addEventListener("storage", cb);
+  return () => {
+    window.removeEventListener(CHANGE_EVENT, cb);
+    window.removeEventListener("storage", cb);
+  };
+}
 function hasStoredChoice() {
   try {
-    const v = localStorage.getItem(STORAGE_KEY);
+    const v = localStorage.getItem(STORAGE_KEY) ?? sessionChoice;
     return v === "granted" || v === "denied";
   } catch {
-    return false; // localStorage blocked (e.g. Safari private mode) → show banner
+    return sessionChoice !== null;
   }
 }
 const hasStoredChoiceServer = () => true;
+
+/**
+ * Withdraw the stored consent choice and re-show the banner — wired to the
+ * "Cookie settings" footer link (GDPR: withdrawing consent must be as easy as
+ * giving it). Reverts Consent Mode to denied until the visitor chooses again.
+ */
+export function clearConsentChoice() {
+  try {
+    localStorage.removeItem(STORAGE_KEY);
+  } catch {
+    /* localStorage blocked — session fallback below still clears */
+  }
+  sessionChoice = null;
+  window.gtag?.("consent", "update", DENIED);
+  window.dispatchEvent(new Event(CHANGE_EVENT));
+}
 
 /**
  * GDPR cookie-consent banner. Renders only when no prior choice is stored.
@@ -75,25 +106,26 @@ const hasStoredChoiceServer = () => true;
 export default function ConsentBanner({ lang }: { lang: "en" | "hr" }) {
   const t = COPY[lang];
   const choiceMade = useSyncExternalStore(
-    subscribeNoop,
+    subscribe,
     hasStoredChoice,
     hasStoredChoiceServer
   );
-  // Hide immediately on click (before the next localStorage read).
-  const [dismissed, setDismissed] = useState(false);
 
   function choose(granted: boolean) {
+    const v = granted ? "granted" : "denied";
     try {
-      localStorage.setItem(STORAGE_KEY, granted ? "granted" : "denied");
+      localStorage.setItem(STORAGE_KEY, v);
     } catch {
-      // Ignore write failures — the consent update below still applies for
-      // this session.
+      // localStorage blocked — sessionChoice below still dismisses the banner
+      // for this session, and the consent update applies either way.
     }
+    sessionChoice = v;
     window.gtag?.("consent", "update", granted ? GRANTED : DENIED);
-    setDismissed(true);
+    // Notify the store so the banner hides without local dismissed-state.
+    window.dispatchEvent(new Event(CHANGE_EVENT));
   }
 
-  if (choiceMade || dismissed) return null;
+  if (choiceMade) return null;
 
   const btnBase =
     "min-h-[44px] px-4 py-2 rounded-lg text-sm font-semibold font-sans transition-colors";

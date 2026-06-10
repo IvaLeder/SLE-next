@@ -11,11 +11,17 @@ import { mdxComponents } from "@/components/mdx";
  * remark/rehype config. Heading ids come from rehype-slug and depend only on
  * the heading text, so they stay consistent across a split.
  */
-export default function PostBody({ source }: { source: string }) {
+export default function PostBody({
+  source,
+  lang = "en",
+}: {
+  source: string;
+  lang?: "en" | "hr";
+}) {
   return (
     <MDXRemote
       source={source}
-      components={mdxComponents}
+      components={mdxComponents(lang)}
       options={{
         mdxOptions: {
           remarkPlugins: [remarkGfm],
