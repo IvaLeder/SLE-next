@@ -31,6 +31,9 @@ export default function Figure({
 }) {
   if (!src) return null;
 
+  // NOTE: pass width/height as STRING attributes in MDX (width="600", not
+  // width={600}) — the MDX pipeline silently drops JSX expression attributes,
+  // which used to send every figure down Lightbox's crop-prone fallback path.
   const w = width != null && width !== "" ? Number(width) : undefined;
   const h = height != null && height !== "" ? Number(height) : undefined;
 

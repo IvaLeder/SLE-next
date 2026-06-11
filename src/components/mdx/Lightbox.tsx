@@ -90,7 +90,10 @@ export default function Lightbox({ src, alt, width, height, marginClass = "my-6"
         alt={alt}
         fill
         sizes="(min-width: 768px) 768px, 100vw"
-        className="object-cover cursor-zoom-in"
+        // contain, not cover: this fallback runs when dimensions are missing,
+        // and cover crops anything that isn't 16:9 (cut-off labels on diagrams).
+        // Letterboxing is always safe; the dims path renders true-ratio anyway.
+        className="object-contain cursor-zoom-in"
       />
     );
 
