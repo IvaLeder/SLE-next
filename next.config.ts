@@ -79,22 +79,14 @@ const config: NextConfig = {
   },
 
   images: {
-    // Serve modern formats when the browser advertises support.
-    // AVIF first (better compression), WebP fallback, original as last resort.
-    formats: ['image/avif', 'image/webp'],
-
-    // Cache optimised variants at the edge for a year.
-    minimumCacheTTL: 60 * 60 * 24 * 365,
-
-    // Restrict to the sizes we actually use (saves CDN spend).
-    deviceSizes: [640, 750, 828, 1080, 1200, 1920],
-    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-
-    // Allow Next.js to proxy & optimise YouTube video thumbnails.
-    remotePatterns: [
-      { protocol: 'https', hostname: 'i.ytimg.com',   pathname: '/vi/**' },
-      { protocol: 'https', hostname: 'img.youtube.com', pathname: '/vi/**' },
-    ],
+    // Serve images as-is, bypassing Vercel's optimizer. The Hobby plan's
+    // monthly transformation quota was exhausted (the optimizer 402s —
+    // OPTIMIZED_IMAGE_REQUEST_PAYMENT_REQUIRED — and new images break site-
+    // wide). Our images are already pre-sized and compressed (~50 KB average:
+    // ≤700px photos, palette-PNG diagrams), so optimization adds little here.
+    // If the project ever moves to a paid plan, restore the previous tuning
+    // (formats/deviceSizes/remotePatterns) from git history.
+    unoptimized: true,
   },
 
   // ─── Legacy WordPress → new-slug redirects ────────────────────────────
