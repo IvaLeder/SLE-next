@@ -98,6 +98,8 @@ const config: NextConfig = {
   // so sources are written without a trailing slash.
   async redirects() {
     const moved: Array<[string, string]> = [
+      // Homepage Wordpress
+      ['/en/stem-little-explorers-stem-activities-kids', '/en'],
       // Posts (EN)
       ['/en/apple-oxidation-experiment', '/en/apple-oxidation'],
       ['/en/child-cognitive-development', '/en/your-childs-cognitive-development'],
