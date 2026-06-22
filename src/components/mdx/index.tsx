@@ -6,6 +6,10 @@ import { Callout } from "./Callout";
 import NextImage, { type ImageProps } from "next/image";
 import Lightbox from "./Lightbox";
 import Figure from "./Figure";
+import Materials from "./Materials";
+import Material from "./Material";
+import NameInBinary from "../tools/NameInBinary";
+import CaesarCipher from "../tools/CaesarCipher";
 import { SubscribeButton } from "../SubscribeButton";
 
 // Markdown ![alt](src) and <Image src=…/> in MDX both flow through here.
@@ -94,6 +98,14 @@ export function mdxComponents(lang: Lang = "en") {
     Figure: (props: React.ComponentProps<typeof Figure>) => (
       <Figure lang={lang} {...props} />
     ),
+    Materials: (props: React.ComponentProps<typeof Materials>) => (
+      <Materials lang={lang} {...props} />
+    ),
+    Material: (props: React.ComponentProps<typeof Material>) => (
+      <Material lang={lang} {...props} />
+    ),
+    NameInBinary: () => <NameInBinary lang={lang} />,
+    CaesarCipher: () => <CaesarCipher lang={lang} />,
     Subscribe: (props: React.ComponentProps<typeof SubscribeButton>) => (
       <SubscribeButton lang={lang} {...props} />
     ),

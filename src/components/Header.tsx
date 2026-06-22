@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Search from "./Search";
+import { TOOLS_SLUG } from "@/lib/tools";
 
 type HeaderProps = {
   lang: "en" | "hr";
@@ -278,6 +279,14 @@ export default function Header({ lang, switchUrl }: HeaderProps) {
             onClick={() => setOpen(false)}
           >
             ⚡ {lang === "en" ? "Activities" : "Aktivnosti"}
+          </Link>
+
+          <Link
+            href={`/${lang}/${TOOLS_SLUG[lang]}`}
+            className="block px-4 py-3 border-b font-semibold text-brand hover:bg-indigo-50"
+            onClick={() => setOpen(false)}
+          >
+            🧰 {lang === "en" ? "Tools & toys" : "Alati i igračke"}
           </Link>
 
           {/* Subjects — flat list in mobile */}

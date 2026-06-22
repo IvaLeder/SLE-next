@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import { SURFACED_TAGS, TAG_DISPLAY } from "@/lib/tags";
+import { TOOLS_SLUG } from "@/lib/tools";
 import CookieSettingsButton from "./CookieSettingsButton";
 
 // Inline SVG icons — avoid pulling a whole icon library for four glyphs.
@@ -43,6 +44,7 @@ export default function Footer({ lang }: { lang: "en" | "hr" }) {
       tagline:     "STEM activities and psychology insights for kids and parents.",
       explore:     "Explore",
       activities:  "All activities",
+      tools:       "Tools & toys",
       subjects:    "Subjects",
       topics:      "Topics",
       allTopics:   "All topics",
@@ -66,6 +68,7 @@ export default function Footer({ lang }: { lang: "en" | "hr" }) {
       tagline:     "STEM aktivnosti i psihološki savjeti za djecu i roditelje.",
       explore:     "Istraži",
       activities:  "Sve aktivnosti",
+      tools:       "Alati i igračke",
       subjects:    "Kategorije",
       topics:      "Teme",
       allTopics:   "Sve teme",
@@ -137,6 +140,14 @@ export default function Footer({ lang }: { lang: "en" | "hr" }) {
                 className="text-brand hover:text-brand-hover hover:underline font-medium"
               >
                 ⚡ {t.activities}
+              </Link>
+            </li>
+            <li>
+              <Link
+                href={`/${lang}/${TOOLS_SLUG[lang]}`}
+                className="text-brand hover:text-brand-hover hover:underline font-medium"
+              >
+                🧰 {t.tools}
               </Link>
             </li>
           </ul>

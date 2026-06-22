@@ -2,6 +2,8 @@ import { getAllPosts, CATEGORY_SLUGS } from "@/lib/posts";
 import { KNOWN_TAGS } from "@/lib/tags";
 import { getAllAuthorSlugs } from "@/lib/authors";
 import { siteConfig } from "@/config/site";
+import { SUMMER_SLUG } from "@/lib/summer-ebook";
+import { tools, TOOLS_SLUG } from "@/lib/tools";
 import type { MetadataRoute } from "next";
 
 // IMPORTANT: must match the canonical host used everywhere else (no www).
@@ -47,6 +49,45 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...bilingual("/contact",    now, 0.4, "yearly"),
     ...bilingual("/privacy",    now, 0.2, "yearly"),
     ...bilingual("/terms",      now, 0.2, "yearly"),
+  ];
+
+  // Summer e-book landing pages — slugs differ per language, so they can't use
+  // the bilingual() helper (which assumes a shared path). Hand-build both with
+  // cross-pointing hreflang alternates.
+  const summerAlternates = {
+    languages: {
+      en: `${BASE_URL}/en/${SUMMER_SLUG.en}`,
+      hr: `${BASE_URL}/hr/${SUMMER_SLUG.hr}`,
+    },
+  };
+  const summerEntries: MetadataRoute.Sitemap = [
+    { url: `${BASE_URL}/en/${SUMMER_SLUG.en}`, lastModified: now, changeFrequency: "monthly", priority: 0.8, alternates: summerAlternates },
+    { url: `${BASE_URL}/hr/${SUMMER_SLUG.hr}`, lastModified: now, changeFrequency: "monthly", priority: 0.8, alternates: summerAlternates },
+  ];
+
+  // Tools — hub + one entry per tool. Slugs differ per language (like summer),
+  // so build both sides by hand with cross-pointing hreflang.
+  const toolsHubAlternates = {
+    languages: {
+      en: `${BASE_URL}/en/${TOOLS_SLUG.en}`,
+      hr: `${BASE_URL}/hr/${TOOLS_SLUG.hr}`,
+    },
+  };
+  const toolsEntries: MetadataRoute.Sitemap = [
+    { url: `${BASE_URL}/en/${TOOLS_SLUG.en}`, lastModified: now, changeFrequency: "monthly", priority: 0.7, alternates: toolsHubAlternates },
+    { url: `${BASE_URL}/hr/${TOOLS_SLUG.hr}`, lastModified: now, changeFrequency: "monthly", priority: 0.7, alternates: toolsHubAlternates },
+    ...tools.flatMap((tool) => {
+      const alternates = {
+        languages: {
+          en: `${BASE_URL}/en/${TOOLS_SLUG.en}/${tool.slug.en}`,
+          hr: `${BASE_URL}/hr/${TOOLS_SLUG.hr}/${tool.slug.hr}`,
+        },
+      };
+      return [
+        { url: `${BASE_URL}/en/${TOOLS_SLUG.en}/${tool.slug.en}`, lastModified: now, changeFrequency: "monthly" as const, priority: 0.7, alternates },
+        { url: `${BASE_URL}/hr/${TOOLS_SLUG.hr}/${tool.slug.hr}`, lastModified: now, changeFrequency: "monthly" as const, priority: 0.7, alternates },
+      ];
+    }),
   ];
 
   // --- Category pages (one per slug per language) ---
@@ -103,7 +144,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Deduplicate by URL
   const seen = new Set<string>();
-  return [...staticEntries, ...categoryEntries, ...tagEntries, ...authorEntries, ...postEntries].filter((e) => {
+  return [...staticEntries, ...summerEntries, ...toolsEntries, ...categoryEntries, ...tagEntries, ...authorEntries, ...postEntries].filter((e) => {
     if (seen.has(e.url)) return false;
     seen.add(e.url);
     return true;

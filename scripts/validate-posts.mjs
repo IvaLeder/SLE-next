@@ -48,6 +48,10 @@ const KNOWN_MDX_COMPONENTS = new Set([
   "Callout",
   "Image",
   "Figure",
+  "Materials",
+  "Material",
+  "NameInBinary",
+  "CaesarCipher",
 ]);
 
 const POSTS_DIR  = "src/content/posts";
