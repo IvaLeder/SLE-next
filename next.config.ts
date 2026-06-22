@@ -148,6 +148,10 @@ const config: NextConfig = {
       // Post slug corrected after migration (old interim slug 404'd external links)
       ['/en/learn-letters-and-numbers', '/en/learning-letters-for-preschoolers-activity'],
       ['/hr/ucenje-abecede-brojeva', '/hr/aktivnost-ucenja-slova-kod-predskolaca'],
+      ['/hr/articles', '/hr'],
+      ['/en/articles', '/en'],
+      ['/en/feed', '/rss-en.xml'],
+      ['/hr/feed', '/rss-hr.xml']
     ];
 
     return moved.map(([source, destination]) => ({ source, destination, permanent: true }));

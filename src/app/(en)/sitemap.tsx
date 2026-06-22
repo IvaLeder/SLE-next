@@ -2,7 +2,7 @@ import { getAllPosts, CATEGORY_SLUGS } from "@/lib/posts";
 import { KNOWN_TAGS } from "@/lib/tags";
 import { getAllAuthorSlugs } from "@/lib/authors";
 import { siteConfig } from "@/config/site";
-import { SUMMER_SLUG } from "@/lib/summer-ebook";
+// import { SUMMER_SLUG } from "@/lib/summer-ebook";
 import { tools, TOOLS_SLUG } from "@/lib/tools";
 import type { MetadataRoute } from "next";
 
@@ -54,16 +54,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Summer e-book landing pages — slugs differ per language, so they can't use
   // the bilingual() helper (which assumes a shared path). Hand-build both with
   // cross-pointing hreflang alternates.
-  const summerAlternates = {
-    languages: {
-      en: `${BASE_URL}/en/${SUMMER_SLUG.en}`,
-      hr: `${BASE_URL}/hr/${SUMMER_SLUG.hr}`,
-    },
-  };
-  const summerEntries: MetadataRoute.Sitemap = [
-    { url: `${BASE_URL}/en/${SUMMER_SLUG.en}`, lastModified: now, changeFrequency: "monthly", priority: 0.8, alternates: summerAlternates },
-    { url: `${BASE_URL}/hr/${SUMMER_SLUG.hr}`, lastModified: now, changeFrequency: "monthly", priority: 0.8, alternates: summerAlternates },
-  ];
+  // const summerAlternates = {
+  //   languages: {
+  //     en: `${BASE_URL}/en/${SUMMER_SLUG.en}`,
+  //     hr: `${BASE_URL}/hr/${SUMMER_SLUG.hr}`,
+  //   },
+  // };
+  // const summerEntries: MetadataRoute.Sitemap = [
+  //   { url: `${BASE_URL}/en/${SUMMER_SLUG.en}`, lastModified: now, changeFrequency: "monthly", priority: 0.8, alternates: summerAlternates },
+  //   { url: `${BASE_URL}/hr/${SUMMER_SLUG.hr}`, lastModified: now, changeFrequency: "monthly", priority: 0.8, alternates: summerAlternates },
+  // ];
 
   // Tools — hub + one entry per tool. Slugs differ per language (like summer),
   // so build both sides by hand with cross-pointing hreflang.
@@ -144,7 +144,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Deduplicate by URL
   const seen = new Set<string>();
-  return [...staticEntries, ...summerEntries, ...toolsEntries, ...categoryEntries, ...tagEntries, ...authorEntries, ...postEntries].filter((e) => {
+  return [...staticEntries, /* ...summerEntries, */ ...toolsEntries, ...categoryEntries, ...tagEntries, ...authorEntries, ...postEntries].filter((e) => {
     if (seen.has(e.url)) return false;
     seen.add(e.url);
     return true;
