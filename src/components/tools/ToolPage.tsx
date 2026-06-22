@@ -42,14 +42,6 @@ export default function ToolPage({ lang, tool }: { lang: Lang; tool: Tool }) {
         </div>
       )}
 
-      {tool.materials && tool.materials.length > 0 && (
-        <Materials lang={lang}>
-          {tool.materials.map((m, i) => (
-            <Material key={i} lang={lang} name={m.name[lang]} q={m.q[lang]} />
-          ))}
-        </Materials>
-      )}
-
       {tool.related && (
         <div className="mt-8 rounded-2xl bg-orange-50 p-5">
           <p className="font-sans font-semibold text-gray-800">{t.related}</p>

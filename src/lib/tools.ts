@@ -93,20 +93,6 @@ export const tools: Tool[] = [
       },
       label: { en: "Make a physical cipher wheel", hr: "Napravite fizički kotač za šifriranje" },
     },
-    materials: [
-      {
-        name: { en: "Cardstock or thick paper", hr: "Tvrđi papir (hamer papir)" },
-        q: { en: "cardstock paper", hr: "hamer papir" },
-      },
-      {
-        name: { en: "Split pins (brads)", hr: "Pribadače" },
-        q: { en: "split pins brads", hr: "pribadače" },
-      },
-      {
-        name: { en: "Scissors", hr: "Škare" },
-        q: { en: "scissors craft kids", hr: "škare za djecu" },
-      },
-    ],
   },
 ];
 
