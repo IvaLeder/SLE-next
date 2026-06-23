@@ -10,6 +10,7 @@ import Materials from "./Materials";
 import Material from "./Material";
 import NameInBinary from "../tools/NameInBinary";
 import CaesarCipher from "../tools/CaesarCipher";
+import TowerOfHanoi from "../tools/TowerOfHanoi";
 import { SubscribeButton } from "../SubscribeButton";
 
 // Markdown ![alt](src) and <Image src=…/> in MDX both flow through here.
@@ -106,6 +107,7 @@ export function mdxComponents(lang: Lang = "en") {
     ),
     NameInBinary: () => <NameInBinary lang={lang} />,
     CaesarCipher: () => <CaesarCipher lang={lang} />,
+    TowerOfHanoi: () => <TowerOfHanoi lang={lang} />,
     Subscribe: (props: React.ComponentProps<typeof SubscribeButton>) => (
       <SubscribeButton lang={lang} {...props} />
     ),

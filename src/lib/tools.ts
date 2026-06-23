@@ -94,6 +94,30 @@ export const tools: Tool[] = [
       label: { en: "Make a physical cipher wheel", hr: "Napravite fizički kotač za šifriranje" },
     },
   },
+  {
+    key: "tower-of-hanoi",
+    slug: { en: "tower-of-hanoi", hr: "hanojski-toranj" },
+    icon: "🗼",
+    title: {
+      en: "Tower of Hanoi",
+      hr: "Hanojski toranj",
+    },
+    tagline: {
+      en: "Move the whole stack to the last peg in as few moves as you can. Test yourself in this classic puzzle of logic and patience.",
+      hr: "Premjestite cijeli toranj na zadnji štap u što manje poteza. Iskušajte se u ovom klasičnom treningu logike i strpljenja.",
+    },
+    description: {
+      en: "Play the Tower of Hanoi puzzle online: move the disk stack to the last peg without ever putting a bigger disk on a smaller one. A fun logic puzzle for kids.",
+      hr: "Igrajte zagonetku Hanojski toranj online: premjestite toranj diskova na zadnji štap, a da veći disk nikad ne stavite na manji. Zabavna logička zagonetka za djecu.",
+    },
+    related: {
+      slug: {
+        en: "make-and-solve-tower-of-hanoi",
+        hr: "kako-napraviti-rijesiti-hanoi-toranj",
+      },
+      label: { en: "Build your own & learn the math", hr: "Napravite svoj i naučite matematiku" },
+    },
+  },
 ];
 
 export function toolBySlug(lang: Lang, slug: string): Tool | undefined {

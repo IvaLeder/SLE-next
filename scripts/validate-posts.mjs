@@ -52,6 +52,7 @@ const KNOWN_MDX_COMPONENTS = new Set([
   "Material",
   "NameInBinary",
   "CaesarCipher",
+  "TowerOfHanoi",
 ]);
 
 const POSTS_DIR  = "src/content/posts";

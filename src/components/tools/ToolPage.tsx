@@ -4,11 +4,13 @@ import Materials from "@/components/mdx/Materials";
 import Material from "@/components/mdx/Material";
 import NameInBinary from "@/components/tools/NameInBinary";
 import CaesarCipher from "@/components/tools/CaesarCipher";
+import TowerOfHanoi from "@/components/tools/TowerOfHanoi";
 
 // Maps a tool's `key` to its interactive UI. Add new tools here.
 const TOOL_UI: Record<string, React.ComponentType<{ lang: Lang }>> = {
   "name-in-binary": NameInBinary,
   "caesar-cipher": CaesarCipher,
+  "tower-of-hanoi": TowerOfHanoi,
 };
 
 const COPY = {
