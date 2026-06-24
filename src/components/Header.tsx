@@ -143,10 +143,6 @@ export default function Header({ lang, switchUrl }: HeaderProps) {
             below that. `gap-4` (not `gap-5`) keeps a small headroom buffer so
             adding a nav item doesn't tip HR into overflow at exactly 1024px. */}
         <nav className="hidden lg:flex gap-4 items-center text-sm">
-          <Link href={`/${lang}`} aria-current={ariaCurrent(`/${lang}`)} className="whitespace-nowrap hover:opacity-70 aria-[current=page]:font-semibold">
-            {lang === "en" ? "Home" : "Naslovnica"}
-          </Link>
-
           {/* Activities — tag-based page */}
           <Link
             href={`/${lang}/activities`}
@@ -218,6 +214,14 @@ export default function Header({ lang, switchUrl }: HeaderProps) {
           </Link>
 
           <Link
+            href={`/${lang}/${TOOLS_SLUG[lang]}`}
+            aria-current={ariaCurrent(`/${lang}/${TOOLS_SLUG[lang]}`)}
+            className="whitespace-nowrap hover:opacity-70 aria-[current=page]:font-semibold"
+          >
+            {lang === "en" ? "Tools" : "Alati"}
+          </Link>
+
+          <Link
             href={`/${lang}/about`}
             aria-current={ariaCurrent(`/${lang}/about`)}
             className="whitespace-nowrap hover:opacity-70 aria-[current=page]:font-semibold"
@@ -266,27 +270,11 @@ export default function Header({ lang, switchUrl }: HeaderProps) {
           </div>
 
           <Link
-            href={`/${lang}`}
-            className="block px-4 py-3 border-b hover:bg-gray-50"
-            onClick={() => setOpen(false)}
-          >
-            {lang === "en" ? "Home" : "Naslovnica"}
-          </Link>
-
-          <Link
             href={`/${lang}/activities`}
             className="block px-4 py-3 border-b font-semibold text-brand hover:bg-indigo-50"
             onClick={() => setOpen(false)}
           >
             ⚡ {lang === "en" ? "Activities" : "Aktivnosti"}
-          </Link>
-
-          <Link
-            href={`/${lang}/${TOOLS_SLUG[lang]}`}
-            className="block px-4 py-3 border-b font-semibold text-brand hover:bg-indigo-50"
-            onClick={() => setOpen(false)}
-          >
-            🧰 {lang === "en" ? "Tools & toys" : "Alati i igračke"}
           </Link>
 
           {/* Subjects — flat list in mobile */}
@@ -312,6 +300,14 @@ export default function Header({ lang, switchUrl }: HeaderProps) {
             onClick={() => setOpen(false)}
           >
             {lang === "en" ? "Topics" : "Teme"}
+          </Link>
+
+          <Link
+            href={`/${lang}/${TOOLS_SLUG[lang]}`}
+            className="block px-4 py-3 border-b font-semibold text-brand hover:bg-indigo-50"
+            onClick={() => setOpen(false)}
+          >
+            🧰 {lang === "en" ? "Tools & toys" : "Alati i igračke"}
           </Link>
 
           <Link

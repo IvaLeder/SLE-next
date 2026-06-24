@@ -2,7 +2,9 @@ import { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ActivitiesClient from "@/components/ActivitiesClient";
+import SpinActivityBand from "@/components/tools/SpinActivityBand";
 import { getPostsByTag } from "@/lib/posts";
+import { getSpinActivities } from "@/lib/spin-activities";
 
 export const metadata: Metadata = {
   title: "STEM Aktivnosti za Djecu | STEM Little Explorers",
@@ -33,6 +35,8 @@ export default function ActivitiesPage() {
             u razredu — bez posebne opreme.
           </p>
         </div>
+
+        <SpinActivityBand lang="hr" activities={getSpinActivities("hr")} />
 
         <ActivitiesClient posts={posts} lang="hr" />
       </main>
