@@ -5,12 +5,17 @@ import Material from "@/components/mdx/Material";
 import NameInBinary from "@/components/tools/NameInBinary";
 import CaesarCipher from "@/components/tools/CaesarCipher";
 import TowerOfHanoi from "@/components/tools/TowerOfHanoi";
+import SpinActivity from "@/components/tools/SpinActivity";
+import FractionVisualizer from "@/components/tools/FractionVisualizer";
+import { getSpinActivities } from "@/lib/spin-activities";
 
-// Maps a tool's `key` to its interactive UI. Add new tools here.
+// Maps a tool's `key` to its interactive UI. Add new tools here. (The activity
+// spinner is special-cased below because it needs a server-fetched post list.)
 const TOOL_UI: Record<string, React.ComponentType<{ lang: Lang }>> = {
   "name-in-binary": NameInBinary,
   "caesar-cipher": CaesarCipher,
   "tower-of-hanoi": TowerOfHanoi,
+  "fraction-visualizer": FractionVisualizer,
 };
 
 const COPY = {
@@ -38,11 +43,13 @@ export default function ToolPage({ lang, tool }: { lang: Lang; tool: Tool }) {
         </div>
       </div>
 
-      {Comp && (
-        <div className="mt-6">
-          <Comp lang={lang} />
-        </div>
-      )}
+      <div className="mt-6">
+        {tool.key === "activity-spinner" ? (
+          <SpinActivity lang={lang} activities={getSpinActivities(lang)} />
+        ) : (
+          Comp && <Comp lang={lang} />
+        )}
+      </div>
 
       {tool.related && (
         <div className="mt-8 rounded-2xl bg-orange-50 p-5">

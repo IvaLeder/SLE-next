@@ -118,6 +118,51 @@ export const tools: Tool[] = [
       label: { en: "Build your own & learn the math", hr: "Napravite svoj i naučite matematiku" },
     },
   },
+  {
+    key: "activity-spinner",
+    slug: { en: "activity-spinner", hr: "kotac-aktivnosti" },
+    icon: "🎲",
+    title: {
+      en: "Activity spinner",
+      hr: "Kotač aktivnosti",
+    },
+    tagline: {
+      en: "Can't decide what to do? Give it a spin and let chance pick your next hands-on STEM activity.",
+      hr: "Ne možete se odlučiti? Zavrtite i neka slučaj odabere vašu sljedeću STEM aktivnost.",
+    },
+    description: {
+      en: "Can't decide what to make? Spin the wheel for a random hands-on STEM activity for kids — experiments, crafts and more.",
+      hr: "Ne znate što biste? Zavrtite kotač za nasumičnu praktičnu STEM aktivnost za djecu — pokuse, radove i još mnogo toga.",
+    },
+    related: {
+      slug: { en: "activities", hr: "activities" },
+      label: { en: "Browse all activities", hr: "Pregledajte sve aktivnosti" },
+    },
+  },
+  {
+    key: "fraction-visualizer",
+    slug: { en: "fraction-visualizer", hr: "vizualizator-razlomaka" },
+    icon: "🍕",
+    title: {
+      en: "Fraction visualizer",
+      hr: "Vizualizator razlomaka",
+    },
+    tagline: {
+      en: "See any fraction as a pie and a bar — and watch it turn into a percentage and a decimal.",
+      hr: "Vidite svaki razlomak kao pitu i traku — i gledajte kako postaje postotak i decimalni broj.",
+    },
+    description: {
+      en: "A free fraction visualizer for kids: pick a numerator and denominator and see the fraction as a pie chart and bar, plus its percentage, decimal and simplest form.",
+      hr: "Besplatni vizualizator razlomaka za djecu: odaberite brojnik i nazivnik i vidite razlomak kao pitu i traku, uz postotak, decimalni broj i najjednostavniji oblik.",
+    },
+    related: {
+      slug: {
+        en: "how-to-learn-fractions-fun-easy-way",
+        hr: "kako-nauciti-razlomke-na-lak-nacin",
+      },
+      label: { en: "The full fractions activity", hr: "Cijela aktivnost o razlomcima" },
+    },
+  },
 ];
 
 export function toolBySlug(lang: Lang, slug: string): Tool | undefined {

@@ -136,6 +136,12 @@ const config: NextConfig = {
       ['/en/category/stem-en/origami', '/en/tag/origami'],
       ['/hr/category/stem-hr/origami', '/hr/tag/origami'],
       ['/en/category/stem-en/science', '/en/category/science'],
+      ['/en/category/stem-en/stem-engineering', '/en/category/engineering'],
+      ['/hr/category/stem-hr/inzenjerstvo', '/hr/category/engineering'],
+      ['/hr/category/stem-hr/inzenjerstvo', '/hr/category/engineering'],
+      ['/hr/tag/kodiranje', '/hr/tag/coding'],
+      ['/hr/tag/kemija', '/hr/tag/chemistry'],
+      ['/hr/tag/fizika', '/hr/tag/physics'],
       // Old top-level WordPress "STEM" category — no 1:1 category in the new
       // taxonomy (STEM is split into Science/Engineering/Math/Technology), so
       // point it at the all-activities browse page, the closest equivalent.

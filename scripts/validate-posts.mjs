@@ -53,6 +53,7 @@ const KNOWN_MDX_COMPONENTS = new Set([
   "NameInBinary",
   "CaesarCipher",
   "TowerOfHanoi",
+  "FractionVisualizer",
 ]);
 
 const POSTS_DIR  = "src/content/posts";
