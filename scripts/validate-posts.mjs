@@ -54,6 +54,7 @@ const KNOWN_MDX_COMPONENTS = new Set([
   "CaesarCipher",
   "TowerOfHanoi",
   "FractionVisualizer",
+  "FindBirthdayInPi",
 ]);
 
 const POSTS_DIR  = "src/content/posts";

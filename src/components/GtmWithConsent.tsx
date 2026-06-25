@@ -1,42 +1,43 @@
 import Script from "next/script";
 import { GoogleTagManager } from "@next/third-parties/google";
-import ConsentBanner from "./ConsentBanner";
 
 // Public env var — bundled into the client. Absent in local/preview =>
 // nothing is injected, so dev traffic stays out of analytics.
 const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
 
 /**
- * Google Tag Manager loader with Google Consent Mode v2 defaults.
+ * Google Tag Manager loader with Google Consent Mode v2 regional defaults.
  *
  * Why this exists as a wrapper:
- *   1. GTM must be paired with a consent-default script that runs BEFORE GTM,
- *      otherwise tags fire (and cookies write) before the user has a chance to
- *      consent. Encapsulating both calls together makes that invariant local —
- *      callers can't accidentally render one without the other.
- *   2. Both root layouts ((en) + (hr)) need identical wiring, so isolating it
- *      keeps them in lockstep when we later add a consent banner.
+ *   GTM must be paired with a consent-default script that runs BEFORE GTM,
+ *   otherwise tags fire (and cookies write) before consent is resolved.
+ *   Encapsulating both calls together makes that invariant local — callers
+ *   can't accidentally render one without the other. Both root layouts
+ *   ((en) + (hr)) render this, so isolating it keeps them in lockstep.
  *
- * GDPR posture:
- *   - All storage categories default to "denied" → no analytics/ads cookies
- *     are written until the visitor accepts (deny-by-default = GDPR-defensible).
- *   - `security_storage: granted` covers fraud-prevention / CSRF, which has a
- *     legitimate-interest basis and doesn't need explicit consent.
- *   - Consent is granted by <ConsentBanner>, which calls
- *     `gtag('consent','update', …)` and stores the choice. Returning visitors
- *     who accepted are re-granted synchronously below — BEFORE GTM evaluates —
- *     so their first pageview is consented (not just subsequent ones).
- *   - `window.gtag` is exposed here so the banner reuses this exact shim (the
- *     `arguments`-object shape Consent Mode requires).
+ * Consent UI:
+ *   The visible consent prompt is Google's certified CMP (AdSense → Privacy &
+ *   messaging / Funding Choices), loaded by the AdSense library on article
+ *   pages. It writes the IAB TCF string AND drives Consent Mode, so we do NOT
+ *   ship our own banner — a second prompt would mean two conflicting consent
+ *   records. This component only sets the Consent Mode *defaults* that apply
+ *   before/until the CMP resolves.
+ *
+ * GDPR posture (see the inline comments below):
+ *   - EEA + UK + Switzerland default to "denied" until the visitor opts in via
+ *     Google's CMP — no analytics/ads cookies until then (GDPR-defensible).
+ *   - Everywhere else defaults to "granted" (no prior opt-in legally required),
+ *     which fixes the chronic undercounting of our non-EEA (SG-heavy) audience.
+ *   - `security_storage: granted` covers fraud-prevention / CSRF (legitimate
+ *     interest, no consent needed).
  *
  * Loading order is critical:
- *   - `beforeInteractive` runs in <head> during SSR, before any GTM script
- *     can execute. Only works in root layouts — that's where we render it.
- *   - GoogleTagManager uses `afterInteractive` internally, which fires after
- *     hydration. By then the consent defaults (and any stored grant) are on
- *     the dataLayer.
+ *   - `beforeInteractive` runs in <head> during SSR, before any GTM script can
+ *     execute. Only works in root layouts — that's where we render it.
+ *   - GoogleTagManager uses `afterInteractive` internally; by the time it fires
+ *     the consent defaults are already on the dataLayer.
  */
-export default function GtmWithConsent({ lang }: { lang: "en" | "hr" }) {
+export default function GtmWithConsent() {
   if (!GTM_ID) return null;
 
   return (
@@ -50,7 +51,37 @@ export default function GtmWithConsent({ lang }: { lang: "en" | "hr" }) {
         {`
           window.dataLayer = window.dataLayer || [];
           window.gtag = function(){ dataLayer.push(arguments); };
+
+          // Regional Consent Mode defaults. Google resolves the visitor's region
+          // server-side (no IP geolocation needed here) and applies the most
+          // specific matching 'default'.
+          //
+          // 1) Global default = GRANTED. Most of our audience is outside the EEA
+          //    (Singapore-heavy on EN), where prior opt-in isn't legally required,
+          //    so tracking these visitors by default fixes the chronic
+          //    undercounting. The region override below tightens this for the EEA.
           gtag('consent', 'default', {
+            ad_storage: 'granted',
+            ad_user_data: 'granted',
+            ad_personalization: 'granted',
+            analytics_storage: 'granted',
+            functionality_storage: 'granted',
+            personalization_storage: 'granted',
+            security_storage: 'granted'
+          });
+
+          // 2) EEA + UK + Switzerland override = DENIED until the visitor opts in
+          //    via Google's CMP (GDPR / UK GDPR / Swiss FADP need prior opt-in).
+          //    NOTE: Croatia (HR) is in this list, so our Croatian audience is
+          //    correctly deny-by-default. Region matching is by visitor geo, not
+          //    by site language. security_storage stays granted (legitimate
+          //    interest, fraud-prevention).
+          gtag('consent', 'default', {
+            region: [
+              'AT','BE','BG','HR','CY','CZ','DK','EE','FI','FR','DE','GR','HU',
+              'IE','IT','LV','LT','LU','MT','NL','PL','PT','RO','SK','SI','ES','SE',
+              'IS','LI','NO','GB','CH'
+            ],
             ad_storage: 'denied',
             ad_user_data: 'denied',
             ad_personalization: 'denied',
@@ -59,22 +90,9 @@ export default function GtmWithConsent({ lang }: { lang: "en" | "hr" }) {
             personalization_storage: 'denied',
             security_storage: 'granted'
           });
-          try {
-            if (localStorage.getItem('cookie-consent') === 'granted') {
-              gtag('consent', 'update', {
-                ad_storage: 'granted',
-                ad_user_data: 'granted',
-                ad_personalization: 'granted',
-                analytics_storage: 'granted',
-                functionality_storage: 'granted',
-                personalization_storage: 'granted'
-              });
-            }
-          } catch (e) {}
         `}
       </Script>
       <GoogleTagManager gtmId={GTM_ID} />
-      <ConsentBanner lang={lang} />
     </>
   );
 }

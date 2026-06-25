@@ -65,8 +65,9 @@ export default function EnRootLayout({
         {children}
         <Analytics />
         <SpeedInsights />
-        {/* GTM + Consent Mode v2 defaults + consent banner — no-ops when NEXT_PUBLIC_GTM_ID is unset */}
-        <GtmWithConsent lang="en" />
+        {/* GTM + Consent Mode v2 regional defaults — no-ops when NEXT_PUBLIC_GTM_ID is unset.
+            The visible consent prompt is Google's CMP (AdSense Privacy & messaging). */}
+        <GtmWithConsent />
       </body>
     </html>
   );

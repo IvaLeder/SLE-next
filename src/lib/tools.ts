@@ -163,6 +163,30 @@ export const tools: Tool[] = [
       label: { en: "The full fractions activity", hr: "Cijela aktivnost o razlomcima" },
     },
   },
+  {
+    key: "find-birthday-in-pi",
+    slug: { en: "find-your-birthday-in-pi", hr: "pronadi-rodendan-u-piju" },
+    icon: "🎂",
+    title: {
+      en: "Find your birthday in Pi",
+      hr: "Pronađi svoj rođendan u Piju",
+    },
+    tagline: {
+      en: "Type your birthday and discover exactly where those digits appear in the never-ending number π.",
+      hr: "Upišite svoj rođendan i otkrijte gdje se točno te znamenke pojavljuju u beskonačnom broju π.",
+    },
+    description: {
+      en: "A free tool that searches a million digits of Pi for your birthday — or any number — and shows exactly where it hides in π. A fun way to explore an irrational number.",
+      hr: "Besplatni alat koji pretražuje milijun znamenki broja Pi i traži vaš rođendan — ili bilo koji broj — te pokazuje gdje se točno krije u π. Zabavan način istraživanja iracionalnog broja.",
+    },
+    related: {
+      slug: {
+        en: "explore-number-pi",
+        hr: "istrazimo-broj-pi",
+      },
+      label: { en: "Read all about the number Pi", hr: "Pročitajte sve o broju Pi" },
+    },
+  },
 ];
 
 export function toolBySlug(lang: Lang, slug: string): Tool | undefined {

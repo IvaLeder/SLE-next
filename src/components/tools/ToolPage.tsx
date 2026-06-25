@@ -7,6 +7,7 @@ import CaesarCipher from "@/components/tools/CaesarCipher";
 import TowerOfHanoi from "@/components/tools/TowerOfHanoi";
 import SpinActivity from "@/components/tools/SpinActivity";
 import FractionVisualizer from "@/components/tools/FractionVisualizer";
+import FindBirthdayInPi from "@/components/tools/FindBirthdayInPi";
 import { getSpinActivities } from "@/lib/spin-activities";
 
 // Maps a tool's `key` to its interactive UI. Add new tools here. (The activity
@@ -16,6 +17,7 @@ const TOOL_UI: Record<string, React.ComponentType<{ lang: Lang }>> = {
   "caesar-cipher": CaesarCipher,
   "tower-of-hanoi": TowerOfHanoi,
   "fraction-visualizer": FractionVisualizer,
+  "find-birthday-in-pi": FindBirthdayInPi,
 };
 
 const COPY = {
