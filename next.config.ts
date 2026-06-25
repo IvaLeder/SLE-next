@@ -160,6 +160,8 @@ const config: NextConfig = {
       ['/en/feed', '/rss-en.xml'],
       ['/hr/feed', '/rss-hr.xml'],
       ['/en/tag/sensomotoric-development', '/en/tag/sensory'],
+      ['/hr/tag/senzomotorni-razvoj', '/hr/tag/sensory'],
+      ['/en/kako-napraviti-raketu-od-sibica', '/en/how-to-make-match-head-rocket'],
       ['/en/contact-us', '/en/contact'],
       ['/en/tag/development-stages', '/en/tag/milestone'],
       ['/hr/how-to-make-colored-rice', '/hr/kako-napraviti-obojanu-rizu'],
