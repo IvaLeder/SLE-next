@@ -158,7 +158,18 @@ const config: NextConfig = {
       ['/hr/articles', '/hr'],
       ['/en/articles', '/en'],
       ['/en/feed', '/rss-en.xml'],
-      ['/hr/feed', '/rss-hr.xml']
+      ['/hr/feed', '/rss-hr.xml'],
+      ['/en/tag/sensomotoric-development', '/en/tag/sensory'],
+      ['/en/contact-us', '/en/contact'],
+      ['/en/tag/development-stages', '/en/tag/milestone'],
+      ['/hr/how-to-make-colored-rice', '/hr/kako-napraviti-obojanu-rizu'],
+      ['/hr/develop-math-reasoning-skills-origami', '/hr/kako-razviti-matematicki-nacin-razmisljanja-uz-origami'],
+      ['/hr/origami-vjetrenjaca', '/hr/kako-napraviti-origami-vjetrenjacu-od-papira'],
+      ['/hr/18-signs-gifted-child', '/hr/18-znakova-nadarenosti-kod-djeteta'],
+      ['/hr/how-to-make-potato-battery', '/hr/kako-napraviti-bateriju-od-krumpira'],
+      ['/hr/stem-mali-istrazivaci-stem-aktivnosti-za-djecu', '/hr'],
+      ['/en/tag/food-science', '/en/tag/chemistry'],
+      ['/make-cardboard-clock-learn-tell-time', '/en/make-cardboard-clock-learn-tell-time']
     ];
 
     return moved.map(([source, destination]) => ({ source, destination, permanent: true }));
