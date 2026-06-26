@@ -128,7 +128,7 @@ export const tools: Tool[] = [
     },
     tagline: {
       en: "Can't decide what to do? Give it a spin and let chance pick your next hands-on STEM activity.",
-      hr: "Ne možete se odlučiti? Zavrtite i neka slučaj odabere vašu sljedeću STEM aktivnost.",
+      hr: "Ne možete se odlučiti? Zavrtite i vidite što će biti vaša sljedeća praktična STEM aktivnost.",
     },
     description: {
       en: "Can't decide what to make? Spin the wheel for a random hands-on STEM activity for kids — experiments, crafts and more.",
@@ -148,8 +148,8 @@ export const tools: Tool[] = [
       hr: "Vizualizator razlomaka",
     },
     tagline: {
-      en: "See any fraction as a pie and a bar — and watch it turn into a percentage and a decimal.",
-      hr: "Vidite svaki razlomak kao pitu i traku — i gledajte kako postaje postotak i decimalni broj.",
+      en: "See any fraction as a pie and a bar and watch it turn into a percentage and a decimal.",
+      hr: "Vizualizirajte svaki razlomak kao pitu (kružni model) i kao traku (pravokutni model). Možete pratiti kako postaje postotak i decimalni broj.",
     },
     description: {
       en: "A free fraction visualizer for kids: pick a numerator and denominator and see the fraction as a pie chart and bar, plus its percentage, decimal and simplest form.",
@@ -196,8 +196,8 @@ export const tools: Tool[] = [
       hr: "Morseova abeceda",
     },
     tagline: {
-      en: "Turn any message into dots and dashes — then press play to hear it beep out loud and flash, just like a real telegraph.",
-      hr: "Pretvorite poruku u točkice i crtice — pa pritisnite play da je čujete kako pišti i bljeska, baš kao pravi telegraf.",
+      en: "Turn any message into dots and dashes! Press play to hear it beep out loud and flash, just like a real telegraph.",
+      hr: "Pretvorite poruku u točkice i crtice! Pritisnite play da je čujete kako pišti i bljeska, baš kao pravi telegraf.",
     },
     description: {
       en: "A free Morse code translator for kids: type a message to see it in dots and dashes, play it as sound and light, or decode Morse back into text.",

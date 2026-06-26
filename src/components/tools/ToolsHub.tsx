@@ -6,13 +6,13 @@ const COPY = {
     eyebrow: "Free interactive tools",
     title: "STEM tools & toys",
     intro:
-      "Collection of small interactive tools to tinker with. Try Ceasar cipher now, with more to come. No sign-up, just play.",
+      "Collection of small interactive tools to tinker with. Try encrypting a message with Caesar cipher, play Hanoi Tower or try sending SOS with Morse code. No sign-up, just play.",
   },
   hr: {
     eyebrow: "Besplatni interaktivni alati",
     title: "STEM alati i igre",
     intro:
-      "Kolekcija malih interaktivnih alata za igru. Sad isprobajte Cezarovu šifru, a planiramo još puno toga. Bez registracije, samo se igrajte.",
+      "Kolekcija malih interaktivnih alata za igru. Šifrirajte poruke s Caesarovom šifrom, igrajte Hanojski toranj ili pokušajte poslati SOS Morseovim kodom. Bez registracije, samo se igrajte.",
   },
 } as const;
 
