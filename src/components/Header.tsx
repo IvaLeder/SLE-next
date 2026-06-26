@@ -307,7 +307,7 @@ export default function Header({ lang, switchUrl }: HeaderProps) {
             className="block px-4 py-3 border-b font-semibold text-brand hover:bg-indigo-50"
             onClick={() => setOpen(false)}
           >
-            🧰 {lang === "en" ? "Tools & toys" : "Alati i igračke"}
+            🧰 {lang === "en" ? "Tools & games" : "Alati i igre"}
           </Link>
 
           <Link

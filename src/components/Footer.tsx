@@ -44,7 +44,7 @@ export default function Footer({ lang }: { lang: "en" | "hr" }) {
       tagline:     "STEM activities and psychology insights for kids and parents.",
       explore:     "Explore",
       activities:  "All activities",
-      tools:       "Tools & toys",
+      tools:       "Tools & games",
       subjects:    "Subjects",
       topics:      "Topics",
       allTopics:   "All topics",
