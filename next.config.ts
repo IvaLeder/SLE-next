@@ -171,7 +171,29 @@ const config: NextConfig = {
       ['/hr/how-to-make-potato-battery', '/hr/kako-napraviti-bateriju-od-krumpira'],
       ['/hr/stem-mali-istrazivaci-stem-aktivnosti-za-djecu', '/hr'],
       ['/en/tag/food-science', '/en/tag/chemistry'],
-      ['/make-cardboard-clock-learn-tell-time', '/en/make-cardboard-clock-learn-tell-time']
+      ['/make-cardboard-clock-learn-tell-time', '/en/make-cardboard-clock-learn-tell-time'],
+      ['/en/category/stem-en/math', '/en/category/math'],
+      ['/hr/category/stem-hr/math', '/hr/category/math'],
+      ['/en/kako-izgraditi-impresivne-gradevine', '/en/create-amazing-structures'],
+      ['/hr/tag/aktivnost/', '/hr/tag/activities'],
+      ['/en/dvorac-od-kartona', '/en/toilet-roll-craft-cardboard-castle'],
+      ['/5-amazing-balloon-experiments', '/en/5-amazing-balloon-experiments'],
+      ['/make-homemade-playdough-learn-science', '/en/make-homemade-playdough-learn-science'],
+      ['/make-christmas-reindeer-decoration', '/en/make-christmas-reindeer-decoration'],
+      ['/hr/make-popsicle-catapult', '/hr/katapult-od-stapica-za-sladoled'],
+      ['/improve-childs-working-memory', '/en/improve-childs-working-memory'],
+      ['/sensory-bag-child-sensorimotor-development', '/en/sensory-bag-child-sensorimotor-development'],
+      ['/hr/how-to-demonstrate-refraction', '/hr/demonstracija-refrakcije'],
+      ['/learn-letters-and-numbers', '/en/learning-letters-for-preschoolers-activity'],
+      ['/child-cognitive-development', '/en/your-childs-cognitive-development'],
+      ['/how-to-make-homemade-rocket-vinegar-baking-soda', '/en/how-to-make-homemade-rocket-vinegar-baking-soda'],
+      ['/hr/tag/inzenjerstvo/', '/hr/category/engineering'],
+      ['/en/kako-napraviti-origami-kucicu', '/en/how-to-make-origami-house'],
+      ['/candle-in-the-vacuum-experiment', '/en/candle-in-the-vacuum-experiment'],
+      ['/hr/how-to-make-origami-pig', '/hr/kako-napraviti-origami-prascica'],
+      ['/hr/how-to-make-fidget-spinner', '/hr/kako-napraviti-fidget-spinner'],
+      ['/en/oksidacija-jabuke', '/en/apple-oxidation'],
+      ['/hr/make-and-solve-tower-of-hanoi', '/hr/kako-napraviti-rijesiti-hanoi-toranj']
     ];
 
     return moved.map(([source, destination]) => ({ source, destination, permanent: true }));
