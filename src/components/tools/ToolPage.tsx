@@ -1,7 +1,5 @@
 import Link from "next/link";
 import { TOOLS_SLUG, type Tool, type Lang } from "@/lib/tools";
-import Materials from "@/components/mdx/Materials";
-import Material from "@/components/mdx/Material";
 import NameInBinary from "@/components/tools/NameInBinary";
 import CaesarCipher from "@/components/tools/CaesarCipher";
 import TowerOfHanoi from "@/components/tools/TowerOfHanoi";

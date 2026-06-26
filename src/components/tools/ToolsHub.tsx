@@ -4,7 +4,7 @@ import { tools, TOOLS_SLUG, type Lang } from "@/lib/tools";
 const COPY = {
   en: {
     eyebrow: "Free interactive tools",
-    title: "STEM tools & toys",
+    title: "STEM tools & games",
     intro:
       "Collection of small interactive tools to tinker with. Try encrypting a message with Caesar cipher, play Hanoi Tower or try sending SOS with Morse code. No sign-up, just play.",
   },
