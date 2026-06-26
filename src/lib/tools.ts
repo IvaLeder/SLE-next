@@ -169,7 +169,7 @@ export const tools: Tool[] = [
     icon: "🎂",
     title: {
       en: "Find your birthday in Pi",
-      hr: "Pronađi svoj rođendan u Piju",
+      hr: "Pronađi svoj rođendan u broju π",
     },
     tagline: {
       en: "Type your birthday and discover exactly where those digits appear in the never-ending number π.",
