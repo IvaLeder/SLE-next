@@ -187,6 +187,23 @@ export const tools: Tool[] = [
       label: { en: "Read all about the number Pi", hr: "Pročitajte sve o broju Pi" },
     },
   },
+  {
+    key: "morse-code",
+    slug: { en: "morse-code-translator", hr: "morseova-abeceda" },
+    icon: "📡",
+    title: {
+      en: "Morse code translator",
+      hr: "Morseova abeceda",
+    },
+    tagline: {
+      en: "Turn any message into dots and dashes — then press play to hear it beep out loud and flash, just like a real telegraph.",
+      hr: "Pretvorite poruku u točkice i crtice — pa pritisnite play da je čujete kako pišti i bljeska, baš kao pravi telegraf.",
+    },
+    description: {
+      en: "A free Morse code translator for kids: type a message to see it in dots and dashes, play it as sound and light, or decode Morse back into text.",
+      hr: "Besplatni prevoditelj Morseove abecede za djecu: upišite poruku i vidite je u točkicama i crticama, odsvirajte je kao zvuk i svjetlo ili dešifrirajte Morse natrag u tekst.",
+    },
+  },
 ];
 
 export function toolBySlug(lang: Lang, slug: string): Tool | undefined {

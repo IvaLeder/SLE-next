@@ -13,6 +13,7 @@ import CaesarCipher from "../tools/CaesarCipher";
 import TowerOfHanoi from "../tools/TowerOfHanoi";
 import FractionVisualizer from "../tools/FractionVisualizer";
 import FindBirthdayInPi from "../tools/FindBirthdayInPi";
+import MorseCode from "../tools/MorseCode";
 import { SubscribeButton } from "../SubscribeButton";
 
 // Markdown ![alt](src) and <Image src=…/> in MDX both flow through here.
@@ -112,6 +113,7 @@ export function mdxComponents(lang: Lang = "en") {
     TowerOfHanoi: () => <TowerOfHanoi lang={lang} />,
     FractionVisualizer: () => <FractionVisualizer lang={lang} />,
     FindBirthdayInPi: () => <FindBirthdayInPi lang={lang} />,
+    MorseCode: () => <MorseCode lang={lang} />,
     Subscribe: (props: React.ComponentProps<typeof SubscribeButton>) => (
       <SubscribeButton lang={lang} {...props} />
     ),

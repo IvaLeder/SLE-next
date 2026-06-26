@@ -55,6 +55,7 @@ const KNOWN_MDX_COMPONENTS = new Set([
   "TowerOfHanoi",
   "FractionVisualizer",
   "FindBirthdayInPi",
+  "MorseCode",
 ]);
 
 const POSTS_DIR  = "src/content/posts";
