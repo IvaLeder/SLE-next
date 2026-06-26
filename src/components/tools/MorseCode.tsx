@@ -17,7 +17,7 @@ const COPY = {
     copied: "Copied!",
     morseHint: "Use · and − (or . and -). Space between letters, / between words.",
     note: "International Morse covers A–Z, 0–9 and punctuation. Croatian accents (č, š, ž…) are sent as their base letters — Morse has no separate codes for them.",
-    placeholder: "SOS help",
+    placeholder: "SOS",
     placeholderMorse: "... --- ...",
   },
   hr: {
@@ -32,7 +32,7 @@ const COPY = {
     copied: "Kopirano!",
     morseHint: "Koristite · i − (ili . i -). Razmak između slova, / između riječi.",
     note: "Međunarodni Morseov kod pokriva A–Ž (bez kvačica), 0–9 i interpunkciju. Hrvatska slova s kvačicama (č, š, ž…) šalju se kao osnovna slova — Morse za njih nema zasebne kodove.",
-    placeholder: "SOS pomoć",
+    placeholder: "SOS",
     placeholderMorse: "... --- ...",
   },
 } as const;
