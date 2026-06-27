@@ -12,7 +12,7 @@ const COPY = {
     eyebrow: "Besplatni interaktivni alati",
     title: "STEM alati i igre",
     intro:
-      "Kolekcija malih interaktivnih alata za igru. Šifrirajte poruke s Caesarovom šifrom, igrajte Hanojski toranj ili pokušajte poslati SOS Morseovim kodom. Bez registracije, samo se igrajte.",
+      "Kolekcija malih interaktivnih alata za igru. Šifrirajte poruke s Cezarovom šifrom, igrajte Hanojski toranj ili pokušajte poslati SOS Morseovim kodom. Bez registracije, samo se igrajte.",
   },
 } as const;
 
