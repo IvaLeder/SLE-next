@@ -27,7 +27,6 @@ const styles = {
 export function Callout({
   type = "info",
   title,
-  icon,
   children,
 }: CalloutProps) {
   const config = styles[type];
@@ -35,10 +34,6 @@ export function Callout({
   return (
     <div className={`border-l-4 p-4 my-6 rounded ${config.wrapper}`}>
       <div className="flex items-center gap-2 mb-2 font-semibold">
-        <div className="flex-shrink-0 relative top-[1px]">
-          {icon ?? config.icon}
-        </div>
-
         <h4 className="text-sm font-bold leading-none">{title ?? config.defaultTitle}</h4>
       </div>
 
