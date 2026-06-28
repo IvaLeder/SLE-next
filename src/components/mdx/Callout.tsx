@@ -5,7 +5,6 @@ type CalloutType = "info" | "warning" | "success";
 interface CalloutProps {
   type?: CalloutType;
   title?: string;
-  icon?: React.ReactNode;
   children: React.ReactNode;
 }
 
