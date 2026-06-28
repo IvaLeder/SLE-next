@@ -41,12 +41,12 @@ export const tools: Tool[] = [
       hr: "Generator imena u binarnom kodu",
     },
     tagline: {
-      en: "Type any name and watch it turn into binary code — then make it into a colorful bead bracelet.",
-      hr: "Upišite bilo koje ime i gledajte kako se pretvara u binarni kod — pa ga izradite kao šarenu narukvicu od perli.",
+      en: "Type any name and watch it turn into binary code and then make it into a colorful bead bracelet.",
+      hr: "Upišite bilo koje ime i gledajte kako se pretvara u binarni kod pa ga izradite kao šarenu narukvicu od perli.",
     },
     description: {
       en: "A free, kid-friendly binary translator: type any name to see it in 1s and 0s, then string it as a bead bracelet. Handles Croatian accented letters too.",
-      hr: "Besplatni binarni prevoditelj za djecu: upišite ime i vidite ga u nulama i jedinicama, pa ga izradite kao narukvicu od perli. Radi i s hrvatskim slovima s kvačicama.",
+      hr: "Besplatni binarni prevoditelj za djecu: upišite ime i vidite ga u nulama i jedinicama, pa ga izradite kao narukvicu od perli.",
     },
     related: {
       slug: {
@@ -55,20 +55,6 @@ export const tools: Tool[] = [
       },
       label: { en: "Read the full activity", hr: "Pročitajte cijelu aktivnost" },
     },
-    materials: [
-      {
-        name: { en: "Pony beads in two colors", hr: "Perle za nakit u dvije boje" },
-        q: { en: "pony beads bulk", hr: "pony perle za nakit" },
-      },
-      {
-        name: { en: "Pipe cleaners", hr: "Žica za savijanje (pipe cleaners)" },
-        q: { en: "pipe cleaners craft", hr: "žica za savijanje pipe cleaners" },
-      },
-      {
-        name: { en: "String or cord", hr: "Uzica ili vrpca" },
-        q: { en: "craft cord string", hr: "uzica za nakit" },
-      },
-    ],
   }, */
   {
     key: "caesar-cipher",

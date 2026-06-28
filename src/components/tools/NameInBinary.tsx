@@ -11,7 +11,7 @@ const COPY = {
     zero: "0",
     one: "1",
     empty: "Type a name above to see it in binary.",
-    note8: "Each letter is one byte — exactly 8 beads.",
+    note8: "Each letter is one byte, exactly 8 beads.",
     note16: "Letters with accents (Č, Ž, Đ…) need 16 beads instead of 8.",
   },
   hr: {
@@ -20,7 +20,7 @@ const COPY = {
     zero: "0",
     one: "1",
     empty: "Upišite ime iznad da ga vidite u binarnom kodu.",
-    note8: "Svako slovo je jedan bajt — točno 8 perli.",
+    note8: "Svako slovo je jedan bajt, točno 8 perli.",
     note16: "Slova s kvačicama (Č, Ž, Đ…) trebaju 16 perli umjesto 8.",
   },
 } as const;
@@ -47,7 +47,7 @@ function encodeName(name: string): { ch: string; bits: string }[] {
 
 export default function NameInBinary({ lang = "en" }: { lang?: Lang }) {
   const t = COPY[lang];
-  const [name, setName] = useState("LUKA");
+  const [name, setName] = useState("LEA");
   const upper = name.toUpperCase();
   const letters = useMemo(() => encodeName(upper), [upper]);
   const totalBeads = letters.reduce((n, l) => n + l.bits.length, 0);
