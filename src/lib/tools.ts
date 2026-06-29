@@ -32,7 +32,7 @@ export interface Tool {
 }
 
 export const tools: Tool[] = [
-  /* {
+{
     key: "name-in-binary",
     slug: { en: "name-in-binary", hr: "ime-u-binarnom-kodu" },
     icon: "💻",
@@ -55,7 +55,7 @@ export const tools: Tool[] = [
       },
       label: { en: "Read the full activity", hr: "Pročitajte cijelu aktivnost" },
     },
-  }, */
+  },
   {
     key: "caesar-cipher",
     slug: { en: "caesar-cipher", hr: "cezarova-sifra" },

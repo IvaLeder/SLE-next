@@ -1,0 +1,165 @@
+---
+title: Write Your Name in Binary — How Computers Store Letters
+slug: write-your-name-in-binary
+translationKey: write-your-name-in-binary
+lang: en
+subtitle: >-
+  Computers only understand two things: ON and OFF, 1 and 0. So how can they
+  store your name, your favorite song, and a million cat photos? Let’s crack the
+  secret code of computers and turn your name into a binary bracelet!
+description: >-
+  How do computers store letters using only 1s and 0s? Learn about binary and
+  ASCII, then write your name in binary and make a cool bracelet to wear!
+date: "2026-06-08"
+author: Iva Leder
+coverImage: /images/posts/binary-bracelet-cover.jpg
+heroAlt: "Write your name in binary code bracelet activity"
+categories:
+  - Technology
+tags:
+  - activity
+  - coding
+---
+
+<YouTube id="NRikJD-5SBU" title="Binary bracelet - write your name in binary"/>
+
+Computers are amazing machines. They can hold lots of data, including your favourite movies, songs, and games and all those funny cat videos. Knowing that, you might be surprised to know that computers only understand two things: **on and off**. We label these as **0** and **1**. So how do they store images, letters and numbers using only two states?
+
+The answer is a clever code called **binary**.  Today we’re going to learn how it works, then we’re going to write your name in binary and make it into a bracelet you can wear!
+
+## What Is Binary?
+
+We count with **10 digits**: 0, 1, 2, 3, 4, 5, 6, 7, 8 and 9. This is called the **decimal** system (from the Latin _decem_, meaning ten). It probably developed because we have ten fingers and we used them to count.
+
+Computers store numbers using a different number system called binary. They use only **2 digits: 0 and 1**. This is called **binary** because _bi_ means two. Each 0 or 1 is called a **bit**, which is short for **bi**nary dig**it**.
+
+<Callout
+  type="info" title="💡 Did you know?"
+>
+  A byte is a group of 8 bits. It’s the standard unit of storage in computers. A single byte can store any number from 0 to 255, which is enough to represent all the letters, numbers and symbols we use in everyday life. 1024 bytes make a kilobyte (KB), 1024 KB make a megabyte (MB), 1024 MB make a gigabyte (GB), and 1024 GB make a terabyte (TB). That’s how computers measure storage space.
+</Callout>
+
+You are probably wondering why do they use only two digits. The reason is in computer architecture. Deep inside every computer are billions of tiny switches called **transistors**. A switch can only be in two states: **off (0)** or **on (1)**. Modern computer chips contain billions of these tiny switches packed into an area no larger than your fingernail. It’s the simplest, most reliable way to store information and it's the foundation of all digital technology.
+
+<Figure src="/images/posts/write-your-name-in-binary-switches.png" alt="A row of eight light switches, some ON and some OFF, showing the binary pattern 01000001" width="1500" height="1000">
+  A computer stores everything as switches that are either ON (1) or OFF (0).
+</Figure>
+
+Just like we combine our 10 digits to make any number (like 42 or 365), computers combine 0s and 1s to make **any number they want** (as long as they fit in the available bits). And as we will see next, they can use those numbers to represent letters, words and even pictures.
+
+## How Do Computers Store Letters?
+
+We already know that a computer can’t store the letter **A** directly. So instead, people agreed on a standard lookup table where **every letter is represented by a number**. The most popular one is called **ASCII** (pronounced “ASK-ee”).
+
+In ASCII, the capital letter **A** is the number **65**, **B** is **66**, **C** is **67**, and so on. There isn't anything magical about those numbers, they are just agreed-upon values. Once a letter is turned into a number, the computer simply writes that number in **binary** as a row of 0s and 1s. Regular numbers don't need a lookup table. The number 42 is simply written directly in binary.
+It's convenient for computers to group bits into sets of eight. A group of 8 bits has a special name you probably heard before: a **byte**!
+
+We usually write ASCII letters as 8 bits (one byte), so when you type the letter **A**, here is what really happens:
+
+> **A** → number **65** → binary **01000001**
+
+What about other things, like pictures and music? Computers can store those too, but they are just very long lists of numbers. For example, a picture is made up of millions of tiny dots called **pixels**, and each pixel has a number that defines its color. Sounds are stored as many tiny measurements of a sound wave, and each measurement is stored as numbers in binary.
+
+<Callout
+  type="info" title="💡 Did you know?"
+>
+  In ASCII, the only difference between an uppercase letter and a lowercase letter is the 6th bit (starting from right). Flipping that one bit changes a capital A (01000001) into a lowercase a (01100001). It’s a great example of why binary is so cool!
+</Callout>
+
+## How Do You Count With Only Two Numbers?
+
+When we count in our normal **base-10** system, every time we move a digit to the left, it gets ten times bigger. We have the ones place, the tens place, the hundreds place, and so on. For example, the number 42 is made up of **4 tens** and **2 ones**.
+
+Computers use a **base-2** system. That means every time a digit moves to the left, it only gets **two times bigger**.
+
+Imagine a row of 8 lightbulbs. Starting from the right side and moving left, each bulb has a "value" that doubles: 1, 2, 4, 8, 16, 32, 64, and 128.
+
+To read a binary number, you just look at which bulbs are turned **ON (1)** and add their values together. Any bulb that is **OFF (0)** is ignored.
+
+Take a look at the capital letter **A**, which we know is the stored as number **65**. Its binary code is 01000001.
+
+*   The **64** bulb is ON (1)
+
+*   The **1** bulb is ON (1)
+
+*   All the other bulbs are OFF (0)
+
+| 128 | 64 | 32 | 16 | 8 | 4 | 2 | 1 |
+|----:|---:|---:|---:|--:|--:|--:|--:|
+| 0 | 1 | 0 | 0 | 0 | 0 | 0 | 1 |
+
+If we add the ON bulbs together: 64 + 1 = 65! It works for any number up to 255.
+
+## The Binary Alphabet
+
+Here is the secret decoder for every capital letter. Find each letter of your name and write down its 8-bit code.
+
+| Letter | Binary code | Letter | Binary code |
+|:---:|:---:|:---:|:---:|
+| A | 01000001 | N | 01001110 |
+| B | 01000010 | O | 01001111 |
+| C | 01000011 | P | 01010000 |
+| D | 01000100 | Q | 01010001 |
+| E | 01000101 | R | 01010010 |
+| F | 01000110 | S | 01010011 |
+| G | 01000111 | T | 01010100 |
+| H | 01001000 | U | 01010101 |
+| I | 01001001 | V | 01010110 |
+| J | 01001010 | W | 01010111 |
+| K | 01001011 | X | 01011000 |
+| L | 01001100 | Y | 01011001 |
+| M | 01001101 | Z | 01011010 |
+
+For example, the word **CAT** looks like this in binary:
+
+> **C** `01000011` **A** `01000001` **T** `01010100`
+
+**Try it yourself!** Type your name below and watch it turn into binary beads:
+
+<NameInBinary />
+
+## Materials needed for making your own binary bracelet
+
+
+<Figure src="/images/posts/binary-bracelet-materials.jpg" alt="The materials for binary bracelet, different color beads and a string." width="1500" height="1000">
+All you need is some string and beads in two different colors.
+</Figure>
+
+- **Beads in two (or optionally three) colors.** Any bead would work here. Pick one color to mean **0** and another to mean **1**. We used purple beads for 0 and green beads for 1. You can also use a third color (or a shape) for a “spacer” bead to separate letters.
+- **String, cord or a pipe cleaner.** Something to thread the beads onto. A pipe cleaner is easiest because beads won’t slide off. You can also use a tape to hold the string in place while you work.
+- **The binary alphabet chart** above, to look up each letter.
+- **Tape** (optional). To hold the string in place while you work.
+- **Scissors** (optional). If you need to cut your string or tape.
+- **Paper and two colored pencils** (optional). If you don’t have beads, you can color squares on paper instead. Use one color for 0 and one for 1.
+
+## Instructions for making binary bracelet
+
+1.  **Write your name in capital letters.** Let’s use the name **LEA** as an example. To keep it short, you can use just the first letter, a nickname or initials. If you want to use a longer name, perhaps you can make a necklace instead of a bracelet!
+2.  **Look up each letter** in the binary alphabet chart and write its 8-bit code. For LEA: **L** = `01001100`, **E** = `01000101`, **A** = `01000001`.
+3.  **Choose your colors.** Decide which bead color means **0** and which means **1**. Tip: add one special “spacer” bead of a third color between letters so you can tell where each letter ends!
+4.  **Thread the beads** one letter at a time, reading each code from left to right. For the **L** (`01001100`) you would thread: 0, 1, 0, 0, 1, 1, 0, 0, then a spacer bead and then start the next letter.
+5.  **Secure it with a knot** and wear your creation! Only people who know the binary alphabet can read your name.
+
+**Challenge:** swap bracelets with a friend and try to **decode** each other’s names using the chart.
+
+## The Science Behind It: Why On and Off?
+
+Maybe you are still wondering why computers don’t just use our normal numbers and letters? It all comes down to **electricity**.
+
+Inside a computer, electric signals are carrying information. It’s very hard to reliably tell the difference between ten different amounts of electricity. But it’s very **easy and reliable** to tell the difference between just two states: **current flowing (ON / 1)** or **no current (OFF / 0)**. It’s like a light switch, there’s no confusion about whether a light is on or off.
+
+By chaining millions of these tiny on/off switches together, and agreeing on codes like ASCII, computers can build up **everything**: numbers, letters, words, and even images and sound (which are really just very long lists of numbers!). Isn’t that amazing? From just two states, computers can store and process **all the information in the world**.
+
+## What will you learn by making binary bracelet?
+
+- **How computers store information.** You’ll understand the foundation of all digital technology: binary, bits, and bytes.
+- **Encoding and decoding.** Turning letters into binary and back again teaches **abstraction**, a key idea in computer science.
+- **Place value and a new number system.** Working in base-2 strengthens math thinking and understanding of how place value works in any number system.
+- **Attention to detail and patience.** Reading numbers carefully and then threading beads one by one builds focus.
+- **Fine motor skills.** Threading beads is a great practice for fine motor control and precision.
+
+If you enjoyed this activity, here are some similar to try next:
+
+- For another way to send secret messages, make and use a [**Cipher Wheel**](/en/how-to-make-cipher-wheel/) and encode your own hidden messages.
+- Ready to make a computer follow _your_ instructions? Learn the basics of coding with [**Learn to Program with Scratch**](/en/learn-programming-with-scratch/).
+- And to explore the electricity that powers all those tiny switches, try building a [**Potato Battery**](/en/how-to-make-potato-battery/).

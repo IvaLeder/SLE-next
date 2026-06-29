@@ -1,0 +1,186 @@
+---
+title: Napišite svoje ime binarnim kodom — kako računala pohranjuju slova
+slug: napisi-svoje-ime-binarnim-kodom
+translationKey: write-your-name-in-binary
+lang: hr
+subtitle: >-
+  Računala razumiju samo dvije stvari: uključeno i isključeno, 1 i 0. Pa kako
+  onda pohranjuju vaše ime, omiljenu pjesmu i milijun fotografija mačaka?
+  Otkrijmo tajni kod računala i pretvorimo vaše ime u binarnu narukvicu!
+description: >-
+  Kako računala pohranjuju slova koristeći samo nule i jedinice? Naučite o
+  binarnom kodu i ASCII-ju te izradite narukvicu sa svojim imenom u binarnom kodu.
+date: "2026-06-08"
+author: Iva Leder
+coverImage: /images/posts/binary-bracelet-cover.jpg
+heroAlt: "Aktivnost izrade narukvice s imenom u binarnom kodu"
+categories:
+  - Tehnologija
+tags:
+  - activity
+  - coding
+---
+<YouTube id="NRikJD-5SBU" title="Binarna narukvica - napiši svoje ime binarnim kodom"/>
+
+Računala su nevjerojatna! Mogu pohraniti toliko toga: naše najdraže pjesme, filmove i igre, da ne spominjemo milijun smiješnih videa s mačkama. Znajući to, možda se iznenadite kad čujete da računala zapravo razumiju samo dvije stvari: **uključeno** i **isključeno**. Mi ih uglavnom označavamo kao **1** i **0**.
+
+Pa kako onda od „uključeno“ i „isključeno“ dođemo do glazbe, igara i mačaka? Tajna se krije u posebnom kodu koji se zove **binarni kod**. Danas ćemo naučiti kako on funkcionira, a zatim napisati svoje ime binarnim kodom i pretvoriti ga u narukvicu koju možete nositi!
+
+## Što je binarni kod?
+
+Obično brojimo koristeći **10 znamenki**: 0, 1, 2, 3, 4, 5, 6, 7, 8 i 9. To se zove **decimalni** (dekadski) sustav (od latinskog _decem_, što znači deset). Takav sustav se vjerojatno razvio zato što imamo deset prstiju na rukama koje smo koristili za brojanje.
+
+Računala pohranjuju brojeve koristeći drugačiji brojevni sustav. Koriste samo **2 znamenke: 0 i 1**. Taj sustav zove se **binarni** (_bi_ znači dva). Svaka znamenka 0 ili 1 naziva se **bit**, što je skraćenica od engleskog **bi**nary dig**it** (binarna znamenka).
+
+<Callout
+  type="info" title="💡 Jeste li znali?"
+>
+ Bajt je grupa od 8 bitova. To je standardna jedinica pohrane na računalima. Jedan bajt može pohraniti bilo koji broj od 0 do 255, što je dovoljno za pohranu većine slova, brojeva i simbola koje koristimo u svakodnevnom životu. 1024 bajta je jedan kilobajt (KB), 1024 KB je megabajt (MB), 1024 MB je gigabajt (GB), a 1024 GB je terabajt (TB).
+</Callout>
+
+Možda se pitate zašto bi sustav koristio samo dvije znamenke. Razlog je računalna arhitektura. Duboko unutar svakog računala nalaze se milijarde malih prekidača koji se zovu **tranzistori**. Prekidač može biti samo u dva stanja — **isključen (0)** ili **uključen (1)**. Moderna računala sadrže milijune ovih malih prekidača naguranih u prostor veličine nokta. To je najjednostavniji i najpouzdaniji način pohrane podataka i osnova je sve digitalne tehnologije.
+
+<Figure src="/images/posts/write-your-name-in-binary-switches.png" alt="Red od osam prekidača za svjetlo, neki uključeni a neki isključeni, prikazuju binarni uzorak 01000001" width="1500" height="1000">
+  Računalo pohranjuje sve kao prekidače koji su ili UKLJUČENI (1) ili ISKLJUČENI (0).
+</Figure>
+
+Baš kao što u matematici kombiniramo 10 znamenki da bismo napisali bilo koji broj (poput 42 ili 365), računala kombiniraju nule i jedinice da bi napisala **bilo koji broj koji žele** (sve dok ima dovoljno bitova). No čekajte - kako onda pohranjuju slova, a da i ne spominjemo slike i zvuk? Upravo to ćemo sada otkriti!
+
+## Kako računala pohranjuju slova?
+
+Već znamo da računalo ne može pohraniti slovo **A** izravno. Zato su se ljudi dogovorili da će **svako slovo biti prikazano kao jedan broj** i to zapisali u standardiziranu tablicu. Najpoznatija takva tablica zove se **ASCII** (izgovara se „ASKI“).
+
+U ASCII-ju je veliko slovo **A** broj **65**, **B** je **66**, **C** je **67** i tako dalje. Nema ništa magično u tim specifičnim brojevima, to je samo dogovorena konvencija. Kada slovo jednom postane broj, računalo taj broj zapiše u **binarnom kodu** — nizu nula i jedinica. Obični brojevi ne trebaju tablicu, jednostavno se direktno pohrane u binarnom kodu.
+
+Računalna arhitektura favorizira pohranu u setove od  **8 bita**. Skupina od 8 bita ima poseban naziv koji ste možda već čuli — **bajt** (engl. _byte_)!
+
+Dakle, kada upišete slovo **A**, evo što se zapravo događa:
+
+> **A** → broj **65** → binarno **01000001**
+
+Dobro, a što je s drugim stvarima, kao što su glazba i slike? Računala i njih pohranjuju u obliku jako dugačkih lista brojeva. Na primjer, slike su sačinjene od milijuna malih točkica koje se zovu **pikseli**, a svaki piksel ima broj koji definira njegovu boju. Zvukovi su sačinjeni od puno malih djelića zvučnih valova, a mjerenja valova su pohranjena u binarnom obliku.
+
+<Callout
+  type="info" title="💡 Jeste li znali?">U ASCII kodu, jedina razlika u velikom i malom slovu je u 6. bitu (od desno). Promjena tog jednog bita mijenja veliko A (01000001) u malo a (01100001). Binarni kod je baš kul! </Callout>
+
+## Kako brojiš sa samo dva broja?
+
+Kada brojimo u našem standarnom sustavu s **bazom 10**, svaki put kad pomaknemo znamenku lijevo, ona postaje deset puta veća. Imamo jedinice, desetice, stotice, tisućice i tako dalje. Na primjer, broj 42 se sastoji od **4 desetice** i **2 jedinice**.
+
+Računala koriste sustav s **bazom 2**. To znači da svaki put kad pomaknemo znamenku lijevo, ona postane samo **dva puta veća**.
+
+Zamislite red od 8 žarulja. Ako počnemo skroz od kraja (desne strane) i krećemo se lijevo, svaka žarulja ima duplo veću vrijednost od prethodne: 1, 2, 4, 8, 16, 32, 64 i 128.
+
+Da pročitamo binarni broj, samo trebamo pogledati koje žarulje su **uključene (1)** i zbrojiti njihove vrijednosti. Sve žarulje koje su **isključene** možemo ignorirati.
+
+Pogledajmo za primjer veliko slovo **A**, za koje znamo da je pohranjeno kao broj **65**. Binarno ga zapisujemo kao 01000001.
+
+*   Žarulja **64** je uključena (1)
+
+*   Žarulja **1** je uključena (1)
+
+*   Sve druge žarulje su isključene (0)
+
+| 128 | 64 | 32 | 16 | 8 | 4 | 2 | 1 |
+|----:|---:|---:|---:|--:|--:|--:|--:|
+| 0 | 1 | 0 | 0 | 0 | 0 | 0 | 1 |
+
+Ako dodamo sve uključene žarulje: 64 + 1 = 65! To vrijedi za brojeve od 0 do 255.
+
+## Binarno pismo
+
+Evo tajnog dekodera za svako veliko slovo. Pronađite svako slovo svojeg imena i zapišite njegov 8-bitni kod.
+
+| Slovo | Binarni kod | Slovo | Binarni kod |
+|:---:|:---:|:---:|:---:|
+| A | 01000001 | L | 01001100 |
+| B | 01000010 | M | 01001101 |
+| C | 01000011 | N | 01001110 |
+| D | 01000100 | O | 01001111 |
+| E | 01000101 | P | 01010000 |
+| F | 01000110 | R | 01010010 |
+| G | 01000111 | S | 01010011 |
+| H | 01001000 | T | 01010100 |
+| I | 01001001 | U | 01010101 |
+| J | 01001010 | V | 01010110 |
+| K | 01001011 | Z | 01011010 |
+
+Hrvatska abeceda ne koristi Q, W, X i Y, no strana imena ih mogu sadržavati: Q `01010001`, W `01010111`, X `01011000`, Y `01011001`.
+
+### A što s Č, Ć, Đ, Š i Ž?
+
+Možda ste primijetili da u tablici iznad nema naših slova s kvačicama i crticom. Zato? **ASCII je smišljen davno (1960-ih, u Americi) i to samo za englesku abecedu** pa u njemu jednostavno nema mjesta za Č, Ć, Đ, Š ni Ž.
+
+Zato moderna računala koriste noviji sustav koji se zove **Unicode** (zapisan kao **UTF-8**) i koji ima mjesta za slova svih jezika svijeta. Cijena toga je da naša posebna slova trebaju **16 bita (2 bajta)** umjesto 8. Posljedica za narukvicu je da će **ime s Č, Ć, Đ, Š ili Ž biti dulje**, za ta slova treba 16 perli umjesto 8!
+
+| Slovo | Binarni kod (16 bita) |
+|:---:|:---:|
+| Č | 11000100 10001100 |
+| Ć | 11000100 10000110 |
+| Đ | 11000100 10010000 |
+| Š | 11000101 10100000 |
+| Ž | 11000101 10111101 |
+
+**A slova LJ, NJ i DŽ?** U abecedi ih brojimo kao jedno slovo, ali ih računalo pohranjuje kao njihova **dva slova zaredom** pa svako potražite zasebno:
+
+- **LJ** → L + J = `01001100` `01001010`
+- **NJ** → N + J = `01001110` `01001010`
+- **DŽ** → D + Ž = `01000100` `11000101 10111101`
+
+Na primjer, ime **ŽELJKO** izgleda ovako:
+
+> **Ž** `11000101 10111101` **E** `01000101` **L** `01001100` **J** `01001010` **K** `01001011` **O** `01001111`
+
+(Ž je ono 16-bitno; ostala su slova 8-bitna, a LJ je jednostavno L pa J.)
+
+**Isprobajte sami!** Upišite svoje ime ispod i gledajte kako se pretvara u binarne perle:
+
+<NameInBinary />
+
+## Potrebni materijali za pisanje imena binarnim kodom
+
+<Figure src="/images/posts/binary-bracelet-materials.jpg" alt="Pribor za izradu binarne narukvice: uzica i perle u dvije boje." width="1500" height="1000">
+Sve što trebate su uzica i perle u dvije različite boje.
+</Figure>
+
+- **Perle u dvije (opcionalno tri) boje.** Bilo koje perlice za izradu narukvica će poslužiti. Odaberite jednu boju za **0** i drugu za **1**. Mi smo koristili ljubičaste perle za 0 i zelene za 1. Možete koristiti i treću boju (ili oblik) za razmak između slova.
+- **Uzica, vrpca ili žica za savijanje (pipe cleaner).** Nešto na što ćete nizati perle. Žica za savijanje najlakša je jer perle ne klize s nje. Možete i koristiti selotejp ili traku pa zalijepiti jedan kraj uzice.
+- **Tablica binarnog pisma**. Za pronalaženje svakog slova, možete naći iznad.
+- **Selotejp /traka** (opcionalno). Za lijepljenje uzice, ako odlučite.
+- **Škare** (opcionalno). Za rezanje uzice ili selotejpa.
+- **Papir i dvije bojice** (opcionalno). Ako nemate perle, možete umjesto toga bojati kvadratiće na papiru. Koristite jednu boja za 0, drugu za 1.
+
+## Postupak pisanja imena binarnim kodom
+
+1.  **Napišite svoje ime velikim slovima.** Uzmimo za primjer ime **LEA**. Ako imate dugačko ime, možete koristiti samo prvih nekoliko slova, nadimak ili inicijale. Ako hoćete napisati puno ime, razmislite o izradi ogrlicu umjesto narukvice.
+2.  **Potražite svako slovo** u tablici binarnog pisma i zapišite njegov kod. Za LEA: **L** = `01001100`, **E** = `01000101`, **A** = `01000001`.
+3.  **Odaberite boje.** Odlučite koja boja perle znači **0**, a koja **1**. Savjet: između slova dodajte jednu „razdjelnu“ perlu treće boje da znate gdje koje slovo završava!
+4.  **Nižite perle** jedno slovo po jedno, čitajući svaki kod slijeva nadesno. Za slovo **L** (`01001100`) nanizali biste: 0, 1, 0, 0, 1, 1, 0, 0 — zatim razdjelnu perlu pa krećete na sljedeće slovo.
+5.  **Zavežite narukvicu** i ponosno nosite svoj tajni kod! Vaše ime mogu pročitati samo oni koji poznaju binarno pismo.
+
+Ako vaše ime sadrži Č, Ć, Đ, Š ili Ž, ne zaboravite da za to slovo treba nanizati **16 perli** (kod potražite u tablici posebnih slova iznad).
+
+**Izazov:** zamijenite narukvice s prijateljem i pokušajte **dešifrirati** imena jedno drugome pomoću tablice.
+
+## Znanost iza pisanja imena binarnim kodom
+
+Možda se još pitate zašto računala jednostavno ne koriste naše obične brojeve i slova? Odgovor se krije u **električnoj struji**.
+
+Unutar računala, informacije se prenose električnim signalima. Vrlo je teško pouzdano razlikovati, recimo, deset različitih jačina struje. Ali puno je **lakše i pouzdanije** razlikovati samo dva stanja: **ima napona (uključeno / 1)** ili **nema napona (isključeno / 0)**. Baš kao prekidač za svjetlo — nema dvojbe je li svjetlo upaljeno ili ugašeno.
+
+Spajanjem milijuna ovih sićušnih prekidača i dogovorom oko kodova poput ASCII-ja i Unicodea, računala mogu izgraditi **sve**: brojeve, slova, riječi, pa čak i slike i zvuk (koji su zapravo samo jako dugački nizovi brojeva!). Nije li to fascinantno? Binarni kod jednostavna je, ali moćna abeceda na kojoj počiva sva digitalna tehnologija.
+
+## Što ćete naučiti i koje vještine ćete razvijati?
+
+- **Kako računala pohranjuju informacije.** Razumjet ćete temelj sve digitalne tehnologije: binarni kod, bitove i bajtove.
+- **Kodiranje i dekodiranje.** Pretvaranje slova u binarni kod i natrag razvija sposobnost **apstrakcije**, ključnu ideju u informatici.
+- **Upoznavanje s novim brojevnim sustavom.** Rad u sustavu s bazom 2 jača matematičko razmišljanje i fleksibilnost.
+- **Usmjerenost na detalje i strpljenje.** Pažljivo čitanje kodova i onda nizanje perli jednu po jednu, pomaže razvoju koncentracije i fokusa.
+- **Fina motorika.** Nizanje perli je odlična vježba za motoričku kontrolu i preciznost.
+
+
+Ako ste uživali u ovoj aktivnosti, evo još neke koje biste mogli isprobati:
+
+- Za još jedan način slanja tajnih poruka, izradite i koristite [**Kotač za šifriranje**](/hr/kako-napraviti-kotac-za-sifriranje/) i kodirajte vlastite skrivene poruke.
+- Spremni ste naučiti računalo da slijedi _vaše_ upute? Naučite osnove programiranja uz [**Učenje programiranja pomoću Scratcha**](/hr/ucenje-programiranja-scratch/).
+- A za istraživanje struje koja pokreće sve te sićušne prekidače, izradite [**Bateriju od krumpira**](/hr/kako-napraviti-bateriju-od-krumpira/).
