@@ -52,7 +52,7 @@ Već znamo da računalo ne može pohraniti slovo **A** izravno. Zato su se ljudi
 
 U ASCII-ju je veliko slovo **A** broj **65**, **B** je **66**, **C** je **67** i tako dalje. Nema ništa magično u tim specifičnim brojevima, to je samo dogovorena konvencija. Kada slovo jednom postane broj, računalo taj broj zapiše u **binarnom kodu** — nizu nula i jedinica. Obični brojevi ne trebaju tablicu, jednostavno se direktno pohrane u binarnom kodu.
 
-Računalna arhitektura favorizira pohranu u setove od  **8 bita**. Skupina od 8 bita ima poseban naziv koji ste možda već čuli — **bajt** (engl. _byte_)!
+Računalna arhitektura favorizira pohranu u setove od  **8 bita**. Skupina od 8 bita ima poseban naziv koji ste možda već čuli - **bajt** (engl. _byte_)!
 
 Dakle, kada upišete slovo **A**, evo što se zapravo događa:
 
@@ -111,7 +111,7 @@ Hrvatska abeceda ne koristi Q, W, X i Y, no strana imena ih mogu sadržavati: Q 
 
 Možda ste primijetili da u tablici iznad nema naših slova s kvačicama i crticom. Zato? **ASCII je smišljen davno (1960-ih, u Americi) i to samo za englesku abecedu** pa u njemu jednostavno nema mjesta za Č, Ć, Đ, Š ni Ž.
 
-Zato moderna računala koriste noviji sustav koji se zove **Unicode** (zapisan kao **UTF-8**) i koji ima mjesta za slova svih jezika svijeta. Cijena toga je da naša posebna slova trebaju **16 bita (2 bajta)** umjesto 8. Posljedica za narukvicu je da će **ime s Č, Ć, Đ, Š ili Ž biti dulje**, za ta slova treba 16 perli umjesto 8!
+Zato moderna računala koriste noviji sustav koji se zove **Unicode** (zapisan kao **UTF-8**) i koji ima mjesta za slova svih jezika svijeta. Cijena toga je da naša posebna slova trebaju **16 bita (2 bajta)** umjesto 8. Znači da će **ime s Č, Ć, Đ, Š ili Ž biti dulje** jer za ta slova treba 16 perli umjesto 8!
 
 | Slovo | Binarni kod (16 bita) |
 |:---:|:---:|
@@ -152,10 +152,10 @@ Sve što trebate su uzica i perle u dvije različite boje.
 
 ## Postupak pisanja imena binarnim kodom
 
-1.  **Napišite svoje ime velikim slovima.** Uzmimo za primjer ime **LEA**. Ako imate dugačko ime, možete koristiti samo prvih nekoliko slova, nadimak ili inicijale. Ako hoćete napisati puno ime, razmislite o izradi ogrlicu umjesto narukvice.
+1.  **Napišite svoje ime velikim slovima.** Uzmimo za primjer ime **LEA**. Ako imate dugačko ime, možete koristiti samo prvih nekoliko slova, nadimak ili inicijale. Ako hoćete napisati puno ime, razmislite o izradi ogrlice umjesto narukvice.
 2.  **Potražite svako slovo** u tablici binarnog pisma i zapišite njegov kod. Za LEA: **L** = `01001100`, **E** = `01000101`, **A** = `01000001`.
 3.  **Odaberite boje.** Odlučite koja boja perle znači **0**, a koja **1**. Savjet: između slova dodajte jednu „razdjelnu“ perlu treće boje da znate gdje koje slovo završava!
-4.  **Nižite perle** jedno slovo po jedno, čitajući svaki kod slijeva nadesno. Za slovo **L** (`01001100`) nanizali biste: 0, 1, 0, 0, 1, 1, 0, 0 — zatim razdjelnu perlu pa krećete na sljedeće slovo.
+4.  **Nižite perle** jedno slovo po jedno, čitajući svaki kod slijeva nadesno. Za slovo **L** (`01001100`) nanizali biste: 0, 1, 0, 0, 1, 1, 0, 0 - zatim razdjelnu perlu pa krećete na sljedeće slovo.
 5.  **Zavežite narukvicu** i ponosno nosite svoj tajni kod! Vaše ime mogu pročitati samo oni koji poznaju binarno pismo.
 
 Ako vaše ime sadrži Č, Ć, Đ, Š ili Ž, ne zaboravite da za to slovo treba nanizati **16 perli** (kod potražite u tablici posebnih slova iznad).
