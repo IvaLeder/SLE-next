@@ -26,6 +26,11 @@ export type PostMeta = {
   heroAlt?: string;
   downloadables?: { label: string; url: string }[];
   translationKey: string;
+  /** Draft workflow: `draft: true` posts are excluded from every public
+   *  surface (listings, sitemap, RSS, search, static params, hreflang) and
+   *  are only reachable at /{lang}/draft/{slug}?key={previewToken}. */
+  draft?: boolean;
+  previewToken?: string;
 };
 
 // Type for full post
@@ -39,18 +44,21 @@ const postsDirectory = path.join(process.cwd(), "src/content/posts");
 // Build-time cache. getAllPosts is hit by every page's generateStaticParams /
 // generateMetadata / render, and each call used to re-read and re-parse every
 // MDX file per language (O(pages × posts) disk reads per build). Production
-// only, so `next dev` still picks up content edits without a restart. Callers
-// get a shallow copy because some (getPrevNextPosts) sort the array in place.
+// only, so `next dev` still picks up content edits without a restart.
+// readAllPosts returns the cached array itself — the public accessors below
+// always derive a fresh array via filter(), so callers (getPrevNextPosts
+// sorts in place) never mutate the cache.
 const postsCache = new Map<"en" | "hr", Post[]>();
 const cacheEnabled = process.env.NODE_ENV === "production";
 
 /**
- * Read all posts for a given language
+ * Read every post file for a language, drafts included. Internal — public
+ * accessors filter by draft status.
  */
-export function getAllPosts(lang: "en" | "hr"): Post[] {
+function readAllPosts(lang: "en" | "hr"): Post[] {
   if (cacheEnabled) {
     const cached = postsCache.get(lang);
-    if (cached) return [...cached];
+    if (cached) return cached;
   }
 
   const langDir = path.join(postsDirectory, lang);
@@ -99,7 +107,16 @@ export function getAllPosts(lang: "en" | "hr"): Post[] {
   posts.sort((a, b) => (a.date < b.date ? 1 : -1));
 
   if (cacheEnabled) postsCache.set(lang, posts);
-  return cacheEnabled ? [...posts] : posts;
+  return posts;
+}
+
+/**
+ * Read all PUBLISHED posts for a given language. Drafts (`draft: true`) are
+ * excluded here, which keeps them out of every public surface at once:
+ * listings, sitemap, RSS, search, related/prev-next, and generateStaticParams.
+ */
+export function getAllPosts(lang: "en" | "hr"): Post[] {
+  return readAllPosts(lang).filter((p) => p.draft !== true);
 }
 
 /**
@@ -108,6 +125,16 @@ export function getAllPosts(lang: "en" | "hr"): Post[] {
 export function getPostBySlug(lang: "en" | "hr", slug: string): Post | null {
   const posts = getAllPosts(lang);
   return posts.find((p) => p.slug === slug) || null;
+}
+
+/**
+ * Get a single DRAFT post by slug — only used by the token-gated preview
+ * route at /{lang}/draft/{slug}. Published posts are not reachable here.
+ */
+export function getDraftBySlug(lang: "en" | "hr", slug: string): Post | null {
+  return (
+    readAllPosts(lang).find((p) => p.draft === true && p.slug === slug) || null
+  );
 }
 
 export function getTranslatedPost(

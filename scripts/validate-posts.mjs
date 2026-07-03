@@ -155,6 +155,25 @@ function checkPost(filePath, lang) {
     }
   }
 
+  // ── Draft workflow ──────────────────────────────────────────────────────
+  // A draft MUST carry a strong previewToken — it's the only thing gating the
+  // /{lang}/draft/{slug} preview route. A published post carrying a leftover
+  // token is harmless (the route only serves draft: true) but stale.
+  if (data.draft !== undefined && typeof data.draft !== "boolean") {
+    error(filePath, `\`draft: ${JSON.stringify(data.draft)}\` must be a boolean — anything else is ambiguous.`);
+  }
+  if (data.draft === true) {
+    if (!data.previewToken || String(data.previewToken).trim().length < 16) {
+      error(
+        filePath,
+        "`draft: true` requires a `previewToken` of at least 16 chars — " +
+          "scaffold with `npm run new-post -- --draft` or generate one via `openssl rand -hex 16`."
+      );
+    }
+  } else if (data.previewToken) {
+    warn(filePath, "`previewToken` set on a published post — leftover from the draft phase; remove it.");
+  }
+
   // ── Category must be canonical ──────────────────────────────────────────
   if (Array.isArray(data.categories)) {
     const valid = CANONICAL_CATEGORIES[lang] ?? [];
@@ -315,10 +334,10 @@ function checkTranslationPairing(allPosts) {
         error(
           file,
           `Duplicate translationKey "${data.translationKey}" within ${lang} — ` +
-            `also in ${relPath(map.get(data.translationKey))}`
+            `also in ${relPath(map.get(data.translationKey).file)}`
         );
       } else {
-        map.set(data.translationKey, file);
+        map.set(data.translationKey, { file, draft: data.draft === true });
       }
     }
 
@@ -329,14 +348,15 @@ function checkTranslationPairing(allPosts) {
     }
   }
 
-  // Every EN key should have an HR pair (and vice versa)
-  for (const [key, file] of byKey.en) {
-    if (!byKey.hr.has(key)) {
+  // Every EN key should have an HR pair (and vice versa). Drafts are exempt —
+  // writing one language first IS the draft workflow.
+  for (const [key, { file, draft }] of byKey.en) {
+    if (!draft && !byKey.hr.has(key)) {
       warn(file, `translationKey "${key}" has no HR counterpart — language switcher will fall back to /hr.`);
     }
   }
-  for (const [key, file] of byKey.hr) {
-    if (!byKey.en.has(key)) {
+  for (const [key, { file, draft }] of byKey.hr) {
+    if (!draft && !byKey.en.has(key)) {
       warn(file, `translationKey "${key}" has no EN counterpart — language switcher will fall back to /en.`);
     }
   }

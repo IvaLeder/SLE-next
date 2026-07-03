@@ -10,6 +10,8 @@
     "validate": "node scripts/validate-posts.mjs",
     "validate:strict": "node scripts/validate-posts.mjs --strict",
     "new-post": "node scripts/new-post.mjs",
+    "drafts": "node scripts/drafts.mjs list",
+    "publish-post": "node scripts/drafts.mjs publish",
     "prepare": "husky"
   },
   "dependencies": {

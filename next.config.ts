@@ -78,6 +78,15 @@ const config: NextConfig = {
     root: process.cwd(),
   },
 
+  // Draft previews (/{lang}/draft/[slug]) render on demand at request time,
+  // so the serverless function needs the MDX sources at runtime — everything
+  // else reads them at build time only. Without this, tracing may miss the
+  // fs.readdirSync directory scan and drafts would 404 in production.
+  outputFileTracingIncludes: {
+    '/en/draft/[slug]': ['./src/content/posts/**/*'],
+    '/hr/draft/[slug]': ['./src/content/posts/**/*'],
+  },
+
   images: {
     // Serve images as-is, bypassing Vercel's optimizer. The Hobby plan's
     // monthly transformation quota was exhausted (the optimizer 402s —
@@ -204,6 +213,15 @@ const config: NextConfig = {
   // Applied to ALL routes via `source: '/(.*)'`.
   async headers() {
     return [
+      // Draft previews: belt-and-braces noindex at the HTTP layer (the page
+      // also emits robots noindex metadata). NOT disallowed in robots.txt on
+      // purpose — crawlers must be able to fetch the page to see the noindex.
+      {
+        source: '/(en|hr)/draft/:path*',
+        headers: [
+          { key: 'X-Robots-Tag', value: 'noindex, nofollow, noarchive' },
+        ],
+      },
       {
         source: '/(.*)',
         headers: [
