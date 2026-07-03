@@ -56,6 +56,21 @@ const KNOWN_MDX_COMPONENTS = new Set([
   "FractionVisualizer",
   "FindBirthdayInPi",
   "MorseCode",
+  "ActivityInfo",
+  "Steps",
+  "Step",
+  "Prediction",
+  "PredictionOption",
+  "PredictionResult",
+  "KeyTakeaways",
+  "FAQ",
+  "Question",
+  "Timer",
+  "BeforeAfter",
+  "Printable",
+  "MilestoneChecklist",
+  "Milestone",
+  "Term",
 ]);
 
 const POSTS_DIR  = "src/content/posts";

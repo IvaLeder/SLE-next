@@ -3,6 +3,16 @@ import { join } from "node:path";
 import { imageSize } from "image-size";
 import YouTube from "./YouTube";
 import { Callout } from "./Callout";
+import ActivityInfo from "./ActivityInfo";
+import Steps, { Step } from "./Steps";
+import Prediction, { PredictionOption, PredictionResult } from "./Prediction";
+import KeyTakeaways from "./KeyTakeaways";
+import FAQ, { Question } from "./FAQ";
+import Timer from "./Timer";
+import BeforeAfter from "./BeforeAfter";
+import Printable from "./Printable";
+import MilestoneChecklist, { Milestone } from "./MilestoneChecklist";
+import Term from "./Term";
 import NextImage, { type ImageProps } from "next/image";
 import Lightbox from "./Lightbox";
 import Figure from "./Figure";
@@ -120,6 +130,49 @@ export function mdxComponents(lang: Lang = "en") {
     YouTube: (props: React.ComponentProps<typeof YouTube>) => (
       <YouTube lang={lang} {...props} />
     ),
-    Callout,
+    Callout: (props: React.ComponentProps<typeof Callout>) => (
+      <Callout lang={lang} {...props} />
+    ),
+    ActivityInfo: (props: React.ComponentProps<typeof ActivityInfo>) => (
+      <ActivityInfo lang={lang} {...props} />
+    ),
+    Steps: (props: React.ComponentProps<typeof Steps>) => (
+      <Steps lang={lang} {...props} />
+    ),
+    Step,
+    Prediction: (props: React.ComponentProps<typeof Prediction>) => (
+      <Prediction lang={lang} {...props} />
+    ),
+    PredictionOption,
+    PredictionResult,
+    KeyTakeaways: (props: React.ComponentProps<typeof KeyTakeaways>) => (
+      <KeyTakeaways lang={lang} {...props} />
+    ),
+    FAQ,
+    Question,
+    Timer: (props: React.ComponentProps<typeof Timer>) => (
+      <Timer lang={lang} {...props} />
+    ),
+    // Aspect ratio comes from the before image's real dimensions (read from
+    // disk at render time, like Markdown images above) so the slider box
+    // never jumps. An explicit `ratio` prop still wins via the spread.
+    BeforeAfter: (props: React.ComponentProps<typeof BeforeAfter>) => {
+      const dims = props.before ? localImageDimensions(props.before) : null;
+      return (
+        <BeforeAfter
+          lang={lang}
+          ratio={dims ? dims.width / dims.height : undefined}
+          {...props}
+        />
+      );
+    },
+    Printable: (props: React.ComponentProps<typeof Printable>) => (
+      <Printable lang={lang} {...props} />
+    ),
+    MilestoneChecklist: (
+      props: React.ComponentProps<typeof MilestoneChecklist>
+    ) => <MilestoneChecklist lang={lang} {...props} />,
+    Milestone,
+    Term,
   };
 }
