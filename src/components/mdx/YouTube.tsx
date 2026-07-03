@@ -23,7 +23,7 @@ export default function YouTube({ id, title, lang = "en" }: YouTubeProps) {
   const videoTitle = title || "YouTube video";
 
   return (
-    <div className="relative w-full aspect-video overflow-hidden rounded-lg bg-black my-6">
+    <div className="not-prose relative w-full aspect-video overflow-hidden rounded-lg bg-black my-6">
       {isPlaying ? (
         <iframe
           className="absolute inset-0 w-full h-full"
