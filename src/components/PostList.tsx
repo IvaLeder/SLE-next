@@ -1,8 +1,10 @@
 "use client";
 
-import { useState, useMemo, useRef, useSyncExternalStore } from "react";
+import { Fragment, useState, useMemo, useRef, useSyncExternalStore } from "react";
 import PostCard from "./PostCard";
 import CategoryFilter from "./CategoryFilter";
+import AdSlot from "./AdSlot";
+import { IN_FEED_LAYOUT_KEY } from "../lib/ads";
 import { PostMeta } from "../lib/posts";
 
 const POSTS_PER_PAGE = 12;
@@ -40,9 +42,14 @@ const CATEGORY_ORDER: Record<string, string[]> = {
 export default function PostList({
   posts,
   lang,
+  adSlot,
 }: {
   posts: PostMeta[];
   lang: "en" | "hr";
+  /** AdSense in-feed slot id. When set, ad cards render after the 3rd and 9th
+   *  posts (second and fourth row on desktop) — first page, unfiltered view
+   *  only, so paging/filtering doesn't re-request ads. */
+  adSlot?: string;
 }) {
   const [category, setCategory] = useState<string | null>(null);
   const page = useSyncExternalStore(subscribePage, readPageFromUrl, pageOnServer);
@@ -132,8 +139,22 @@ export default function PostList({
         <>
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {paginated.map((post, i) => (
-              // First 3 cards are above-the-fold on most viewports → priority load
-              <PostCard key={post.slug} post={post} lang={lang} priority={i < 3} headingLevel="h2" />
+              <Fragment key={post.slug}>
+                {/* Same in-feed unit twice per page is fine with AdSense;
+                    split into separate slot ids later if per-placement
+                    reporting becomes interesting. */}
+                {adSlot && !category && currentPage === 1 && (i === 3 || i === 9) && (
+                  <AdSlot
+                    slot={adSlot}
+                    lang={lang}
+                    format="in-feed"
+                    layoutKey={IN_FEED_LAYOUT_KEY}
+                    variant="card"
+                  />
+                )}
+                {/* First 3 cards are above-the-fold on most viewports → priority load */}
+                <PostCard post={post} lang={lang} priority={i < 3} headingLevel="h2" />
+              </Fragment>
             ))}
           </div>
 

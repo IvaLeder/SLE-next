@@ -71,6 +71,7 @@ const KNOWN_MDX_COMPONENTS = new Set([
   "MilestoneChecklist",
   "Milestone",
   "Term",
+  "Ad",
 ]);
 
 const POSTS_DIR  = "src/content/posts";

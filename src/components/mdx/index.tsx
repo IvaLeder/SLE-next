@@ -18,6 +18,8 @@ import Lightbox from "./Lightbox";
 import Figure from "./Figure";
 import Materials from "./Materials";
 import Material from "./Material";
+import AdSlot from "../AdSlot";
+import { AD_SLOTS } from "@/lib/ads";
 import NameInBinary from "../tools/NameInBinary";
 import CaesarCipher from "../tools/CaesarCipher";
 import TowerOfHanoi from "../tools/TowerOfHanoi";
@@ -174,5 +176,9 @@ export function mdxComponents(lang: Lang = "en") {
     ) => <MilestoneChecklist lang={lang} {...props} />,
     Milestone,
     Term,
+    // Hand-placed in-article ad for long posts: drop `<Ad />` between two
+    // sections. Note the auto mid-article ad (splitContentForMidAd) still
+    // applies — remember total density when adding these.
+    Ad: () => <AdSlot slot={AD_SLOTS.inArticle} lang={lang} />,
   };
 }

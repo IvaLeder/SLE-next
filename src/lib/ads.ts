@@ -12,6 +12,8 @@
  *   NEXT_PUBLIC_ADSENSE_CLIENT            = ca-pub-XXXXXXXXXXXXXXXX
  *   NEXT_PUBLIC_ADSENSE_SLOT_IN_ARTICLE   = 10-digit slot id (In-article unit)
  *   NEXT_PUBLIC_ADSENSE_SLOT_END          = 10-digit slot id (In-article unit)
+ *   NEXT_PUBLIC_ADSENSE_SLOT_IN_FEED      = 10-digit slot id (In-feed unit, homepage grid)
+ *   NEXT_PUBLIC_ADSENSE_SLOT_TOOLS        = 10-digit slot id (Display unit, tool pages)
  *
  * Also remember to turn Auto ads OFF in the AdSense dashboard (Ads → By site),
  * otherwise Google injects its own placements on top of these manual ones.
@@ -24,7 +26,18 @@ export const AD_SLOTS = {
   inArticle: process.env.NEXT_PUBLIC_ADSENSE_SLOT_IN_ARTICLE ?? "",
   /** In-article unit at the end of the body, just before Related Posts. */
   endOfArticle: process.env.NEXT_PUBLIC_ADSENSE_SLOT_END ?? "",
+  /** In-feed unit rendered as a card inside the homepage post grid. */
+  inFeed: process.env.NEXT_PUBLIC_ADSENSE_SLOT_IN_FEED ?? "",
+  /** Responsive display unit below the interactive tool on tool pages. */
+  tools: process.env.NEXT_PUBLIC_ADSENSE_SLOT_TOOLS ?? "",
 } as const;
+
+/**
+ * Layout key for the in-feed unit. Not a secret — Google generates it when the
+ * ad unit is created and it describes the unit's visual layout, so it belongs
+ * in code next to the format, not in env.
+ */
+export const IN_FEED_LAYOUT_KEY = "-70+dm+1r-q+2l";
 
 /** True once a publisher id is configured. */
 export const adsEnabled = ADSENSE_CLIENT.length > 0;

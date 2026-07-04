@@ -5,6 +5,8 @@ import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 import { Metadata } from "next";
 import JsonLd from "@/components/JsonLd";
+import AdSenseScript from "@/components/AdSenseScript";
+import { AD_SLOTS } from "@/lib/ads";
 import { generateWebsiteJsonLd, generateOrganizationJsonLd } from "@/lib/metadata";
 
 export const metadata: Metadata = {
@@ -27,6 +29,8 @@ export default function CroatianHomePage() {
     <>
       <JsonLd data={generateWebsiteJsonLd("hr")} />
       <JsonLd data={generateOrganizationJsonLd()} />
+      {/* In-feed ad card in the post grid needs the AdSense library. */}
+      <AdSenseScript />
       <Header lang="hr" />
       <Hero lang="hr" />
       <main id="main-content" className="max-w-6xl mx-auto px-4 py-10">
@@ -38,7 +42,7 @@ export default function CroatianHomePage() {
             Praktični pokusi i savjeti za roditelje i edukatore
           </p>
         </div>
-        <PostList posts={posts} lang="hr" />
+        <PostList posts={posts} lang="hr" adSlot={AD_SLOTS.inFeed} />
       </main>
       <Footer lang="hr" />
     </>

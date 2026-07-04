@@ -15,8 +15,14 @@ type Props = {
   /** AdSense ad-unit slot id (10 digits). */
   slot: string;
   lang?: "en" | "hr";
-  /** In-article native format (default) or a standard responsive display unit. */
-  format?: "in-article" | "display";
+  /** In-article native format (default), a standard responsive display unit,
+   *  or an in-feed native unit (requires `layoutKey`). */
+  format?: "in-article" | "display" | "in-feed";
+  /** Google-generated layout key for in-feed units (from the ad unit's code). */
+  layoutKey?: string;
+  /** "inline" (default): labeled block for article flow.
+   *  "card": PostCard-style shell so the unit can sit inside a post grid. */
+  variant?: "inline" | "card";
 };
 
 /**
@@ -26,7 +32,13 @@ type Props = {
  * blank reserved gap. Consent (personalized vs not) is handled globally by
  * Google Consent Mode, set in GtmWithConsent.
  */
-export default function AdSlot({ slot, lang = "en", format = "in-article" }: Props) {
+export default function AdSlot({
+  slot,
+  lang = "en",
+  format = "in-article",
+  layoutKey,
+  variant = "inline",
+}: Props) {
   const insRef = useRef<HTMLModElement>(null);
   const pushed = useRef(false);
   const [unfilled, setUnfilled] = useState(false);
@@ -66,7 +78,32 @@ export default function AdSlot({ slot, lang = "en", format = "in-article" }: Pro
   const formatProps =
     format === "in-article"
       ? { "data-ad-layout": "in-article", "data-ad-format": "fluid" }
-      : { "data-ad-format": "auto", "data-full-width-responsive": "true" };
+      : format === "in-feed"
+        ? { "data-ad-format": "fluid", "data-ad-layout-key": layoutKey }
+        : { "data-ad-format": "auto", "data-full-width-responsive": "true" };
+
+  if (variant === "card") {
+    // Grid-cell shell matching PostCard's chrome; the whole card (border,
+    // label and all) still collapses via the unfilled check above.
+    return (
+      <div
+        data-no-print
+        className="flex h-full flex-col rounded-xl border border-gray-100 bg-white p-4 shadow"
+      >
+        <span className="mb-2 block font-sans text-[11px] uppercase tracking-wider text-gray-400">
+          {LABEL[lang]}
+        </span>
+        <ins
+          ref={insRef}
+          className="adsbygoogle flex-1"
+          style={{ display: "block", minHeight: 250 }}
+          data-ad-client={ADSENSE_CLIENT}
+          data-ad-slot={slot}
+          {...formatProps}
+        />
+      </div>
+    );
+  }
 
   return (
     <div data-no-print className="not-prose my-10 text-center">
