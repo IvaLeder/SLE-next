@@ -46,3 +46,8 @@ restore-larger-than-original.mjs
 convert-gifs.mjs
 audit-image-sizes.mjs
 dev-quickstart.md
+
+# asset pipeline (npm run images / assets) — generated variants + manifest are
+# rebuilt by the prebuild hook; the encode cache lives in node_modules/.cache
+/public/images/_opt/
+/src/lib/assets/manifest.json

@@ -83,8 +83,10 @@ const config: NextConfig = {
   // else reads them at build time only. Without this, tracing may miss the
   // fs.readdirSync directory scan and drafts would 404 in production.
   outputFileTracingIncludes: {
-    '/en/draft/[slug]': ['./src/content/posts/**/*'],
-    '/hr/draft/[slug]': ['./src/content/posts/**/*'],
+    // The asset manifest is read with fs at request time (src/lib/assets),
+    // which tracing can't statically see — include it alongside the MDX.
+    '/en/draft/[slug]': ['./src/content/posts/**/*', './src/lib/assets/manifest.json'],
+    '/hr/draft/[slug]': ['./src/content/posts/**/*', './src/lib/assets/manifest.json'],
   },
 
   images: {

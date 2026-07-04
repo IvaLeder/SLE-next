@@ -2,6 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import NextImage from "next/image";
+import ResponsiveImage from "../ResponsiveImage";
+import type { ImageEntry } from "@/lib/assets/types";
+import { ARTICLE_SIZES } from "@/lib/assets/helpers";
 
 const LABELS = {
   en: {
@@ -19,6 +22,10 @@ const LABELS = {
 type Props = {
   src: string;
   alt: string;
+  /** Manifest entry, resolved server-side (MdxImg/Figure/ArticleImage).
+   *  When present the inline image renders as a responsive <picture> with
+   *  AVIF/WebP + blur placeholder; src/width/height act as fallbacks only. */
+  image?: ImageEntry | null;
   /** Optional explicit dimensions — used when MDX <Image width=… height=…/> form is used. */
   width?: number;
   height?: number;
@@ -36,7 +43,7 @@ type Props = {
  * Closing: ESC, click outside, or close button. Locks body scroll while open.
  * Respects prefers-reduced-motion (no fade).
  */
-export default function Lightbox({ src, alt, width, height, marginClass = "my-6", lang = "en" }: Props) {
+export default function Lightbox({ src, alt, image, width, height, marginClass = "my-6", lang = "en" }: Props) {
   const [open, setOpen] = useState(false);
   const t = LABELS[lang];
   const triggerRef = useRef<HTMLButtonElement>(null);
@@ -68,10 +75,22 @@ export default function Lightbox({ src, alt, width, height, marginClass = "my-6"
     return () => document.removeEventListener("keydown", onKey);
   }, [open]);
 
-  const hasDims = Boolean(width && height);
+  const hasDims = Boolean(image) || Boolean(width && height);
 
   // ── Inline image (the normal article view) ────────────────────────────────
-  const inlineImage = hasDims
+  // Manifest path first: responsive <picture> (AVIF/WebP srcset + blur
+  // placeholder, dimensions from the manifest). The two next/image branches
+  // below remain as fallbacks for images the pipeline doesn't know.
+  const inlineImage = image
+    ? (
+      <ResponsiveImage
+        image={image}
+        alt={alt}
+        sizes={ARTICLE_SIZES}
+        className="mx-auto block h-auto w-auto max-w-full max-h-[80vh] rounded-md cursor-zoom-in"
+      />
+    )
+    : hasDims
     ? (
       <NextImage
         src={src}
@@ -138,8 +157,8 @@ export default function Lightbox({ src, alt, width, height, marginClass = "my-6"
             <NextImage
               src={src}
               alt={alt}
-              width={width ?? 1920}
-              height={height ?? 1080}
+              width={image?.width ?? width ?? 1920}
+              height={image?.height ?? height ?? 1080}
               sizes="95vw"
               className="max-w-[95vw] max-h-[95vh] w-auto h-auto object-contain"
             />

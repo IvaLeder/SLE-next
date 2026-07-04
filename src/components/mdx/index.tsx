@@ -16,6 +16,8 @@ import Term from "./Term";
 import NextImage, { type ImageProps } from "next/image";
 import Lightbox from "./Lightbox";
 import Figure from "./Figure";
+import ArticleImage from "./ArticleImage";
+import { getImage } from "@/lib/assets";
 import Materials from "./Materials";
 import Material from "./Material";
 import AdSlot from "../AdSlot";
@@ -67,12 +69,16 @@ function localImageDimensions(src: string): { width: number; height: number } | 
 function MdxImg({ src, alt = "", width, height, lang }: MdxImgProps & { lang: Lang }) {
   if (!src) return null;
 
+  // Manifest first: the image pipeline (npm run images) supplies dimensions,
+  // responsive variants and the blur placeholder in one lookup.
+  const image = getImage(src);
+
   let w = width ? Number(width) : undefined;
   let h = height ? Number(height) : undefined;
 
-  // Fill in dimensions for local images that didn't supply them (i.e. Markdown
-  // images), so they render uncropped at their natural ratio.
-  if (!w || !h) {
+  // Fallback for images the manifest doesn't know: read dimensions off disk
+  // so they still render uncropped at their natural ratio.
+  if (!image && (!w || !h)) {
     const dims = localImageDimensions(src);
     if (dims) {
       w = dims.width;
@@ -80,7 +86,7 @@ function MdxImg({ src, alt = "", width, height, lang }: MdxImgProps & { lang: La
     }
   }
 
-  return <Lightbox src={src} alt={alt} width={w} height={h} lang={lang} />;
+  return <Lightbox src={src} alt={alt} image={image} width={w} height={h} lang={lang} />;
 }
 
 // `a` in MDX → secure external links. Same-origin links pass through unchanged.
@@ -113,6 +119,9 @@ export function mdxComponents(lang: Lang = "en") {
     Image: (props: ImageProps) => <NextImage {...props} className="my-6 rounded-md" />,
     Figure: (props: React.ComponentProps<typeof Figure>) => (
       <Figure lang={lang} {...props} />
+    ),
+    ArticleImage: (props: React.ComponentProps<typeof ArticleImage>) => (
+      <ArticleImage lang={lang} {...props} />
     ),
     Materials: (props: React.ComponentProps<typeof Materials>) => (
       <Materials lang={lang} {...props} />
@@ -155,11 +164,12 @@ export function mdxComponents(lang: Lang = "en") {
     Timer: (props: React.ComponentProps<typeof Timer>) => (
       <Timer lang={lang} {...props} />
     ),
-    // Aspect ratio comes from the before image's real dimensions (read from
-    // disk at render time, like Markdown images above) so the slider box
-    // never jumps. An explicit `ratio` prop still wins via the spread.
+    // Aspect ratio comes from the before image's real dimensions (manifest
+    // first, disk read as fallback) so the slider box never jumps. An
+    // explicit `ratio` prop still wins via the spread.
     BeforeAfter: (props: React.ComponentProps<typeof BeforeAfter>) => {
-      const dims = props.before ? localImageDimensions(props.before) : null;
+      const entry = props.before ? getImage(props.before) : null;
+      const dims = entry ?? (props.before ? localImageDimensions(props.before) : null);
       return (
         <BeforeAfter
           lang={lang}

@@ -1,6 +1,5 @@
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
-import Image from "next/image";
 import TOC from "@/components/mdx/TOC";
 import PostBody from "@/components/PostBody";
 import AdSlot from "@/components/AdSlot";
@@ -27,6 +26,7 @@ import { SubscribeButton } from "@/components/SubscribeButton";
 import TagChips from "@/components/TagChips";
 import { surfacedTagsOf } from "@/lib/tags";
 import { siteConfig } from "@/config/site";
+import CoverImage from "@/components/CoverImage";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -76,19 +76,7 @@ export default async function PostPage({ params }: Props) {
       <Breadcrumbs crumbs={crumbs} />
 
       {post.coverImage && (
-        <div className="w-full mb-6 relative aspect-[16/9]">
-          <Image
-            src={post.coverImage}
-            alt={post.heroAlt || post.title}
-            fill
-            priority
-            // Article body is capped at max-w-3xl (~768 px). Above that
-            // breakpoint the image never gets wider than 768 px, so don't
-            // fetch 1920 px variants on a 4K screen.
-            sizes="(min-width: 768px) 768px, 100vw"
-            className="object-cover rounded-2xl ring-1 ring-black/5"
-          />
-        </div>
+        <CoverImage src={post.coverImage} alt={post.heroAlt || post.title} />
       )}
 
       <ArticleHeader post={post} lang="en" />

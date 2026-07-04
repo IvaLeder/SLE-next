@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { PostMeta } from "../lib/posts";
+import ResponsiveImage from "./ResponsiveImage";
 
 export default function PostCard({
   post,
@@ -39,16 +40,30 @@ export default function PostCard({
       className="group block rounded-xl overflow-hidden bg-white shadow hover:shadow-lg transition-[transform,box-shadow,color] border border-gray-100"
     >
       <div className="relative w-full h-48 overflow-hidden">
-        <Image
-          src={post.coverImage || "/images/placeholder.svg"}
-          alt={post.heroAlt || post.title}
-          fill
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          priority={priority}
-          // motion-safe + hover-media guards: don't animate for reduced-motion
-          // users or on touch devices (where the scale lingers after tap).
-          className="object-cover transition-transform duration-300 motion-safe:[@media(hover:hover)]:group-hover:scale-105"
-        />
+        {/* Manifest-backed covers get responsive AVIF/WebP + a dominant-colour
+            placeholder (post.cover is resolved at build time in posts.ts);
+            covers the pipeline doesn't know fall back to next/image as before.
+            motion-safe + hover-media guards on both: don't animate for
+            reduced-motion users or on touch devices. */}
+        {post.cover ? (
+          <ResponsiveImage
+            image={post.cover}
+            alt={post.heroAlt || post.title}
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            eager={priority}
+            className="object-cover transition-transform duration-300 motion-safe:[@media(hover:hover)]:group-hover:scale-105"
+          />
+        ) : (
+          <Image
+            src={post.coverImage || "/images/placeholder.svg"}
+            alt={post.heroAlt || post.title}
+            fill
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            priority={priority}
+            className="object-cover transition-transform duration-300 motion-safe:[@media(hover:hover)]:group-hover:scale-105"
+          />
+        )}
         {isRecentlyUpdated && (
           <span className="absolute top-2 left-2 px-2 py-0.5 rounded-full text-[10px] font-semibold uppercase tracking-wide bg-brand text-white shadow font-sans">
             {updatedLabel}

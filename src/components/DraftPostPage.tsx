@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
-import Image from "next/image";
 import { timingSafeEqual, createHash } from "node:crypto";
+import CoverImage from "@/components/CoverImage";
 
 import TOC from "@/components/mdx/TOC";
 import PostBody from "@/components/PostBody";
@@ -102,16 +102,7 @@ export default async function DraftPostPage({
       </div>
 
       {post.coverImage && (
-        <div className="w-full mb-6 relative aspect-[16/9]">
-          <Image
-            src={post.coverImage}
-            alt={post.heroAlt || post.title}
-            fill
-            priority
-            sizes="(min-width: 768px) 768px, 100vw"
-            className="object-cover rounded-2xl ring-1 ring-black/5"
-          />
-        </div>
+        <CoverImage src={post.coverImage} alt={post.heroAlt || post.title} />
       )}
 
       <ArticleHeader post={post} lang={lang} />

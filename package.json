@@ -4,7 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev --webpack",
+    "prebuild": "npm run assets",
     "build": "next build --webpack",
+    "assets": "node --disable-warning=ExperimentalWarning scripts/assets/cli.ts",
+    "images": "npm run assets --",
+    "test:assets": "node --disable-warning=ExperimentalWarning --test scripts/assets/test/*.test.ts",
     "start": "next start",
     "lint": "eslint",
     "validate": "node scripts/validate-posts.mjs",
@@ -47,6 +51,8 @@
     "eslint-config-next": "16.0.1",
     "husky": "^9.1.7",
     "lint-staged": "^16.4.0",
+    "sharp": "^0.34.5",
+    "svgo": "^4.0.1",
     "tailwindcss": "^4",
     "typescript": "^5"
   },

@@ -1,4 +1,5 @@
 import Lightbox from "./Lightbox";
+import { getImage } from "@/lib/assets";
 
 /**
  * Captioned image for MDX. Wraps <Lightbox> (so the image is optimised via
@@ -31,6 +32,11 @@ export default function Figure({
 }) {
   if (!src) return null;
 
+  // Manifest first: dimensions, srcset and placeholder all come from the
+  // image pipeline (npm run images), so width/height props are no longer
+  // needed. They're kept as a fallback for images the manifest doesn't know.
+  const image = getImage(src);
+
   // NOTE: pass width/height as STRING attributes in MDX (width="600", not
   // width={600}) — the MDX pipeline silently drops JSX expression attributes,
   // which used to send every figure down Lightbox's crop-prone fallback path.
@@ -40,7 +46,7 @@ export default function Figure({
   return (
     <figure>
       {/* marginClass="" — the <figure> owns the outer spacing, not the image. */}
-      <Lightbox src={src} alt={alt} width={w} height={h} marginClass="" lang={lang} />
+      <Lightbox src={src} alt={alt} image={image} width={w} height={h} marginClass="" lang={lang} />
       {children != null && children !== false && children !== "" ? (
         <figcaption className="mt-3 text-sm text-gray-500 [&>p]:m-0">
           {children}

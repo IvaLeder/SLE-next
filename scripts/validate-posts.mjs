@@ -48,6 +48,7 @@ const KNOWN_MDX_COMPONENTS = new Set([
   "Callout",
   "Image",
   "Figure",
+  "ArticleImage",
   "Materials",
   "Material",
   "NameInBinary",

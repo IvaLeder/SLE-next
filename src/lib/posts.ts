@@ -1,6 +1,8 @@
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
+import { getCardImage } from "./assets";
+import type { ImageEntry } from "./assets/types";
 export { CATEGORY_SLUGS, CATEGORY_DISPLAY } from "./categories";
 export type { CategorySlug } from "./categories";
 import { CATEGORY_DISPLAY, CATEGORY_SLUGS } from "./categories";
@@ -24,6 +26,11 @@ export type PostMeta = {
   tags?: string[];
   coverImage?: string;
   heroAlt?: string;
+  /** Derived at build time in readAllPosts(): the image-pipeline manifest
+   *  entry for coverImage (blur stripped — card grids are client components,
+   *  so this travels in serialized props). Undefined when the manifest
+   *  doesn't know the file; consumers fall back to plain coverImage. */
+  cover?: ImageEntry;
   downloadables?: { label: string; url: string }[];
   translationKey: string;
   /** Draft workflow: `draft: true` posts are excluded from every public
@@ -92,11 +99,19 @@ function readAllPosts(lang: "en" | "hr"): Post[] {
         data.dateModified !== data.date &&
         NOW - new Date(data.dateModified).getTime() < NINETY_DAYS_MS;
 
+      // Resolve the cover's manifest entry once at build time — grids render
+      // in client components, which can't read the manifest themselves.
+      const cover =
+        typeof data.coverImage === "string"
+          ? (getCardImage(data.coverImage) ?? undefined)
+          : undefined;
+
       const post: Post = {
         ...data,
         excerpt,
         readingTimeMin,
         isRecentlyUpdated,
+        cover,
         content,
       } as Post;
 
