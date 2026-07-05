@@ -1,0 +1,12 @@
+<svg width="1500" height="1000" viewBox="0 0 1500 1000" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1500" height="1000" fill="#ffffff"/>
+  <polygon points="750,120 220,880 442.6,787.6 750,346.8" fill="#60a5fa" stroke="#ffffff" stroke-width="6"/>
+  <polygon points="750,120 1280,880 1057.4,787.6 750,346.8" fill="#ef4444" stroke="#ffffff" stroke-width="6"/>
+  <polygon points="220,880 1280,880 1057.4,787.6 442.6,787.6" fill="#92400e" stroke="#ffffff" stroke-width="6"/>
+  <!-- flame -->
+  <path d="M 750 420 C 640 560, 660 660, 750 730 C 840 660, 860 560, 750 420 Z" fill="#dc2626"/>
+  <path d="M 750 490 C 690 590, 702 660, 750 705 C 798 660, 810 590, 750 490 Z" fill="#f97316"/>
+  <path d="M 750 560 C 718 620, 724 660, 750 685 C 776 660, 782 620, 750 560 Z" fill="#fde047"/>
+  <text x="545" y="530" font-family="Helvetica, Arial, sans-serif" font-size="44" font-weight="bold" text-anchor="middle" transform="rotate(-55 545 530)" fill="#ffffff">OXYGEN</text>
+  <text x="955" y="530" font-family="Helvetica, Arial, sans-serif" font-size="44" font-weight="bold" text-anchor="middle" transform="rotate(55 955 530)" fill="#ffffff">HEAT</text>
+  <text x="750" y="845" font-family="Helvetica, Arial, sans-serif" font-size="44" font-weight="bold" text-anchor="middle" fill="#ffffff">FUEL</text></svg>

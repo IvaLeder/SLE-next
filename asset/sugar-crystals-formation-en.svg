@@ -1,0 +1,70 @@
+<svg width="1500" height="1000" viewBox="0 0 1500 1000" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1500" height="1000" fill="#ffffff"/>
+  <text x="330" y="180" font-family="Helvetica, Arial, sans-serif" font-size="38" font-weight="bold" text-anchor="middle" fill="#1f2937">Molecules</text>
+  <text x="330" y="228" font-family="Helvetica, Arial, sans-serif" font-size="38" font-weight="bold" text-anchor="middle" fill="#1f2937">in solution</text>
+  <text x="1180" y="180" font-family="Helvetica, Arial, sans-serif" font-size="38" font-weight="bold" text-anchor="middle" fill="#1f2937">Crystal =</text>
+  <text x="1180" y="228" font-family="Helvetica, Arial, sans-serif" font-size="38" font-weight="bold" text-anchor="middle" fill="#1f2937">ordered structure</text>
+  <g transform="rotate(218.9226830843836 318.82372605381534 558.4758837055415)">
+    <circle cx="318.82372605381534" cy="558.4758837055415" r="26" fill="#ffffff" stroke="#1f2937" stroke-width="4"/>
+    <path d="M 294.82372605381534 546.4758837055415 L 318.82372605381534 506.4758837055415 L 342.82372605381534 546.4758837055415 Z" fill="#3b82f6" stroke="#1d4ed8" stroke-width="3"/></g><g transform="rotate(193.68802707642317 344.7520198719576 702.8495132504031)">
+    <circle cx="344.7520198719576" cy="702.8495132504031" r="26" fill="#ffffff" stroke="#1f2937" stroke-width="4"/>
+    <path d="M 320.7520198719576 690.8495132504031 L 344.7520198719576 650.8495132504031 L 368.7520198719576 690.8495132504031 Z" fill="#3b82f6" stroke="#1d4ed8" stroke-width="3"/></g><g transform="rotate(218.78517016768456 176.40863325912505 558.7274802546017)">
+    <circle cx="176.40863325912505" cy="558.7274802546017" r="26" fill="#ffffff" stroke="#1f2937" stroke-width="4"/>
+    <path d="M 152.40863325912505 546.7274802546017 L 176.40863325912505 506.7274802546017 L 200.40863325912505 546.7274802546017 Z" fill="#3b82f6" stroke="#1d4ed8" stroke-width="3"/></g><g transform="rotate(303.66744194179773 298.60721392091364 536.0191114642657)">
+    <circle cx="298.60721392091364" cy="536.0191114642657" r="26" fill="#ffffff" stroke="#1f2937" stroke-width="4"/>
+    <path d="M 274.60721392091364 524.0191114642657 L 298.60721392091364 484.01911146426573 L 322.60721392091364 524.0191114642657 Z" fill="#3b82f6" stroke="#1d4ed8" stroke-width="3"/></g><g transform="rotate(245.35029136575758 288.59199777944013 621.5934151248075)">
+    <circle cx="288.59199777944013" cy="621.5934151248075" r="26" fill="#ffffff" stroke="#1f2937" stroke-width="4"/>
+    <path d="M 264.59199777944013 609.5934151248075 L 288.59199777944013 569.5934151248075 L 312.59199777944013 609.5934151248075 Z" fill="#3b82f6" stroke="#1d4ed8" stroke-width="3"/></g><g transform="rotate(99.39829023554921 203.0686577456072 400.3315579658374)">
+    <circle cx="203.0686577456072" cy="400.3315579658374" r="26" fill="#ffffff" stroke="#1f2937" stroke-width="4"/>
+    <path d="M 179.0686577456072 388.3315579658374 L 203.0686577456072 348.3315579658374 L 227.0686577456072 388.3315579658374 Z" fill="#3b82f6" stroke="#1d4ed8" stroke-width="3"/></g><g transform="rotate(209.70326953567564 280.6528033968061 489.63347491109744)">
+    <circle cx="280.6528033968061" cy="489.63347491109744" r="26" fill="#ffffff" stroke="#1f2937" stroke-width="4"/>
+    <path d="M 256.6528033968061 477.63347491109744 L 280.6528033968061 437.63347491109744 L 304.6528033968061 477.63347491109744 Z" fill="#3b82f6" stroke="#1d4ed8" stroke-width="3"/></g><g transform="rotate(207.55395015701652 192.06887760898098 588.6868815566413)">
+    <circle cx="192.06887760898098" cy="588.6868815566413" r="26" fill="#ffffff" stroke="#1f2937" stroke-width="4"/>
+    <path d="M 168.06887760898098 576.6868815566413 L 192.06887760898098 536.6868815566413 L 216.06887760898098 576.6868815566413 Z" fill="#3b82f6" stroke="#1d4ed8" stroke-width="3"/></g><g transform="rotate(289.93853255175054 288.0776517139748 699.9126674653962)">
+    <circle cx="288.0776517139748" cy="699.9126674653962" r="26" fill="#ffffff" stroke="#1f2937" stroke-width="4"/>
+    <path d="M 264.0776517139748 687.9126674653962 L 288.0776517139748 647.9126674653962 L 312.0776517139748 687.9126674653962 Z" fill="#3b82f6" stroke="#1d4ed8" stroke-width="3"/></g><g transform="rotate(0 1020 380)">
+    <circle cx="1020" cy="380" r="26" fill="#ffffff" stroke="#1f2937" stroke-width="4"/>
+    <path d="M 996 368 L 1020 328 L 1044 368 Z" fill="#3b82f6" stroke="#1d4ed8" stroke-width="3"/></g><g transform="rotate(0 1100 380)">
+    <circle cx="1100" cy="380" r="26" fill="#ffffff" stroke="#1f2937" stroke-width="4"/>
+    <path d="M 1076 368 L 1100 328 L 1124 368 Z" fill="#3b82f6" stroke="#1d4ed8" stroke-width="3"/></g><g transform="rotate(0 1180 380)">
+    <circle cx="1180" cy="380" r="26" fill="#ffffff" stroke="#1f2937" stroke-width="4"/>
+    <path d="M 1156 368 L 1180 328 L 1204 368 Z" fill="#3b82f6" stroke="#1d4ed8" stroke-width="3"/></g><g transform="rotate(0 1260 380)">
+    <circle cx="1260" cy="380" r="26" fill="#ffffff" stroke="#1f2937" stroke-width="4"/>
+    <path d="M 1236 368 L 1260 328 L 1284 368 Z" fill="#3b82f6" stroke="#1d4ed8" stroke-width="3"/></g><g transform="rotate(0 1340 380)">
+    <circle cx="1340" cy="380" r="26" fill="#ffffff" stroke="#1f2937" stroke-width="4"/>
+    <path d="M 1316 368 L 1340 328 L 1364 368 Z" fill="#3b82f6" stroke="#1d4ed8" stroke-width="3"/></g><g transform="rotate(0 1020 530)">
+    <circle cx="1020" cy="530" r="26" fill="#ffffff" stroke="#1f2937" stroke-width="4"/>
+    <path d="M 996 518 L 1020 478 L 1044 518 Z" fill="#3b82f6" stroke="#1d4ed8" stroke-width="3"/></g><g transform="rotate(0 1100 530)">
+    <circle cx="1100" cy="530" r="26" fill="#ffffff" stroke="#1f2937" stroke-width="4"/>
+    <path d="M 1076 518 L 1100 478 L 1124 518 Z" fill="#3b82f6" stroke="#1d4ed8" stroke-width="3"/></g><g transform="rotate(0 1180 530)">
+    <circle cx="1180" cy="530" r="26" fill="#ffffff" stroke="#1f2937" stroke-width="4"/>
+    <path d="M 1156 518 L 1180 478 L 1204 518 Z" fill="#3b82f6" stroke="#1d4ed8" stroke-width="3"/></g><g transform="rotate(0 1260 530)">
+    <circle cx="1260" cy="530" r="26" fill="#ffffff" stroke="#1f2937" stroke-width="4"/>
+    <path d="M 1236 518 L 1260 478 L 1284 518 Z" fill="#3b82f6" stroke="#1d4ed8" stroke-width="3"/></g><g transform="rotate(0 1340 530)">
+    <circle cx="1340" cy="530" r="26" fill="#ffffff" stroke="#1f2937" stroke-width="4"/>
+    <path d="M 1316 518 L 1340 478 L 1364 518 Z" fill="#3b82f6" stroke="#1d4ed8" stroke-width="3"/></g><g transform="rotate(0 1020 680)">
+    <circle cx="1020" cy="680" r="26" fill="#ffffff" stroke="#1f2937" stroke-width="4"/>
+    <path d="M 996 668 L 1020 628 L 1044 668 Z" fill="#3b82f6" stroke="#1d4ed8" stroke-width="3"/></g><g transform="rotate(0 1100 680)">
+    <circle cx="1100" cy="680" r="26" fill="#ffffff" stroke="#1f2937" stroke-width="4"/>
+    <path d="M 1076 668 L 1100 628 L 1124 668 Z" fill="#3b82f6" stroke="#1d4ed8" stroke-width="3"/></g><g transform="rotate(0 1180 680)">
+    <circle cx="1180" cy="680" r="26" fill="#ffffff" stroke="#1f2937" stroke-width="4"/>
+    <path d="M 1156 668 L 1180 628 L 1204 668 Z" fill="#3b82f6" stroke="#1d4ed8" stroke-width="3"/></g><g transform="rotate(0 1260 680)">
+    <circle cx="1260" cy="680" r="26" fill="#ffffff" stroke="#1f2937" stroke-width="4"/>
+    <path d="M 1236 668 L 1260 628 L 1284 668 Z" fill="#3b82f6" stroke="#1d4ed8" stroke-width="3"/></g><g transform="rotate(0 1340 680)">
+    <circle cx="1340" cy="680" r="26" fill="#ffffff" stroke="#1f2937" stroke-width="4"/>
+    <path d="M 1316 668 L 1340 628 L 1364 668 Z" fill="#3b82f6" stroke="#1d4ed8" stroke-width="3"/></g><g transform="rotate(0 1020 830)">
+    <circle cx="1020" cy="830" r="26" fill="#ffffff" stroke="#1f2937" stroke-width="4"/>
+    <path d="M 996 818 L 1020 778 L 1044 818 Z" fill="#3b82f6" stroke="#1d4ed8" stroke-width="3"/></g><g transform="rotate(0 1100 830)">
+    <circle cx="1100" cy="830" r="26" fill="#ffffff" stroke="#1f2937" stroke-width="4"/>
+    <path d="M 1076 818 L 1100 778 L 1124 818 Z" fill="#3b82f6" stroke="#1d4ed8" stroke-width="3"/></g><g transform="rotate(0 1180 830)">
+    <circle cx="1180" cy="830" r="26" fill="#ffffff" stroke="#1f2937" stroke-width="4"/>
+    <path d="M 1156 818 L 1180 778 L 1204 818 Z" fill="#3b82f6" stroke="#1d4ed8" stroke-width="3"/></g><g transform="rotate(0 1260 830)">
+    <circle cx="1260" cy="830" r="26" fill="#ffffff" stroke="#1f2937" stroke-width="4"/>
+    <path d="M 1236 818 L 1260 778 L 1284 818 Z" fill="#3b82f6" stroke="#1d4ed8" stroke-width="3"/></g><g transform="rotate(0 1340 830)">
+    <circle cx="1340" cy="830" r="26" fill="#ffffff" stroke="#1f2937" stroke-width="4"/>
+    <path d="M 1316 818 L 1340 778 L 1364 818 Z" fill="#3b82f6" stroke="#1d4ed8" stroke-width="3"/></g>
+  <line x1="600" y1="560" x2="880" y2="560" stroke="#16a34a" stroke-width="14"/>
+    <g transform="rotate(0 880 560)">
+    <path d="M 869 549 L 880 560 L 869 571" fill="none"
+          stroke="#16a34a" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/></g>
+  <text x="740" y="640" font-family="Helvetica, Arial, sans-serif" font-size="34" font-weight="bold" text-anchor="middle" fill="#16a34a">Crystallization</text></svg>

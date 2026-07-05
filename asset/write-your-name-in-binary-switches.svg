@@ -1,0 +1,190 @@
+<svg width="1500" height="1000" viewBox="0 0 1500 1000" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1500" height="1000" fill="#ffffff"/>
+  <!-- soft panel behind the switch row -->
+  <rect x="42.5" y="230" width="1415" height="550"
+        rx="36" fill="#eef2ff"/>
+  
+  <!-- plate -->
+  <rect x="112.5" y="310" width="120" height="300" rx="18"
+        fill="#f9fafb" stroke="#d1d5db" stroke-width="3"/>
+  <!-- indicator LED -->
+  <circle cx="172.5" cy="340" r="9"
+          fill="#e5e7eb" stroke="#d1d5db" stroke-width="2"/>
+  
+  <!-- slot -->
+  <rect x="146.5" y="365" width="52" height="170" rx="26"
+        fill="#e5e7eb" stroke="#d1d5db" stroke-width="2.5"/>
+  <!-- knob -->
+  <rect x="153.5" y="465" width="38" height="64" rx="19"
+        fill="#ffffff" stroke="#d1d5db" stroke-width="2.5"/>
+  <rect x="158.5" y="494.5" width="28" height="5" rx="2.5" fill="#d1d5db"/>
+  <!-- ON/OFF tag on the plate -->
+  <text x="172.5" y="592" text-anchor="middle"
+        font-family="Helvetica, Arial, sans-serif" font-size="24" font-weight="bold"
+        fill="#6b7280">OFF</text>
+  <!-- binary digit -->
+  <text x="172.5" y="720" text-anchor="middle"
+        font-family="Helvetica, Arial, sans-serif" font-size="110" font-weight="bold"
+        fill="#9ca3af">0</text>
+
+  <!-- plate -->
+  <rect x="277.5" y="310" width="120" height="300" rx="18"
+        fill="#f9fafb" stroke="#d1d5db" stroke-width="3"/>
+  <!-- indicator LED -->
+  <circle cx="337.5" cy="340" r="9"
+          fill="#fbbf24" stroke="#f59e0b" stroke-width="2"/>
+  <circle cx="337.5" cy="340" r="17" fill="#fbbf24" opacity="0.25"/>
+  <!-- slot -->
+  <rect x="311.5" y="365" width="52" height="170" rx="26"
+        fill="#4f46e5" stroke="#4338ca" stroke-width="2.5"/>
+  <!-- knob -->
+  <rect x="318.5" y="371" width="38" height="64" rx="19"
+        fill="#ffffff" stroke="#d1d5db" stroke-width="2.5"/>
+  <rect x="323.5" y="400.5" width="28" height="5" rx="2.5" fill="#d1d5db"/>
+  <!-- ON/OFF tag on the plate -->
+  <text x="337.5" y="592" text-anchor="middle"
+        font-family="Helvetica, Arial, sans-serif" font-size="24" font-weight="bold"
+        fill="#4f46e5">ON</text>
+  <!-- binary digit -->
+  <text x="337.5" y="720" text-anchor="middle"
+        font-family="Helvetica, Arial, sans-serif" font-size="110" font-weight="bold"
+        fill="#4f46e5">1</text>
+
+  <!-- plate -->
+  <rect x="442.5" y="310" width="120" height="300" rx="18"
+        fill="#f9fafb" stroke="#d1d5db" stroke-width="3"/>
+  <!-- indicator LED -->
+  <circle cx="502.5" cy="340" r="9"
+          fill="#e5e7eb" stroke="#d1d5db" stroke-width="2"/>
+  
+  <!-- slot -->
+  <rect x="476.5" y="365" width="52" height="170" rx="26"
+        fill="#e5e7eb" stroke="#d1d5db" stroke-width="2.5"/>
+  <!-- knob -->
+  <rect x="483.5" y="465" width="38" height="64" rx="19"
+        fill="#ffffff" stroke="#d1d5db" stroke-width="2.5"/>
+  <rect x="488.5" y="494.5" width="28" height="5" rx="2.5" fill="#d1d5db"/>
+  <!-- ON/OFF tag on the plate -->
+  <text x="502.5" y="592" text-anchor="middle"
+        font-family="Helvetica, Arial, sans-serif" font-size="24" font-weight="bold"
+        fill="#6b7280">OFF</text>
+  <!-- binary digit -->
+  <text x="502.5" y="720" text-anchor="middle"
+        font-family="Helvetica, Arial, sans-serif" font-size="110" font-weight="bold"
+        fill="#9ca3af">0</text>
+
+  <!-- plate -->
+  <rect x="607.5" y="310" width="120" height="300" rx="18"
+        fill="#f9fafb" stroke="#d1d5db" stroke-width="3"/>
+  <!-- indicator LED -->
+  <circle cx="667.5" cy="340" r="9"
+          fill="#e5e7eb" stroke="#d1d5db" stroke-width="2"/>
+  
+  <!-- slot -->
+  <rect x="641.5" y="365" width="52" height="170" rx="26"
+        fill="#e5e7eb" stroke="#d1d5db" stroke-width="2.5"/>
+  <!-- knob -->
+  <rect x="648.5" y="465" width="38" height="64" rx="19"
+        fill="#ffffff" stroke="#d1d5db" stroke-width="2.5"/>
+  <rect x="653.5" y="494.5" width="28" height="5" rx="2.5" fill="#d1d5db"/>
+  <!-- ON/OFF tag on the plate -->
+  <text x="667.5" y="592" text-anchor="middle"
+        font-family="Helvetica, Arial, sans-serif" font-size="24" font-weight="bold"
+        fill="#6b7280">OFF</text>
+  <!-- binary digit -->
+  <text x="667.5" y="720" text-anchor="middle"
+        font-family="Helvetica, Arial, sans-serif" font-size="110" font-weight="bold"
+        fill="#9ca3af">0</text>
+
+  <!-- plate -->
+  <rect x="772.5" y="310" width="120" height="300" rx="18"
+        fill="#f9fafb" stroke="#d1d5db" stroke-width="3"/>
+  <!-- indicator LED -->
+  <circle cx="832.5" cy="340" r="9"
+          fill="#e5e7eb" stroke="#d1d5db" stroke-width="2"/>
+  
+  <!-- slot -->
+  <rect x="806.5" y="365" width="52" height="170" rx="26"
+        fill="#e5e7eb" stroke="#d1d5db" stroke-width="2.5"/>
+  <!-- knob -->
+  <rect x="813.5" y="465" width="38" height="64" rx="19"
+        fill="#ffffff" stroke="#d1d5db" stroke-width="2.5"/>
+  <rect x="818.5" y="494.5" width="28" height="5" rx="2.5" fill="#d1d5db"/>
+  <!-- ON/OFF tag on the plate -->
+  <text x="832.5" y="592" text-anchor="middle"
+        font-family="Helvetica, Arial, sans-serif" font-size="24" font-weight="bold"
+        fill="#6b7280">OFF</text>
+  <!-- binary digit -->
+  <text x="832.5" y="720" text-anchor="middle"
+        font-family="Helvetica, Arial, sans-serif" font-size="110" font-weight="bold"
+        fill="#9ca3af">0</text>
+
+  <!-- plate -->
+  <rect x="937.5" y="310" width="120" height="300" rx="18"
+        fill="#f9fafb" stroke="#d1d5db" stroke-width="3"/>
+  <!-- indicator LED -->
+  <circle cx="997.5" cy="340" r="9"
+          fill="#e5e7eb" stroke="#d1d5db" stroke-width="2"/>
+  
+  <!-- slot -->
+  <rect x="971.5" y="365" width="52" height="170" rx="26"
+        fill="#e5e7eb" stroke="#d1d5db" stroke-width="2.5"/>
+  <!-- knob -->
+  <rect x="978.5" y="465" width="38" height="64" rx="19"
+        fill="#ffffff" stroke="#d1d5db" stroke-width="2.5"/>
+  <rect x="983.5" y="494.5" width="28" height="5" rx="2.5" fill="#d1d5db"/>
+  <!-- ON/OFF tag on the plate -->
+  <text x="997.5" y="592" text-anchor="middle"
+        font-family="Helvetica, Arial, sans-serif" font-size="24" font-weight="bold"
+        fill="#6b7280">OFF</text>
+  <!-- binary digit -->
+  <text x="997.5" y="720" text-anchor="middle"
+        font-family="Helvetica, Arial, sans-serif" font-size="110" font-weight="bold"
+        fill="#9ca3af">0</text>
+
+  <!-- plate -->
+  <rect x="1102.5" y="310" width="120" height="300" rx="18"
+        fill="#f9fafb" stroke="#d1d5db" stroke-width="3"/>
+  <!-- indicator LED -->
+  <circle cx="1162.5" cy="340" r="9"
+          fill="#e5e7eb" stroke="#d1d5db" stroke-width="2"/>
+  
+  <!-- slot -->
+  <rect x="1136.5" y="365" width="52" height="170" rx="26"
+        fill="#e5e7eb" stroke="#d1d5db" stroke-width="2.5"/>
+  <!-- knob -->
+  <rect x="1143.5" y="465" width="38" height="64" rx="19"
+        fill="#ffffff" stroke="#d1d5db" stroke-width="2.5"/>
+  <rect x="1148.5" y="494.5" width="28" height="5" rx="2.5" fill="#d1d5db"/>
+  <!-- ON/OFF tag on the plate -->
+  <text x="1162.5" y="592" text-anchor="middle"
+        font-family="Helvetica, Arial, sans-serif" font-size="24" font-weight="bold"
+        fill="#6b7280">OFF</text>
+  <!-- binary digit -->
+  <text x="1162.5" y="720" text-anchor="middle"
+        font-family="Helvetica, Arial, sans-serif" font-size="110" font-weight="bold"
+        fill="#9ca3af">0</text>
+
+  <!-- plate -->
+  <rect x="1267.5" y="310" width="120" height="300" rx="18"
+        fill="#f9fafb" stroke="#d1d5db" stroke-width="3"/>
+  <!-- indicator LED -->
+  <circle cx="1327.5" cy="340" r="9"
+          fill="#fbbf24" stroke="#f59e0b" stroke-width="2"/>
+  <circle cx="1327.5" cy="340" r="17" fill="#fbbf24" opacity="0.25"/>
+  <!-- slot -->
+  <rect x="1301.5" y="365" width="52" height="170" rx="26"
+        fill="#4f46e5" stroke="#4338ca" stroke-width="2.5"/>
+  <!-- knob -->
+  <rect x="1308.5" y="371" width="38" height="64" rx="19"
+        fill="#ffffff" stroke="#d1d5db" stroke-width="2.5"/>
+  <rect x="1313.5" y="400.5" width="28" height="5" rx="2.5" fill="#d1d5db"/>
+  <!-- ON/OFF tag on the plate -->
+  <text x="1327.5" y="592" text-anchor="middle"
+        font-family="Helvetica, Arial, sans-serif" font-size="24" font-weight="bold"
+        fill="#4f46e5">ON</text>
+  <!-- binary digit -->
+  <text x="1327.5" y="720" text-anchor="middle"
+        font-family="Helvetica, Arial, sans-serif" font-size="110" font-weight="bold"
+        fill="#4f46e5">1</text>
+</svg>

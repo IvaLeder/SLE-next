@@ -1,0 +1,49 @@
+<svg width="1500" height="1000" viewBox="0 0 1500 1000" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1500" height="1000" fill="#ffffff"/>
+  
+  <circle cx="160" cy="280" r="55" fill="#fde047" stroke="#ca8a04" stroke-width="5"/>
+  <rect x="142" y="328" width="36" height="30" rx="6" fill="#9ca3af" stroke="#6b7280" stroke-width="3"/>
+  <g stroke="#eab308" stroke-width="5" stroke-linecap="round">
+    <line x1="75" y1="225" x2="98" y2="240"/>
+    <line x1="245" y1="225" x2="222" y2="240"/>
+    <line x1="160" y1="185" x2="160" y2="212"/>
+  </g>
+  <text x="160" y="415" font-family="Helvetica, Arial, sans-serif" font-size="30" font-weight="bold" text-anchor="middle" fill="#1f2937">Izvor svjetla</text>
+  <line x1="250" y1="280" x2="330" y2="280" stroke="#9ca3af" stroke-width="10"/>
+    <g transform="rotate(0 330 280)">
+    <path d="M 319 269 L 330 280 L 319 291" fill="none"
+          stroke="#9ca3af" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></g>
+  
+    <ellipse cx="380" cy="280" rx="22" ry="95" fill="#bae6fd" stroke="#0284c7" stroke-width="4"/>
+    <text x="380" y="445" font-family="Helvetica, Arial, sans-serif" font-size="28" font-weight="bold" text-anchor="middle" fill="#1f2937">Sabirna leća</text>
+  <line x1="420" y1="280" x2="510" y2="280" stroke="#9ca3af" stroke-width="10"/>
+    <g transform="rotate(0 510 280)">
+    <path d="M 499 269 L 510 280 L 499 291" fill="none"
+          stroke="#9ca3af" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></g>
+  <path d="M 620 280 L 620 195 A 85 85 0 0 1 693.6121593216773 322.5 Z" fill="#dc2626" stroke="#ffffff" stroke-width="4"/><path d="M 620 280 L 693.6121593216773 322.5 A 85 85 0 0 1 546.3878406783227 322.5 Z" fill="#16a34a" stroke="#ffffff" stroke-width="4"/><path d="M 620 280 L 546.3878406783227 322.5 A 85 85 0 0 1 620 195 Z" fill="#2563eb" stroke="#ffffff" stroke-width="4"/>
+  <circle cx="620" cy="280" r="34" fill="#ffffff" stroke="#ffffff" stroke-width="2"/>
+  <text x="620" y="445" font-family="Helvetica, Arial, sans-serif" font-size="28" font-weight="bold" text-anchor="middle" fill="#1f2937">Filter boja</text>
+  <g stroke-width="6"><line x1="715" y1="268" x2="845" y2="268" stroke="#dc2626"/><line x1="715" y1="280" x2="845" y2="280" stroke="#16a34a"/><line x1="715" y1="292" x2="845" y2="292" stroke="#2563eb"/></g>
+  <g transform="rotate(0 855 280)">
+    <path d="M 844 269 L 855 280 L 844 291" fill="none"
+          stroke="#16a34a" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></g>
+  
+    <ellipse cx="890" cy="280" rx="22" ry="95" fill="#bae6fd" stroke="#0284c7" stroke-width="4"/>
+    <text x="890" y="445" font-family="Helvetica, Arial, sans-serif" font-size="28" font-weight="bold" text-anchor="middle" fill="#1f2937">Leća za oblikovanje</text>
+  <line x1="930" y1="280" x2="1020" y2="280" stroke="#9ca3af" stroke-width="10"/>
+    <g transform="rotate(0 1020 280)">
+    <path d="M 1009 269 L 1020 280 L 1009 291" fill="none"
+          stroke="#9ca3af" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></g>
+  <rect x="1055" y="205" width="26" height="26" fill="#dbeafe" stroke="#60a5fa" stroke-width="2"/><rect x="1085" y="205" width="26" height="26" fill="#dbeafe" stroke="#60a5fa" stroke-width="2"/><rect x="1115" y="205" width="26" height="26" fill="#dbeafe" stroke="#60a5fa" stroke-width="2"/><rect x="1145" y="205" width="26" height="26" fill="#dbeafe" stroke="#60a5fa" stroke-width="2"/><rect x="1175" y="205" width="26" height="26" fill="#dbeafe" stroke="#60a5fa" stroke-width="2"/><rect x="1055" y="235" width="26" height="26" fill="#dbeafe" stroke="#60a5fa" stroke-width="2"/><rect x="1085" y="235" width="26" height="26" fill="#dbeafe" stroke="#60a5fa" stroke-width="2"/><rect x="1115" y="235" width="26" height="26" fill="#dbeafe" stroke="#60a5fa" stroke-width="2"/><rect x="1145" y="235" width="26" height="26" fill="#dbeafe" stroke="#60a5fa" stroke-width="2"/><rect x="1175" y="235" width="26" height="26" fill="#dbeafe" stroke="#60a5fa" stroke-width="2"/><rect x="1055" y="265" width="26" height="26" fill="#dbeafe" stroke="#60a5fa" stroke-width="2"/><rect x="1085" y="265" width="26" height="26" fill="#dbeafe" stroke="#60a5fa" stroke-width="2"/><rect x="1115" y="265" width="26" height="26" fill="#dbeafe" stroke="#60a5fa" stroke-width="2"/><rect x="1145" y="265" width="26" height="26" fill="#dbeafe" stroke="#60a5fa" stroke-width="2"/><rect x="1175" y="265" width="26" height="26" fill="#dbeafe" stroke="#60a5fa" stroke-width="2"/><rect x="1055" y="295" width="26" height="26" fill="#dbeafe" stroke="#60a5fa" stroke-width="2"/><rect x="1085" y="295" width="26" height="26" fill="#dbeafe" stroke="#60a5fa" stroke-width="2"/><rect x="1115" y="295" width="26" height="26" fill="#dbeafe" stroke="#60a5fa" stroke-width="2"/><rect x="1145" y="295" width="26" height="26" fill="#dbeafe" stroke="#60a5fa" stroke-width="2"/><rect x="1175" y="295" width="26" height="26" fill="#dbeafe" stroke="#60a5fa" stroke-width="2"/><rect x="1055" y="325" width="26" height="26" fill="#dbeafe" stroke="#60a5fa" stroke-width="2"/><rect x="1085" y="325" width="26" height="26" fill="#dbeafe" stroke="#60a5fa" stroke-width="2"/><rect x="1115" y="325" width="26" height="26" fill="#dbeafe" stroke="#60a5fa" stroke-width="2"/><rect x="1145" y="325" width="26" height="26" fill="#dbeafe" stroke="#60a5fa" stroke-width="2"/><rect x="1175" y="325" width="26" height="26" fill="#dbeafe" stroke="#60a5fa" stroke-width="2"/>
+  <text x="1130" y="175" font-family="Helvetica, Arial, sans-serif" font-size="32" font-weight="bold" text-anchor="middle" fill="#1f2937">DMD</text>
+  <line x1="1130" y1="375" x2="1130" y2="480" stroke="#9ca3af" stroke-width="10"/>
+    <g transform="rotate(90 1130 480)">
+    <path d="M 1119 469 L 1130 480 L 1119 491" fill="none"
+          stroke="#9ca3af" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/></g>
+  <ellipse cx="1130" cy="540" rx="95" ry="24" fill="#bae6fd" stroke="#0284c7" stroke-width="4"/>
+  <text x="1260" y="550" font-family="Helvetica, Arial, sans-serif" font-size="28" font-weight="bold" fill="#1f2937">Leća</text>
+  <path d="M 1060 560 L 700 660 L 700 920 L 1200 560 Z" fill="#fef08a" opacity="0.75"/>
+  <g transform="rotate(-8 580 790)">
+    <rect x="460" y="660" width="240" height="260" fill="#ffffff" stroke="#1f2937" stroke-width="5"/>
+    <text x="580" y="800" font-family="Helvetica, Arial, sans-serif" font-size="30" font-weight="bold" text-anchor="middle" fill="#1f2937">Projekcija</text>
+  </g></svg>

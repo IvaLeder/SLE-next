@@ -1,0 +1,43 @@
+<svg width="1500" height="1000" viewBox="0 0 1500 1000" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1500" height="1000" fill="#ffffff"/>
+  
+    <rect x="35" y="150" width="440" height="700" rx="22" fill="#f8fafc" stroke="#cbd5e1" stroke-width="4"/>
+    <text x="255" y="230" font-family="Helvetica, Arial, sans-serif" font-size="40" font-weight="bold" text-anchor="middle" fill="#4f46e5">Speed</text>
+    <text x="255" y="282" font-family="Helvetica, Arial, sans-serif" font-size="26" text-anchor="middle" fill="#6b7280">how fast</text>
+    <rect x="55" y="640" width="400" height="90" fill="#9ca3af"/>
+    <g stroke="#ffffff" stroke-width="6" stroke-dasharray="36 30"><line x1="65" y1="685" x2="445" y2="685"/></g>
+    <g transform="translate(255 620) scale(1)">
+    <path d="M -120 0 q 5 -38 50 -42 l 30 -26 q 45 -18 85 0 l 28 26 q 42 6 47 42 Z" fill="#fb923c" stroke="#c2410c" stroke-width="5"/>
+    <rect x="-50" y="-60" width="80" height="26" rx="8" fill="#bae6fd" stroke="#c2410c" stroke-width="4"/>
+    <circle cx="-65" cy="6" r="22" fill="#1f2937"/><circle cx="-65" cy="6" r="9" fill="#9ca3af"/>
+    <circle cx="68" cy="6" r="22" fill="#1f2937"/><circle cx="68" cy="6" r="9" fill="#9ca3af"/></g><rect x="135" y="386" width="240" height="56" rx="12" fill="#4f46e5"/>
+    <text x="255" y="424" font-family="Helvetica, Arial, sans-serif" font-size="28" font-weight="bold" text-anchor="middle" fill="#ffffff">100 km/h</text>
+  
+    <rect x="530" y="150" width="440" height="700" rx="22" fill="#f8fafc" stroke="#cbd5e1" stroke-width="4"/>
+    <text x="750" y="230" font-family="Helvetica, Arial, sans-serif" font-size="40" font-weight="bold" text-anchor="middle" fill="#4f46e5">Velocity</text>
+    <text x="750" y="282" font-family="Helvetica, Arial, sans-serif" font-size="26" text-anchor="middle" fill="#6b7280">how fast + which direction</text>
+    <rect x="550" y="640" width="400" height="90" fill="#9ca3af"/>
+    <g stroke="#ffffff" stroke-width="6" stroke-dasharray="36 30"><line x1="560" y1="685" x2="940" y2="685"/></g>
+    <g transform="translate(720 620) scale(1)">
+    <path d="M -120 0 q 5 -38 50 -42 l 30 -26 q 45 -18 85 0 l 28 26 q 42 6 47 42 Z" fill="#fb923c" stroke="#c2410c" stroke-width="5"/>
+    <rect x="-50" y="-60" width="80" height="26" rx="8" fill="#bae6fd" stroke="#c2410c" stroke-width="4"/>
+    <circle cx="-65" cy="6" r="22" fill="#1f2937"/><circle cx="-65" cy="6" r="9" fill="#9ca3af"/>
+    <circle cx="68" cy="6" r="22" fill="#1f2937"/><circle cx="68" cy="6" r="9" fill="#9ca3af"/></g><rect x="610" y="386" width="240" height="56" rx="12" fill="#4f46e5"/>
+    <text x="730" y="424" font-family="Helvetica, Arial, sans-serif" font-size="28" font-weight="bold" text-anchor="middle" fill="#ffffff">100 km/h</text><line x1="860" y1="600" x2="945" y2="600" stroke="#4f46e5" stroke-width="9"/>
+    <g transform="rotate(0 945 600)">
+    <path d="M 933 588 L 945 600 L 933 612" fill="none"
+          stroke="#4f46e5" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></g><text x="730" y="492" font-family="Helvetica, Arial, sans-serif" font-size="30" font-weight="bold" text-anchor="middle" fill="#1f2937">heading east</text>
+  
+    <rect x="1025" y="150" width="440" height="700" rx="22" fill="#f8fafc" stroke="#cbd5e1" stroke-width="4"/>
+    <text x="1245" y="230" font-family="Helvetica, Arial, sans-serif" font-size="40" font-weight="bold" text-anchor="middle" fill="#4f46e5">Acceleration</text>
+    <text x="1245" y="282" font-family="Helvetica, Arial, sans-serif" font-size="26" text-anchor="middle" fill="#6b7280">speeding up or slowing down</text>
+    <rect x="1045" y="640" width="400" height="90" fill="#9ca3af"/>
+    <g stroke="#ffffff" stroke-width="6" stroke-dasharray="36 30"><line x1="1055" y1="685" x2="1435" y2="685"/></g>
+    <g transform="translate(1185 620) scale(1)">
+    <path d="M -120 0 q 5 -38 50 -42 l 30 -26 q 45 -18 85 0 l 28 26 q 42 6 47 42 Z" fill="#fb923c" stroke="#c2410c" stroke-width="5"/>
+    <rect x="-50" y="-60" width="80" height="26" rx="8" fill="#bae6fd" stroke="#c2410c" stroke-width="4"/>
+    <circle cx="-65" cy="6" r="22" fill="#1f2937"/><circle cx="-65" cy="6" r="9" fill="#9ca3af"/>
+    <circle cx="68" cy="6" r="22" fill="#1f2937"/><circle cx="68" cy="6" r="9" fill="#9ca3af"/></g><line x1="1395" y1="460" x2="1395" y2="590" stroke="#6b7280" stroke-width="9"/>
+      <polygon points="1443.0417356905868,479.89953848298467 1414.8995384829848,508.0417356905869 1375.1004615170154,508.0417356905869 1346.9582643094132,479.89953848298467 1346.9582643094132,440.10046151701533 1375.1004615170152,411.9582643094131 1414.8995384829848,411.9582643094131 1443.0417356905868,440.1004615170153" fill="#dc2626" stroke="#991b1b" stroke-width="4"/>
+      <text x="1395" y="471" font-family="Helvetica, Arial, sans-serif" font-size="28" font-weight="bold" text-anchor="middle" fill="#ffffff">STOP</text><rect x="1055" y="386" width="280" height="56" rx="12" fill="#4f46e5"/>
+    <text x="1195" y="424" font-family="Helvetica, Arial, sans-serif" font-size="28" font-weight="bold" text-anchor="middle" fill="#ffffff">speed changes</text></svg>

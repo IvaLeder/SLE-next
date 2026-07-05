@@ -1,0 +1,21 @@
+<svg width="1500" height="1000" viewBox="0 0 1500 1000" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1500" height="1000" fill="#ffffff"/>
+  <circle cx="750" cy="500" r="260" fill="#fbbf24" stroke="#d97706" stroke-width="6"/>
+  <g transform="rotate(0 750 180)">
+      <ellipse cx="750" cy="180" rx="95" ry="150" fill="#818cf8" opacity="0.78" stroke="#4338ca" stroke-width="4"/></g>
+      <text x="750" y="196" font-family="Helvetica, Arial, sans-serif" font-size="64" font-weight="bold" text-anchor="middle" font-style="italic" fill="#1f2937">s</text><g transform="rotate(45 976.2741699796952 273.7258300203048)">
+      <ellipse cx="976.2741699796952" cy="273.7258300203048" rx="95" ry="150" fill="#818cf8" opacity="0.78" stroke="#4338ca" stroke-width="4"/></g>
+      <text x="976.2741699796952" y="289.7258300203048" font-family="Helvetica, Arial, sans-serif" font-size="64" font-weight="bold" text-anchor="middle" font-style="italic" fill="#1f2937">s</text><g transform="rotate(90 1070 500)">
+      <ellipse cx="1070" cy="500" rx="95" ry="150" fill="#818cf8" opacity="0.78" stroke="#4338ca" stroke-width="4"/></g>
+      <text x="1070" y="516" font-family="Helvetica, Arial, sans-serif" font-size="64" font-weight="bold" text-anchor="middle" font-style="italic" fill="#1f2937">s</text><g transform="rotate(135 976.2741699796952 726.2741699796952)">
+      <ellipse cx="976.2741699796952" cy="726.2741699796952" rx="95" ry="150" fill="#818cf8" opacity="0.78" stroke="#4338ca" stroke-width="4"/></g>
+      <text x="976.2741699796952" y="742.2741699796952" font-family="Helvetica, Arial, sans-serif" font-size="64" font-weight="bold" text-anchor="middle" font-style="italic" fill="#1f2937">s</text><g transform="rotate(180 750 820)">
+      <ellipse cx="750" cy="820" rx="95" ry="150" fill="#818cf8" opacity="0.78" stroke="#4338ca" stroke-width="4"/></g>
+      <text x="750" y="836" font-family="Helvetica, Arial, sans-serif" font-size="64" font-weight="bold" text-anchor="middle" font-style="italic" fill="#1f2937">s</text><g transform="rotate(225 523.7258300203048 726.2741699796952)">
+      <ellipse cx="523.7258300203048" cy="726.2741699796952" rx="95" ry="150" fill="#818cf8" opacity="0.78" stroke="#4338ca" stroke-width="4"/></g>
+      <text x="523.7258300203048" y="742.2741699796952" font-family="Helvetica, Arial, sans-serif" font-size="64" font-weight="bold" text-anchor="middle" font-style="italic" fill="#1f2937">s</text><g transform="rotate(270 430 500.00000000000006)">
+      <ellipse cx="430" cy="500.00000000000006" rx="95" ry="150" fill="#818cf8" opacity="0.78" stroke="#4338ca" stroke-width="4"/></g>
+      <text x="430" y="516" font-family="Helvetica, Arial, sans-serif" font-size="64" font-weight="bold" text-anchor="middle" font-style="italic" fill="#1f2937">s</text><g transform="rotate(315 523.7258300203048 273.7258300203048)">
+      <ellipse cx="523.7258300203048" cy="273.7258300203048" rx="95" ry="150" fill="#818cf8" opacity="0.78" stroke="#4338ca" stroke-width="4"/></g>
+      <text x="523.7258300203048" y="289.7258300203048" font-family="Helvetica, Arial, sans-serif" font-size="64" font-weight="bold" text-anchor="middle" font-style="italic" fill="#1f2937">s</text>
+  <text x="750" y="540" font-family="Helvetica, Arial, sans-serif" font-size="130" font-weight="bold" text-anchor="middle" font-style="italic" fill="#1f2937">g</text></svg>

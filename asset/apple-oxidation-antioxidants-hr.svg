@@ -1,0 +1,28 @@
+<svg width="1500" height="1000" viewBox="0 0 1500 1000" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1500" height="1000" fill="#ffffff"/>
+  <circle cx="380" cy="250" r="105" fill="none" stroke="#0e7490" stroke-width="3"/>
+      <circle cx="380" cy="250" r="52" fill="#a855f7" stroke="#7e22ce" stroke-width="4"/><circle cx="380" cy="145" r="13" fill="#fbbf24" stroke="#d97706" stroke-width="3"/><circle cx="470.93266739736606" cy="302.5" r="13" fill="#fbbf24" stroke="#d97706" stroke-width="3"/><circle cx="289.06733260263394" cy="302.50000000000006" r="13" fill="#fbbf24" stroke="#d97706" stroke-width="3"/><circle cx="470.93266739736606" cy="197.5" r="13" fill="none" stroke="#9ca3af" stroke-width="3" stroke-dasharray="5 5"/>
+  <text x="380" y="105" font-family="Helvetica, Arial, sans-serif" font-size="32" font-weight="bold" text-anchor="middle" fill="#7e22ce">Slobodni radikal (kradljivac elektrona)</text>
+  <circle cx="1080" cy="250" r="105" fill="none" stroke="#0e7490" stroke-width="3"/>
+      <circle cx="1080" cy="250" r="52" fill="#38bdf8" stroke="#0369a1" stroke-width="4"/><circle cx="1080" cy="145" r="13" fill="#fbbf24" stroke="#d97706" stroke-width="3"/><circle cx="1170.932667397366" cy="197.5" r="13" fill="#fbbf24" stroke="#d97706" stroke-width="3"/><circle cx="1170.932667397366" cy="302.5" r="13" fill="#fbbf24" stroke="#d97706" stroke-width="3"/><circle cx="1080" cy="355" r="13" fill="#fbbf24" stroke="#d97706" stroke-width="3"/><circle cx="989.067332602634" cy="302.50000000000006" r="13" fill="#fbbf24" stroke="#d97706" stroke-width="3"/><circle cx="989.067332602634" cy="197.5" r="13" fill="#fbbf24" stroke="#d97706" stroke-width="3"/>
+  <text x="1080" y="105" font-family="Helvetica, Arial, sans-serif" font-size="32" font-weight="bold" text-anchor="middle" fill="#0369a1">Zdrav atom</text>
+  <line x1="950" y1="250" x2="530" y2="250" stroke="#7e22ce" stroke-width="6"/>
+    <g transform="rotate(180 530 250)">
+    <path d="M 519 239 L 530 250 L 519 261" fill="none"
+          stroke="#7e22ce" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></g>
+  <text x="740" y="215" font-family="Helvetica, Arial, sans-serif" font-size="28" text-anchor="middle" fill="#7e22ce">krade elektron</text>
+  <circle cx="380" cy="700" r="105" fill="none" stroke="#0e7490" stroke-width="3"/>
+      <circle cx="380" cy="700" r="52" fill="#a855f7" stroke="#7e22ce" stroke-width="4"/><circle cx="380" cy="595" r="13" fill="#fbbf24" stroke="#d97706" stroke-width="3"/><circle cx="485" cy="700" r="13" fill="#fbbf24" stroke="#d97706" stroke-width="3"/><circle cx="380" cy="805" r="13" fill="#fbbf24" stroke="#d97706" stroke-width="3"/><circle cx="275" cy="700" r="13" fill="#fbbf24" stroke="#d97706" stroke-width="3"/>
+  <line x1="380" y1="380" x2="380" y2="565" stroke="#1f2937" stroke-width="6"/>
+    <g transform="rotate(90 380 565)">
+    <path d="M 369 554 L 380 565 L 369 576" fill="none"
+          stroke="#1f2937" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></g>
+  <circle cx="1080" cy="700" r="105" fill="none" stroke="#0e7490" stroke-width="3"/>
+      <circle cx="1080" cy="700" r="52" fill="#fb923c" stroke="#c2410c" stroke-width="4"/><circle cx="1080" cy="595" r="13" fill="#fbbf24" stroke="#d97706" stroke-width="3"/><circle cx="1162.0923056591432" cy="634.533570804833" r="13" fill="#fbbf24" stroke="#d97706" stroke-width="3"/><circle cx="1182.3674307790916" cy="723.364698065413" r="13" fill="#fbbf24" stroke="#d97706" stroke-width="3"/><circle cx="1125.5577926073436" cy="794.6017311297541" r="13" fill="#fbbf24" stroke="#d97706" stroke-width="3"/><circle cx="1034.4422073926564" cy="794.6017311297541" r="13" fill="#fbbf24" stroke="#d97706" stroke-width="3"/><circle cx="977.6325692209085" cy="723.364698065413" r="13" fill="#fbbf24" stroke="#d97706" stroke-width="3"/><circle cx="997.9076943408569" cy="634.533570804833" r="13" fill="#fbbf24" stroke="#d97706" stroke-width="3"/>
+  <text x="1080" y="870" font-family="Helvetica, Arial, sans-serif" font-size="32" font-weight="bold" text-anchor="middle" fill="#c2410c">Antioksidans</text>
+  <line x1="950" y1="700" x2="530" y2="700" stroke="#c2410c" stroke-width="6"/>
+    <g transform="rotate(180 530 700)">
+    <path d="M 519 689 L 530 700 L 519 711" fill="none"
+          stroke="#c2410c" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></g>
+  <text x="740" y="665" font-family="Helvetica, Arial, sans-serif" font-size="28" text-anchor="middle" fill="#c2410c">daruje elektron</text>
+  <text x="380" y="870" font-family="Helvetica, Arial, sans-serif" font-size="32" font-weight="bold" text-anchor="middle" fill="#0369a1">Ponovno stabilan</text></svg>

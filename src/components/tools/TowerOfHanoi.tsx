@@ -10,6 +10,7 @@ const COPY = {
     moves: "Moves",
     best: "Fewest possible",
     reset: "Restart",
+    undo: "Undo",
     goal: "Tap a peg to pick up its top disk, then tap another peg to drop it. Move the whole stack to the last peg. Rule is that a bigger disk can never sit on a smaller one.",
     invalid: "A bigger disk can't go on a smaller one!",
     solved: (n: number) => `Solved in ${n} moves!`,
@@ -22,6 +23,7 @@ const COPY = {
     moves: "Potezi",
     best: "Najmanje moguće",
     reset: "Ponovo",
+    undo: "Vrati potez",
     goal: "Kliknite štap da podignete gornji disk, pa kliknite drugi štap da ga spustite. Premjestite cijeli toranj na zadnji štap. Pravilo je da veći disk nikad ne smije biti na manjem.",
     invalid: "Veći disk ne može na manji!",
     solved: (n: number) => `Riješeno u ${n} poteza!`,
@@ -48,6 +50,7 @@ export default function TowerOfHanoi({ lang = "en" }: { lang?: Lang }) {
   const [selected, setSelected] = useState<number | null>(null);
   const [moves, setMoves] = useState(0);
   const [error, setError] = useState(false);
+  const [history, setHistory] = useState<number[][][]>([]);
 
   const minMoves = (1 << numDisks) - 1;
   const solved = pegs[2].length === numDisks;
@@ -57,6 +60,16 @@ export default function TowerOfHanoi({ lang = "en" }: { lang?: Lang }) {
     setPegs(makePegs(n));
     setSelected(null);
     setMoves(0);
+    setError(false);
+    setHistory([]);
+  }
+
+  function undo() {
+    if (history.length === 0) return;
+    setPegs(history[history.length - 1]);
+    setHistory((h) => h.slice(0, -1));
+    setMoves((m) => m - 1);
+    setSelected(null);
     setError(false);
   }
 
@@ -78,6 +91,7 @@ export default function TowerOfHanoi({ lang = "en" }: { lang?: Lang }) {
     if (disk < topTo) {
       const next = pegs.map((p) => p.slice());
       next[i].push(next[selected].pop()!);
+      setHistory((h) => [...h, pegs]);
       setPegs(next);
       setMoves((m) => m + 1);
       setSelected(null);
@@ -116,13 +130,24 @@ export default function TowerOfHanoi({ lang = "en" }: { lang?: Lang }) {
         <div className="text-gray-500">
           {t.best}: <span className="font-mono">{minMoves}</span>
         </div>
-        <button
-          type="button"
-          onClick={() => newGame(numDisks)}
-          className="ml-auto text-xs font-semibold text-brand hover:text-brand-hover"
-        >
-          ↺ {t.reset}
-        </button>
+        <div className="ml-auto flex items-center gap-4">
+          {history.length > 0 && !solved && (
+            <button
+              type="button"
+              onClick={undo}
+              className="text-xs font-semibold text-brand hover:text-brand-hover"
+            >
+              ⌫ {t.undo}
+            </button>
+          )}
+          <button
+            type="button"
+            onClick={() => newGame(numDisks)}
+            className="text-xs font-semibold text-brand hover:text-brand-hover"
+          >
+            ↺ {t.reset}
+          </button>
+        </div>
       </div>
 
       <div className="relative mt-5 flex items-end gap-3" style={{ height: boardHeight }}>
@@ -167,7 +192,7 @@ export default function TowerOfHanoi({ lang = "en" }: { lang?: Lang }) {
       </div>
 
       {solved ? (
-        <div className="mt-4 rounded-xl bg-green-50 p-4 text-center">
+        <div role="status" className="mt-4 rounded-xl bg-green-50 p-4 text-center">
           <p className="font-semibold text-green-800">
             {moves === minMoves ? t.perfect(moves) : t.solved(moves)}
           </p>
@@ -180,7 +205,7 @@ export default function TowerOfHanoi({ lang = "en" }: { lang?: Lang }) {
           </button>
         </div>
       ) : (
-        <p className={`mt-4 text-xs leading-relaxed ${error ? "font-semibold text-red-600" : "text-gray-400"}`}>
+        <p aria-live="polite" className={`mt-4 text-xs leading-relaxed ${error ? "font-semibold text-red-600" : "text-gray-400"}`}>
           {error ? t.invalid : t.goal}
         </p>
       )}

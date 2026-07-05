@@ -1,0 +1,33 @@
+<svg width="1500" height="1000" viewBox="0 0 1500 1000" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1500" height="1000" fill="#ffffff"/>
+  <rect x="0" y="540" width="1500" height="460" fill="#dbeafe"/>
+  <line x1="60" y1="540" x2="1440" y2="540" stroke="#1f2937" stroke-width="6"/>
+  <line x1="750" y1="100" x2="750" y2="930" stroke="#9ca3af" stroke-width="5" stroke-dasharray="16 12"/>
+  <text x="750" y="70" font-family="Helvetica, Arial, sans-serif" font-size="32" font-weight="bold" text-anchor="middle" fill="#6b7280">Normal</text>
+  <text x="110" y="512" font-family="Helvetica, Arial, sans-serif" font-size="34" font-weight="bold" fill="#1f2937">Air</text>
+  <text x="110" y="596" font-family="Helvetica, Arial, sans-serif" font-size="34" font-weight="bold" fill="#1f2937">Water</text>
+  <!-- incident ray -->
+  <line x1="310" y1="160" x2="750" y2="540" stroke="#dc2626" stroke-width="7"/>
+  <g transform="rotate(41 610 419)">
+    <path d="M 599 408 L 610 419 L 599 430" fill="none"
+          stroke="#dc2626" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></g>
+  <text x="285" y="130" font-family="Helvetica, Arial, sans-serif" font-size="32" font-weight="bold" fill="#dc2626">Incident ray</text>
+  <!-- reflected ray -->
+  <line x1="750" y1="540" x2="1190" y2="160" stroke="#16a34a" stroke-width="6" stroke-dasharray="18 14"/>
+    <g transform="rotate(-40.81508387488159 1190 160)">
+    <path d="M 1179 149 L 1190 160 L 1179 171" fill="none"
+          stroke="#16a34a" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></g>
+  <text x="1160" y="130" font-family="Helvetica, Arial, sans-serif" font-size="32" font-weight="bold" fill="#16a34a">Reflected ray</text>
+  <!-- refracted ray (bends toward the normal entering denser medium) -->
+  <line x1="750" y1="540" x2="990" y2="920" stroke="#2563eb" stroke-width="7"/>
+    <g transform="rotate(57.724355685422374 990 920)">
+    <path d="M 979 909 L 990 920 L 979 931" fill="none"
+          stroke="#2563eb" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></g>
+  <text x="1010" y="950" font-family="Helvetica, Arial, sans-serif" font-size="32" font-weight="bold" fill="#2563eb">Refracted ray</text>
+  <!-- angle arcs -->
+  <path d="M 660 450 A 127 127 0 0 1 750 413" fill="none" stroke="#dc2626" stroke-width="4"/>
+  <text x="430" y="470" font-family="Helvetica, Arial, sans-serif" font-size="27" text-anchor="middle" fill="#dc2626">angle of incidence</text>
+  <path d="M 750 413 A 127 127 0 0 1 840 450" fill="none" stroke="#16a34a" stroke-width="4"/>
+  <text x="1060" y="470" font-family="Helvetica, Arial, sans-serif" font-size="27" text-anchor="middle" fill="#16a34a">angle of reflection</text>
+  <path d="M 750 667 A 127 127 0 0 0 820 646" fill="none" stroke="#2563eb" stroke-width="4"/>
+  <text x="575" y="725" font-family="Helvetica, Arial, sans-serif" font-size="27" text-anchor="middle" fill="#2563eb">angle of refraction</text></svg>

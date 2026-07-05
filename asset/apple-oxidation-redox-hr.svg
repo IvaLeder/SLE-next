@@ -1,0 +1,19 @@
+<svg width="1500" height="1000" viewBox="0 0 1500 1000" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1500" height="1000" fill="#ffffff"/>
+  <circle cx="400" cy="368" r="58" fill="#ef4444" stroke="#b91c1c" stroke-width="5"/><circle cx="458" cy="410" r="58" fill="#ef4444" stroke="#b91c1c" stroke-width="5"/><circle cx="438" cy="478" r="58" fill="#ef4444" stroke="#b91c1c" stroke-width="5"/><circle cx="362" cy="478" r="58" fill="#ef4444" stroke="#b91c1c" stroke-width="5"/><circle cx="342" cy="410" r="58" fill="#ef4444" stroke="#b91c1c" stroke-width="5"/><circle cx="400" cy="430" r="58" fill="#ef4444" stroke="#b91c1c" stroke-width="5"/>
+  <circle cx="1100" cy="368" r="58" fill="#3b82f6" stroke="#b91c1c" stroke-width="5"/><circle cx="1158" cy="410" r="58" fill="#3b82f6" stroke="#b91c1c" stroke-width="5"/><circle cx="1138" cy="478" r="58" fill="#3b82f6" stroke="#b91c1c" stroke-width="5"/><circle cx="1062" cy="478" r="58" fill="#3b82f6" stroke="#b91c1c" stroke-width="5"/><circle cx="1042" cy="410" r="58" fill="#3b82f6" stroke="#b91c1c" stroke-width="5"/><circle cx="1100" cy="430" r="58" fill="#3b82f6" stroke="#b91c1c" stroke-width="5"/>
+  <path d="M 480 300 C 540 230, 600 200, 660 195" fill="none" stroke="#1f2937" stroke-width="6"/>
+  <g transform="rotate(5 660 195)">
+    <path d="M 649 184 L 660 195 L 649 206" fill="none"
+          stroke="#1f2937" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></g>
+  <circle cx="690" cy="190" r="16" fill="#fbbf24" stroke="#d97706" stroke-width="4"/>
+  <path d="M 1010 190 C 950 195, 900 230, 855 295" fill="none" stroke="#1f2937" stroke-width="6"/>
+  <g transform="rotate(115 855 295)">
+    <path d="M 844 284 L 855 295 L 844 306" fill="none"
+          stroke="#1f2937" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></g>
+  <circle cx="980" cy="185" r="16" fill="#fbbf24" stroke="#d97706" stroke-width="4"/>
+  <text x="400" y="700" font-family="Helvetica, Arial, sans-serif" font-size="56" font-weight="bold" text-anchor="middle" fill="#1f2937">Oksidacija</text>
+  <text x="750" y="700" font-family="Helvetica, Arial, sans-serif" font-size="36" text-anchor="middle" fill="#1f2937">i</text>
+  <text x="1100" y="700" font-family="Helvetica, Arial, sans-serif" font-size="56" font-weight="bold" text-anchor="middle" fill="#1f2937">Redukcija</text>
+  <text x="400" y="770" font-family="Helvetica, Arial, sans-serif" font-size="30" text-anchor="middle" fill="#6b7280">gubi elektron</text>
+  <text x="1100" y="770" font-family="Helvetica, Arial, sans-serif" font-size="30" text-anchor="middle" fill="#6b7280">prima elektron</text></svg>

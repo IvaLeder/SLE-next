@@ -1,0 +1,59 @@
+<svg width="1500" height="1000" viewBox="0 0 1500 1000" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1500" height="1000" fill="#ffffff"/>
+  
+    
+    <ellipse cx="280" cy="190" rx="135" ry="92" fill="#ef4444"/>
+    <ellipse cx="240" cy="168" rx="80" ry="58" fill="#ef4444"/>
+    <ellipse cx="328" cy="208" rx="76" ry="56" fill="#ef4444"/>
+    <ellipse cx="280" cy="190" rx="135" ry="92" fill="none" stroke="#b91c1c" stroke-width="0"/>
+    <text x="540" y="218" font-family="Helvetica, Arial, sans-serif" font-size="96" font-weight="bold" text-anchor="middle" fill="#1f2937">+</text>
+    
+    <ellipse cx="790" cy="190" rx="135" ry="92" fill="#facc15"/>
+    <ellipse cx="750" cy="168" rx="80" ry="58" fill="#facc15"/>
+    <ellipse cx="838" cy="208" rx="76" ry="56" fill="#facc15"/>
+    <ellipse cx="790" cy="190" rx="135" ry="92" fill="none" stroke="#ca8a04" stroke-width="0"/>
+    <text x="1045" y="214" font-family="Helvetica, Arial, sans-serif" font-size="96" font-weight="bold" text-anchor="middle" fill="#1f2937">=</text>
+    
+    <ellipse cx="1280" cy="190" rx="135" ry="92" fill="#f97316"/>
+    <ellipse cx="1240" cy="168" rx="80" ry="58" fill="#f97316"/>
+    <ellipse cx="1328" cy="208" rx="76" ry="56" fill="#f97316"/>
+    <ellipse cx="1280" cy="190" rx="135" ry="92" fill="none" stroke="#c2410c" stroke-width="0"/>
+    <text x="1280" y="204" font-family="Helvetica, Arial, sans-serif" font-size="40" font-weight="bold" text-anchor="middle" fill="#ffffff">Orange</text>
+  
+    
+    <ellipse cx="280" cy="500" rx="135" ry="92" fill="#facc15"/>
+    <ellipse cx="240" cy="478" rx="80" ry="58" fill="#facc15"/>
+    <ellipse cx="328" cy="518" rx="76" ry="56" fill="#facc15"/>
+    <ellipse cx="280" cy="500" rx="135" ry="92" fill="none" stroke="#ca8a04" stroke-width="0"/>
+    <text x="540" y="528" font-family="Helvetica, Arial, sans-serif" font-size="96" font-weight="bold" text-anchor="middle" fill="#1f2937">+</text>
+    
+    <ellipse cx="790" cy="500" rx="135" ry="92" fill="#2563eb"/>
+    <ellipse cx="750" cy="478" rx="80" ry="58" fill="#2563eb"/>
+    <ellipse cx="838" cy="518" rx="76" ry="56" fill="#2563eb"/>
+    <ellipse cx="790" cy="500" rx="135" ry="92" fill="none" stroke="#1e40af" stroke-width="0"/>
+    <text x="1045" y="524" font-family="Helvetica, Arial, sans-serif" font-size="96" font-weight="bold" text-anchor="middle" fill="#1f2937">=</text>
+    
+    <ellipse cx="1280" cy="500" rx="135" ry="92" fill="#16a34a"/>
+    <ellipse cx="1240" cy="478" rx="80" ry="58" fill="#16a34a"/>
+    <ellipse cx="1328" cy="518" rx="76" ry="56" fill="#16a34a"/>
+    <ellipse cx="1280" cy="500" rx="135" ry="92" fill="none" stroke="#15803d" stroke-width="0"/>
+    <text x="1280" y="514" font-family="Helvetica, Arial, sans-serif" font-size="40" font-weight="bold" text-anchor="middle" fill="#ffffff">Green</text>
+  
+    
+    <ellipse cx="280" cy="810" rx="135" ry="92" fill="#2563eb"/>
+    <ellipse cx="240" cy="788" rx="80" ry="58" fill="#2563eb"/>
+    <ellipse cx="328" cy="828" rx="76" ry="56" fill="#2563eb"/>
+    <ellipse cx="280" cy="810" rx="135" ry="92" fill="none" stroke="#1e40af" stroke-width="0"/>
+    <text x="540" y="838" font-family="Helvetica, Arial, sans-serif" font-size="96" font-weight="bold" text-anchor="middle" fill="#1f2937">+</text>
+    
+    <ellipse cx="790" cy="810" rx="135" ry="92" fill="#ef4444"/>
+    <ellipse cx="750" cy="788" rx="80" ry="58" fill="#ef4444"/>
+    <ellipse cx="838" cy="828" rx="76" ry="56" fill="#ef4444"/>
+    <ellipse cx="790" cy="810" rx="135" ry="92" fill="none" stroke="#b91c1c" stroke-width="0"/>
+    <text x="1045" y="834" font-family="Helvetica, Arial, sans-serif" font-size="96" font-weight="bold" text-anchor="middle" fill="#1f2937">=</text>
+    
+    <ellipse cx="1280" cy="810" rx="135" ry="92" fill="#9333ea"/>
+    <ellipse cx="1240" cy="788" rx="80" ry="58" fill="#9333ea"/>
+    <ellipse cx="1328" cy="828" rx="76" ry="56" fill="#9333ea"/>
+    <ellipse cx="1280" cy="810" rx="135" ry="92" fill="none" stroke="#7e22ce" stroke-width="0"/>
+    <text x="1280" y="824" font-family="Helvetica, Arial, sans-serif" font-size="40" font-weight="bold" text-anchor="middle" fill="#ffffff">Violet</text></svg>

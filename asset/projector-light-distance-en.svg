@@ -1,0 +1,36 @@
+<svg width="1500" height="1000" viewBox="0 0 1500 1000" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1500" height="1000" fill="#ffffff"/>
+  
+    <g stroke="#9ca3af" stroke-width="3" stroke-dasharray="8 8">
+      <line x1="170" y1="480" x2="1060" y2="270"/>
+      <line x1="170" y1="480" x2="1060" y2="690"/>
+    </g>
+  
+    <g stroke="#9ca3af" stroke-width="3" stroke-dasharray="8 8">
+      <line x1="170" y1="480" x2="760" y2="340"/>
+      <line x1="170" y1="480" x2="760" y2="620"/>
+    </g>
+  
+    <g stroke="#9ca3af" stroke-width="3" stroke-dasharray="8 8">
+      <line x1="170" y1="480" x2="480" y2="410"/>
+      <line x1="170" y1="480" x2="480" y2="550"/>
+    </g>
+  
+  <circle cx="170" cy="480" r="55" fill="#fde047" stroke="#ca8a04" stroke-width="5"/>
+  <rect x="152" y="528" width="36" height="30" rx="6" fill="#9ca3af" stroke="#6b7280" stroke-width="3"/>
+  <g stroke="#eab308" stroke-width="5" stroke-linecap="round">
+    <line x1="85" y1="425" x2="108" y2="440"/>
+    <line x1="255" y1="425" x2="232" y2="440"/>
+    <line x1="170" y1="385" x2="170" y2="412"/>
+  </g>
+  
+  <rect x="1060" y="270" width="140" height="140" fill="#fde68a" stroke="#92400e" stroke-width="3"/><rect x="1200" y="270" width="140" height="140" fill="#fde68a" stroke="#92400e" stroke-width="3"/><rect x="1340" y="270" width="140" height="140" fill="#fde68a" stroke="#92400e" stroke-width="3"/><rect x="1060" y="410" width="140" height="140" fill="#fde68a" stroke="#92400e" stroke-width="3"/><rect x="1200" y="410" width="140" height="140" fill="#fde68a" stroke="#92400e" stroke-width="3"/><rect x="1340" y="410" width="140" height="140" fill="#fde68a" stroke="#92400e" stroke-width="3"/><rect x="1060" y="550" width="140" height="140" fill="#fde68a" stroke="#92400e" stroke-width="3"/><rect x="1200" y="550" width="140" height="140" fill="#fde68a" stroke="#92400e" stroke-width="3"/><rect x="1340" y="550" width="140" height="140" fill="#fde68a" stroke="#92400e" stroke-width="3"/>
+  <rect x="760" y="340" width="140" height="140" fill="#fcd34d" stroke="#92400e" stroke-width="3"/><rect x="900" y="340" width="140" height="140" fill="#fcd34d" stroke="#92400e" stroke-width="3"/><rect x="760" y="480" width="140" height="140" fill="#fcd34d" stroke="#92400e" stroke-width="3"/><rect x="900" y="480" width="140" height="140" fill="#fcd34d" stroke="#92400e" stroke-width="3"/>
+  <rect x="480" y="410" width="140" height="140" fill="#fbbf24" stroke="#92400e" stroke-width="3"/>
+  <text x="750" y="90" font-family="Helvetica, Arial, sans-serif" font-size="38" font-weight="bold" text-anchor="middle" fill="#4f46e5">Light intensity</text>
+  <text x="550" y="200" font-family="Helvetica, Arial, sans-serif" font-size="40" font-weight="bold" text-anchor="middle" fill="#1f2937">1</text>
+  <text x="900" y="200" font-family="Helvetica, Arial, sans-serif" font-size="40" font-weight="bold" text-anchor="middle" fill="#1f2937">1/4</text>
+  <text x="1270" y="200" font-family="Helvetica, Arial, sans-serif" font-size="40" font-weight="bold" text-anchor="middle" fill="#1f2937">1/9</text>
+  <line x1="170" y1="870" x2="1390" y2="870" stroke="#1f2937" stroke-width="4"/>
+  <line x1="480" y1="855" x2="480" y2="885" stroke="#1f2937" stroke-width="4"/><text x="480" y="935" font-family="Helvetica, Arial, sans-serif" font-size="36" font-weight="bold" text-anchor="middle" fill="#1f2937">1</text><line x1="760" y1="855" x2="760" y2="885" stroke="#1f2937" stroke-width="4"/><text x="760" y="935" font-family="Helvetica, Arial, sans-serif" font-size="36" font-weight="bold" text-anchor="middle" fill="#1f2937">2</text><line x1="1060" y1="855" x2="1060" y2="885" stroke="#1f2937" stroke-width="4"/><text x="1060" y="935" font-family="Helvetica, Arial, sans-serif" font-size="36" font-weight="bold" text-anchor="middle" fill="#1f2937">3</text>
+  <text x="750" y="985" font-family="Helvetica, Arial, sans-serif" font-size="34" font-weight="bold" text-anchor="middle" fill="#4f46e5">Distance from the light source</text></svg>
