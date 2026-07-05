@@ -2,28 +2,31 @@ import Link from "next/link";
 import {
   summerCopy,
   summerSections,
+  SUMMER_PDF,
   type Lang,
 } from "@/lib/summer-ebook";
-import SummerSignupForm from "@/components/SummerSignupForm";
 
 const TEASER = {
   en: {
-    heroCta: "Get the free e-book",
-    heroNote: "Free PDF · straight to your inbox",
+    heroCta: "Download the free e-book",
+    heroNote: "Free PDF · no sign-up required",
     whatsInside: "What's inside",
     count: (n: number) => `${n} activities`,
     bonusTitle: "Plus three bonuses",
     bonusBingo: "Summer-science bingo card",
     bonusRainy: "Rainy-day rescue picks",
     bonusTips: "Parent survival tips",
-    getTitle: "Get your free copy ☀️",
+    getTitle: "Download your free copy ☀️",
     getBody:
-      "Pop in your email and we'll send the e-book straight over — yours to keep, print and share.",
+      "No email, no sign-up — just tap the button and the e-book is yours to keep, print and share.",
     whatYouGet: "Your free 10-page PDF includes:",
+    download: "Download the PDF",
+    downloadMeta: "10-page PDF · free",
+    noEmail: "No email required",
   },
   hr: {
     heroCta: "Preuzmite besplatnu e-knjigu",
-    heroNote: "Besplatni PDF · ravno u inbox",
+    heroNote: "Besplatni PDF · bez registracije",
     whatsInside: "Što vas čeka unutra",
     count: (n: number) => `${n} aktivnosti`,
     bonusTitle: "Plus tri bonusa",
@@ -32,8 +35,11 @@ const TEASER = {
     bonusTips: "Savjeti za roditelje",
     getTitle: "Preuzmite svoj besplatni primjerak ☀️",
     getBody:
-      "Upišite svoj email i poslat ćemo vam e-knjigu — vaša je za čuvanje, ispis i dijeljenje.",
+      "Bez emaila, bez registracije — samo kliknite gumb i e-knjiga je vaša za čuvanje, ispis i dijeljenje.",
     whatYouGet: "Vaš besplatni PDF od 10 stranica uključuje:",
+    download: "Preuzmite PDF",
+    downloadMeta: "PDF od 10 stranica · besplatno",
+    noEmail: "Bez upisivanja emaila",
   },
 } as const;
 
@@ -42,6 +48,7 @@ const BONUS_COLOR = "#8E54B5";
 export default function SummerLanding({ lang }: { lang: Lang }) {
   const t = summerCopy[lang];
   const x = TEASER[lang];
+  const pdf = SUMMER_PDF[lang];
   const total = summerSections.reduce((n, s) => n + s.activities.length, 0);
 
   return (
@@ -145,8 +152,19 @@ export default function SummerLanding({ lang }: { lang: Lang }) {
               </li>
             </ul>
           </div>
-          <div className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-black/5 sm:p-6">
-            <SummerSignupForm lang={lang} />
+          <div className="rounded-2xl bg-white p-6 text-center shadow-sm ring-1 ring-black/5 sm:p-8">
+            <div className="text-5xl" aria-hidden="true">📘</div>
+            <p className="mt-3 font-sans text-sm font-semibold text-gray-900">{x.downloadMeta}</p>
+            <a
+              id="summer"
+              href={pdf}
+              download
+              className="mt-4 inline-flex items-center gap-2 rounded-full px-6 py-3 font-sans text-sm font-semibold text-white transition-transform hover:scale-[1.03]"
+              style={{ background: "#FB6F52" }}
+            >
+              ↓ {x.download}
+            </a>
+            <p className="mt-3 font-sans text-xs text-gray-400">{x.noEmail}</p>
           </div>
         </div>
       </section>
