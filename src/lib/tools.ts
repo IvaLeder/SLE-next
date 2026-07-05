@@ -201,6 +201,30 @@ export const tools: Tool[] = [
       hr: "Besplatni prevoditelj Morseove abecede za djecu: upišite poruku i vidite je u točkicama i crticama, odsvirajte je kao zvuk i svjetlo ili dešifrirajte Morse natrag u tekst.",
     },
   },
+  {
+    key: "developmental-leaps",
+    slug: { en: "developmental-leap-calculator", hr: "kalkulator-skokova-u-razvoju" },
+    icon: "👶",
+    title: {
+      en: "Developmental leap calculator",
+      hr: "Kalkulator skokova u razvoju",
+    },
+    tagline: {
+      en: "Enter your baby's due date and get a personal calendar of all 10 developmental leaps, with what to expect from each one.",
+      hr: "Upišite termin poroda i dobit ćete osobni kalendar svih 10 skokova u razvoju, uz kratki opis što očekivati od svakoga.",
+    },
+    description: {
+      en: "Free developmental leap calculator: enter your baby's due date to see the dates of all 10 mental leaps in the first 20 months, which leap is happening now and what to expect.",
+      hr: "Besplatni kalkulator skokova u razvoju: upišite termin poroda i saznajte datume svih 10 skokova u prvih 20 mjeseci, koji je skok u tijeku i što očekivati.",
+    },
+    related: {
+      slug: { en: "tag/milestone", hr: "tag/milestone" },
+      label: {
+        en: "Month-by-month milestone guides",
+        hr: "Vodiči kroz razvoj mjesec po mjesec",
+      },
+    },
+  },
 ];
 
 export function toolBySlug(lang: Lang, slug: string): Tool | undefined {
