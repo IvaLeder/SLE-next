@@ -28,7 +28,7 @@ import TowerOfHanoi from "../tools/TowerOfHanoi";
 import FractionVisualizer from "../tools/FractionVisualizer";
 import FindBirthdayInPi from "../tools/FindBirthdayInPi";
 import MorseCode from "../tools/MorseCode";
-import { SubscribeForm } from "../SubscribeForm";
+import { SubscribeButton } from "../SubscribeButton";
 
 // Markdown ![alt](src) and <Image src=…/> in MDX both flow through here.
 // Routed to <Lightbox> so any inline content image is tap-to-zoom.
@@ -135,8 +135,8 @@ export function mdxComponents(lang: Lang = "en") {
     FractionVisualizer: () => <FractionVisualizer lang={lang} />,
     FindBirthdayInPi: () => <FindBirthdayInPi lang={lang} />,
     MorseCode: () => <MorseCode lang={lang} />,
-    Subscribe: (props: React.ComponentProps<typeof SubscribeForm>) => (
-      <SubscribeForm lang={lang} {...props} />
+    Subscribe: (props: React.ComponentProps<typeof SubscribeButton>) => (
+      <SubscribeButton lang={lang} {...props} />
     ),
     YouTube: (props: React.ComponentProps<typeof YouTube>) => (
       <YouTube lang={lang} {...props} />

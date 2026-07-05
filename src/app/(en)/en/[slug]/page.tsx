@@ -22,7 +22,7 @@ import ArticleHeader from "@/components/ArticleHeader";
 import AuthorBio from "@/components/AuthorBio";
 import ReadingProgress from "@/components/ReadingProgress";
 import ShareButtons from "@/components/ShareButtons";
-import { SubscribeForm } from "@/components/SubscribeForm";
+import { SubscribeButton } from "@/components/SubscribeButton";
 import TagChips from "@/components/TagChips";
 import { surfacedTagsOf } from "@/lib/tags";
 import { siteConfig } from "@/config/site";
@@ -121,7 +121,7 @@ export default async function PostPage({ params }: Props) {
         <p className="text-sm text-gray-600 mb-4">
           Subscribe to get new posts straight to your inbox.
         </p>
-        <SubscribeForm lang="en" />
+        <SubscribeButton lang="en" />
       </div>
 
       {/* End-of-article ad — engaged readers who reached the bottom */}
