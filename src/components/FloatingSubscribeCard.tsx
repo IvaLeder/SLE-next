@@ -1,4 +1,4 @@
-import { SubscribeButton } from "./SubscribeButton";
+import { SubscribeForm } from "./SubscribeForm";
 
 // Desktop-only floating subscribe card. On mobile we use the inline CTA at the
 // end of the article (see (en|hr)/[slug]/page.tsx).
@@ -19,7 +19,7 @@ export default function FloatingSubscribeCard({
           <span aria-hidden="true" className="text-xl">📨</span>
           <span className="font-semibold text-sm">{label}</span>
         </div>
-        <SubscribeButton lang={lang} />
+        <SubscribeForm lang={lang} />
       </div>
     </aside>
   );

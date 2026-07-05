@@ -80,6 +80,9 @@ export default function ContactForm({ lang }: Props) {
       if (res.ok) {
         setStatus("success");
         setFormData({ name: "", email: "", message: "", website: "" });
+        // Conversion signal for Google Tag Manager. The success message below
+        // also carries id="contact-success" as a DOM-based trigger fallback.
+        window.dataLayer?.push({ event: "contact_form_success", lang });
         return;
       }
 
@@ -160,7 +163,7 @@ export default function ContactForm({ lang }: Props) {
       <h1 className="text-3xl md:text-4xl font-bold mb-6">{t.title}</h1>
 
       {status === "success" && (
-        <div className="p-4 mb-4 text-green-800 bg-green-100 border border-green-200 rounded" role="status">
+        <div id="contact-success" className="p-4 mb-4 text-green-800 bg-green-100 border border-green-200 rounded" role="status">
           {t.success}
         </div>
       )}

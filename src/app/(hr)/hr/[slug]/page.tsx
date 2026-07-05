@@ -22,7 +22,7 @@ import ArticleHeader from "@/components/ArticleHeader";
 import AuthorBio from "@/components/AuthorBio";
 import ReadingProgress from "@/components/ReadingProgress";
 import ShareButtons from "@/components/ShareButtons";
-import { SubscribeButton } from "@/components/SubscribeButton";
+import { SubscribeForm } from "@/components/SubscribeForm";
 import TagChips from "@/components/TagChips";
 import { surfacedTagsOf } from "@/lib/tags";
 import { siteConfig } from "@/config/site";
@@ -119,7 +119,7 @@ export default async function PostPage({ params }: Props) {
         <p className="text-sm text-gray-600 mb-4">
           Pretplatite se i primajte nove objave ravno u inbox.
         </p>
-        <SubscribeButton lang="hr" />
+        <SubscribeForm lang="hr" />
       </div>
 
       {/* End-of-article ad — engaged readers who reached the bottom */}
