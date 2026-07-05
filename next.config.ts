@@ -89,6 +89,17 @@ const config: NextConfig = {
     '/hr/draft/[slug]': ['./src/content/posts/**/*', './src/lib/assets/manifest.json'],
   },
 
+  // localImageDimensions() (mdx/index.tsx) reads `public/<dynamic src>`, so
+  // the tracer conservatively globs ALL of public/images into every [slug]
+  // function — with the asset pipeline's generated variants that's >250 MB
+  // and Vercel rejects the function. Images are served from the CDN, never
+  // from function bundles, and image dimensions come from the traced
+  // manifest; the fs fallback simply misses at runtime for unknown files
+  // (caught → letterbox, same as before the pipeline).
+  outputFileTracingExcludes: {
+    '*': ['./public/images/**'],
+  },
+
   images: {
     // Serve images as-is, bypassing Vercel's optimizer. The Hobby plan's
     // monthly transformation quota was exhausted (the optimizer 402s —
