@@ -83,7 +83,7 @@ export const summerCopy: Record<Lang, {
     subtitle:
       "30+ screen-free science adventures for long, sunny days — sorted by age and ready for the backyard.",
     intro:
-      "School's out and the days are long. This free e-book rounds up our favourite hands-on STEM activities for summer — pick your child's age, grab a few things from the kitchen, and let the experimenting begin.",
+      "School's out and the days are long. This free e-book rounds up our favourite hands-on STEM activities for summer - pick your child's age, grab a few things from the kitchen, and let the experimenting begin.",
     download: "Download the free PDF",
     downloadNote: "Printable · no sign-up needed",
     sectionsHeading: "Pick an age and dive in",
@@ -95,19 +95,19 @@ export const summerCopy: Record<Lang, {
     rainyKicker: "when the weather turns",
     rainyTitle: "Rainy-day rescue",
     rainyBody:
-      "Grey skies? These ones happily move indoors — to the kitchen table or the living-room floor.",
+      "Grey skies? These ones happily move indoors, to the kitchen table or the living-room floor.",
     ctaTitle: "Want more sunny science?",
     ctaBody:
-      "This is just a taste — there are 50+ experiments on the site, with new ones every week.",
+      "This is just a taste - there are 50+ experiments on the site, with new ones every week.",
     ctaButton: "Explore all activities",
   },
   hr: {
     eyebrow: "Besplatna ljetna e-knjiga",
     title: "Ljeto znatiželje",
     subtitle:
-      "30+ znanstvenih avantura bez ekrana za duge, sunčane dane — posloženih po dobi i spremnih za dvorište.",
+      "30+ znanstvenih avantura bez ekrana za duge, sunčane dane - posloženih po dobi i spremnih za dvorište.",
     intro:
-      "Škola je gotova, a dani su dugi. Ova besplatna e-knjiga donosi naše omiljene STEM aktivnosti za ljeto — odaberite dob djeteta, uzmite nekoliko stvari iz kuhinje i neka eksperimentiranje počne!",
+      "Škola je gotova, a dani su dugi. Ova besplatna e-knjiga donosi naše omiljene STEM aktivnosti za ljeto - odaberite dob djeteta, uzmite nekoliko stvari iz kuhinje i neka eksperimentiranje počne!",
     download: "Preuzmite besplatni PDF",
     downloadNote: "Za ispis · bez registracije",
     sectionsHeading: "Odaberite dob i zaronite",
@@ -119,10 +119,10 @@ export const summerCopy: Record<Lang, {
     rainyKicker: "kad vrijeme zakaže",
     rainyTitle: "Spas za kišne dane",
     rainyBody:
-      "Tmurno nebo? Ove se aktivnosti lako sele unutra — na kuhinjski stol ili pod dnevnog boravka.",
+      "Tmurno nebo? Ove se aktivnosti lako sele unutra, na kuhinjski stol ili pod dnevnog boravka.",
     ctaTitle: "Želite još sunčane znanosti?",
     ctaBody:
-      "Ovo je tek djelić — na stranici vas čeka 50+ pokusa, a novi stižu svaki tjedan.",
+      "Ovo je tek djelić - na stranici vas čeka 50+ pokusa, a novi stižu svaki tjedan.",
     ctaButton: "Istražite sve aktivnosti",
   },
 };
