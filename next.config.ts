@@ -160,7 +160,8 @@ const config: NextConfig = {
       ['/en/category/stem-en/science', '/en/category/science'],
       ['/en/category/stem-en/stem-engineering', '/en/category/engineering'],
       ['/hr/category/stem-hr/inzenjerstvo', '/hr/category/engineering'],
-      ['/hr/category/stem-hr/inzenjerstvo', '/hr/category/engineering'],
+      ['/hr/category/stem-hr/znanost', '/hr/category/science'],
+      ['/hr/category/stem-hr/matematika', '/hr/category/math'],
       ['/hr/tag/kodiranje', '/hr/tag/coding'],
       ['/hr/tag/kemija', '/hr/tag/chemistry'],
       ['/hr/tag/fizika', '/hr/tag/physics'],
@@ -197,7 +198,10 @@ const config: NextConfig = {
       ['/en/category/stem-en/math', '/en/category/math'],
       ['/hr/category/stem-hr/math', '/hr/category/math'],
       ['/en/kako-izgraditi-impresivne-gradevine', '/en/create-amazing-structures'],
-      ['/hr/tag/aktivnost/', '/hr/tag/activities'],
+      // Sources must be written WITHOUT a trailing slash — Next normalises the
+      // request (308 strips the slash) BEFORE matching this list, so a source
+      // like '/hr/tag/aktivnost/' never matches anything.
+      ['/hr/tag/aktivnost', '/hr/tag/activity'],
       ['/en/dvorac-od-kartona', '/en/toilet-roll-craft-cardboard-castle'],
       ['/5-amazing-balloon-experiments', '/en/5-amazing-balloon-experiments'],
       ['/make-homemade-playdough-learn-science', '/en/make-homemade-playdough-learn-science'],
@@ -209,13 +213,48 @@ const config: NextConfig = {
       ['/learn-letters-and-numbers', '/en/learning-letters-for-preschoolers-activity'],
       ['/child-cognitive-development', '/en/your-childs-cognitive-development'],
       ['/how-to-make-homemade-rocket-vinegar-baking-soda', '/en/how-to-make-homemade-rocket-vinegar-baking-soda'],
-      ['/hr/tag/inzenjerstvo/', '/hr/category/engineering'],
+      ['/hr/tag/inzenjerstvo', '/hr/category/engineering'],
       ['/en/kako-napraviti-origami-kucicu', '/en/how-to-make-origami-house'],
       ['/candle-in-the-vacuum-experiment', '/en/candle-in-the-vacuum-experiment'],
       ['/hr/how-to-make-origami-pig', '/hr/kako-napraviti-origami-prascica'],
       ['/hr/how-to-make-fidget-spinner', '/hr/kako-napraviti-fidget-spinner'],
       ['/en/oksidacija-jabuke', '/en/apple-oxidation'],
-      ['/hr/make-and-solve-tower-of-hanoi', '/hr/kako-napraviti-rijesiti-hanoi-toranj']
+      ['/hr/make-and-solve-tower-of-hanoi', '/hr/kako-napraviti-rijesiti-hanoi-toranj'],
+      // ─── Legacy WordPress tag/category/author URLs still crawled by Google
+      // (surfaced as 404s in the July 2026 Search Console export). Each maps
+      // to the closest live equivalent in the new taxonomy (KNOWN_TAGS uses
+      // shared ASCII slugs, so old localised WP tags have no direct match).
+      ['/en/tag/engineering', '/en/category/engineering'],
+      ['/en/tag/cardboard-activities', '/en/tag/activity'],
+      ['/en/tag/baking-soda', '/en/tag/chemistry'],
+      ['/en/tag/stem-preschoolers', '/en/activities'],
+      ['/en/tag/stem-toddlers', '/en/activities'],
+      ['/en/tag/stem-activities-2nd-grade', '/en/activities'],
+      ['/en/tag/stem-activities-3rd-grade', '/en/activities'],
+      ['/en/tag/stem-activities-4th-grade', '/en/activities'],
+      ['/en/tag/stem-activities-6th-grade', '/en/activities'],
+      ['/en/tag/working-memory', '/en/improve-childs-working-memory'],
+      ['/en/category/child-development', '/en/category/psychology'],
+      ['/en/cookie-policy', '/en/privacy'],
+      ['/famous-people/grace-hopper', '/en'],
+      ['/hr/category/razvoj-djeteta', '/hr/category/psychology'],
+      ['/hr/category/psihologija', '/hr/category/psychology'],
+      ['/hr/category/uncategorized', '/hr/activities'],
+      ['/hr/author/admin', '/hr/about'],
+      ['/hr/tag/brojevi', '/hr/category/math'],
+      ['/hr/tag/vjezbe', '/hr/tag/activity'],
+      ['/hr/tag/faze-razvoja', '/hr/tag/milestone'],
+      ['/hr/tag/znanstvena-metoda', '/hr/tag/experiment'],
+      ['/hr/tag/stem-aktivnosti-todleri', '/hr/activities'],
+      ['/hr/tag/stem-aktivnosti-6-razred', '/hr/activities'],
+      ['/hr/tag/slova', '/hr/aktivnost-ucenja-slova-kod-predskolaca'],
+      ['/hr/tag/ucenje', '/hr/activities'],
+      ['/hr/tag/algoritmi', '/hr/tag/coding'],
+      ['/hr/tag/programiranje', '/hr/tag/coding'],
+      ['/hr/tag/raketa', '/hr/kako-napraviti-raketu-pomocu-octa-i-sode-bikarbone'],
+      ['/hr/tag/kognitivni-razvoj', '/hr/tag/child-development'],
+      ['/hr/tag/motoricke-vjestine', '/hr/tag/child-development'],
+      ['/hr/tag/tantrum', '/hr/izazovi-roditeljstva-temper-tantrum'],
     ];
 
     return moved.map(([source, destination]) => ({ source, destination, permanent: true }));
