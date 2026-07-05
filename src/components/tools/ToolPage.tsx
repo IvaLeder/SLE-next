@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { TOOLS_SLUG, type Tool, type Lang } from "@/lib/tools";
+import Printable from "@/components/mdx/Printable";
 import NameInBinary from "@/components/tools/NameInBinary";
 import CaesarCipher from "@/components/tools/CaesarCipher";
 import TowerOfHanoi from "@/components/tools/TowerOfHanoi";
@@ -52,6 +53,16 @@ export default function ToolPage({ lang, tool }: { lang: Lang; tool: Tool }) {
           Comp && <Comp lang={lang} />
         )}
       </div>
+
+      {tool.download && (
+        <Printable
+          lang={lang}
+          href={tool.download.href[lang]}
+          title={tool.download.title[lang]}
+          pages={tool.download.pages}
+          size={tool.download.size[lang]}
+        />
+      )}
 
       {tool.related && (
         <div className="mt-8 rounded-2xl bg-orange-50 p-5">

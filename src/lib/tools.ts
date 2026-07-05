@@ -29,6 +29,8 @@ export interface Tool {
   related?: { slug: Record<Lang, string>; label: L };
   /** Optional affiliate "you'll need" items shown on the tool page. */
   materials?: ToolMaterial[];
+  /** Optional printable PDF companion (path under /public), shown as a download card. */
+  download?: { href: Record<Lang, string>; title: L; pages: number; size: Record<Lang, string> };
 }
 
 export const tools: Tool[] = [
@@ -78,6 +80,15 @@ export const tools: Tool[] = [
         hr: "kako-napraviti-kotac-za-sifriranje",
       },
       label: { en: "Make a physical cipher wheel", hr: "Napravite fizički kotač za šifriranje" },
+    },
+    download: {
+      href: {
+        en: "/downloads/cipher-wheel-template.pdf",
+        hr: "/downloads/kotac-za-sifriranje-predlozak.pdf",
+      },
+      title: { en: "Cipher wheel template", hr: "Predložak kotača za šifriranje" },
+      pages: 2,
+      size: { en: "138 KB", hr: "148 KB" },
     },
   },
   {
