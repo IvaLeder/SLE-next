@@ -16,11 +16,18 @@ const lora = Lora({
   variable: "--font-lora",
 });
 
+// preload:false — Inter is UI chrome (nav, buttons, meta), never the LCP
+// element. Preloading its weights put several render-blocking font requests on
+// the critical path, competing with CSS and delaying the (text) LCP. With
+// display:swap the chrome still renders immediately in the adjusted fallback and
+// swaps to Inter once it loads off the critical path. Lora stays preloaded — it
+// paints the hero <h1>, the measured LCP element.
 const inter = Inter({
   subsets: ["latin", "latin-ext"],
   display: "swap",
   weight: ["400", "500", "600", "700"],
   variable: "--font-inter",
+  preload: false,
 });
 
 export const metadata: Metadata = {

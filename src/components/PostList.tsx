@@ -152,8 +152,12 @@ export default function PostList({
                     variant="card"
                   />
                 )}
-                {/* First 3 cards are above-the-fold on most viewports → priority load */}
-                <PostCard post={post} lang={lang} priority={i < 3} headingLevel="h2" />
+                {/* Only the first card eager-loads. Mobile LCP is the hero
+                    <h1> text (not an image), and the hero pushes cards 2–3
+                    below the fold, so marking three 100vw covers priority just
+                    stole bandwidth from the render path. One priority image is
+                    the standard recommendation; the rest lazy-load. */}
+                <PostCard post={post} lang={lang} priority={i === 0} headingLevel="h2" />
               </Fragment>
             ))}
           </div>

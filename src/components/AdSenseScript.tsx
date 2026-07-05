@@ -15,7 +15,14 @@ export default function AdSenseScript() {
   return (
     <Script
       id="adsbygoogle-lib"
-      strategy="afterInteractive"
+      // lazyOnload (not afterInteractive): the AdSense library is ~388 KiB of
+      // main-thread-heavy JS and was the single biggest "unused JavaScript"
+      // offender in PageSpeed, congesting the render path and delaying the
+      // (text) LCP. Loading it during browser idle after `load` keeps ads
+      // serving while taking them off the critical path — a Core Web Vitals win
+      // Google rewards. The first in-feed/in-article unit sits below the fold,
+      // so deferral doesn't hurt above-the-fold ad viewability.
+      strategy="lazyOnload"
       crossOrigin="anonymous"
       src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}`}
     />

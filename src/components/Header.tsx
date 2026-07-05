@@ -132,7 +132,6 @@ export default function Header({ lang, switchUrl }: HeaderProps) {
             alt=""
             width={36}
             height={36}
-            priority
             className="h-9 w-9 flex-shrink-0 object-contain"
           />
           <span>STEM Little Explorers</span>
