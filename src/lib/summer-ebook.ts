@@ -222,7 +222,7 @@ export const summerSections: Section[] = [
     key: "preschool",
     color: "#E68A00",
     icon: "🧪",
-    age: { en: "ages 3–5 · preschool", hr: "3–5 godina · vrtićka dob" },
+    age: { en: "ages 3–5 · preschool", hr: "3–7 godina · vrtićka dob" },
     title: {
       en: "Curious preschoolers - kitchen magic",
       hr: "Znatiželjni predškolci - kuhinjska čarolija",
@@ -310,7 +310,7 @@ export const summerSections: Section[] = [
     key: "lower",
     color: "#14A098",
     icon: "🏕️",
-    age: { en: "ages 6–8 · lower elementary", hr: "6–8 godina · niži razredi" },
+    age: { en: "ages 6–8 · lower elementary", hr: "7–11 godina · niži razredi" },
     title: {
       en: "Junior scientists - backyard experiments",
       hr: "Mladi znanstvenici - pokusi u dvorištu",
@@ -397,10 +397,10 @@ export const summerSections: Section[] = [
     key: "upper",
     color: "#1E88C7",
     icon: "💡",
-    age: { en: "ages 9–12 · upper elementary", hr: "9–12 godina · viši razredi" },
+    age: { en: "ages 9–12 · upper elementary", hr: "11–14 godina · viši razredi" },
     title: {
-      en: "Master explorers — big-kid STEM",
-      hr: "Veliki istraživači — pravi STEM izazovi",
+      en: "Master explorers - big-kid STEM",
+      hr: "Veliki istraživači - pravi STEM izazovi",
     },
     activities: [
       {

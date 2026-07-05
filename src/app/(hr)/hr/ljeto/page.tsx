@@ -4,9 +4,9 @@ import SummerLanding from "@/components/SummerLanding";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Ljeto znatiželje — besplatna ljetna STEM e-knjiga | STEM Little Explorers",
+  title: "Ljeto znatiželje - besplatna ljetna STEM e-knjiga | STEM Little Explorers",
   description:
-    "Besplatna e-knjiga s 30+ ljetnih znanstvenih aktivnosti za djecu bez ekrana — senzorna igra, pokusi u dvorištu i pravi STEM izazovi. Preuzmite PDF odmah, bez emaila i registracije.",
+    "Besplatna e-knjiga s 30+ ljetnih znanstvenih aktivnosti za djecu bez ekrana: senzorna igra, pokusi u dvorištu i pravi STEM izazovi. Preuzmite PDF odmah, bez emaila i registracije.",
   alternates: {
     canonical: "https://stemlittleexplorers.com/hr/ljeto",
     languages: {

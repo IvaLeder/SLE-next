@@ -4,9 +4,9 @@ import SummerLanding from "@/components/SummerLanding";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Summer of curiosity — free summer STEM e-book | STEM Little Explorers",
+  title: "Summer of curiosity - free summer STEM e-book | STEM Little Explorers",
   description:
-    "A free, age-sorted e-book of 30+ screen-free summer science activities for kids — sensory play, backyard experiments and big-kid STEM. Download the PDF instantly, no email or sign-up required.",
+    "A free, age-sorted e-book of 30+ screen-free summer science activities for kids: sensory play, backyard experiments and big-kid STEM. Download the PDF instantly, no email or sign-up required.",
   alternates: {
     canonical: "https://stemlittleexplorers.com/en/summer",
     languages: {
