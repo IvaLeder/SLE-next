@@ -134,8 +134,8 @@ export const summerSections: Section[] = [
     icon: "🧸",
     age: { en: "ages 1–3 · toddlers", hr: "1–3 godine · najmlađi" },
     title: {
-      en: "Little explorers — sensory & squishy",
-      hr: "Mali istraživači — osjetila i gnjeckanje",
+      en: "Little explorers - sensory & squishy",
+      hr: "Mali istraživači - senzorno i taktilno",
     },
     activities: [
       {
@@ -148,10 +148,10 @@ export const summerSections: Section[] = [
           hr: "/images/posts/Homemade-Sensory-Bottle-for-Child-Sensory-development-Cover-Picture.jpg",
         },
         icon: "✨",
-        name: { en: "Calm-down sensory bottle", hr: "Senzorna boca za smirivanje" },
+        name: { en: "Calm-down sensory bottle", hr: "Senzorna boca za regulaciju emocija" },
         blurb: {
-          en: "Glitter swirling slowly through water — mesmerizing for little hands, and a sneaky lesson in density.",
-          hr: "Šljokice koje polako plešu u vodi — hipnotično za male ruke i prikrivena lekcija o gustoći.",
+          en: "Glitter swirling slowly through water - mesmerizing for little hands, and a sneaky lesson in density.",
+          hr: "Šljokice koje polako plešu u vodi - vizualno očaravajuće, a i usputna lekcija o gustoći.",
         },
         materials: {
           en: "a clear plastic bottle, water, clear glue, glitter",
@@ -168,7 +168,7 @@ export const summerSections: Section[] = [
           hr: "/images/posts/Kako-napraviti-Rižu-u-Duginim-Bojama-Kucna-aktivnost-za-Djecu-Pocetna-slika.jpg",
         },
         icon: "🌈",
-        name: { en: "Rainbow rice sensory bin", hr: "Senzorna kada s duginom rižom" },
+        name: { en: "Rainbow rice sensory bin", hr: "Senzorna posuda s rižom u duginim bojama" },
         blurb: {
           en: "Dye rice in summer colors for scooping, pouring and burying treasures. Great for the porch.",
           hr: "Obojite rižu u ljetne boje za grabljenje, presipavanje i skrivanje blaga. Savršeno za terasu.",
@@ -189,8 +189,8 @@ export const summerSections: Section[] = [
         icon: "🎨",
         name: { en: "Squishy homemade playdough", hr: "Gnjecavi domaći plastelin" },
         blurb: {
-          en: "A no-cook batch you mix together — squish, roll and learn what makes it stretchy.",
-          hr: "Plastelin bez kuhanja koji zajedno izmiješate — gnječite, valjajte i otkrijte zašto je rastezljiv.",
+          en: "A no-cook batch you mix together: squish, roll and learn what makes it stretchy.",
+          hr: "Plastelin bez kuhanja koji zajedno izmiješate:gnječite, valjajte i otkrijte zašto je rastezljiv.",
         },
         materials: {
           en: "flour, salt, water, oil, cream of tartar, food colouring",
@@ -206,8 +206,8 @@ export const summerSections: Section[] = [
         icon: "🌊",
         name: { en: "Color-mixing splash play", hr: "Igra miješanja boja" },
         blurb: {
-          en: "Two colors in, a brand-new one out — messy, hands-on color discovery for the water table.",
-          hr: "Dvije boje unutra, nova boja van — vesela, praktična igra otkrivanja boja.",
+          en: "Two colors in, a brand-new one out: messy, hands-on color discovery for the water table.",
+          hr: "Dvije boje unutra, nova boja van: vesela, praktična igra otkrivanja boja.",
         },
         materials: {
           en: "water, food colouring, clear cups, a tray",
@@ -224,8 +224,8 @@ export const summerSections: Section[] = [
     icon: "🧪",
     age: { en: "ages 3–5 · preschool", hr: "3–5 godina · vrtićka dob" },
     title: {
-      en: "Curious preschoolers — kitchen magic",
-      hr: "Znatiželjni predškolci — kuhinjska čarolija",
+      en: "Curious preschoolers - kitchen magic",
+      hr: "Znatiželjni predškolci - kuhinjska čarolija",
     },
     activities: [
       {
@@ -238,7 +238,7 @@ export const summerSections: Section[] = [
         name: { en: "Magic colorful milk", hr: "Čarobno šareno mlijeko" },
         blurb: {
           en: "A drop of soap sends colors exploding across the plate. Pure wow, zero cleanup stress.",
-          hr: "Kap deterdženta pošalje boje u eksploziju po tanjuru. Čisti „wow“, bez stresa oko čišćenja.",
+          hr: "Kap deterdženta izaziva eksploziju boja po tanjuru. Čisti „wow“, bez stresa oko čišćenja.",
         },
         materials: {
           en: "a plate, milk, food colouring, dish soap, a cotton bud",
@@ -254,8 +254,8 @@ export const summerSections: Section[] = [
         icon: "🪔",
         name: { en: "Groovy lava lamp", hr: "Domaća lava lampa" },
         blurb: {
-          en: "Bubbling blobs rise and fall in a bottle — a calm, hypnotic show for a hot afternoon.",
-          hr: "Mjehurići se dižu i spuštaju u boci — smirujući, hipnotičan prizor za vruće poslijepodne.",
+          en: "Bubbling blobs rise and fall in a bottle - a calm, hypnotic show for a hot afternoon.",
+          hr: "Mjehurići se dižu i spuštaju u boci - smirujući, hipnotičan prizor za vruće poslijepodne.",
         },
         materials: {
           en: "a clear bottle, water, vegetable oil, food colouring, an effervescent tablet",
@@ -274,8 +274,8 @@ export const summerSections: Section[] = [
         icon: "🌋",
         name: { en: "Erupting volcano", hr: "Vulkan koji erumpira" },
         blurb: {
-          en: "The classic fizzing eruption — best done outside where the foam can go everywhere.",
-          hr: "Klasična pjenušava erupcija — najbolje vani, gdje se pjena smije razliti posvuda.",
+          en: "The classic fizzing eruption: best done outside where the foam can go everywhere.",
+          hr: "Klasična pjenušava erupcija: najbolje vani, gdje se pjena smije razliti posvuda.",
         },
         materials: {
           en: "baking soda, vinegar, dish soap, food colouring, a small bottle",
@@ -293,8 +293,8 @@ export const summerSections: Section[] = [
         icon: "🥚",
         name: { en: "Bouncy (glowing!) egg", hr: "Elastično jaje (koje svijetli!)" },
         blurb: {
-          en: "Soak an egg in vinegar for a few days and the shell vanishes — leaving a wobbly, bouncy egg.",
-          hr: "Potopite jaje u ocat na nekoliko dana i ljuska nestaje — ostaje mekano, skočno jaje.",
+          en: "Soak an egg in vinegar for a few days and the shell vanishes, leaving a wobbly, bouncy egg.",
+          hr: 'Potopite jaje u ocat na nekoliko dana i ljuska nestaje, ostaje mekano, "hopsavo" jaje.',
         },
         materials: {
           en: "a raw egg, a glass, white vinegar",
@@ -312,8 +312,8 @@ export const summerSections: Section[] = [
     icon: "🏕️",
     age: { en: "ages 6–8 · lower elementary", hr: "6–8 godina · niži razredi" },
     title: {
-      en: "Junior scientists — backyard experiments",
-      hr: "Mladi znanstvenici — pokusi u dvorištu",
+      en: "Junior scientists - backyard experiments",
+      hr: "Mladi znanstvenici - pokusi u dvorištu",
     },
     activities: [
       {
@@ -344,8 +344,8 @@ export const summerSections: Section[] = [
         icon: "🎯",
         name: { en: "Popsicle-stick catapult", hr: "Katapult od štapića" },
         blurb: {
-          en: "Build it, then launch pom-poms across the lawn — a backyard physics tournament.",
-          hr: "Sastavite ga pa lansirajte pompone preko travnjaka — turnir iz fizike u dvorištu.",
+          en: "Build it, then launch pom-poms across the lawn - a backyard physics tournament.",
+          hr: "Izradite ga pa lansirajte pompone preko travnjaka - turnir iz fizike u dvorištu.",
         },
         materials: {
           en: "craft sticks, rubber bands, a bottle cap, pom-poms",
@@ -360,8 +360,8 @@ export const summerSections: Section[] = [
         icon: "🐻",
         name: { en: "Grow gummy bears in water", hr: "Rastite gumene bombone u vodi" },
         blurb: {
-          en: "Leave gummy bears soaking and watch them balloon overnight — a tasty intro to osmosis.",
-          hr: "Ostavite gumene bombone da se namaču i preko noći će nabujati — slatki uvod u osmozu.",
+          en: "Leave gummy bears soaking and watch them balloon overnight - a tasty intro to osmosis.",
+          hr: "Ostavite gumene bombone da se namaču preko noći i gledajte kako bujaju - slatki uvod u osmozu.",
         },
         materials: {
           en: "gummy bears, water, glasses",
@@ -431,8 +431,8 @@ export const summerSections: Section[] = [
         icon: "🥔",
         name: { en: "Potato battery", hr: "Baterija od krumpira" },
         blurb: {
-          en: "Power a small light from a potato — real electricity from the veggie drawer.",
-          hr: "Upalite lampicu pomoću krumpira — prava struja iz ladice s povrćem.",
+          en: "Power a small light from a potato - real electricity from the veggie drawer.",
+          hr: "Upalite lampicu pomoću krumpira - prava struja iz ladice s povrćem.",
         },
         materials: {
           en: "a potato, copper wire, a galvanised nail, wires, an LED",
@@ -490,31 +490,31 @@ export const summerTips: Tip[] = [
     title: { en: "Beat “I'm bored” with a summer jar", hr: "Pobijedite dosadu ljetnom teglom" },
     body: {
       en: "Write each activity on a stick; when boredom strikes, they draw one. The choice is theirs, the calm is yours.",
-      hr: "Napišite svaku aktivnost na štapić; kad dosada navali, dijete izvuče jedan. Izbor je njihov, mir je vaš.",
+      hr: "Napišite svaku aktivnost na štapić; kad dosada navali, dijete izvuče jedan. Njihov izbor, a vaš trenutak odmora.",
     },
   },
   {
     icon: "🪣",
-    title: { en: "Embrace the mess — take it outside", hr: "Prihvatite nered — iznesite ga van" },
+    title: { en: "Embrace the mess - take it outside", hr: "Prihvatite nered - iznesite ga van" },
     body: {
       en: "Volcanoes, rockets and color splashes are a hose-down away from spotless when you run them in the yard.",
-      hr: "Vulkani, rakete i prskanje bojama uz crijevo za vodu brzo postanu čisti kad ih radite u dvorištu.",
+      hr: "Vulkani, rakete i prskanje bojama su super zabavni u dvorištu i u blizini vode.",
     },
   },
   {
     icon: "💬",
     title: { en: "Ask “what do you think will happen?”", hr: "Pitajte „što misliš da će se dogoditi?“" },
     body: {
-      en: "One question turns a demo into real science. Let them guess, test and be wrong — that's the whole point.",
-      hr: "Jedno pitanje pretvara pokus u pravu znanost. Neka nagađaju, testiraju i griješe — u tome je cijela poanta.",
+      en: "One question turns a demo into real science. Let them guess, test and be wrong - that's the whole point.",
+      hr: "Jedno pitanje pretvara pokus u pravu znanost. Neka nagađaju, testiraju i griješe - u tome je cijela poanta.",
     },
   },
   {
     icon: "📓",
     title: { en: "Keep a summer discovery journal", hr: "Vodite ljetni dnevnik otkrića" },
     body: {
-      en: "A cheap notebook for drawings and “results” fights the summer slide and makes a keepsake by August.",
-      hr: "Jeftina bilježnica za crteže i „rezultate“ čuva znanje tijekom ljeta i postaje uspomena do kolovoza.",
+      en: "A cheap notebook for drawings and “results” fights the summer slide and makes a keepsake by autumn.",
+      hr: "Jeftina bilježnica za crteže i „rezultate“ čuva znanje tijekom ljeta i postaje uspomena za jesenske dane.",
     },
   },
   {
@@ -522,7 +522,7 @@ export const summerTips: Tip[] = [
     title: { en: "Sun, water & safety first", hr: "Sunce, voda i sigurnost na prvom mjestu" },
     body: {
       en: "Shade, hats and grown-up supervision near water and anything that launches, fizzes or pops.",
-      hr: "Hlad, šeširi i nadzor odrasle osobe blizu vode i svega što lansira, pjeni ili prašti.",
+      hr: "Hlad, šeširi i nadzor odrasle osobe blizu vode i svega što lansira, pjeni ili eksplodira.",
     },
   },
 ];
