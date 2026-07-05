@@ -36,9 +36,6 @@ export default function EnglishHomePage() {
       <Header lang="en" />
       {/* Issues 16 & 26: hero with value proposition replaces the empty top area */}
       <Hero lang="en" />
-      <div className="px-4">
-        <SummerBanner lang="en" />
-      </div>
       <main id="main-content" className="max-w-6xl mx-auto px-4 py-10">
         <div className="mb-2">
           <h2 className="font-sans text-2xl md:text-3xl font-bold tracking-tight">
