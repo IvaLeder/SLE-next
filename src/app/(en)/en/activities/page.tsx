@@ -3,7 +3,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ActivitiesClient from "@/components/ActivitiesClient";
 import SpinActivityBand from "@/components/tools/SpinActivityBand";
-import { getPostsByTag } from "@/lib/posts";
+import { getPostsByTag, toPostMeta } from "@/lib/posts";
 import { getSpinActivities } from "@/lib/spin-activities";
 
 export const metadata: Metadata = {
@@ -20,7 +20,8 @@ export const metadata: Metadata = {
 };
 
 export default function ActivitiesPage() {
-  const posts = getPostsByTag("en", "activity");
+  // Strip article bodies before crossing into the client <ActivitiesClient>.
+  const posts = toPostMeta(getPostsByTag("en", "activity"));
 
   return (
     <>

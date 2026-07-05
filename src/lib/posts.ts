@@ -135,6 +135,19 @@ export function getAllPosts(lang: "en" | "hr"): Post[] {
 }
 
 /**
+ * Strip the heavy `content` (full markdown body) off posts before they cross
+ * into a CLIENT component. The card-grid clients (PostList, ActivitiesClient)
+ * only ever read PostMeta fields, but React serializes the *runtime* object —
+ * so passing Post[] shipped every article's entire body in the page's hydration
+ * payload. On the homepage that alone was ~1.1 MB of HTML (all ~90 posts), the
+ * dominant cause of its slow FCP/LCP. Server grids (category/tag/author render
+ * PostCard directly) don't need this — their props never leave the server.
+ */
+export function toPostMeta(posts: Post[]): PostMeta[] {
+  return posts.map(({ content: _content, ...meta }) => meta);
+}
+
+/**
  * Get single post by slug
  */
 export function getPostBySlug(lang: "en" | "hr", slug: string): Post | null {

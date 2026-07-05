@@ -1,4 +1,4 @@
-import { getAllPosts } from "@/lib/posts";
+import { getAllPosts, toPostMeta } from "@/lib/posts";
 import PostList from "@/components/PostList";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -24,7 +24,9 @@ export const metadata: Metadata = {
 };
 
 export default function CroatianHomePage() {
-  const posts = getAllPosts("hr");
+  // toPostMeta: strip article bodies before they cross into the client
+  // <PostList> — otherwise every post's full content ships in the page HTML.
+  const posts = toPostMeta(getAllPosts("hr"));
 
   return (
     <>
