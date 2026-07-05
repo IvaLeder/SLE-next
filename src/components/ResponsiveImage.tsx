@@ -1,4 +1,4 @@
-import type { ImageEntry } from "@/lib/assets/types";
+import type { ImageEntry, ImageVariant } from "@/lib/assets/types";
 import { ARTICLE_SIZES, baseVariants, placeholderStyle, toSrcSet } from "@/lib/assets/helpers";
 
 /**
@@ -25,6 +25,7 @@ export default function ResponsiveImage({
   className,
   fill = false,
   eager = false,
+  maxWidth,
 }: {
   image: ImageEntry;
   alt: string;
@@ -35,8 +36,23 @@ export default function ResponsiveImage({
   fill?: boolean;
   /** Above-the-fold/LCP images: eager load + high fetch priority. */
   eager?: boolean;
+  /**
+   * Cap the widest variant offered (px). Grid thumbnails are small and
+   * cropped, yet the full ladder tops out at the raw original (~85–130 KB);
+   * a high-DPR phone would happily pull it. Capping drops those oversized
+   * rungs — and the raw-original <img src> fallback — for card use.
+   */
+  maxWidth?: number;
 }) {
-  const base = baseVariants(image);
+  // Keep variants up to the cap; never return empty (fall back to smallest).
+  const cap = (ladder?: ImageVariant[]) => {
+    if (!ladder) return ladder;
+    if (!maxWidth) return ladder;
+    const kept = ladder.filter((v) => v.w <= maxWidth);
+    return kept.length ? kept : [ladder[0]];
+  };
+
+  const base = cap(baseVariants(image));
   const src = base ? base[base.length - 1].url : image.src;
 
   const style: React.CSSProperties | undefined = fill
@@ -66,7 +82,8 @@ export default function ResponsiveImage({
   );
 
   // Passthrough (gif) and svg entries have no avif/webp ladders — plain <img>.
-  const { avif, webp } = image.variants;
+  const avif = cap(image.variants.avif);
+  const webp = cap(image.variants.webp);
   if (!avif && !webp) return img;
 
   return (

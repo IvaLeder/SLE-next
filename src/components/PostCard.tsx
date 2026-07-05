@@ -52,6 +52,9 @@ export default function PostCard({
             fill
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             eager={priority}
+            // Grid thumbnail (~≤412px, cropped to h-48): 1200w covers DPR 3;
+            // no need to offer the 1600/1800/raw-original rungs here.
+            maxWidth={1200}
             className="object-cover transition-transform duration-300 motion-safe:[@media(hover:hover)]:group-hover:scale-105"
           />
         ) : (

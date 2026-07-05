@@ -18,7 +18,7 @@ const TEASER = {
     bonusTips: "Parent survival tips",
     getTitle: "Download your free copy ☀️",
     getBody:
-      "No email, no sign-up — just tap the button and the e-book is yours to keep, print and share.",
+      "No email, no sign-up, just tap the button and the e-book is yours to keep, print and share.",
     whatYouGet: "Your free 10-page PDF includes:",
     download: "Download the PDF",
     downloadMeta: "10-page PDF · free",
@@ -35,7 +35,7 @@ const TEASER = {
     bonusTips: "Savjeti za roditelje",
     getTitle: "Preuzmite svoj besplatni primjerak ☀️",
     getBody:
-      "Bez emaila, bez registracije — samo kliknite gumb i e-knjiga je vaša za čuvanje, ispis i dijeljenje.",
+      "Bez emaila, bez registracije, samo kliknite gumb i e-knjiga je vaša za čuvanje, ispis i dijeljenje.",
     whatYouGet: "Vaš besplatni PDF od 10 stranica uključuje:",
     download: "Preuzmite PDF",
     downloadMeta: "PDF od 10 stranica · besplatno",

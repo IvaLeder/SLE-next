@@ -127,8 +127,11 @@ export default function Header({ lang, switchUrl }: HeaderProps) {
           href={`/${lang}`}
           className="flex items-center gap-2 text-base md:text-xl font-bold"
         >
+          {/* 72×72 WebP (~4 KB) for a 36px slot — 2× for retina. The source
+              logo.png is 181×181/33 KB and, with images.unoptimized, shipped
+              full-size on every page above the fold. */}
           <Image
-            src="/images/logo.png"
+            src="/images/logo.webp"
             alt=""
             width={36}
             height={36}
