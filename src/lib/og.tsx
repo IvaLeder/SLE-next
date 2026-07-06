@@ -25,12 +25,12 @@ const SUMMER: Record<Lang, { kicker: string; title: string; tagline: string }> =
   en: {
     kicker: "Free summer e-book · STEM Little Explorers",
     title: "Summer of curiosity",
-    tagline: "30+ screen-free science activities for kids, sorted by age. Free PDF — no sign-up.",
+    tagline: "30+ screen-free science activities for kids, sorted by age. Free PDF - no sign-up.",
   },
   hr: {
     kicker: "Besplatna ljetna e-knjiga · STEM Little Explorers",
     title: "Ljeto znatiželje",
-    tagline: "30+ znanstvenih aktivnosti za djecu bez ekrana, po dobi. Besplatni PDF — bez registracije.",
+    tagline: "30+ znanstvenih aktivnosti za djecu bez ekrana, po dobi. Besplatni PDF - bez registracije.",
   },
 };
 
