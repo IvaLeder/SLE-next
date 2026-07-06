@@ -7,7 +7,7 @@ type Lang = "en" | "hr";
 const COPY = {
   en: {
     reads: "The clock reads",
-    dragHint: "Grab a hand and drag it — or use the buttons below.",
+    dragHint: "Grab a hand and drag it or use the buttons below.",
     practiceHint:
       "Move the hands, then say the time out loud. Tap “Show the time” to check!",
     hourHand: "hour hand (short)",
@@ -26,7 +26,7 @@ const COPY = {
   },
   hr: {
     reads: "Sat pokazuje",
-    dragHint: "Uhvatite kazaljku i povucite je — ili koristite gumbe ispod.",
+    dragHint: "Uhvatite kazaljku i povucite je ili koristite gumbe ispod.",
     practiceHint:
       "Pomaknite kazaljke, pa naglas izgovorite vrijeme. Pritisnite “Pokaži vrijeme” za provjeru!",
     hourHand: "satna kazaljka (kratka)",
