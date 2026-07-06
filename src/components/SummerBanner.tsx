@@ -29,6 +29,7 @@ export default function SummerBanner({ lang }: { lang: Lang }) {
   return (
     <Link
       href={href}
+      data-no-print
       className="group relative mx-auto mt-8 flex max-w-6xl items-center gap-4 overflow-hidden rounded-2xl px-5 py-4 text-white transition-transform hover:scale-[1.005] sm:px-6"
       style={{ background: "linear-gradient(135deg, #FB6F52 0%, #F25C7A 55%, #8E54B5 100%)" }}
     >

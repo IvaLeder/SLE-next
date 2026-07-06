@@ -27,6 +27,7 @@ import TagChips from "@/components/TagChips";
 import { surfacedTagsOf } from "@/lib/tags";
 import { siteConfig } from "@/config/site";
 import CoverImage from "@/components/CoverImage";
+import SummerBanner from "@/components/SummerBanner";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -80,6 +81,9 @@ export default async function PostPage({ params }: Props) {
       )}
 
       <ArticleHeader post={post} lang="en" />
+
+      {/* Seasonal promo for the free summer e-book — remove after summer */}
+      <SummerBanner lang="en" />
 
       <TOC lang="en" />
 
