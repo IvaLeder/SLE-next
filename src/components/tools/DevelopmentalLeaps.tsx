@@ -26,11 +26,11 @@ const COPY = {
     modeBirth: "Birth date",
     dateLabel: { due: "Baby's due date", birth: "Baby's birth date" },
     dueNote:
-      "Leaps follow gestational age, so they're counted from the due date — not the birthday.",
+      "Leaps follow gestational age, so they're counted from the due date, not the birthday.",
     birthNote:
       "Don't know the due date? Counting from birth works too, but if your baby came early or late, every leap shifts by the same amount.",
     intro:
-      "Around each leap your baby's brain takes a big developmental step and the world suddenly looks different. That's why fussy phases — more crying, clinginess and crankiness — often show up right before a new skill does.",
+      "Around each leap your baby's brain takes a big developmental step and the world suddenly looks different. That's why fussy phases (more crying, clinginess and crankiness) often show up right before a new skill does.",
     weeksOld: (w: number) =>
       `Your baby is about ${w} ${w === 1 ? "week" : "weeks"} old on this count.`,
     inLeap: (n: number) => `Leap ${n} is likely in full swing right now.`,
@@ -44,7 +44,7 @@ const COPY = {
     statusNext: "Next up",
     statusDone: "Done",
     disclaimer:
-      "Every baby is different — leap timing is a guide, not a schedule. If anything about your baby's development worries you, talk to your pediatrician.",
+      "Every baby is different - leap timing is a guide, not a schedule. If anything about your baby's development worries you, talk to your pediatrician.",
     leaps: [
       {
         name: "New sensations",
@@ -103,11 +103,11 @@ const COPY = {
     modeBirth: "Datum rođenja",
     dateLabel: { due: "Termin poroda", birth: "Datum rođenja bebe" },
     dueNote:
-      "Skokovi prate gestacijsku dob, pa se računaju od termina poroda — ne od rođendana.",
+      "Skokovi prate gestacijsku dob, pa se računaju od termina poroda, ne od rođendana.",
     birthNote:
       "Ne znate termin? Može i od datuma rođenja, ali ako je beba stigla ranije ili kasnije, svi se skokovi pomiču za jednako toliko.",
     intro:
-      "Oko svakog skoka bebin mozak napravi velik razvojni korak i svijet odjednom izgleda drukčije. Zato se plačljive faze — više plača, maženja i mrzovolje — često pojave neposredno prije nove vještine.",
+      "Oko svakog skoka bebin mozak doživljava velike razvojne promjene i svijet odjednom izgleda drukčije. Zato se iritabilne faze (više plača, mrzovolje i potrebe za maženjem) često pojave neposredno prije nove vještine.",
     weeksOld: (w: number) =>
       `Po ovom računu vaša beba ima otprilike ${w} ${w === 1 ? "tjedan" : w < 5 ? "tjedna" : "tjedana"}.`,
     inLeap: (n: number) => `${n}. skok je vjerojatno upravo u punom jeku.`,
@@ -121,7 +121,7 @@ const COPY = {
     statusNext: "Slijedi",
     statusDone: "Prošao",
     disclaimer:
-      "Svaka je beba drukčija — vrijeme skokova je orijentir, a ne raspored. Ako vas išta u razvoju vaše bebe brine, obratite se pedijatru.",
+      "Svaka je beba drukčija — vrijeme skokova je orijentir, a ne fiksni raspored. Ako vas išta u razvoju vaše bebe brine, obratite se pedijatru.",
     leaps: [
       {
         name: "Nove senzacije",
@@ -136,17 +136,17 @@ const COPY = {
       {
         name: "Glatki prijelazi",
         expect:
-          "Pokreti i glasanje postaju tečniji — glatko praćenje pogledom, cika, gukanje i sve spretnije posezanje.",
+          "Pokreti i glasanje postaju tečniji — jasno praćenje pogledom, cika, gukanje i sve spretnije hvatanje.",
       },
       {
         name: "Događaji",
         expect:
-          "Kratki slijedovi dobivaju smisao: beba trese, lupa, grabi i stavlja u usta sve što dohvati.",
+          "Počinje primjećivanje jednostavnih uzroka i posljedica: beba trese, lupa, grabi i stavlja u usta sve što dohvati.",
       },
       {
         name: "Udaljenost i odnosi",
         expect:
-          "Beba sada razumije udaljenost — pa i to da vi možete otići. Oko ovog skoka često počinje separacijski strah.",
+          "Beba sada razumije udaljenost — pa i to da vi možete otići. Oko ovog skoka često počinje separacijska anksioznost.",
       },
       {
         name: "Kategorije",
