@@ -185,6 +185,33 @@ export const tools: Tool[] = [
     },
   },
   {
+    key: "clock",
+    slug: { en: "learn-to-tell-time", hr: "uci-citati-sat" },
+    icon: "🕐",
+    title: {
+      en: "Learn to tell the time",
+      hr: "Uči čitati sat",
+    },
+    tagline: {
+      en: "Drag the hands of an interactive clock and watch it read the time back to you — a playful way to learn to tell time on an analog clock.",
+      hr: "Povlačite kazaljke interaktivnog sata i gledajte kako vam očitava vrijeme — zabavan način da naučite čitati analogni sat.",
+    },
+    description: {
+      en: "A free interactive analog clock for kids: drag the hour and minute hands to set any time and see it read out in words and digits, with a practice mode for telling time.",
+      hr: "Besplatni interaktivni analogni sat za djecu: povlačite satnu i minutnu kazaljku, postavite vrijeme i pročitajte ga riječima i brojkama, uz način vježbe za učenje čitanja sata.",
+    },
+    related: {
+      slug: {
+        en: "make-cardboard-clock-learn-tell-time",
+        hr: "kako-napraviti-sat-od-kartona-pomocu-njega-uciti-na-sat",
+      },
+      label: {
+        en: "Make your own cardboard clock",
+        hr: "Napravite vlastiti sat od kartona",
+      },
+    },
+  },
+  {
     key: "morse-code",
     slug: { en: "morse-code-translator", hr: "morseova-abeceda" },
     icon: "📡",

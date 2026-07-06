@@ -8,7 +8,9 @@ import SpinActivity from "@/components/tools/SpinActivity";
 import FractionVisualizer from "@/components/tools/FractionVisualizer";
 import FindBirthdayInPi from "@/components/tools/FindBirthdayInPi";
 import MorseCode from "@/components/tools/MorseCode";
+import ClockTool from "@/components/tools/ClockTool";
 import DevelopmentalLeaps from "@/components/tools/DevelopmentalLeaps";
+import ToolFrame from "@/components/tools/ToolFrame";
 import { getSpinActivities } from "@/lib/spin-activities";
 
 // Maps a tool's `key` to its interactive UI. Add new tools here. (The activity
@@ -20,6 +22,7 @@ const TOOL_UI: Record<string, React.ComponentType<{ lang: Lang }>> = {
   "fraction-visualizer": FractionVisualizer,
   "find-birthday-in-pi": FindBirthdayInPi,
   "morse-code": MorseCode,
+  "clock": ClockTool,
   "developmental-leaps": DevelopmentalLeaps,
 };
 
@@ -49,11 +52,13 @@ export default function ToolPage({ lang, tool }: { lang: Lang; tool: Tool }) {
       </div>
 
       <div className="mt-6">
-        {tool.key === "activity-spinner" ? (
-          <SpinActivity lang={lang} activities={getSpinActivities(lang)} />
-        ) : (
-          Comp && <Comp lang={lang} />
-        )}
+        <ToolFrame lang={lang} title={tool.title[lang]}>
+          {tool.key === "activity-spinner" ? (
+            <SpinActivity lang={lang} activities={getSpinActivities(lang)} />
+          ) : (
+            Comp && <Comp lang={lang} />
+          )}
+        </ToolFrame>
       </div>
 
       {tool.download && (

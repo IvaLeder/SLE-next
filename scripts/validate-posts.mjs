@@ -57,6 +57,7 @@ const KNOWN_MDX_COMPONENTS = new Set([
   "FractionVisualizer",
   "FindBirthdayInPi",
   "MorseCode",
+  "ClockTool",
   "ActivityInfo",
   "Steps",
   "Step",
