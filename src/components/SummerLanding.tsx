@@ -77,7 +77,6 @@ export default function SummerLanding({ lang }: { lang: Lang }) {
         <div className="relative mt-7 flex flex-wrap items-center gap-x-4 gap-y-2">
           <a
             href={pdf}
-            download
             id="summer"
             className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 font-sans text-sm font-semibold transition-transform hover:scale-[1.03]"
             style={{ color: "#B23A1B" }}
@@ -160,7 +159,6 @@ export default function SummerLanding({ lang }: { lang: Lang }) {
             <a
               id="summer"
               href={pdf}
-              download
               className="mt-4 inline-flex items-center gap-2 rounded-full px-6 py-3 font-sans text-sm font-semibold text-white transition-transform hover:scale-[1.03]"
               style={{ background: "#FB6F52" }}
             >
