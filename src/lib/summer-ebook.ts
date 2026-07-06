@@ -443,7 +443,7 @@ export const summerSections: Section[] = [
       },
       {
         slug: { en: "write-your-name-in-binary", hr: "napisi-svoje-ime-binarnim-kodom" },
-        cover: { en: null, hr: null },
+        cover: { en: "/images/posts/binary-bracelet-cover.jpg", hr: "/images/posts/binary-bracelet-cover.jpg" },
         icon: "💻",
         name: { en: "Write your name in binary", hr: "Napišite ime binarnim kodom" },
         blurb: {

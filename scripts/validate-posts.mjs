@@ -35,6 +35,7 @@ const KNOWN_TAGS = new Set([
   "milestone",
   "experiment",
   "coding",
+  "stem",
 ]);
 
 const KNOWN_AUTHORS = new Set(["Iva Leder", "Vedran Leder"]);

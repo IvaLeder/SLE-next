@@ -238,16 +238,51 @@ export function getAllTags(lang: "en" | "hr"): string[] {
 }
 
 /**
- * Get posts related to the current post by category
+ * Get posts related to the current post.
+ *
+ * Relevance is driven by shared TAGS, weighted by rarity: a shared "coding" or
+ * "origami" tag is a strong topical signal, while a shared "activity" tag (on
+ * ~2/3 of the catalogue) barely means anything. We weight each shared tag by
+ * inverse document frequency so rare tags dominate. A shared category adds a
+ * small bonus so same-subject posts win ties and still fill the slots when a
+ * post has few/weak tags. Posts sharing neither a tag nor a category are
+ * dropped. Ties break toward the newer post (freshness).
  */
 export function getRelatedPosts(current: Post, lang: "en" | "hr", limit = 3): Post[] {
-  const posts = getAllPosts(lang).filter(
-    (p) =>
-      p.slug !== current.slug && // exclude current post
-      p.categories.some((cat) => current.categories.includes(cat)) // shared category
-  );
+  const candidates = getAllPosts(lang).filter((p) => p.slug !== current.slug);
 
-  return posts.slice(0, limit);
+  // Document frequency per tag across candidates → rarity weight.
+  const tagDocFreq = new Map<string, number>();
+  for (const p of candidates) {
+    for (const t of p.tags ?? []) {
+      const key = t.trim().toLowerCase();
+      tagDocFreq.set(key, (tagDocFreq.get(key) ?? 0) + 1);
+    }
+  }
+
+  const currentTags = new Set((current.tags ?? []).map((t) => t.trim().toLowerCase()));
+  const currentCats = new Set(current.categories.map((c) => c.trim().toLowerCase()));
+
+  const scored = candidates.map((p) => {
+    let score = 0;
+    for (const t of p.tags ?? []) {
+      const key = t.trim().toLowerCase();
+      if (currentTags.has(key)) {
+        // Inverse document frequency: rarer shared tags weigh more.
+        score += 1 / Math.log2((tagDocFreq.get(key) ?? 1) + 1);
+      }
+    }
+    if (p.categories.some((c) => currentCats.has(c.trim().toLowerCase()))) {
+      score += 0.5; // light same-subject bonus / tie-breaker
+    }
+    return { post: p, score };
+  });
+
+  return scored
+    .filter((s) => s.score > 0)
+    .sort((a, b) => b.score - a.score || (a.post.date < b.post.date ? 1 : -1))
+    .slice(0, limit)
+    .map((s) => s.post);
 }
 
 /**
