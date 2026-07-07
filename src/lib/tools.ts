@@ -161,6 +161,39 @@ export const tools: Tool[] = [
     },
   },
   {
+    key: "pattern-maker",
+    slug: { en: "pattern-maker", hr: "slagalica-uzoraka" },
+    icon: "🧩",
+    title: {
+      en: "Pattern maker",
+      hr: "Slagalica uzoraka",
+    },
+    tagline: {
+      en: "Pick shapes, colors, letters or pictures, complete the repeating pattern, then print a worksheet to continue by hand.",
+      hr: "Odaberite oblike, boje, slova ili sličice, dovršite uzorak koji se ponavlja pa ispišite radni list za nastavak rukom.",
+    },
+    description: {
+      en: "A free pattern maker for kids: choose shapes, colors, letters, numbers or pictures, complete the repeating pattern, or build your own and print a practice worksheet.",
+      hr: "Besplatna slagalica uzoraka za djecu: odaberite oblike, boje, slova, brojeve ili sličice, dovršite uzorak koji se ponavlja ili složite vlastiti i ispišite radni list za vježbu.",
+    },
+    related: {
+      slug: {
+        en: "activities-for-matching-patterns",
+        hr: "zabavne-aktivnosti-s-nizovima",
+      },
+      label: { en: "The full pattern activity", hr: "Cijela aktivnost o uzorcima" },
+    },
+    download: {
+      href: {
+        en: "/downloads/pattern-starter-pack.pdf",
+        hr: "/downloads/predlozak-uzoraka.pdf",
+      },
+      title: { en: "Pattern starter pack", hr: "Predložak uzoraka" },
+      pages: 2,
+      size: { en: "243 KB", hr: "245 KB" },
+    },
+  },
+  {
     key: "find-birthday-in-pi",
     slug: { en: "find-your-birthday-in-pi", hr: "pronadi-rodendan-u-piju" },
     icon: "🎂",

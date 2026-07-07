@@ -10,6 +10,7 @@ import FindBirthdayInPi from "@/components/tools/FindBirthdayInPi";
 import MorseCode from "@/components/tools/MorseCode";
 import ClockTool from "@/components/tools/ClockTool";
 import DevelopmentalLeaps from "@/components/tools/DevelopmentalLeaps";
+import PatternMaker from "@/components/tools/PatternMaker";
 import ToolFrame from "@/components/tools/ToolFrame";
 import { getSpinActivities } from "@/lib/spin-activities";
 
@@ -24,6 +25,7 @@ const TOOL_UI: Record<string, React.ComponentType<{ lang: Lang }>> = {
   "morse-code": MorseCode,
   "clock": ClockTool,
   "developmental-leaps": DevelopmentalLeaps,
+  "pattern-maker": PatternMaker,
 };
 
 const COPY = {
