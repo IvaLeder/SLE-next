@@ -34,7 +34,6 @@ const COPY = {
     correct: "That's it! The pattern continues 🎉",
     wrong: "Not quite. Look at what repeats.",
     newPattern: "🔄 New pattern",
-    say: "🔊 Say it aloud",
     print: "🖨️ Print worksheet",
     clear: "✕ Clear",
     buildHint: "Tap tiles to build a repeating unit, then choose how many times it repeats.",
@@ -63,7 +62,6 @@ const COPY = {
     correct: "Tako je! Uzorak se nastavlja 🎉",
     wrong: "Nije baš. Pogledaj što se ponavlja.",
     newPattern: "🔄 Novi uzorak",
-    say: "🔊 Izgovori naglas",
     print: "🖨️ Ispiši radni list",
     clear: "✕ Očisti",
     buildHint: "Dodiruj pločice da složiš jedinicu koja se ponavlja, zatim odaberi koliko se puta ponavlja.",
@@ -193,15 +191,6 @@ function buildGame(variant: Variant, pack: Pack, rule: Rule, rnd = true): Game {
   if (pal[distinct] && opts.length < 4) opts.push(pal[distinct]); // one distractor
   const ordered = rnd ? shuffle(opts) : opts;
   return { seq, options: ordered.map((it) => ({ item: it, correct: it === answer })) };
-}
-
-function speak(items: Item[], lang: Lang) {
-  if (typeof window === "undefined" || !window.speechSynthesis) return;
-  window.speechSynthesis.cancel();
-  const u = new SpeechSynthesisUtterance(items.map((it) => it.name[lang]).join(", "));
-  u.lang = lang === "hr" ? "hr-HR" : "en-US";
-  u.rate = 0.8;
-  window.speechSynthesis.speak(u);
 }
 
 function Tile({ markup }: { markup: string }) {
@@ -471,13 +460,6 @@ export default function PatternMaker({ lang = "en" }: { lang?: Lang }) {
             {t.clear}
           </button>
         )}
-        <button
-          type="button"
-          onClick={() => speak(mode === "play" ? game.seq : core.map((i) => buildPal[i]), lang)}
-          className={ghost}
-        >
-          {t.say}
-        </button>
         <button type="button" onClick={printWorksheet} className={ghost}>
           {t.print}
         </button>
