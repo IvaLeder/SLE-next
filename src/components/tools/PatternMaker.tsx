@@ -183,7 +183,10 @@ function buildGame(variant: Variant, pack: Pack, rule: Rule, rnd = true): Game {
   const pal = rnd ? shuffle(pool) : [...pool];
   const core = RULES[rule];
   const distinct = Math.max(...core) + 1;
-  const len = Math.min(6, core.length * (core.length <= 2 ? 3 : 2));
+  // Show the repeating unit enough times to be readable, then one more for the
+  // blank. Short units (AB/ABC/ABB) reach that in 6 tiles; the 4-long AABB needs
+  // 8 so the child sees the pairs structure twice, not one-and-a-bit cycles.
+  const len = Math.min(8, core.length * (core.length <= 2 ? 3 : 2));
   const seq = Array.from({ length: len }, (_, k) => pal[core[k % core.length]]);
   const answer = seq[len - 1];
   const opts = pal.slice(0, distinct);
