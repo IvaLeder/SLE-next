@@ -12,7 +12,7 @@ export const siteConfig = {
 
   social: {
     facebook:  "https://www.facebook.com/stemlittleexplorers",
-    instagram: "#",
+    instagram: "https://www.instagram.com/stem.littleexplorers/",
     pinterest: "https://www.pinterest.com/STEM_Little_Explorers/",
     youtube:   "https://www.youtube.com/@STEMLittleExplorers",
   },
