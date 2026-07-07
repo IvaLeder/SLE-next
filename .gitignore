@@ -51,3 +51,6 @@ dev-quickstart.md
 # rebuilt by the prebuild hook; the encode cache lives in node_modules/.cache
 /public/images/_opt/
 /src/lib/assets/manifest.json
+
+# Social-media image exports (generated on demand, not part of the site)
+social-exports/

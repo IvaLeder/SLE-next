@@ -8,6 +8,7 @@
     "build": "next build --webpack",
     "assets": "node --disable-warning=ExperimentalWarning scripts/assets/cli.ts",
     "images": "npm run assets --",
+    "social": "node --disable-warning=ExperimentalWarning --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/social/cli.ts",
     "test:assets": "node --disable-warning=ExperimentalWarning --test scripts/assets/test/*.test.ts",
     "start": "next start",
     "lint": "eslint",
