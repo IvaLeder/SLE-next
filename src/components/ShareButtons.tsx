@@ -6,6 +6,8 @@ type Props = {
   url: string;
   title: string;
   image?: string;
+  /** Pinterest pre-fill: a keyword-rich description beats the bare title. */
+  description?: string;
   lang: "en" | "hr";
 };
 
@@ -46,7 +48,7 @@ function CheckIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-export default function ShareButtons({ url, title, image, lang }: Props) {
+export default function ShareButtons({ url, title, image, description, lang }: Props) {
   const [copied, setCopied] = useState(false);
 
   const t = {
@@ -57,7 +59,7 @@ export default function ShareButtons({ url, title, image, lang }: Props) {
   const enc = encodeURIComponent;
   const fbHref = `https://www.facebook.com/sharer/sharer.php?u=${enc(url)}`;
   const xHref  = `https://twitter.com/intent/tweet?url=${enc(url)}&text=${enc(title)}`;
-  const piHref = `https://pinterest.com/pin/create/button/?url=${enc(url)}&description=${enc(title)}${image ? `&media=${enc(image)}` : ""}`;
+  const piHref = `https://pinterest.com/pin/create/button/?url=${enc(url)}&description=${enc(description || title)}${image ? `&media=${enc(image)}` : ""}`;
 
   const copy = async () => {
     try {

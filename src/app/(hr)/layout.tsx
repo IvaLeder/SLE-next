@@ -30,8 +30,13 @@ const inter = Inter({
   preload: false,
 });
 
+// Pinterest domain claim — same p:domain_verify tag as the EN root layout, so
+// the meta renders on HR pages too (Pinterest only needs to see it once).
+const pinterestVerify = process.env.PINTEREST_DOMAIN_VERIFY;
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
+  ...(pinterestVerify ? { verification: { other: { "p:domain_verify": pinterestVerify } } } : {}),
   alternates: {
     types: {
       "application/rss+xml": [

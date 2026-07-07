@@ -10,7 +10,18 @@ import { getImage } from "@/lib/assets";
  *
  * Server component — shared by the EN/HR article pages and draft previews.
  */
-export default function CoverImage({ src, alt }: { src: string; alt: string }) {
+export default function CoverImage({
+  src,
+  alt,
+  pinDescription,
+  pinUrl,
+}: {
+  src: string;
+  alt: string;
+  /** Pinterest hover-save: description + canonical URL to attach to a pin. */
+  pinDescription?: string;
+  pinUrl?: string;
+}) {
   const cover = getImage(src);
 
   return (
@@ -26,6 +37,8 @@ export default function CoverImage({ src, alt }: { src: string; alt: string }) {
           // fetch 1920 px variants on a 4K screen.
           sizes="(min-width: 768px) 768px, 100vw"
           className="object-cover rounded-2xl ring-1 ring-black/5"
+          pinDescription={pinDescription}
+          pinUrl={pinUrl}
         />
       ) : (
         <Image
@@ -35,6 +48,8 @@ export default function CoverImage({ src, alt }: { src: string; alt: string }) {
           priority
           sizes="(min-width: 768px) 768px, 100vw"
           className="object-cover rounded-2xl ring-1 ring-black/5"
+          data-pin-description={pinDescription}
+          data-pin-url={pinUrl}
         />
       )}
     </div>

@@ -36,8 +36,14 @@ const inter = Inter({
   preload: false,
 });
 
+// Pinterest domain claim: set PINTEREST_DOMAIN_VERIFY to the code Pinterest
+// gives you (Settings -> Claim -> Claim website -> "Add HTML tag"). Renders
+// <meta name="p:domain_verify"> site-wide, which unlocks Rich Pins.
+const pinterestVerify = process.env.PINTEREST_DOMAIN_VERIFY;
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
+  ...(pinterestVerify ? { verification: { other: { "p:domain_verify": pinterestVerify } } } : {}),
   alternates: {
     types: {
       "application/rss+xml": [

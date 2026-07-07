@@ -26,6 +26,8 @@ export default function ResponsiveImage({
   fill = false,
   eager = false,
   maxWidth,
+  pinDescription,
+  pinUrl,
 }: {
   image: ImageEntry;
   alt: string;
@@ -43,6 +45,9 @@ export default function ResponsiveImage({
    * rungs — and the raw-original <img src> fallback — for card use.
    */
   maxWidth?: number;
+  /** Pinterest hover-save metadata, forwarded as data-pin-* on the <img>. */
+  pinDescription?: string;
+  pinUrl?: string;
 }) {
   // Keep variants up to the cap; never return empty (fall back to smallest).
   const cap = (ladder?: ImageVariant[]) => {
@@ -78,6 +83,8 @@ export default function ResponsiveImage({
       decoding="async"
       className={className}
       style={style}
+      data-pin-description={pinDescription}
+      data-pin-url={pinUrl}
     />
   );
 

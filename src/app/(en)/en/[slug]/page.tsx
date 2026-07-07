@@ -77,7 +77,12 @@ export default async function PostPage({ params }: Props) {
       <Breadcrumbs crumbs={crumbs} />
 
       {post.coverImage && (
-        <CoverImage src={post.coverImage} alt={post.heroAlt || post.title} />
+        <CoverImage
+          src={post.coverImage}
+          alt={post.heroAlt || post.title}
+          pinDescription={post.description || post.excerpt}
+          pinUrl={`${siteConfig.url}/en/${post.slug}`}
+        />
       )}
 
       <ArticleHeader post={post} lang="en" />
@@ -112,6 +117,7 @@ export default async function PostPage({ params }: Props) {
         url={`${siteConfig.url}/en/${post.slug}`}
         title={post.title}
         image={post.coverImage ? `${siteConfig.url}${post.coverImage}` : undefined}
+        description={post.description || post.excerpt}
         lang="en"
       />
 

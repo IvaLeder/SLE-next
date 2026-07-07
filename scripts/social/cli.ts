@@ -18,12 +18,35 @@ import { ImageResponse } from "next/dist/compiled/@vercel/og/index.node.js";
 import matter from "gray-matter";
 import fs from "node:fs";
 import path from "node:path";
-import { tools } from "../../src/lib/tools.ts";
+import { tools, TOOLS_SLUG } from "../../src/lib/tools.ts";
+import { siteConfig } from "../../src/config/site.ts";
 import { DIMS, FONTS, GRADIENTS, articleEl, brandedEl, imageDataUri, type BrandedContent } from "./templates.ts";
 
 const LANG = "en";
 const POSTS_DIR = `src/content/posts/${LANG}`;
 const OUT_ROOT = "social-exports";
+
+// Pinterest is a search engine: the pin's title + description do the ranking,
+// not the image alone. We emit them as a pin.txt next to the images, ready to
+// paste on upload.
+type PinCopy = { url: string; title: string; description: string };
+const clamp = (s: string, n: number) => (s.length <= n ? s : s.slice(0, n - 1).trimEnd() + "…");
+function pinFileBody(name: string, p: PinCopy): string {
+  return [
+    `Pinterest pin copy for: ${name}`,
+    `(paste these when you upload the image)`,
+    ``,
+    `URL:`,
+    p.url,
+    ``,
+    `Title (max 100 chars):`,
+    clamp(p.title, 100),
+    ``,
+    `Description (max 500 chars):`,
+    clamp(p.description, 500),
+    ``,
+  ].join("\n");
+}
 
 const SUMMER: BrandedContent = {
   kicker: "Free summer e-book · STEM Little Explorers",
@@ -32,7 +55,7 @@ const SUMMER: BrandedContent = {
   tagline: "30+ screen-free science activities for kids, sorted by age. Free PDF - no sign-up.",
 };
 
-type Job = { name: string; kind: "article" | "branded"; photo?: string; title?: string; content?: BrandedContent };
+type Job = { name: string; kind: "article" | "branded"; photo?: string; title?: string; content?: BrandedContent; pin: PinCopy };
 
 async function renderJob(job: Job) {
   const outDir = path.join(OUT_ROOT, LANG, job.name);
@@ -47,18 +70,24 @@ async function renderJob(job: Job) {
     const res = new ImageResponse(el, { width: W, height: H, fonts: FONTS, ...opts });
     fs.writeFileSync(path.join(outDir, `${fmt}.png`), Buffer.from(await res.arrayBuffer()));
   }
-  console.log(`  ✓ ${job.name}  (${Object.keys(DIMS).join(", ")})`);
+  fs.writeFileSync(path.join(outDir, "pin.txt"), pinFileBody(job.name, job.pin));
+  console.log(`  ✓ ${job.name}  (${Object.keys(DIMS).join(", ")} + pin.txt)`);
 }
 
 function articleJob(slug: string): Job {
   const file = path.join(POSTS_DIR, `${slug}.mdx`);
   if (!fs.existsSync(file)) throw new Error(`post not found: ${slug}`);
   const { data } = matter(fs.readFileSync(file, "utf8"));
-  if (data.socialOverlay === false) {
-    // Cover already carries its own text — pass it through without our title.
-    return { name: slug, kind: "article", photo: imageDataUri(data.coverImage), title: "" };
-  }
-  return { name: slug, kind: "article", photo: imageDataUri(data.coverImage), title: data.socialTitle ?? data.title };
+  const desc = (data.description ?? data.excerpt ?? "").toString().trim();
+  const pin: PinCopy = {
+    url: `${siteConfig.url}/${LANG}/${slug}`,
+    title: (data.socialTitle ?? data.title ?? "").toString(),
+    description: [desc, "Save this for a fun, hands-on STEM activity to do with your kids."].filter(Boolean).join(" "),
+  };
+  // socialOverlay:false = cover already carries its own text; pass it through
+  // without our overlaid title. Pin copy is still generated either way.
+  const title = data.socialOverlay === false ? "" : (data.socialTitle ?? data.title);
+  return { name: slug, kind: "article", photo: imageDataUri(data.coverImage), title, pin };
 }
 
 function toolJob(slug: string): Job {
@@ -68,6 +97,24 @@ function toolJob(slug: string): Job {
     name: `tool-${tool.slug.en}`,
     kind: "branded",
     content: { kicker: "Free interactive tool · STEM Little Explorers", emoji: tool.icon, title: tool.title.en, tagline: tool.tagline.en },
+    pin: {
+      url: `${siteConfig.url}/${LANG}/${TOOLS_SLUG.en}/${tool.slug.en}`,
+      title: tool.title.en,
+      description: tool.description.en,
+    },
+  };
+}
+
+function summerJob(): Job {
+  return {
+    name: "summer",
+    kind: "branded",
+    content: SUMMER,
+    pin: {
+      url: `${siteConfig.url}/${LANG}/summer`,
+      title: "Summer of curiosity: a free STEM activity e-book for kids",
+      description: `${SUMMER.tagline} Grab the free PDF and keep kids busy and learning all summer.`,
+    },
   };
 }
 
@@ -84,7 +131,7 @@ async function main() {
 
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
-    if (a === "--summer") jobs.push({ name: "summer", kind: "branded", content: SUMMER });
+    if (a === "--summer") jobs.push(summerJob());
     else if (a === "--tool") jobs.push(toolJob(argv[++i]));
     else if (a === "--tools") tools.forEach((t) => jobs.push(toolJob(t.slug.en)));
     else if (a === "--all") allArticleSlugs().forEach((s) => slugs.push(s));
