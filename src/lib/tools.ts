@@ -128,8 +128,8 @@ export const tools: Tool[] = [
       hr: "Ne možete se odlučiti? Zavrtite i vidite što će biti vaša sljedeća praktična STEM aktivnost.",
     },
     description: {
-      en: "Can't decide what to make? Spin the wheel for a random hands-on STEM activity for kids — experiments, crafts and more.",
-      hr: "Ne znate što biste? Zavrtite kotač za nasumičnu praktičnu STEM aktivnost za djecu — pokuse, radove i još mnogo toga.",
+      en: "Can't decide what to make? Spin the wheel for a random hands-on STEM activity for kids - experiments, crafts and more.",
+      hr: "Ne znate što biste? Zavrtite kotač za nasumičnu praktičnu STEM aktivnost za djecu - pokuse, radove i još mnogo toga.",
     },
     related: {
       slug: { en: "activities", hr: "activities" },
@@ -190,15 +190,15 @@ export const tools: Tool[] = [
     icon: "🕐",
     title: {
       en: "Learn to tell the time",
-      hr: "Uči čitati sat",
+      hr: "Nauči koristiti analogni sat",
     },
     tagline: {
       en: "Drag the hands of an interactive clock and watch it read the time back to you — a playful way to learn to tell time on an analog clock.",
-      hr: "Povlačite kazaljke interaktivnog sata i gledajte kako vam očitava vrijeme — zabavan način da naučite čitati analogni sat.",
+      hr: "Povucite kazaljke interaktivnog sata i reći će vam koje je vrijeme, jednostavan i zabavan način za učenje čitanja analognog sata.",
     },
     description: {
       en: "A free interactive analog clock for kids: drag the hour and minute hands to set any time and see it read out in words and digits, with a practice mode for telling time.",
-      hr: "Besplatni interaktivni analogni sat za djecu: povlačite satnu i minutnu kazaljku, postavite vrijeme i pročitajte ga riječima i brojkama, uz način vježbe za učenje čitanja sata.",
+      hr: "Besplatni interaktivni analogni sat za djecu: povlačite satnu i minutnu kazaljku, postavite vrijeme i pročitajte ga riječima i brojkama, uz dodatnu opciju za vježbu.",
     },
     related: {
       slug: {
