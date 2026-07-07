@@ -245,7 +245,7 @@ export const tools: Tool[] = [
       hr: "Besplatni kalkulator skokova u razvoju: upišite termin poroda i saznajte datume svih 10 skokova u prvih 20 mjeseci, koji je skok u tijeku i što očekivati.",
     },
     related: {
-      slug: { en: "tag/milestone", hr: "tag/milestone" },
+      slug: { en: "baby-development-month-by-month", hr: "razvoj-djeteta-po-mjesecima" },
       label: {
         en: "Month-by-month milestone guides",
         hr: "Vodiči kroz razvoj mjesec po mjesec",

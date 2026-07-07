@@ -120,6 +120,9 @@ const config: NextConfig = {
   // so sources are written without a trailing slash.
   async redirects() {
     const moved: Array<[string, string]> = [
+      // Milestone tag retired in favour of the curated month-by-month pillar.
+      ['/en/tag/milestone', '/en/baby-development-month-by-month'],
+      ['/hr/tag/milestone', '/hr/razvoj-djeteta-po-mjesecima'],
       // Homepage Wordpress
       ['/en/stem-little-explorers-stem-activities-kids', '/en'],
       // Posts (EN)

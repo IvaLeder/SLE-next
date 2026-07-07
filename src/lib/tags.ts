@@ -17,7 +17,6 @@ export const KNOWN_TAGS = [
   "sensory",
   "parenting",
   "child-development",
-  "milestone",
   "experiment",
   "coding",
 ] as const;
@@ -34,7 +33,6 @@ export const TAG_DISPLAY: Record<"en" | "hr", Record<TagSlug, string>> = {
     sensory:             "Sensory play",
     parenting:           "Parenting",
     "child-development": "Child development",
-    milestone:           "Milestones",
     experiment:          "Experiments",
     coding:              "Coding",
   },
@@ -46,7 +44,6 @@ export const TAG_DISPLAY: Record<"en" | "hr", Record<TagSlug, string>> = {
     sensory:             "Senzorne igre",
     parenting:           "Roditeljstvo",
     "child-development": "Razvoj djeteta",
-    milestone:           "Razvojne prekretnice",
     experiment:          "Eksperimenti",
     coding:              "Programiranje",
   },
@@ -69,8 +66,6 @@ export const TAG_DESCRIPTION: Record<"en" | "hr", Record<TagSlug, string>> = {
       "Practical, evidence-informed parenting topics: speech development, cognitive growth, behavioral challenges, encouraging curiosity. Written for everyday family life.",
     "child-development":
       "Articles tracking what to expect at each stage: physical, cognitive, social, emotional. Grounded in pediatric and psychological research and common parenting questions.",
-    milestone:
-      "Month-by-month developmental milestone guides for the first three years. What to look for, what's typical, when to ask the expert.",
     experiment:
       "Activities with a hypothesis: predict, test, observe, conclude. Builds scientific method skills alongside the topic-specific learning.",
     coding:
@@ -91,8 +86,6 @@ export const TAG_DESCRIPTION: Record<"en" | "hr", Record<TagSlug, string>> = {
       "Praktične, na istraživanjima utemeljene roditeljske teme: razvoj govora, kognitivni razvoj, izazovi u ponašanju, poticanje znatiželje.",
     "child-development":
       "Članci o tome što očekivati u svakoj fazi razvoja. Pratimo i opisujemo fizički, kognitivni, socijalni i emocionalni razvoj. Utemeljeno na pedijatrijskim i psihološkim istraživanjima i čestim pitanjima roditelja.",
-    milestone:
-      "Mjesečni vodiči za razvojne skokove prve tri godine. Razmatramo što je tipično, na što pripaziti i kada se obratiti stručnjacima.",
     experiment:
       "Testiranje hipoteza: predviđamo, testiramo, promatramo i zaključujemo. Ove aktivnosti pomažu u razvoju i primjeni znanstvenih metoda.",
     coding:
@@ -104,7 +97,7 @@ export const TAG_DESCRIPTION: Record<"en" | "hr", Record<TagSlug, string>> = {
  * Tags surfaced in the UI as discovery chips (article footers, footer "Topics").
  *
  * A curated *topical* subset — what a post is ABOUT. The structural/audience
- * tags (`activity`, `parenting`, `milestone`, `child-development`) still have
+ * tags (`activity`, `parenting`, `child-development`) still have
  * fully working tag pages and power features like `/activities`, but we don't
  * push them as chips: they overlap with categories + the Activities page and
  * would add noise. To surface a tag, add its slug here. Order = display order.

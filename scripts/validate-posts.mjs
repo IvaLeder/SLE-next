@@ -32,7 +32,6 @@ const KNOWN_TAGS = new Set([
   "sensory",
   "parenting",
   "child-development",
-  "milestone",
   "experiment",
   "coding",
   "stem",

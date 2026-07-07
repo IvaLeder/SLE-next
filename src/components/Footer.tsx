@@ -2,6 +2,7 @@ import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import { SURFACED_TAGS, TAG_DISPLAY } from "@/lib/tags";
 import { TOOLS_SLUG } from "@/lib/tools";
+import { MILESTONE_GUIDE_SLUG } from "@/lib/milestone-guide";
 import CookieSettingsButton from "./CookieSettingsButton";
 
 // Inline SVG icons — avoid pulling a whole icon library for four glyphs.
@@ -45,6 +46,7 @@ export default function Footer({ lang }: { lang: "en" | "hr" }) {
       explore:     "Explore",
       activities:  "All activities",
       tools:       "Tools & games",
+      guide:       "Baby milestones",
       subjects:    "Subjects",
       topics:      "Topics",
       allTopics:   "All topics",
@@ -69,6 +71,7 @@ export default function Footer({ lang }: { lang: "en" | "hr" }) {
       explore:     "Istraži",
       activities:  "Sve aktivnosti",
       tools:       "Alati i igre",
+      guide:       "Razvoj po mjesecima",
       subjects:    "Kategorije",
       topics:      "Teme",
       allTopics:   "Sve teme",
@@ -148,6 +151,14 @@ export default function Footer({ lang }: { lang: "en" | "hr" }) {
                 className="text-brand hover:text-brand-hover hover:underline font-medium"
               >
                 🧰 {t.tools}
+              </Link>
+            </li>
+            <li>
+              <Link
+                href={`/${lang}/${MILESTONE_GUIDE_SLUG[lang]}`}
+                className="text-brand hover:text-brand-hover hover:underline font-medium"
+              >
+                👶 {t.guide}
               </Link>
             </li>
           </ul>
