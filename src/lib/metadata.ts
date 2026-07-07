@@ -247,7 +247,9 @@ export function generateAuthorsJsonLd(lang: "en" | "hr") {
 export function generateOrganizationJsonLd() {
   // Filter out placeholder URLs (still set to "#" in site.ts) so we don't ship
   // dead sameAs links — Google would treat those as broken brand signals.
-  const sameAs = Object.values(siteConfig.social).filter((url) => url && url !== "#");
+  const sameAs = (Object.values(siteConfig.social) as string[]).filter(
+    (url) => url && url !== "#",
+  );
 
   return {
     "@context": "https://schema.org",
