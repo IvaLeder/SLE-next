@@ -187,7 +187,7 @@ export const tools: Tool[] = [
     },
     tagline: {
       en: "Pick shapes, colors, letters or pictures, complete the repeating pattern, then print a worksheet to continue by hand.",
-      hr: "Odaberite oblike, boje, slova ili sličice, dovršite uzorak koji se ponavlja pa ispišite radni list za nastavak rukom.",
+      hr: "Odaberite oblike, boje, slova ili sličice i dovršite uzorak koji se ponavlja. Ispišite radni list za zabavu bez ekrana.",
     },
     description: {
       en: "A free pattern maker for kids: choose shapes, colors, letters, numbers or pictures, complete the repeating pattern, or build your own and print a practice worksheet.",
