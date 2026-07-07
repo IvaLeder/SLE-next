@@ -58,6 +58,7 @@ const KNOWN_MDX_COMPONENTS = new Set([
   "FindBirthdayInPi",
   "MorseCode",
   "ClockTool",
+  "PatternMaker",
   "ActivityInfo",
   "Steps",
   "Step",
