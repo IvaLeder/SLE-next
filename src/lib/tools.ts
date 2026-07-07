@@ -161,12 +161,29 @@ export const tools: Tool[] = [
     },
   },
   {
+    key: "multiplication-visualizer",
+    slug: { en: "multiplication-visualizer", hr: "vizualizator-mnozenja" },
+    icon: "✖️",
+    title: {
+      en: "Multiplication visualizer",
+      hr: "Vizualizator množenja",
+    },
+    tagline: {
+      en: "See any multiplication as groups, a grid and jumps on a number line, then discover how few facts the times table really asks you to memorize.",
+      hr: "Vizualizirajte množenje kao grupe, mrežu i skokove na brojevnom pravcu, pa otkrijte koliko malo umnožaka tablica množenja zapravo traži napamet.",
+    },
+    description: {
+      en: "A free multiplication visualizer for kids: see any fact as groups, a grid and number-line jumps, explore the times table up to 12 and cross off the facts you can work out with tricks.",
+      hr: "Besplatni vizualizator množenja za djecu: prikažite umnožak kao grupe, mrežu i skokove na brojevnom pravcu, istražite tablicu množenja i prekrižite umnoške koje znate izračunati trikom.",
+    },
+  },
+  {
     key: "pattern-maker",
     slug: { en: "pattern-maker", hr: "slagalica-uzoraka" },
     icon: "🧩",
     title: {
       en: "Pattern maker",
-      hr: "Slagalica uzoraka",
+      hr: "Napravi niz",
     },
     tagline: {
       en: "Pick shapes, colors, letters or pictures, complete the repeating pattern, then print a worksheet to continue by hand.",
@@ -174,14 +191,14 @@ export const tools: Tool[] = [
     },
     description: {
       en: "A free pattern maker for kids: choose shapes, colors, letters, numbers or pictures, complete the repeating pattern, or build your own and print a practice worksheet.",
-      hr: "Besplatna slagalica uzoraka za djecu: odaberite oblike, boje, slova, brojeve ili sličice, dovršite uzorak koji se ponavlja ili složite vlastiti i ispišite radni list za vježbu.",
+      hr: "Besplatni kreator nizova za djecu: odaberite oblike, boje, slova, brojeve ili sličice, dovršite uzorak koji se ponavlja ili složite vlastiti i ispišite radni list za vježbu.",
     },
     related: {
       slug: {
         en: "activities-for-matching-patterns",
         hr: "zabavne-aktivnosti-s-nizovima",
       },
-      label: { en: "The full pattern activity", hr: "Cijela aktivnost o uzorcima" },
+      label: { en: "The full pattern activity", hr: "Cijela aktivnost o nizovima" },
     },
     download: {
       href: {
