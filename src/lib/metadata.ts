@@ -77,6 +77,12 @@ export function generatePostMetadata(post: Post | null, lang: "en" | "hr"): Meta
       description,
       url: fullUrl,
       type: "article",
+      // article:* tags complete the Article OG markup Pinterest Rich Pins and
+      // Facebook read. modifiedTime falls back to the publish date, mirroring
+      // the BlogPosting JSON-LD below; author renders as the pin/card byline.
+      publishedTime: post.date,
+      modifiedTime: post.dateModified ?? post.date,
+      authors: [post.author ?? siteConfig.author.name],
       // og:locale tells Facebook which language card to show; alternateLocale
       // signals the translation exists. Helps multilingual social previews.
       locale: OG_LOCALE[lang],
