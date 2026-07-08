@@ -324,6 +324,7 @@ function buildHtml(lang) {
     .act:last-child { border-bottom: none; }
     .act-photo { width: 44mm; height: 31mm; border-radius: 3mm; object-fit: cover; flex: none; }
     .act-photo.fallback { display: flex; align-items: center; justify-content: center; font-size: 24pt; }
+    .act-emoji { width: 13mm; height: 13mm; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 15pt; flex: none; margin-top: 1mm; }
     .act-text { flex: 1; }
     .act-name { font-size: 14.5pt; font-weight: 800; color: #2c2940; }
     .act-meta { display: flex; gap: 6mm; align-items: center; font-size: 10pt; color: #7a778c; margin: 1.5mm 0; }
