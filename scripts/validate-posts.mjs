@@ -59,6 +59,8 @@ const KNOWN_MDX_COMPONENTS = new Set([
   "MorseCode",
   "ClockTool",
   "PatternMaker",
+  "MultiplicationVisualizer",
+  "ColorMixer",
   "ActivityInfo",
   "Steps",
   "Step",

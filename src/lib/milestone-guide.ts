@@ -39,7 +39,7 @@ export const milestoneGuideCopy: Record<Lang, {
     title: "Razvoj djeteta po mjesecima: što očekivati (0–4 godine)",
     h1: "Razvoj djeteta, iz mjeseca u mjesec",
     intro:
-      "Potpuni vodič kroz razvoj vašeg djeteta, iz mjeseca u mjesec, od novorođenačkih dana do četvrte godine. Svaka faza vodi na cijeli članak o tome što možete očekivati, koje nove vještine dijete uči i kako ga podržati u razvoju. Svako dijete raste svojim tempom, pa neka vam ovo bude prijateljski putokaz, a ne popis obaveza.",
+      'Potpuni vodič kroz razvoj vašeg djeteta, iz mjeseca u mjesec, od novorođenačkih dana do četvrte godine. Svaka faza vodi na kompletan članak o tome što možete očekivati, koje nove vještine dijete uči i kako ga podržati u razvoju. Važno je napomenuti da svako dijete raste svojim tempom i postoji dosta širok raspon "normalnog za dob", pa neka vam ovo bude samo prijateljski putokaz.',
     description:
       "Što očekivati od bebe iz mjeseca u mjesec, od novorođenčeta do četvrte godine: nove vještine, razvojne prekretnice i savjeti za svaku fazu. Potpuni vodič za roditelje.",
     readMore: "Pročitaj cijeli članak",
@@ -68,7 +68,7 @@ export const milestoneStages: MilestoneStage[] = [
     ageRange: { en: "0–3 months", hr: "0–3 mjeseca" },
     blurb: {
       en: "Sleeping, feeding, and the very first connections with you.",
-      hr: "Spavanje, hranjenje i prve veze s vama.",
+      hr: "Spavanje, hranjenje i razvoj bliskosti.",
     },
     entries: [
       {
@@ -76,7 +76,7 @@ export const milestoneStages: MilestoneStage[] = [
         translationKey: "what-to-expect-from-newborn-in-first-month",
         whatsNew: {
           en: "Focusing on faces, newborn reflexes, and lots of sleep and feeding.",
-          hr: "Fokusira pogled na lica, prvi refleksi, puno spavanja i hranjenja.",
+          hr: "Fokusira pogled na lica, prvi refleksi, puno spavanja i jedenja.",
         },
       },
       {
