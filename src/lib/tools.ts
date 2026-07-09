@@ -161,23 +161,6 @@ export const tools: Tool[] = [
     },
   },
   {
-    key: "multiplication-visualizer",
-    slug: { en: "multiplication-visualizer", hr: "vizualizator-mnozenja" },
-    icon: "✖️",
-    title: {
-      en: "Multiplication visualizer",
-      hr: "Vizualizator množenja",
-    },
-    tagline: {
-      en: "See any multiplication as groups, a grid and jumps on a number line, then discover how few facts the times table really asks you to memorize.",
-      hr: "Vizualizirajte množenje kao grupe, mrežu i skokove na brojevnom pravcu, pa otkrijte koliko malo umnožaka tablica množenja zapravo traži napamet.",
-    },
-    description: {
-      en: "A free multiplication visualizer for kids: see any fact as groups, a grid and number-line jumps, explore the times table up to 12 and cross off the facts you can work out with tricks.",
-      hr: "Besplatni vizualizator množenja za djecu: prikažite umnožak kao grupe, mrežu i skokove na brojevnom pravcu, istražite tablicu množenja i prekrižite umnoške koje znate izračunati trikom.",
-    },
-  },
-  {
     key: "pattern-maker",
     slug: { en: "pattern-maker", hr: "slagalica-uzoraka" },
     icon: "🧩",

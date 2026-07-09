@@ -11,7 +11,6 @@ import MorseCode from "@/components/tools/MorseCode";
 import ClockTool from "@/components/tools/ClockTool";
 import DevelopmentalLeaps from "@/components/tools/DevelopmentalLeaps";
 import PatternMaker from "@/components/tools/PatternMaker";
-import MultiplicationVisualizer from "@/components/tools/MultiplicationVisualizer";
 import ColorMixer from "@/components/tools/ColorMixer";
 import ToolFrame from "@/components/tools/ToolFrame";
 import { getSpinActivities } from "@/lib/spin-activities";
@@ -28,7 +27,6 @@ const TOOL_UI: Record<string, React.ComponentType<{ lang: Lang }>> = {
   "clock": ClockTool,
   "developmental-leaps": DevelopmentalLeaps,
   "pattern-maker": PatternMaker,
-  "multiplication-visualizer": MultiplicationVisualizer,
   "color-mixer": ColorMixer,
 };
 
