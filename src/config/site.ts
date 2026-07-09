@@ -15,5 +15,6 @@ export const siteConfig = {
     instagram: "https://www.instagram.com/stem.littleexplorers/",
     pinterest: "https://www.pinterest.com/STEM_Little_Explorers/",
     youtube:   "https://www.youtube.com/@STEMLittleExplorers",
+    tiktok:    "https://www.tiktok.com/@stem.little.explorers",
   },
 } as const;

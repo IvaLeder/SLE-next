@@ -37,6 +37,14 @@ function YouTubeIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
+function TikTokIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+      <path d="M16.6 2h-3v13.1a2.2 2.2 0 1 1-1.9-2.2v-3a5.2 5.2 0 1 0 4.9 5.2V9.7a6.9 6.9 0 0 0 4 1.3v-3a3.9 3.9 0 0 1-4-3.9V2Z"/>
+    </svg>
+  );
+}
+
 const CATEGORY_KEYS = ["science", "engineering", "math", "technology", "psychology"] as const;
 
 export default function Footer({ lang }: { lang: "en" | "hr" }) {
@@ -99,6 +107,7 @@ export default function Footer({ lang }: { lang: "en" | "hr" }) {
     { name: "Instagram", href: siteConfig.social.instagram, Icon: InstagramIcon },
     { name: "Pinterest", href: siteConfig.social.pinterest, Icon: PinterestIcon },
     { name: "YouTube",   href: siteConfig.social.youtube,   Icon: YouTubeIcon },
+    { name: "TikTok",    href: siteConfig.social.tiktok,    Icon: TikTokIcon },
   ]
 
   return (
