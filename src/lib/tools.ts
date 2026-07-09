@@ -302,6 +302,43 @@ export const tools: Tool[] = [
       },
     },
   },
+  {
+    key: "color-mixer",
+    slug: { en: "color-mixer", hr: "mijesanje-boja" },
+    icon: "🎨",
+    title: {
+      en: "Color mixing lab",
+      hr: "Laboratorij za miješanje boja",
+    },
+    tagline: {
+      en: "Tap two paint pots and watch the new color appear, make it lighter or darker, then test yourself in the quiz.",
+      hr: "Dodirnite dva lončića boje i gledajte kako nastaje nova boja. Isprobajte kako posvijetliti i potamniti boju. A možete se okušati i u kvizu da testirate svoje znanje.",
+    },
+    description: {
+      en: "Free color mixing game for kids: mix primary paints into secondary and tertiary colors, explore tints and shades, switch to light (RGB) mode and take the quiz.",
+      hr: "Besplatna igra miješanja boja za djecu: miješajte primarne boje u sekundarne i tercijarne, istražite tonove, prebacite na svjetlost (RGB) i riješite kviz.",
+    },
+    related: {
+      slug: {
+        en: "learning-colors-how-to-teach-your-child-about-colors",
+        hr: "ucenje-boja-najzabavniji-nacin-kako-dijete-nauciti-o-bojama",
+      },
+      label: { en: "The full colors activity", hr: "Cijela aktivnost o bojama" },
+    },
+    materials: [
+      { name: { en: "Food coloring", hr: "Boje za hranu" }, q: { en: "food coloring", hr: "prehrambene boje" } },
+      { name: { en: "Small clear bottles", hr: "Male prozirne bočice" }, q: { en: "small clear bottles kids craft", hr: "male prozirne bočice" } },
+    ],
+    download: {
+      href: {
+        en: "/downloads/color-mixing-lab.pdf",
+        hr: "/downloads/laboratorij-boja.pdf",
+      },
+      title: { en: "Color mixing worksheet pack", hr: "Radni listovi za miješanje boja" },
+      pages: 2,
+      size: { en: "267 KB", hr: "269 KB" },
+    },
+  },
 ];
 
 export function toolBySlug(lang: Lang, slug: string): Tool | undefined {

@@ -30,6 +30,8 @@ import FindBirthdayInPi from "../tools/FindBirthdayInPi";
 import MorseCode from "../tools/MorseCode";
 import ClockTool from "../tools/ClockTool";
 import PatternMaker from "../tools/PatternMaker";
+import MultiplicationVisualizer from "../tools/MultiplicationVisualizer";
+import ColorMixer from "../tools/ColorMixer";
 import { SubscribeButton } from "../SubscribeButton";
 
 // Markdown ![alt](src) and <Image src=…/> in MDX both flow through here.
@@ -139,6 +141,8 @@ export function mdxComponents(lang: Lang = "en") {
     MorseCode: () => <MorseCode lang={lang} />,
     ClockTool: () => <ClockTool lang={lang} />,
     PatternMaker: () => <PatternMaker lang={lang} />,
+    MultiplicationVisualizer: () => <MultiplicationVisualizer lang={lang} />,
+    ColorMixer: () => <ColorMixer lang={lang} />,
     Subscribe: (props: React.ComponentProps<typeof SubscribeButton>) => (
       <SubscribeButton lang={lang} {...props} />
     ),
