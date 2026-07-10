@@ -55,3 +55,6 @@ BACKLOG.md
 
 # Social-media image exports (generated on demand, not part of the site)
 social-exports/
+
+# Newsletter drafts (Mailchimp HTML + working copies) — not part of the site
+/newsletter/
