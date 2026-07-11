@@ -14,8 +14,9 @@ const COPY = {
     foundTitle: (pos: string) => `🎉 Found at position ${pos}!`,
     foundBody: (d: string) => `Your number ${d} appears in the digits of π:`,
     notFound: (d: string, n: string) =>
-      `${d} isn't in the first ${n} digits of π — try just the day and month!`,
+      `${d} isn't in the first ${n} digits of π. Try just the day and month!`,
     empty: "Type a date with some numbers first.",
+    failed: "Couldn't load the digits of π. Check your connection and try again.",
   },
   hr: {
     label: "Vaš rođendan (ili bilo koji datum)",
@@ -26,8 +27,9 @@ const COPY = {
     foundTitle: (pos: string) => `🎉 Pronađeno na ${pos}. mjestu!`,
     foundBody: (d: string) => `Vaš broj ${d} pojavljuje se u znamenkama π-ja:`,
     notFound: (d: string, n: string) =>
-      `${d} se ne nalazi u prvih ${n} znamenki π-ja — pokušajte samo dan i mjesec!`,
+      `${d} se ne nalazi u prvih ${n} znamenki π-ja. Pokušajte samo dan i mjesec!`,
     empty: "Prvo upišite datum s nekoliko brojeva.",
+    failed: "Znamenke broja π nisu se uspjele učitati. Provjerite vezu i pokušajte ponovno.",
   },
 } as const;
 
@@ -39,6 +41,7 @@ export default function FindBirthdayInPi({ lang = "en" }: { lang?: Lang }) {
   const t = COPY[lang];
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const [failed, setFailed] = useState(false);
   const [result, setResult] = useState<Result | null>(null);
   const piRef = useRef<string | null>(null);
 
@@ -49,6 +52,7 @@ export default function FindBirthdayInPi({ lang = "en" }: { lang?: Lang }) {
   async function getPi() {
     if (piRef.current) return piRef.current;
     const res = await fetch("/pi.txt");
+    if (!res.ok) throw new Error(`pi.txt ${res.status}`);
     piRef.current = (await res.text()).trim();
     return piRef.current;
   }
@@ -61,20 +65,27 @@ export default function FindBirthdayInPi({ lang = "en" }: { lang?: Lang }) {
       return;
     }
     setLoading(true);
-    const pi = await getPi();
-    const i = pi.indexOf(digits);
-    if (i >= 0) {
-      setResult({
-        found: true,
-        digits,
-        pos: i + 1,
-        before: pi.slice(Math.max(0, i - 12), i),
-        after: pi.slice(i + digits.length, i + digits.length + 12),
-      });
-    } else {
-      setResult({ found: false, digits, total: pi.length });
+    setFailed(false);
+    try {
+      const pi = await getPi();
+      const i = pi.indexOf(digits);
+      if (i >= 0) {
+        setResult({
+          found: true,
+          digits,
+          pos: i + 1,
+          before: pi.slice(Math.max(0, i - 12), i),
+          after: pi.slice(i + digits.length, i + digits.length + 12),
+        });
+      } else {
+        setResult({ found: false, digits, total: pi.length });
+      }
+    } catch {
+      setResult(null);
+      setFailed(true);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   }
 
   return (
@@ -108,7 +119,12 @@ export default function FindBirthdayInPi({ lang = "en" }: { lang?: Lang }) {
         )}
       </form>
 
+      <div aria-live="polite">
       {loading && <p className="mt-4 text-sm text-gray-500">{t.loading}</p>}
+
+      {!loading && failed && (
+        <p className="mt-4 rounded-xl bg-amber-50 p-4 text-sm text-amber-800">{t.failed}</p>
+      )}
 
       {!loading && input.trim() && !digitsOf(input) && (
         <p className="mt-4 text-sm text-gray-500">{t.empty}</p>
@@ -131,6 +147,7 @@ export default function FindBirthdayInPi({ lang = "en" }: { lang?: Lang }) {
           {t.notFound(result.digits, nf(result.total))}
         </p>
       )}
+      </div>
     </div>
   );
 }

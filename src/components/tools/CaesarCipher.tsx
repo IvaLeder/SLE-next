@@ -27,7 +27,7 @@ const COPY = {
     copy: "Kopiraj",
     copied: "Kopirano!",
     hint: "Savjet: recite prijatelju ključ (pomak) kako bi mogao dešifrirati poruku.",
-    note: "Koristi punu hrvatsku abecedu od 30 slova — uključujući dž, lj i nj kao zasebna slova — bez q, w, x, y.",
+    note: "Koristi punu hrvatsku abecedu od 30 slova (uključujući dž, lj i nj kao zasebna slova), bez q, w, x, y.",
     placeholderEncode: "Nađimo se kod kućice na drvetu",
     placeholderDecode: "Qdđlpr vh nrg nxćlfh qd guyhwx",
   },
@@ -116,7 +116,14 @@ export default function CaesarCipher({ lang = "en" }: { lang?: Lang }) {
   const tab = (m: "encode" | "decode", label: string) => (
     <button
       type="button"
-      onClick={() => setMode(m)}
+      onClick={() => {
+        setMode(m);
+        // Swap the sample text with the mode (mirrors MorseCode) so decode mode
+        // starts from a decodable example, not the plain-text one.
+        if (text === t.placeholderEncode || text === t.placeholderDecode) {
+          setText(m === "encode" ? t.placeholderEncode : t.placeholderDecode);
+        }
+      }}
       aria-pressed={mode === m}
       className={`rounded-lg px-4 py-2 text-sm font-semibold transition-colors ${
         mode === m ? "bg-brand text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"

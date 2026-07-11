@@ -109,6 +109,9 @@ export default function ClockTool({ lang = "en" }: { lang?: Lang }) {
   const [pm, setPm] = useState(false); // morning / afternoon
   const [hidden, setHidden] = useState(false);
   const [revealed, setRevealed] = useState(false);
+  // Mirrors dragging.current as state, so render can mute the live region
+  // during a drag (announcing every tick is screen-reader spam).
+  const [dragActive, setDragActive] = useState(false);
 
   const svgRef = useRef<SVGSVGElement>(null);
   const dragging = useRef<"hour" | "minute" | null>(null);
@@ -145,10 +148,13 @@ export default function ClockTool({ lang = "en" }: { lang?: Lang }) {
     return a;
   }
 
+  // Dragging does NOT reveal a hidden time: in practice mode the child moves
+  // the hands, says the time out loud, and only "Show the time" checks it
+  // (same contract as the stepper buttons).
   function onPointerDown(hand: "hour" | "minute", e: React.PointerEvent) {
     dragging.current = hand;
+    setDragActive(true);
     svgRef.current?.setPointerCapture(e.pointerId);
-    setRevealed(true);
   }
 
   function onPointerMove(e: React.PointerEvent) {
@@ -172,6 +178,7 @@ export default function ClockTool({ lang = "en" }: { lang?: Lang }) {
 
   function onPointerUp(e: React.PointerEvent) {
     dragging.current = null;
+    setDragActive(false);
     svgRef.current?.releasePointerCapture(e.pointerId);
   }
 
@@ -182,7 +189,8 @@ export default function ClockTool({ lang = "en" }: { lang?: Lang }) {
   return (
     <div className="not-prose rounded-2xl border border-gray-100 bg-white p-5 font-sans shadow-sm">
       <div className="flex flex-col items-center gap-6 md:flex-row md:items-start md:gap-8">
-        {/* Clock face */}
+        {/* Clock face + hand legend (they explain each other, so they travel together) */}
+        <div className="flex shrink-0 flex-col items-center gap-3">
         <svg
           ref={svgRef}
           viewBox="0 0 240 240"
@@ -285,10 +293,23 @@ export default function ClockTool({ lang = "en" }: { lang?: Lang }) {
           <circle cx={CX} cy={CY} r="3" fill="#fff" />
         </svg>
 
+        {/* Legend */}
+        <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 text-xs text-gray-500">
+          <span className="flex items-center gap-1.5">
+            <span className="inline-block h-2 w-5 rounded-full" style={{ background: HOUR_COLOR }} />
+            {t.hourHand}
+          </span>
+          <span className="flex items-center gap-1.5">
+            <span className="inline-block h-2 w-6 rounded-full" style={{ background: MIN_COLOR }} />
+            {t.minuteHand}
+          </span>
+        </div>
+        </div>
+
         {/* Read-out + controls */}
         <div className="w-full">
           <p className="text-sm text-gray-500">{t.reads}</p>
-          <div aria-live="polite" className="min-h-[4.5rem]">
+          <div aria-live={dragActive ? "off" : "polite"} className="min-h-[4.5rem]">
             {showTime ? (
               <>
                 <p className="text-4xl font-bold tabular-nums text-gray-900">
@@ -309,14 +330,10 @@ export default function ClockTool({ lang = "en" }: { lang?: Lang }) {
             )}
           </div>
 
-          <p className="mt-1 text-xs text-gray-400">
-            {hidden ? t.practiceHint : t.dragHint}
-          </p>
-
           {/* Morning / afternoon — an analog face can't show it, so pick here.
               In Croatian this switches the digital read-out to 24-hour time. */}
-          <div className="mt-4">
-            <span className="text-xs text-gray-500">{t.period}</span>
+          <div className="mt-3">
+            <span className="block text-xs text-gray-500">{t.period}</span>
             <div className="mt-1 inline-flex rounded-full bg-gray-100 p-0.5 text-sm font-semibold">
               <button
                 type="button"
@@ -337,20 +354,12 @@ export default function ClockTool({ lang = "en" }: { lang?: Lang }) {
             </div>
           </div>
 
-          {/* Legend */}
-          <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-xs">
-            <span className="flex items-center gap-1.5">
-              <span className="inline-block h-2 w-5 rounded-full" style={{ background: HOUR_COLOR }} />
-              {t.hourHand}
-            </span>
-            <span className="flex items-center gap-1.5">
-              <span className="inline-block h-2 w-6 rounded-full" style={{ background: MIN_COLOR }} />
-              {t.minuteHand}
-            </span>
-          </div>
-
-          {/* Stepper buttons (keyboard-friendly) */}
-          <div className="mt-4 grid grid-cols-2 gap-2 sm:max-w-xs">
+          {/* Set the time: drag hint + stepper buttons (keyboard-friendly) */}
+          <div className="mt-5 border-t border-gray-100 pt-4">
+          <p className="mb-2 text-xs text-gray-400">
+            {hidden ? t.practiceHint : t.dragHint}
+          </p>
+          <div className="grid grid-cols-2 gap-2 sm:max-w-xs">
             <button type="button" onClick={() => step(-60)} className="rounded-lg bg-gray-100 px-3 py-2 text-sm font-semibold text-gray-700 hover:bg-gray-200">
               {t.hourMinus}
             </button>
@@ -364,8 +373,10 @@ export default function ClockTool({ lang = "en" }: { lang?: Lang }) {
               {t.minPlus}
             </button>
           </div>
+          </div>
 
-          <div className="mt-3 flex flex-wrap items-center gap-2">
+          {/* Practice: random time + hide-and-guess */}
+          <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-gray-100 pt-4">
             <button
               type="button"
               onClick={randomize}
