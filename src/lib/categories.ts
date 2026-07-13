@@ -103,3 +103,26 @@ const REVERSE_LOOKUP: Record<string, CategorySlug> = (() => {
 export function categorySlugFromName(name: string): CategorySlug | null {
   return REVERSE_LOOKUP[name.trim().toLowerCase()] ?? null;
 }
+
+/**
+ * Front-door navigation link for a subject (header, footer, subject switcher).
+ *
+ * Psychology is the Mind Explorers sub-brand: its discovery links point at the
+ * hub (`/en/minds`, localised `/hr/um`), not the raw category archive. Every
+ * other subject points at its `/[lang]/category/[slug]` archive.
+ *
+ * This is ONLY for front-door navigation. Functional/taxonomy links — article
+ * breadcrumbs, category chips on cards, archive filters — intentionally keep
+ * using `/[lang]/category/[slug]` so the taxonomy stays consistent and the
+ * indexed archive keeps its internal-link equity. The hub links back to the
+ * full archive; the archive links up to the hub.
+ */
+const MINDS_HUB: Record<"en" | "hr", string> = {
+  en: "/en/minds",
+  hr: "/hr/um",
+};
+
+export function subjectHref(lang: "en" | "hr", slug: string): string {
+  if (slug === "psychology") return MINDS_HUB[lang];
+  return `/${lang}/category/${slug}`;
+}

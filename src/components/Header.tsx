@@ -6,28 +6,25 @@ import { useState, useRef, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Search from "./Search";
 import { TOOLS_SLUG } from "@/lib/tools";
+import { CATEGORY_DISPLAY, subjectHref, type CategorySlug } from "@/lib/categories";
 
 type HeaderProps = {
   lang: "en" | "hr";
   switchUrl?: string;
 };
 
-const SUBJECTS = {
-  en: [
-    { href: "/en/category/science", label: "Science" },
-    { href: "/en/category/engineering", label: "Engineering" },
-    { href: "/en/category/math", label: "Math" },
-    { href: "/en/category/technology", label: "Technology" },
-    { href: "/en/category/psychology", label: "Psychology" },
-  ],
-  hr: [
-    { href: "/hr/category/science", label: "Znanost" },
-    { href: "/hr/category/engineering", label: "Inženjerstvo" },
-    { href: "/hr/category/math", label: "Matematika" },
-    { href: "/hr/category/technology", label: "Tehnologija" },
-    { href: "/hr/category/psychology", label: "Psihologija" },
-  ],
-};
+// Subjects in nav order. Labels come from CATEGORY_DISPLAY and hrefs from
+// subjectHref (single source of truth), so the "psychology → Mind Explorers
+// hub" rule lives in one place. `hub` flags the plum accent — the only
+// non-indigo touch in the STEM header, a small teaser of the hub's
+// "temperature drop".
+const SUBJECTS: { slug: CategorySlug; hub?: boolean }[] = [
+  { slug: "science" },
+  { slug: "engineering" },
+  { slug: "math" },
+  { slug: "technology" },
+  { slug: "psychology", hub: true },
+];
 
 export default function Header({ lang, switchUrl }: HeaderProps) {
   const [open, setOpen] = useState(false);
@@ -40,7 +37,7 @@ export default function Header({ lang, switchUrl }: HeaderProps) {
   const fallbackSwitchUrl = "/" + switchLang + pathname.replace(`/${lang}`, "");
   const finalSwitchUrl = switchUrl || fallbackSwitchUrl;
 
-  const subjects = SUBJECTS[lang];
+  const subjects = SUBJECTS;
 
   // aria-current value for a nav Link. `/{lang}` (home) only matches exactly;
   // everything else matches as a prefix so /en/category/science highlights the
@@ -191,18 +188,27 @@ export default function Header({ lang, switchUrl }: HeaderProps) {
                 onKeyDown={onSubjectsMenuKeyDown}
                 className="absolute left-0 top-full mt-2 w-44 bg-white border rounded-lg shadow-lg py-1 z-50"
               >
-                {subjects.map((s, i) => (
+                {subjects.map((s, i) => {
+                  const href = subjectHref(lang, s.slug);
+                  return (
                   <Link
-                    key={s.href}
-                    href={s.href}
+                    key={s.slug}
+                    href={href}
                     ref={(el) => { subjectItemsRef.current[i] = el; }}
-                    aria-current={ariaCurrent(s.href)}
+                    aria-current={ariaCurrent(href)}
                     className="block px-4 py-2 text-sm hover:bg-brand-soft hover:text-brand-hover focus-visible:bg-brand-soft focus-visible:text-brand-hover aria-[current=page]:bg-brand-tint aria-[current=page]:text-brand-hover aria-[current=page]:font-semibold"
                     onClick={() => setSubjectsOpen(false)}
                   >
-                    {s.label}
+                    {CATEGORY_DISPLAY[lang][s.slug]}
+                    {s.hub && (
+                      <span className="mt-0.5 flex items-center gap-1 text-xs text-[#4C3A72]">
+                        <span aria-hidden="true">✦</span>
+                        Mind Explorers
+                      </span>
+                    )}
                   </Link>
-                ))}
+                  );
+                })}
               </div>
             )}
           </div>
@@ -286,12 +292,15 @@ export default function Header({ lang, switchUrl }: HeaderProps) {
             </p>
             {subjects.map((s) => (
               <Link
-                key={s.href}
-                href={s.href}
+                key={s.slug}
+                href={subjectHref(lang, s.slug)}
                 className="block px-6 py-2 text-sm hover:bg-gray-50"
                 onClick={() => setOpen(false)}
               >
-                {s.label}
+                {CATEGORY_DISPLAY[lang][s.slug]}
+                {s.hub && (
+                  <span className="ml-2 text-xs text-[#4C3A72]">✦ Mind Explorers</span>
+                )}
               </Link>
             ))}
           </div>

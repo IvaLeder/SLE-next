@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { CATEGORY_SLUGS, CATEGORY_DISPLAY, CATEGORY_ICONS } from "@/lib/categories";
+import { CATEGORY_SLUGS, CATEGORY_DISPLAY, CATEGORY_ICONS, subjectHref } from "@/lib/categories";
 
 /**
  * Subject switcher shown at the top of every category landing page.
@@ -33,7 +33,7 @@ export default function CategoryNav({
         return (
           <Link
             key={slug}
-            href={`/${lang}/category/${slug}`}
+            href={subjectHref(lang, slug)}
             aria-current={isActive ? "page" : undefined}
             className={`${base} ${isActive ? active : inactive}`}
           >

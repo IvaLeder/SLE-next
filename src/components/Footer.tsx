@@ -4,6 +4,7 @@ import { SURFACED_TAGS, TAG_DISPLAY } from "@/lib/tags";
 import { TOOLS_SLUG } from "@/lib/tools";
 import { MILESTONE_GUIDE_SLUG } from "@/lib/milestone-guide";
 import { MINDS_SLUG } from "@/lib/minds";
+import { subjectHref } from "@/lib/categories";
 import { CompassMark } from "@/components/minds/motifs";
 import CookieSettingsButton from "./CookieSettingsButton";
 
@@ -186,7 +187,7 @@ export default function Footer({ lang, minds = false }: { lang: "en" | "hr"; min
             {CATEGORY_KEYS.map((key) => (
               <li key={key}>
                 <Link
-                  href={`/${lang}/category/${key}`}
+                  href={subjectHref(lang, key)}
                   className="text-gray-700 hover:text-brand hover:underline"
                 >
                   {t[key]}
