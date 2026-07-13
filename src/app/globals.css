@@ -156,6 +156,25 @@ body {
   border-color: var(--me-border);
 }
 
+/* Callout boxes ship STEM semantic colours (blue/green/amber…); on cream those
+   read off-brand. Retint to the palette in two families — plum for the
+   informative types, a warm gold/rose wash for caution — while the emoji in
+   each title still carries the precise meaning. The `[data-theme][data-callout]`
+   pair is (0,2,0), so it beats the component's Tailwind colour utilities (0,1,0)
+   without !important. Titles are already Fraunces-plum via the heading rule. */
+[data-theme="minds"] [data-callout] {
+  background-color: var(--color-brand-soft); /* soft plum */
+  border-color: var(--me-plum);
+  color: var(--me-cocoa);
+}
+[data-theme="minds"] [data-callout="warning"],
+[data-theme="minds"] [data-callout="safety"] {
+  background-color: #FBF1E4; /* warm cream/gold wash — keeps the "caution" read */
+  color: var(--me-cocoa);
+}
+[data-theme="minds"] [data-callout="warning"] { border-color: var(--me-gold-deep); }
+[data-theme="minds"] [data-callout="safety"]  { border-color: #A8574E; /* deep rose = strongest caution */ }
+
 /* ─── Print styles ─────────────────────────────────────────────────────────
    Parents print activity instructions. Hide all the page chrome that wastes
    ink (header, footer, share buttons, subscribe CTA, TOC, breadcrumbs, etc.)

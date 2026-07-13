@@ -47,7 +47,10 @@ export function Callout({
   children,
 }: CalloutProps) {
   return (
-    <div className={`border-l-4 p-4 my-6 rounded ${STYLES[type]}`}>
+    // `data-callout` lets the Mind Explorers theme scope retint the box to the
+    // plum/gold palette (see globals.css); off-theme it's inert and the STEM
+    // semantic colours below apply as normal.
+    <div data-callout={type} className={`border-l-4 p-4 my-6 rounded ${STYLES[type]}`}>
       <div className="flex items-center gap-2 mb-2 font-semibold">
         <h4 className="text-sm font-bold leading-none">
           {title ?? TITLES[lang][type]}
