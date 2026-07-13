@@ -206,8 +206,8 @@ export const tools: Tool[] = [
       hr: "Upišite svoj rođendan i otkrijte gdje se točno te znamenke pojavljuju u beskonačnom broju π.",
     },
     description: {
-      en: "A free tool that searches a million digits of Pi for your birthday — or any number — and shows exactly where it hides in π. A fun way to explore an irrational number.",
-      hr: "Besplatni alat koji pretražuje milijun znamenki broja Pi i traži vaš rođendan — ili bilo koji broj — te pokazuje gdje se točno krije u π. Zabavan način istraživanja iracionalnog broja.",
+      en: "A free tool that searches a million digits of Pi for your birthday (or any number) and shows exactly where it hides in π. A fun way to explore an irrational number.",
+      hr: "Besplatni alat koji pretražuje milijun znamenki broja Pi i traži vaš rođendan (ili bilo koji broj) te pokazuje gdje se točno krije u π. Zabavan način istraživanja iracionalnog broja.",
     },
     related: {
       slug: {
@@ -226,7 +226,7 @@ export const tools: Tool[] = [
       hr: "Nauči koristiti analogni sat",
     },
     tagline: {
-      en: "Drag the hands of an interactive clock and watch it read the time back to you — a playful way to learn to tell time on an analog clock.",
+      en: "Drag the hands of an interactive clock and watch it read the time back to you. A playful way to learn to tell time on an analog clock.",
       hr: "Povucite kazaljke interaktivnog sata i reći će vam koje je vrijeme, jednostavan i zabavan način za učenje čitanja analognog sata.",
     },
     description: {
@@ -278,10 +278,10 @@ export const tools: Tool[] = [
       hr: "Besplatni kalkulator skokova u razvoju: upišite termin poroda i saznajte datume svih 10 skokova u prvih 20 mjeseci, koji je skok u tijeku i što očekivati.",
     },
     related: {
-      slug: { en: "baby-development-month-by-month", hr: "razvoj-djeteta-po-mjesecima" },
+      slug: { en: "developmental-leaps", hr: "skokovi-u-razvoju" },
       label: {
-        en: "Month-by-month milestone guides",
-        hr: "Vodiči kroz razvoj mjesec po mjesec",
+        en: "All 10 developmental leaps and what to expect",
+        hr: "Svih 10 skokova u razvoju i što očekivati",
       },
     },
   },

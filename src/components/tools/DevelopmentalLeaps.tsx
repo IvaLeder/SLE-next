@@ -37,7 +37,7 @@ const COPY = {
     beforeFirst: (date: string) => `Leap 1 is expected around ${date}.`,
     nextLeap: (n: number, date: string, days: number) =>
       `Next up: leap ${n}, expected around ${date} (in about ${days} ${days === 1 ? "day" : "days"}).`,
-    allDone: "All 10 leaps are behind you — smoother sailing ahead! 🎉",
+    allDone: "All 10 leaps are behind you. Smoother sailing ahead! 🎉",
     leapLabel: (n: number) => `Leap ${n}`,
     weeks: (a: number, b: number) => `Weeks ${a}–${b}`,
     statusNow: "Happening now",
@@ -59,7 +59,7 @@ const COPY = {
       {
         name: "Smooth transitions",
         expect:
-          "Movements and sounds get smoother — fluid eye tracking, squealing, gurgling and much more purposeful reaching.",
+          "Movements and sounds get smoother: fluid eye tracking, squealing, gurgling and much more purposeful reaching.",
       },
       {
         name: "Events",
@@ -69,12 +69,12 @@ const COPY = {
       {
         name: "Distance & relationships",
         expect:
-          "Baby now understands distance — including that you can walk away. Separation anxiety often starts around this leap.",
+          "Baby now understands distance, including that you can walk away. Separation anxiety often starts around this leap.",
       },
       {
         name: "Categories",
         expect:
-          "Everything gets examined and compared as your baby starts sorting the world into groups — a dog is not a cat!",
+          "Everything gets examined and compared as your baby starts sorting the world into groups: a dog is not a cat!",
       },
       {
         name: "Sequences",
@@ -84,7 +84,7 @@ const COPY = {
       {
         name: "Programs",
         expect:
-          "Everyday routines click into place — your toddler “helps” with dressing, cooking and cleaning, and imitates everything.",
+          "Everyday routines click into place: your toddler “helps” with dressing, cooking and cleaning, and imitates everything.",
       },
       {
         name: "Principles",
@@ -94,7 +94,7 @@ const COPY = {
       {
         name: "Systems",
         expect:
-          "The big picture forms — me and you, mine and yours — along with the first signs of empathy and conscience.",
+          "The big picture forms (me and you, mine and yours) along with the first signs of empathy and conscience.",
       },
     ],
   },
@@ -114,14 +114,14 @@ const COPY = {
     beforeFirst: (date: string) => `Prvi skok očekujte oko ${date}.`,
     nextLeap: (n: number, date: string, days: number) =>
       `Slijedi ${n}. skok, očekujte ga oko ${date} (za otprilike ${days} ${days === 1 ? "dan" : "dana"}).`,
-    allDone: "Svih 10 skokova je iza vas — slijede mirnije vode! 🎉",
+    allDone: "Svih 10 skokova je iza vas. Slijede mirnije vode! 🎉",
     leapLabel: (n: number) => `${n}. skok`,
     weeks: (a: number, b: number) => `${a}.–${b}. tjedan`,
     statusNow: "Upravo traje",
     statusNext: "Slijedi",
     statusDone: "Prošao",
     disclaimer:
-      "Svaka je beba drukčija — vrijeme skokova je orijentir, a ne fiksni raspored. Ako vas išta u razvoju vaše bebe brine, obratite se pedijatru.",
+      "Svaka je beba drukčija - vrijeme skokova je orijentir, a ne fiksni raspored. Ako vas išta u razvoju vaše bebe brine, obratite se pedijatru.",
     leaps: [
       {
         name: "Nove senzacije",
@@ -136,7 +136,7 @@ const COPY = {
       {
         name: "Glatki prijelazi",
         expect:
-          "Pokreti i glasanje postaju tečniji — jasno praćenje pogledom, cika, gukanje i sve spretnije hvatanje.",
+          "Pokreti i glasanje postaju tečniji: jasno praćenje pogledom, cika, gukanje i sve spretnije hvatanje.",
       },
       {
         name: "Događaji",
@@ -146,12 +146,12 @@ const COPY = {
       {
         name: "Udaljenost i odnosi",
         expect:
-          "Beba sada razumije udaljenost — pa i to da vi možete otići. Oko ovog skoka često počinje separacijska anksioznost.",
+          "Beba sada razumije udaljenost, pa i to da vi možete otići. Oko ovog skoka često počinje separacijska anksioznost.",
       },
       {
         name: "Kategorije",
         expect:
-          "Sve se proučava i uspoređuje dok beba počinje svrstavati svijet u skupine — pas nije mačka!",
+          "Sve se proučava i uspoređuje dok beba počinje svrstavati svijet u skupine: pas nije mačka!",
       },
       {
         name: "Slijedovi",
@@ -161,7 +161,7 @@ const COPY = {
       {
         name: "Programi",
         expect:
-          "Svakodnevne rutine sjedaju na mjesto — dijete „pomaže“ pri oblačenju, kuhanju i pospremanju te sve oponaša.",
+          "Svakodnevne rutine sjedaju na mjesto: dijete „pomaže“ pri oblačenju, kuhanju i pospremanju te sve oponaša.",
       },
       {
         name: "Načela",
@@ -171,7 +171,7 @@ const COPY = {
       {
         name: "Sustavi",
         expect:
-          "Slaže se šira slika — ja i ti, moje i tvoje — uz prve znakove empatije i savjesti.",
+          "Slaže se šira slika (ja i ti, moje i tvoje) uz prve znakove empatije i savjesti.",
       },
     ],
   },

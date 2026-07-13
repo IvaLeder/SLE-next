@@ -42,7 +42,7 @@ export default function ToolPage({ lang, tool }: { lang: Lang; tool: Tool }) {
   return (
     <div>
       <nav className="mb-4 font-sans text-sm">
-        <Link href={`/${lang}/${TOOLS_SLUG[lang]}`} className="text-gray-500 hover:text-[#FB6F52]">
+        <Link href={`/${lang}/${TOOLS_SLUG[lang]}`} className="text-gray-500 hover:text-brand">
           ← {t.back}
         </Link>
       </nav>
@@ -76,11 +76,11 @@ export default function ToolPage({ lang, tool }: { lang: Lang; tool: Tool }) {
       )}
 
       {tool.related && (
-        <div className="mt-8 rounded-2xl bg-orange-50 p-5">
+        <div className="mt-8 rounded-2xl bg-brand-soft p-5">
           <p className="font-sans font-semibold text-gray-800">{t.related}</p>
           <Link
             href={`/${lang}/${tool.related.slug[lang]}`}
-            className="mt-1 inline-block font-sans text-sm font-semibold text-[#FB6F52] hover:underline"
+            className="mt-1 inline-block font-sans text-sm font-semibold text-brand hover:underline"
           >
             {tool.related.label[lang]} →
           </Link>

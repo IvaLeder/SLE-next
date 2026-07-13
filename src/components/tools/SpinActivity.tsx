@@ -16,7 +16,7 @@ const COPY = {
     count: (n: number) => `Picking from ${n} activities`,
   },
   hr: {
-    prompt: "Ne možete se odlučiti? Zavrtite za iznenađenje — nasumičnu STEM aktivnost!",
+    prompt: "Ne možete se odlučiti? Zavrtite za iznenađenje: nasumičnu STEM aktivnost!",
     spin: "🎲 Zavrti!",
     spinning: "Vrtim…",
     again: "🎲 Zavrti opet",
@@ -79,6 +79,11 @@ export default function SpinActivity({
           <p className="max-w-sm text-[15px] leading-relaxed text-gray-600">{t.prompt}</p>
         )}
       </div>
+
+      {/* Announce only the final pick (the 80ms cycling would spam a live region). */}
+      <p aria-live="polite" className="sr-only">
+        {!spinning && current ? current.title : ""}
+      </p>
 
       <button
         type="button"

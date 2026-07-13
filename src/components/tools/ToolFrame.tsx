@@ -40,14 +40,36 @@ export default function ToolFrame({
   const t = COPY[lang];
   const [expanded, setExpanded] = useState(false);
   const btnRef = useRef<HTMLButtonElement>(null);
+  const rootRef = useRef<HTMLDivElement>(null);
 
-  // Lock body scroll while fullscreen, Escape to close, restore focus on close.
+  // Lock body scroll while fullscreen, Escape to close, trap Tab inside the
+  // dialog (focus starts inside already: the toggle button IS the close
+  // button, same DOM node), restore focus on close.
   useEffect(() => {
     if (!expanded) return;
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") setExpanded(false);
+      if (e.key === "Tab") {
+        const root = rootRef.current;
+        if (!root) return;
+        const focusables = root.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusables.length === 0) return;
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        const active = document.activeElement as HTMLElement | null;
+        const inside = !!active && root.contains(active);
+        if (e.shiftKey && (!inside || active === first)) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && (!inside || active === last)) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
     };
     document.addEventListener("keydown", onKey);
     const trigger = btnRef.current;
@@ -60,6 +82,7 @@ export default function ToolFrame({
 
   return (
     <div
+      ref={rootRef}
       className={
         expanded
           ? "fixed inset-0 z-[100] flex flex-col items-center justify-center overflow-y-auto bg-black/75 p-3 backdrop-blur-sm sm:p-6 lg:p-10"

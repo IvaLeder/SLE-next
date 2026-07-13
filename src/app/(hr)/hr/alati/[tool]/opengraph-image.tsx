@@ -3,7 +3,7 @@ import { renderToolOg, OG_SIZE, OG_CONTENT_TYPE } from "@/lib/tool-og";
 
 export const size = OG_SIZE;
 export const contentType = OG_CONTENT_TYPE;
-export const alt = "STEM Little Explorers — interaktivni alat";
+export const alt = "STEM Little Explorers: interaktivni alat";
 
 export function generateStaticParams() {
   return tools.map((t) => ({ tool: t.slug.hr }));

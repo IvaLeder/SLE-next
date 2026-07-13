@@ -6,7 +6,7 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "STEM alati i igračke | STEM Little Explorers",
   description:
-    "Besplatni interaktivni STEM alati za djecu — pretvorite ime u binarni kod i još mnogo toga. Bez registracije, samo se igrajte.",
+    "Besplatni interaktivni STEM alati za djecu: pretvorite ime u binarni kod i još mnogo toga. Bez registracije, samo se igrajte.",
   alternates: {
     canonical: "https://stemlittleexplorers.com/hr/alati",
     languages: {

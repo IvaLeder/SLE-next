@@ -6,7 +6,7 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "STEM tools & toys | STEM Little Explorers",
   description:
-    "Free interactive STEM tools for kids — turn your name into binary code, and more. No sign-up, just play.",
+    "Free interactive STEM tools for kids: turn your name into binary code, and more. No sign-up, just play.",
   alternates: {
     canonical: "https://stemlittleexplorers.com/en/tools",
     languages: {

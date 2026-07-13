@@ -26,6 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       languages: {
         en: `https://stemlittleexplorers.com/en/tools/${data.slug.en}`,
         hr: `https://stemlittleexplorers.com/hr/alati/${data.slug.hr}`,
+        "x-default": `https://stemlittleexplorers.com/en/tools/${data.slug.en}`,
       },
     },
   };
