@@ -252,12 +252,21 @@ function checkPost(filePath, lang) {
     warn(filePath, `description is only ${data.description.length} chars — aim for 120-155.`);
   }
 
+  // Drafts are work-in-progress: a missing image is expected while the piece is
+  // still being assembled, so it's a warning (not an error) until the post is
+  // published. Publishing (draft !== true) makes every missing image a hard
+  // error again — same philosophy as the draft exemptions in the cross-file
+  // checks below.
+  const isDraft = data.draft === true;
+
   // ── coverImage if set must exist on disk ────────────────────────────────
   if (data.coverImage) {
     // Strip leading slash for filesystem join
     const onDisk = join(PUBLIC_DIR, data.coverImage.replace(/^\//, ""));
     if (!existsSync(onDisk)) {
-      error(filePath, `coverImage points to "${data.coverImage}" but file doesn't exist at \`${relPath(onDisk)}\``);
+      const msg = `coverImage points to "${data.coverImage}" but file doesn't exist at \`${relPath(onDisk)}\``;
+      if (isDraft) warn(filePath, `${msg} (draft — add before publishing)`);
+      else error(filePath, msg);
     } else if (!data.heroAlt) {
       warn(filePath, "coverImage is set but \`heroAlt\` is missing — falls back to title (bad a11y).");
     }
@@ -266,12 +275,14 @@ function checkPost(filePath, lang) {
   }
 
   // ── MDX content checks ──────────────────────────────────────────────────
-  checkMdxContent(filePath, content);
+  checkMdxContent(filePath, content, isDraft);
 
   return { data, content };
 }
 
-function checkMdxContent(filePath, content) {
+function checkMdxContent(filePath, content, isDraft = false) {
+  // Missing images are warnings on drafts, hard errors on published posts.
+  const imgMissing = isDraft ? warn : error;
   // Strip MDX/JSX comments ({/* … */}) and HTML comments (<!-- … -->) before
   // scanning — otherwise example/TODO code in comments triggers false positives.
   const cleaned = content
@@ -319,7 +330,7 @@ function checkMdxContent(filePath, content) {
       ? join(PUBLIC_DIR, src.replace(/^\//, ""))
       : join(PUBLIC_DIR, "images/posts", src.replace(/^\.?\//, ""));
     if (!existsSync(onDisk)) {
-      error(filePath, `Image reference "${src}" not found at \`${relPath(onDisk)}\``);
+      imgMissing(filePath, `Image reference "${src}" not found at \`${relPath(onDisk)}\``);
     }
   }
 
@@ -333,7 +344,7 @@ function checkMdxContent(filePath, content) {
       ? join(PUBLIC_DIR, src.replace(/^\//, ""))
       : join(PUBLIC_DIR, "images/posts", src.replace(/^\.?\//, ""));
     if (!existsSync(onDisk)) {
-      error(filePath, `<Figure> src "${src}" not found at \`${relPath(onDisk)}\``);
+      imgMissing(filePath, `<Figure> src "${src}" not found at \`${relPath(onDisk)}\``);
     }
   }
 }
