@@ -67,7 +67,7 @@ export const mindsCopy: Record<
     h1: "Mind Explorers",
     tagline: "Maps for growing minds",
     intro:
-      "STEM Little Explorers explores the outer world. Mind Explorers turns inward: how children grow, learn and feel, and how you can support them. No jargon, no alarm, just evidence and warmth. You are the explorer here, and these are your maps.",
+      "STEM Little Explorers explores the outer world. Mind Explorers turns inward: how children grow, learn and feel, and how you can support them. You are the explorer here, and these are your maps. We offer them to help you navigate the journey, not to tell you what to do.",
     pillarsHeading: "Pick a map",
     pillars: [
       {
@@ -82,7 +82,7 @@ export const mindsCopy: Record<
         id: "parenting",
         title: "Parenting psychology",
         blurb:
-          "Why tantrums happen, how speech develops and what the research actually says, written for a tired parent at 2 a.m.",
+          "Why tantrums happen, how speech develops and what the research actually says, evidence-based and battle-tested.",
         href: "/en/tag/parenting",
         linkLabel: "Browse parenting guides",
       },
@@ -90,17 +90,17 @@ export const mindsCopy: Record<
         id: "learning",
         title: "Learning & study",
         blurb:
-          "Memory, study methods and focus. This part of the map is still being drawn; the first guides are on their way.",
+          "Learning, study methods and focus. This part of the map is still being drawn; the first guides are on their way.",
         href: null,
       },
     ],
     toolsHeading: "Take a map with you",
     toolsBlurb:
-      "Two small tools for the first 20 months: find out which developmental leap is happening now, and what each one means.",
+      "Two small tools for the first 20 months: find out which developmental leap is happening around this time, and what each one means.",
     tools: [
       {
         title: "Developmental leap calculator",
-        blurb: "Enter the due date and get the dates of all 10 leaps.",
+        blurb: "Enter the due date and get the dates of all 10 leaps predicted.",
         href: "/en/tools/developmental-leap-calculator",
       },
       {
@@ -120,7 +120,7 @@ export const mindsCopy: Record<
     h1: "Mind Explorers",
     tagline: "Karte za umove koji rastu",
     intro:
-      "STEM Little Explorers istražuje vanjski svijet. Mind Explorers okreće se prema unutra: kako djeca rastu, uče i osjećaju, i kako ih u tome možete podržati. Bez žargona i bez panike, samo znanost i toplina. Ovdje ste vi istraživač, a ovo su vaše karte.",
+      "STEM Little Explorers istražuje vanjski svijet. Mind Explorers okreće se prema unutra: kako djeca rastu, uče i osjećaju, i kako ih u tome možete podržati. Ovdje ste vi istraživač, a ovo su vaše karte. Nudimo ih da vam olakšaju navigaciju, a ne da vam govore što morate raditi.",
     pillarsHeading: "Odaberite kartu",
     pillars: [
       {
@@ -135,7 +135,7 @@ export const mindsCopy: Record<
         id: "parenting",
         title: "Psihologija roditeljstva",
         blurb:
-          "Zašto se javljaju ispadi bijesa, kako se razvija govor i što istraživanja zaista kažu, pisano za umornog roditelja u 2 ujutro.",
+          "Zašto se javljaju ispadi bijesa, kako se razvija govor i što istraživanja zaista kažu, znanstveno utemljeno i osobno proživljeno.",
         href: "/hr/tag/parenting",
         linkLabel: "Pregledaj vodiče o roditeljstvu",
       },
@@ -143,17 +143,17 @@ export const mindsCopy: Record<
         id: "learning",
         title: "Učenje i pamćenje",
         blurb:
-          "Pamćenje, metode učenja i koncentracija. Ovaj dio karte tek se crta; prvi vodiči su na putu.",
+          "Učenje, pamćenje i koncentracija. Ovaj dio karte tek se crta; prvi vodiči su na putu.",
         href: null,
       },
     ],
     toolsHeading: "Ponesite kartu sa sobom",
     toolsBlurb:
-      "Dva mala alata za prvih 20 mjeseci: saznajte koji je skok u razvoju upravo u tijeku i što svaki od njih znači.",
+      "Dva mala alata za prvih 20 mjeseci: saznajte što su skokovi u razvoju i koji bi se trebao događati oko ovog perioda.",
     tools: [
       {
         title: "Kalkulator skokova u razvoju",
-        blurb: "Upišite termin poroda i dobijte datume svih 10 skokova.",
+        blurb: "Upišite termin poroda i dobijte približne datume svih 10 skokova.",
         href: "/hr/alati/kalkulator-skokova-u-razvoju",
       },
       {
