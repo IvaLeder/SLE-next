@@ -71,7 +71,7 @@ export default function ShareButtons({ url, title, image, description, lang }: P
     }
   };
 
-  const btn = "w-9 h-9 inline-flex items-center justify-center rounded-full bg-white border border-gray-200 text-gray-600 hover:text-indigo-600 hover:border-indigo-400 transition";
+  const btn = "w-9 h-9 inline-flex items-center justify-center rounded-full bg-white border border-gray-200 text-gray-600 hover:text-brand hover:border-brand-muted transition";
 
   return (
     <div data-no-print className="mt-10 pt-6 border-t flex items-center gap-3 flex-wrap font-sans">

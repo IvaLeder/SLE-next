@@ -76,7 +76,7 @@ export default function SearchResults({ lang }: { lang: "en" | "hr" }) {
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder={t.placeholder}
-        className="w-full border border-gray-300 rounded-lg px-4 py-3 text-base mb-6 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        className="w-full border border-gray-300 rounded-lg px-4 py-3 text-base mb-6 focus:outline-none focus:ring-2 focus:ring-brand-ring"
         aria-label={t.placeholder}
       />
 
@@ -99,7 +99,7 @@ export default function SearchResults({ lang }: { lang: "en" | "hr" }) {
               href={`/${r.lang}/${r.slug}`}
               className="block group"
             >
-              <h2 className="text-lg font-semibold group-hover:text-indigo-700">
+              <h2 className="text-lg font-semibold group-hover:text-brand-hover">
                 {r.title}
               </h2>
               {r.excerpt && (

@@ -35,7 +35,7 @@ export default function AuthorBio({
             className="h-14 w-14 rounded-full object-cover ring-2 ring-brand-soft"
           />
         ) : (
-          <span className="flex h-14 w-14 items-center justify-center rounded-full bg-indigo-100 text-lg font-bold text-brand select-none">
+          <span className="flex h-14 w-14 items-center justify-center rounded-full bg-brand-tint text-lg font-bold text-brand select-none">
             {initial}
           </span>
         )}

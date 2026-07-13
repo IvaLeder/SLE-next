@@ -2,6 +2,7 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
+import MindsTheme from "@/components/minds/MindsTheme";
 import { getAllPosts } from "@/lib/posts";
 import { siteConfig } from "@/config/site";
 import { MILESTONE_GUIDE_SLUG, milestoneGuideCopy, milestoneStages } from "@/lib/milestone-guide";
@@ -43,7 +44,9 @@ export default function MilestoneGuide({ lang }: { lang: "en" | "hr" }) {
   };
 
   return (
-    <>
+    // The pillar is all psychology content and the minds hub's main pillar
+    // card links here, so it's a Mind Explorers surface too (BACKLOG §1c).
+    <MindsTheme>
       <Header lang={lang} switchUrl={`/${otherLang}/${MILESTONE_GUIDE_SLUG[otherLang]}`} />
       <main id="main-content" className="mx-auto max-w-3xl px-4 py-10">
         <JsonLd data={jsonLd} />
@@ -64,13 +67,20 @@ export default function MilestoneGuide({ lang }: { lang: "en" | "hr" }) {
               </h2>
               <p className="text-gray-600 mb-4">{stage.blurb[lang]}</p>
 
-              <ul className="divide-y divide-gray-100 rounded-2xl ring-1 ring-black/5 overflow-hidden">
+              {/* Knot timeline (brand sheet §5.2): a knot per month, rows
+                  separated by dashed gold stitch lines — the pillar's one
+                  motif per the restraint rule. */}
+              <ul className="divide-y divide-dashed divide-[rgba(201,155,63,0.35)] rounded-2xl ring-1 ring-black/5 overflow-hidden">
                 {items.map(({ entry, post }) => (
                   <li key={entry.translationKey}>
                     <Link
                       href={`/${lang}/${post.slug}`}
                       className="group flex items-baseline gap-4 px-5 py-4 hover:bg-brand/5 transition-colors"
                     >
+                      <span
+                        aria-hidden="true"
+                        className="hidden sm:block shrink-0 self-center h-3 w-3 rounded-full bg-[var(--me-gold,#E8B454)] ring-2 ring-[rgba(201,155,63,0.6)]"
+                      />
                       <span className="shrink-0 w-28 font-sans text-sm font-semibold text-brand tabular-nums">
                         {entry.age[lang]}
                       </span>
@@ -86,7 +96,7 @@ export default function MilestoneGuide({ lang }: { lang: "en" | "hr" }) {
           )
         )}
       </main>
-      <Footer lang={lang} />
-    </>
+      <Footer lang={lang} minds />
+    </MindsTheme>
   );
 }

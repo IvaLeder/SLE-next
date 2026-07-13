@@ -62,7 +62,7 @@ export default function ArticleHeader({
               <Link
                 key={cat}
                 href={`/${lang}/category/${slug}`}
-                className="font-sans text-xs font-semibold uppercase tracking-wide text-brand bg-brand-soft px-2.5 py-1 rounded-full hover:bg-indigo-100 transition-colors"
+                className="font-sans text-xs font-semibold uppercase tracking-wide text-brand bg-brand-soft px-2.5 py-1 rounded-full hover:bg-brand-tint transition-colors"
               >
                 {cat}
               </Link>

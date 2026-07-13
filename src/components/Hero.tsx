@@ -4,14 +4,14 @@ const content = {
   en: {
     tag: "For parents & educators",
     headline: "STEM & Science\nfor Curious Kids",
-    sub: "Hands-on experiments, child development guides and psychology insights — practical ideas you can try today.",
+    sub: "Hands-on experiments, child development guides and psychology insights: practical ideas you can try today.",
     primary: { label: "Browse activities", href: "/en/activities" },
     secondary: { label: "Browse by subject", href: "/en/category/science" },
   },
   hr: {
     tag: "Za roditelje i odgajatelje",
     headline: "STEM i Znanosti\nza Znatiželjnu Djecu",
-    sub: "Praktični pokusi, vodiči za razvoj djeteta i savjeti iz psihologije — ideje koje možete isprobati odmah.",
+    sub: "Praktični pokusi, vodiči za razvoj djeteta i savjeti iz psihologije: ideje koje možete isprobati odmah.",
     primary: { label: "Pregledaj aktivnosti", href: "/hr/activities" },
     secondary: { label: "Pregledaj po kategoriji", href: "/hr/category/science" },
   },
@@ -23,7 +23,7 @@ export default function Hero({ lang }: { lang: "en" | "hr" }) {
   return (
     // Brand gradient hero — no image, so no LCP cost and nothing to stretch.
     // A slightly deepened indigo→slate pour gives the aurora glow room to read.
-    <div className="relative w-full h-[340px] md:h-[440px] overflow-hidden bg-gradient-to-br from-indigo-700 via-indigo-800 to-slate-900">
+    <div className="relative w-full h-[340px] md:h-[440px] overflow-hidden bg-gradient-to-br from-brand-hover via-brand-deep to-slate-900">
       {/* Aurora glow blobs — soft coloured light for depth. Decorative only. */}
       <div
         aria-hidden="true"
@@ -61,7 +61,7 @@ export default function Hero({ lang }: { lang: "en" | "hr" }) {
 
       {/* Text content — centred over the glow */}
       <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center">
-        <span className="font-sans text-xs font-semibold uppercase tracking-widest text-indigo-200 mb-3">
+        <span className="font-sans text-xs font-semibold uppercase tracking-widest text-brand-pale mb-3">
           {t.tag}
         </span>
 
@@ -70,7 +70,7 @@ export default function Hero({ lang }: { lang: "en" | "hr" }) {
           {t.headline}
         </h1>
 
-        <p className="text-indigo-100 text-sm md:text-base mb-6 max-w-md leading-relaxed">
+        <p className="text-brand-tint text-sm md:text-base mb-6 max-w-md leading-relaxed">
           {t.sub}
         </p>
 
@@ -78,7 +78,7 @@ export default function Hero({ lang }: { lang: "en" | "hr" }) {
           {/* Primary is white-on-gradient so it pops against the indigo field. */}
           <Link
             href={t.primary.href}
-            className="inline-block px-5 py-2.5 bg-white hover:bg-indigo-50 text-brand text-sm font-semibold rounded-lg transition-colors"
+            className="inline-block px-5 py-2.5 bg-white hover:bg-brand-soft text-brand text-sm font-semibold rounded-lg transition-colors"
           >
             {t.primary.label} →
           </Link>

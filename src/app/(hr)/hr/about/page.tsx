@@ -103,7 +103,7 @@ export default function AboutPage() {
                       />
                     ) : (
                       <div
-                        className="flex h-[72px] w-[72px] flex-shrink-0 items-center justify-center rounded-full bg-indigo-100 text-2xl font-bold text-brand"
+                        className="flex h-[72px] w-[72px] flex-shrink-0 items-center justify-center rounded-full bg-brand-tint text-2xl font-bold text-brand"
                         aria-hidden="true"
                       >
                         {author.name.charAt(0)}

@@ -7,6 +7,8 @@ import { AD_SLOTS, splitContentForMidAd } from "@/lib/ads";
 
 import { getPostBySlug, getAllPosts, Post } from "@/lib/posts";
 import { categorySlugFromName } from "@/lib/categories";
+import { isMindsPost } from "@/lib/minds";
+import { StitchDivider } from "@/components/minds/motifs";
 import { getRelatedPosts } from "@/lib/related";
 import {
   generatePostMetadata,
@@ -28,6 +30,7 @@ import { surfacedTagsOf } from "@/lib/tags";
 import { siteConfig } from "@/config/site";
 import CoverImage from "@/components/CoverImage";
 import SummerBanner from "@/components/SummerBanner";
+import { MilestoneGuideBanner, MilestonePrevNext } from "@/components/MilestoneSeriesNav";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -50,7 +53,14 @@ export default async function PostPage({ params }: Props) {
 
   const articleJsonLd = generateJsonLd(post, "hr");
   const breadcrumbJsonLd = generateBreadcrumbJsonLd(post);
-  const relatedPosts = getRelatedPosts("hr", post);
+  // Mind Explorers surfaces only recommend psychology posts (separation rule)
+  const minds = isMindsPost(post.categories);
+  const relatedPosts = getRelatedPosts(
+    "hr",
+    post,
+    3,
+    minds ? { withinCategory: "psychology" } : undefined
+  );
   const topicTags = surfacedTagsOf(post.tags);
   const [bodyBefore, bodyAfter] = splitContentForMidAd(post.content);
 
@@ -89,6 +99,9 @@ export default async function PostPage({ params }: Props) {
       {/* Seasonal promo for the free summer e-book — remove after summer */}
       <SummerBanner lang="hr" />
 
+      {/* Month-by-month guide posts get a link to the pillar (self-hides elsewhere) */}
+      <MilestoneGuideBanner lang="hr" translationKey={post.translationKey} />
+
       <TOC lang="hr" />
 
       <article id="post-content" className="prose prose-lg max-w-none">
@@ -100,6 +113,9 @@ export default async function PostPage({ params }: Props) {
           </>
         )}
       </article>
+
+      {/* Prev/next month navigation on guide posts (self-hides elsewhere) */}
+      <MilestonePrevNext lang="hr" translationKey={post.translationKey} />
 
       {/* Topic tags — links to tag landing pages for "more like this" */}
       {topicTags.length > 0 && (
@@ -124,7 +140,7 @@ export default async function PostPage({ params }: Props) {
       <AuthorBio name={post.author} lang="hr" />
 
       {/* Issue 24: inline subscribe CTA for mobile */}
-      <div data-no-print className="lg:hidden mt-10 p-6 bg-indigo-50 rounded-xl text-center">
+      <div data-no-print className="lg:hidden mt-10 p-6 bg-brand-soft rounded-xl text-center">
         <p className="font-semibold text-gray-800 mb-1">Sviđa vam se ovaj članak?</p>
         <p className="text-sm text-gray-600 mb-4">
           Pretplatite se i primajte nove objave ravno u inbox.
@@ -136,7 +152,9 @@ export default async function PostPage({ params }: Props) {
       <AdSlot slot={AD_SLOTS.endOfArticle} lang="hr" />
 
       {relatedPosts.length > 0 && (
-        <section data-no-print className="mt-12 border-t pt-6">
+        <section data-no-print className={minds ? "mt-12" : "mt-12 border-t pt-6"}>
+          {/* minds articles get the stitch divider instead of a plain rule */}
+          {minds && <StitchDivider className="mb-6" />}
           <h2 className="text-2xl font-bold mb-4">Srodni članci</h2>
           <div className="grid gap-4 md:grid-cols-3">
             {relatedPosts.map((r) => (

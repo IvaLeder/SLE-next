@@ -57,7 +57,7 @@ export default function ReadingProgress({ lang = "en" }: { lang?: "en" | "hr" })
         className="fixed top-0 left-0 right-0 h-[3px] z-[60] pointer-events-none motion-reduce:hidden"
       >
         <div
-          className="h-full bg-indigo-600 transition-[width] duration-100 ease-out"
+          className="h-full bg-brand transition-[width] duration-100 ease-out"
           style={{ width: `${progress}%` }}
         />
       </div>
@@ -68,7 +68,7 @@ export default function ReadingProgress({ lang = "en" }: { lang?: "en" | "hr" })
         type="button"
         onClick={handleTop}
         aria-label={label}
-        className={`fixed bottom-6 right-6 z-[60] w-11 h-11 rounded-full bg-indigo-600 text-white shadow-lg hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 transition-opacity ${
+        className={`fixed bottom-6 right-6 z-[60] w-11 h-11 rounded-full bg-brand text-white shadow-lg hover:bg-brand-hover focus:outline-none focus:ring-2 focus:ring-brand-muted focus:ring-offset-2 transition-opacity ${
           showTop ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
       >

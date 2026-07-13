@@ -170,7 +170,7 @@ export default function PostList({
                 disabled={currentPage === 1}
                 className="px-4 py-2 rounded-lg border text-sm font-medium transition
                   disabled:opacity-40 disabled:cursor-not-allowed
-                  hover:bg-indigo-50 hover:border-indigo-400"
+                  hover:bg-brand-soft hover:border-brand-muted"
               >
                 {t.prev}
               </button>
@@ -182,7 +182,7 @@ export default function PostList({
                 disabled={currentPage === totalPages}
                 className="px-4 py-2 rounded-lg border text-sm font-medium transition
                   disabled:opacity-40 disabled:cursor-not-allowed
-                  hover:bg-indigo-50 hover:border-indigo-400"
+                  hover:bg-brand-soft hover:border-brand-muted"
               >
                 {t.next}
               </button>

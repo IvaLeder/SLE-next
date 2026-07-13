@@ -1,4 +1,5 @@
 import { getAllPosts, Post } from "./posts";
+import { categorySlugFromName } from "./categories";
 
 /**
  * Related posts, ranked by shared TAGS weighted by rarity (inverse document
@@ -12,13 +13,24 @@ import { getAllPosts, Post } from "./posts";
  * break toward the newer post (freshness).
  *
  * Signature is `(lang, currentPost, limit)` to match the article-page callers.
+ *
+ * `opts.withinCategory` (canonical English slug, e.g. "psychology") restricts
+ * the candidate pool to that category BEFORE scoring — used by Mind Explorers
+ * surfaces so a themed article never recommends off-brand posts (brand sheet
+ * separation rule, BACKLOG §1c Phase 3).
  */
 export function getRelatedPosts(
   lang: "en" | "hr",
   currentPost: Post,
-  limit = 3
+  limit = 3,
+  opts?: { withinCategory?: string }
 ): Post[] {
-  const candidates = getAllPosts(lang).filter((p) => p.slug !== currentPost.slug);
+  const candidates = getAllPosts(lang).filter(
+    (p) =>
+      p.slug !== currentPost.slug &&
+      (!opts?.withinCategory ||
+        (p.categories?.[0] && categorySlugFromName(p.categories[0]) === opts.withinCategory))
+  );
 
   // Document frequency per tag across candidates -> rarity weight.
   const tagDocFreq = new Map<string, number>();

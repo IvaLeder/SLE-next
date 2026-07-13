@@ -5,6 +5,7 @@ import { siteConfig } from "@/config/site";
 // import { SUMMER_SLUG } from "@/lib/summer-ebook";
 import { tools, TOOLS_SLUG } from "@/lib/tools";
 import { MILESTONE_GUIDE_SLUG } from "@/lib/milestone-guide";
+import { MINDS_SLUG } from "@/lib/minds";
 import type { MetadataRoute } from "next";
 
 // IMPORTANT: must match the canonical host used everywhere else (no www).
@@ -103,6 +104,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE_URL}/hr/${MILESTONE_GUIDE_SLUG.hr}`, lastModified: now, changeFrequency: "monthly", priority: 0.9, alternates: milestoneGuideAlternates },
   ];
 
+  // Mind Explorers hub — slugs differ per language, hand-build both sides.
+  const mindsAlternates = {
+    languages: {
+      en: `${BASE_URL}/en/${MINDS_SLUG.en}`,
+      hr: `${BASE_URL}/hr/${MINDS_SLUG.hr}`,
+    },
+  };
+  const mindsEntries: MetadataRoute.Sitemap = [
+    { url: `${BASE_URL}/en/${MINDS_SLUG.en}`, lastModified: now, changeFrequency: "weekly", priority: 0.8, alternates: mindsAlternates },
+    { url: `${BASE_URL}/hr/${MINDS_SLUG.hr}`, lastModified: now, changeFrequency: "weekly", priority: 0.8, alternates: mindsAlternates },
+  ];
+
   // --- Category pages (one per slug per language) ---
   const categoryEntries: MetadataRoute.Sitemap = CATEGORY_SLUGS.flatMap((slug) =>
     bilingual(`/category/${slug}`, now, 0.7, "weekly")
@@ -157,7 +170,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Deduplicate by URL
   const seen = new Set<string>();
-  return [...staticEntries, /* ...summerEntries, */ ...toolsEntries, ...milestoneGuideEntries, ...categoryEntries, ...tagEntries, ...authorEntries, ...postEntries].filter((e) => {
+  return [...staticEntries, /* ...summerEntries, */ ...toolsEntries, ...milestoneGuideEntries, ...mindsEntries, ...categoryEntries, ...tagEntries, ...authorEntries, ...postEntries].filter((e) => {
     if (seen.has(e.url)) return false;
     seen.add(e.url);
     return true;

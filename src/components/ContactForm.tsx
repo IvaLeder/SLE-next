@@ -204,7 +204,7 @@ export default function ContactForm({ lang }: Props) {
             required
             maxLength={MAX_NAME}
             autoComplete="name"
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-ring"
           />
         </div>
 
@@ -223,7 +223,7 @@ export default function ContactForm({ lang }: Props) {
             maxLength={MAX_EMAIL}
             autoComplete="email"
             inputMode="email"
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-ring"
           />
         </div>
 
@@ -241,7 +241,7 @@ export default function ContactForm({ lang }: Props) {
             required
             maxLength={MAX_MESSAGE}
             aria-describedby="message-counter"
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand-ring"
           />
           <p
             id="message-counter"

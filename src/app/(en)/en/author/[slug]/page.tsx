@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!author) return {};
 
   return {
-    title: `${author.name} — Author | STEM Little Explorers`,
+    title: `${author.name} | Author | STEM Little Explorers`,
     description: author.bio,
     alternates: {
       canonical: `${siteConfig.url}/en/author/${slug}`,
@@ -63,7 +63,7 @@ export default async function AuthorPage({ params }: Props) {
         {/* Author hero — avatar + name + role + bio */}
         <header className="mb-10 flex flex-col sm:flex-row gap-6 items-start">
           <div
-            className="flex-shrink-0 w-20 h-20 rounded-full bg-indigo-100 flex items-center justify-center text-brand font-bold text-3xl select-none"
+            className="flex-shrink-0 w-20 h-20 rounded-full bg-brand-tint flex items-center justify-center text-brand font-bold text-3xl select-none"
             aria-hidden="true"
           >
             {initial}

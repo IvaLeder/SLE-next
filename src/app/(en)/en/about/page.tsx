@@ -10,7 +10,7 @@ import { generateAuthorsJsonLd } from "@/lib/metadata";
 export const metadata: Metadata = {
   title: "About | STEM Little Explorers",
   description:
-    "Meet the team behind STEM Little Explorers — practical STEM activities and child development guides for parents and educators.",
+    "Meet the team behind STEM Little Explorers: practical STEM activities and child development guides for parents and educators.",
   alternates: {
     canonical: "https://stemlittleexplorers.com/en/about",
     languages: {
@@ -65,8 +65,8 @@ export default function AboutPage() {
             </h2>
             <p className="text-gray-700 leading-relaxed">
               To be the go-to place for cheap, easy and fun STEM activities. We
-              champion learning by doing — children who explore, build and
-              experiment rather than just watch or listen — and we want every
+              champion learning by doing (children who explore, build and
+              experiment rather than just watch or listen) and we want every
               child to meet STEM early, because the world will only ask for more
               of it.
             </p>
@@ -75,7 +75,7 @@ export default function AboutPage() {
 
         <p className="text-gray-700 leading-relaxed mb-14">
           Whether you&rsquo;re after a quick science experiment, a guide to a
-          developmental milestone, or an evidence-based parenting tip —
+          developmental milestone, or an evidence-based parenting tip:
           you&rsquo;ll find it here.
         </p>
 
@@ -103,7 +103,7 @@ export default function AboutPage() {
                       />
                     ) : (
                       <div
-                        className="flex h-[72px] w-[72px] flex-shrink-0 items-center justify-center rounded-full bg-indigo-100 text-2xl font-bold text-brand"
+                        className="flex h-[72px] w-[72px] flex-shrink-0 items-center justify-center rounded-full bg-brand-tint text-2xl font-bold text-brand"
                         aria-hidden="true"
                       >
                         {author.name.charAt(0)}

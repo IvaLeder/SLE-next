@@ -150,7 +150,7 @@ export default function Search({ lang }: { lang: "en" | "hr" }) {
         onKeyDown={onInputKeyDown}
         placeholder={placeholder}
         aria-label={placeholder}
-        className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-brand-ring"
       />
 
       {/* Screen-reader status — announces result count without stealing focus.
@@ -190,8 +190,8 @@ export default function Search({ lang }: { lang: "en" | "hr" }) {
                       setActive(-1);
                     }}
                     onMouseEnter={() => setActive(i)}
-                    className={`block px-4 py-2 hover:bg-indigo-50 ${
-                      activeIndex === i ? "bg-indigo-50" : ""
+                    className={`block px-4 py-2 hover:bg-brand-soft ${
+                      activeIndex === i ? "bg-brand-soft" : ""
                     }`}
                   >
                     <p className="font-semibold text-sm">{r.title}</p>
@@ -215,8 +215,8 @@ export default function Search({ lang }: { lang: "en" | "hr" }) {
                     setActive(-1);
                   }}
                   onMouseEnter={() => setActive(shown.length)}
-                  className={`block border-t border-gray-200 px-4 py-2 text-sm font-medium text-indigo-600 hover:bg-indigo-50 ${
-                    activeIndex === shown.length ? "bg-indigo-50" : ""
+                  className={`block border-t border-gray-200 px-4 py-2 text-sm font-medium text-brand hover:bg-brand-soft ${
+                    activeIndex === shown.length ? "bg-brand-soft" : ""
                   }`}
                 >
                   {viewAllLabel}

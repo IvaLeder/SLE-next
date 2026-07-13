@@ -197,7 +197,7 @@ export default function Header({ lang, switchUrl }: HeaderProps) {
                     href={s.href}
                     ref={(el) => { subjectItemsRef.current[i] = el; }}
                     aria-current={ariaCurrent(s.href)}
-                    className="block px-4 py-2 text-sm hover:bg-indigo-50 hover:text-indigo-700 focus-visible:bg-indigo-50 focus-visible:text-indigo-700 aria-[current=page]:bg-indigo-100 aria-[current=page]:text-indigo-700 aria-[current=page]:font-semibold"
+                    className="block px-4 py-2 text-sm hover:bg-brand-soft hover:text-brand-hover focus-visible:bg-brand-soft focus-visible:text-brand-hover aria-[current=page]:bg-brand-tint aria-[current=page]:text-brand-hover aria-[current=page]:font-semibold"
                     onClick={() => setSubjectsOpen(false)}
                   >
                     {s.label}
@@ -273,7 +273,7 @@ export default function Header({ lang, switchUrl }: HeaderProps) {
 
           <Link
             href={`/${lang}/activities`}
-            className="block px-4 py-3 border-b font-semibold text-brand hover:bg-indigo-50"
+            className="block px-4 py-3 border-b font-semibold text-brand hover:bg-brand-soft"
             onClick={() => setOpen(false)}
           >
             ⚡ {lang === "en" ? "Activities" : "Aktivnosti"}
@@ -306,7 +306,7 @@ export default function Header({ lang, switchUrl }: HeaderProps) {
 
           <Link
             href={`/${lang}/${TOOLS_SLUG[lang]}`}
-            className="block px-4 py-3 border-b font-semibold text-brand hover:bg-indigo-50"
+            className="block px-4 py-3 border-b font-semibold text-brand hover:bg-brand-soft"
             onClick={() => setOpen(false)}
           >
             🧰 {lang === "en" ? "Tools & games" : "Alati i igre"}

@@ -14,17 +14,34 @@
   /* Typography */
   --font-serif: var(--font-lora), Georgia, serif;
   --font-sans:  var(--font-inter), system-ui, -apple-system, sans-serif;
+}
 
-  /* Brand colour — aliases of indigo. Rebrand by editing these 4 lines. */
-  --color-brand:       var(--color-indigo-600);
-  --color-brand-hover: var(--color-indigo-700);
-  --color-brand-soft:  var(--color-indigo-50);
-  --color-brand-ring:  var(--color-indigo-500);
+/* Brand colours — literal copies of Tailwind's indigo/pink scale (values from
+   tailwindcss/theme.css). Deliberately a plain @theme, NOT `inline`: utilities
+   then reference var(--color-brand) instead of baking the value in, so a scoped
+   selector ([data-theme="minds"] below) can re-theme a whole subtree by
+   overriding the variables. Rebrand by editing these lines. */
+@theme {
+  --color-brand:       oklch(51.1% 0.262 276.966); /* indigo-600 */
+  --color-brand-hover: oklch(45.7% 0.24 277.023);  /* indigo-700 */
+  --color-brand-soft:  oklch(96.2% 0.018 272.314); /* indigo-50 */
+  --color-brand-ring:  oklch(58.5% 0.233 277.117); /* indigo-500 */
+
+  /* Secondary shades (formerly literal indigo-* classes, swept 2026-07-11):
+     tint = strong light bg (chips' active state, avatar fallbacks) + light
+     text on brand-dark; pale = lighter display text on brand-dark (Hero
+     eyebrow); muted = hover borders + rings on dark; deep = dark gradient
+     stops. Keep every brand shade here — never use literal indigo-* in
+     components, or sub-brand theme scopes can't re-colour them. */
+  --color-brand-tint:  oklch(93% 0.034 272.788);   /* indigo-100 */
+  --color-brand-pale:  oklch(87% 0.065 274.039);   /* indigo-200 */
+  --color-brand-muted: oklch(67.3% 0.182 276.935); /* indigo-400 */
+  --color-brand-deep:  oklch(39.8% 0.195 277.366); /* indigo-800 */
 
   /* Newsletter CTA — intentionally OFF-brand pink so it stands out.
      Use only on the subscribe button; don't introduce more pink elsewhere. */
-  --color-newsletter:       var(--color-pink-600);
-  --color-newsletter-hover: var(--color-pink-700);
+  --color-newsletter:       oklch(59.2% 0.249 0.584); /* pink-600 */
+  --color-newsletter-hover: oklch(52.5% 0.223 3.958); /* pink-700 */
 }
 
 /* Body inherits the Lora serif via the html className from next/font.
@@ -66,6 +83,77 @@ body {
 }
 .prose figure {
   text-align: center;
+}
+
+/* ─── Mind Explorers sub-brand theme ───────────────────────────────────────
+   Scoped re-theme for psychology surfaces (see mind-explorers-brand-sheet.md
+   §3–4 + BACKLOG §1c). Wrap any subtree in <MindsTheme>
+   (src/components/minds/MindsTheme.tsx) and every component that uses the
+   brand/newsletter tokens swaps to the plum/gold/cream palette. Two hard
+   rules from the sheet: parent-brand indigo never appears inside these
+   surfaces, and plum never appears as an accent on STEM pages.
+   Derived values (hover/soft/ring/newsletter) are not in the sheet — chosen
+   and contrast-verified 2026-07-11 (all pass WCAG AA; table in BACKLOG). */
+[data-theme="minds"] {
+  /* palette (brand sheet §3) */
+  --me-plum: #4C3A72;
+  --me-plum-deep: #2A2440;
+  --me-gold: #E8B454;
+  --me-gold-deep: #C99B3F;
+  --me-rose: #D9A5A0;
+  --me-cream: #FAF6EE;
+  --me-cocoa: #5C4A42;
+
+  /* semantic */
+  --me-bg: var(--me-cream);
+  --me-surface: #FFFDF8;
+  --me-text: var(--me-cocoa);
+  --me-heading: var(--me-plum);
+  --me-motif: var(--me-gold-deep); /* stitch/star decoration on cream; use --me-gold on plum */
+  --me-border: #E3D8C8;
+
+  /* remap the site tokens — this is what re-themes existing components.
+     Gold and rose are NEVER text on light backgrounds (they fail contrast);
+     decoration only. */
+  --color-brand:       var(--me-plum);
+  --color-brand-hover: #3E2F5E;
+  --color-brand-soft:  #EFE9F5;
+  --color-brand-ring:  #7A639F;
+  --color-brand-tint:  #E6DFF1;
+  --color-brand-pale:  #D3C8E6;
+  --color-brand-muted: #8B77AF;
+  --color-brand-deep:  #322550;
+  --color-newsletter:       #A8574E; /* deep rose — pink is off-palette here */
+  --color-newsletter-hover: #92483F;
+
+  background-color: var(--me-bg);
+  color: var(--me-text);
+}
+
+/* Fraunces headings, "soft" optical cut (brand sheet §4). --font-fraunces is
+   set by MindsTheme via next/font, so it only resolves where the theme is
+   mounted; Georgia is the sheet's official fallback. The .prose overrides are
+   needed because the typography plugin's heading/body colours would otherwise
+   win on article pages. */
+[data-theme="minds"] :where(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--font-fraunces), Georgia, serif;
+  font-variation-settings: "SOFT" 100;
+  font-weight: 550;
+  color: var(--me-heading);
+}
+[data-theme="minds"] .prose {
+  --tw-prose-body: var(--me-text);
+  --tw-prose-headings: var(--me-heading);
+}
+
+/* The shared Footer is gray-on-gray; on cream pages that reads cold. Warm it
+   to the minds surface tones (bg + border only — text utilities stay). */
+[data-theme="minds"] footer {
+  background-color: var(--me-surface);
+  border-color: var(--me-border);
+}
+[data-theme="minds"] footer .border-t {
+  border-color: var(--me-border);
 }
 
 /* ─── Print styles ─────────────────────────────────────────────────────────

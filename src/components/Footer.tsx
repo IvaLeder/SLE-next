@@ -3,6 +3,8 @@ import { siteConfig } from "@/config/site";
 import { SURFACED_TAGS, TAG_DISPLAY } from "@/lib/tags";
 import { TOOLS_SLUG } from "@/lib/tools";
 import { MILESTONE_GUIDE_SLUG } from "@/lib/milestone-guide";
+import { MINDS_SLUG } from "@/lib/minds";
+import { CompassMark } from "@/components/minds/motifs";
 import CookieSettingsButton from "./CookieSettingsButton";
 
 // Inline SVG icons — avoid pulling a whole icon library for four glyphs.
@@ -47,7 +49,12 @@ function TikTokIcon(props: React.SVGProps<SVGSVGElement>) {
 
 const CATEGORY_KEYS = ["science", "engineering", "math", "technology", "psychology"] as const;
 
-export default function Footer({ lang }: { lang: "en" | "hr" }) {
+/**
+ * `minds` — set on Mind Explorers surfaces (psychology articles, the hub's
+ * sibling pages): adds the endorsed lockup strip to the bottom bar (brand
+ * sheet §2/§10 — every themed page carries "part of STEM Little Explorers").
+ */
+export default function Footer({ lang, minds = false }: { lang: "en" | "hr"; minds?: boolean }) {
   const t = {
     en: {
       tagline:     "STEM activities and psychology insights for kids and parents.",
@@ -259,6 +266,23 @@ export default function Footer({ lang }: { lang: "en" | "hr" }) {
           </ul>
         </div>
       </div>
+
+      {minds && (
+        <div className="border-t border-gray-200">
+          <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-center gap-2.5 text-sm">
+            <CompassMark size={18} className="shrink-0" />
+            <Link
+              href={`/${lang}/${MINDS_SLUG[lang]}`}
+              className="font-semibold text-brand hover:text-brand-hover transition-colors"
+            >
+              Mind Explorers
+            </Link>
+            <span className="text-gray-500">
+              · {lang === "hr" ? "dio STEM Little Explorers" : "part of STEM Little Explorers"}
+            </span>
+          </div>
+        </div>
+      )}
 
       <div className="border-t border-gray-200">
         <div className="max-w-6xl mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-1.5 text-xs text-gray-500">

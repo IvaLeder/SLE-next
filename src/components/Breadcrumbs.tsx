@@ -19,7 +19,7 @@ export default function Breadcrumbs({ crumbs }: { crumbs: Crumb[] }) {
             {crumb.href ? (
               <Link
                 href={crumb.href}
-                className="hover:underline hover:text-indigo-600 transition-colors"
+                className="hover:underline hover:text-brand transition-colors"
               >
                 {crumb.label}
               </Link>

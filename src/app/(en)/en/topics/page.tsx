@@ -9,7 +9,7 @@ import { siteConfig } from "@/config/site";
 export const metadata: Metadata = {
   title: "Topics | STEM Little Explorers",
   description:
-    "Browse articles by topic — origami, chemistry, physics, sensory play and experiments. Pick a topic to see every related activity.",
+    "Browse articles by topic: origami, chemistry, physics, sensory play and experiments. Pick a topic to see every related activity.",
   alternates: {
     canonical: `${siteConfig.url}/en/topics`,
     languages: {
@@ -33,7 +33,7 @@ export default function TopicsPage() {
         <header className="mb-8">
           <h1 className="text-3xl md:text-4xl font-bold mb-2">Topics</h1>
           <p className="text-gray-600 max-w-2xl">
-            Browse articles by topic — the science and skills behind each
+            Browse articles by topic: the science and skills behind each
             project. Pick a topic to see every related activity.
           </p>
         </header>
