@@ -1,11 +1,15 @@
 import { Metadata } from "next";
+import { Fragment } from "react";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PostCard from "@/components/PostCard";
 import TagChips from "@/components/TagChips";
+import MindsTheme from "@/components/minds/MindsTheme";
 import { getPostsByTag } from "@/lib/posts";
 import { KNOWN_TAGS, SURFACED_TAGS, TAG_DISPLAY, TAG_DESCRIPTION, isKnownTag } from "@/lib/tags";
+import { MINDS_SLUG, isMindsTag, mindsCopy } from "@/lib/minds";
 import { siteConfig } from "@/config/site";
 
 type Props = { params: Promise<{ tag: string }> };
@@ -28,6 +32,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         hr: `${siteConfig.url}/hr/tag/${slug}`,
       },
     },
+    // Minds tags (hub pillar destinations) carry the compass favicon; the
+    // dynamic segment can't vary icon.tsx per param, so it's set here from
+    // the static twin of src/lib/minds-icon.tsx. Other tags keep the site
+    // favicon (no icons key = root fallback).
+    ...(isMindsTag(slug) && {
+      icons: { icon: [{ url: "/mind-explorers-icon.svg", type: "image/svg+xml" }] },
+    }),
   };
 }
 
@@ -46,8 +57,14 @@ export default async function TagPage({ params }: Props) {
   const displayName = TAG_DISPLAY["hr"][slug];
   const description = TAG_DESCRIPTION["hr"][slug];
 
+  // Minds tags are hub pillar destinations (see isMindsTag): themed like the
+  // psychology category page so arriving from the hub doesn't leave the
+  // sub-brand. Other tags render unwrapped, exactly as before.
+  const minds = isMindsTag(slug);
+  const Wrap = minds ? MindsTheme : Fragment;
+
   return (
-    <>
+    <Wrap>
       <Header lang="hr" switchUrl={`/en/tag/${slug}`} />
       <main id="main-content" className="max-w-4xl mx-auto px-4 py-10">
         <header className="mb-8">
@@ -63,6 +80,14 @@ export default async function TagPage({ params }: Props) {
           <p className="text-lg text-gray-700 max-w-2xl leading-relaxed">
             {description}
           </p>
+          {minds && (
+            <Link
+              href={`/hr/${MINDS_SLUG.hr}`}
+              className="mt-4 inline-block font-sans text-sm font-semibold text-brand hover:text-brand-hover transition-colors"
+            >
+              Mind Explorers: {mindsCopy.hr.tagline.toLowerCase()} →
+            </Link>
+          )}
         </header>
 
         {/* Browse other topics — highlights the current one */}
@@ -76,7 +101,7 @@ export default async function TagPage({ params }: Props) {
           ))}
         </div>
       </main>
-      <Footer lang="hr" />
-    </>
+      <Footer lang="hr" minds={minds} />
+    </Wrap>
   );
 }

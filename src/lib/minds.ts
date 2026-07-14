@@ -32,6 +32,20 @@ export function isMindsPost(categories?: string[]): boolean {
   return !!first && categorySlugFromName(first) === "psychology";
 }
 
+/**
+ * Tags whose landing pages are Mind Explorers surfaces (themed + compass
+ * favicon). Only tags the hub links to as pillar-card destinations belong
+ * here — the rule (2026-07-14) is that sub-brand NAVIGATION surfaces carry
+ * the compass, while individual articles stay endorsed content with the
+ * site favicon. `parenting` qualifies: it's the hub's Parenting pillar
+ * target and every post carrying it is Psychology today.
+ */
+const MINDS_TAGS = new Set(["parenting"]);
+
+export function isMindsTag(tag: string): boolean {
+  return MINDS_TAGS.has(tag.toLowerCase());
+}
+
 export interface MindsPillar {
   id: string;
   title: string;

@@ -79,7 +79,7 @@ export default function MilestoneGuide({ lang }: { lang: "en" | "hr" }) {
                     >
                       <span
                         aria-hidden="true"
-                        className="hidden sm:block shrink-0 self-center h-3 w-3 rounded-full bg-[var(--me-gold,#E8B454)] ring-2 ring-[rgba(201,155,63,0.6)]"
+                        className="hidden sm:block shrink-0 self-start mt-1.5 h-3 w-3 rounded-full bg-[var(--me-gold,#E8B454)] ring-2 ring-[rgba(201,155,63,0.6)]"
                       />
                       <span className="shrink-0 w-28 font-sans text-sm font-semibold text-brand tabular-nums">
                         {entry.age[lang]}
