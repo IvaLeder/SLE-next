@@ -330,8 +330,10 @@ function coverSvg() {
   </svg>`;
 }
 
+// The cover is no longer generated here: it was replaced by a hand-made
+// illustration at public/images/posts/communication-cover.jpg. Re-adding a
+// cover job would overwrite it.
 const jobs = [
-  ["communication-cover.png", coverSvg()],
   ["communication-timeline-en.png", timelineSvg("en")],
   ["communication-timeline-hr.png", timelineSvg("hr")],
   ["communication-model-en.png", modelSvg("en")],
