@@ -23,7 +23,7 @@ Distinct-silhouette rule: each cover reads differently as a thumbnail — (1) ve
 
 ---
 
-## 1. Toddler at 2 years 9 months — block tower + sleeping Aska
+## 1. Toddler at 2 years 9 months — block tower + sleeping Aska ✅ DONE 2026-07-15
 
 Article themes: sleep troubles, outdoor play and immunity, playing independently.
 
@@ -38,7 +38,7 @@ Article themes: sleep troubles, outdoor play and immunity, playing independently
 **heroAlt EN:** `Papercut illustration of a toddler stacking a tall tower of paper blocks while a sheepdog sleeps behind her - what to expect from a toddler at two years and nine months`
 **heroAlt HR:** `Papirnata ilustracija djeteta koje samostalno slaže visoki toranj od kockica dok pas spava iza njega - što očekivati od djeteta s dvije godine i devet mjeseci`
 
-## 2. Three-year-old child — armful of collected treasures
+## 2. Three-year-old child — armful of collected treasures ✅ DONE 2026-07-14
 
 Article themes: big emotions, learning frenzy, imitating parents, "we need everything!".
 
@@ -53,7 +53,7 @@ Article themes: big emotions, learning frenzy, imitating parents, "we need every
 **heroAlt EN:** `Papercut illustration of a three year old girl proudly carrying a huge armful of leaves, sticks and treasures - what to expect from a three year old child`
 **heroAlt HR:** `Papirnata ilustracija trogodišnje djevojčice koja ponosno nosi veliko naramje lišća, grančica i blaga - što očekivati od tri godine starog djeteta`
 
-## 3. Three-and-a-half-year-old — running on the ribbon road, imagination clouds
+## 3. Three-and-a-half-year-old — running on the ribbon road, imagination clouds ✅ DONE 2026-07-15
 
 Article themes: constant movement, rich imagination, doing it "my way", ultralearning.
 
@@ -68,7 +68,7 @@ Article themes: constant movement, rich imagination, doing it "my way", ultralea
 **heroAlt EN:** `Papercut illustration of a girl running along a ribbon road under clouds shaped like animals - what to expect from a three and a half year old child`
 **heroAlt HR:** `Papirnata ilustracija djevojčice koja trči cestom od vrpce ispod oblaka u obliku životinja - što očekivati od tri i pol godine starog djeteta`
 
-## 4. Four-year-old child — easel painting coming alive
+## 4. Four-year-old child — easel painting coming alive ✅ DONE 2026-07-14
 
 Article themes: imagination and roleplay, drawing and describing pictures, narrating plans.
 
