@@ -68,6 +68,7 @@ export default function ToolPage({ lang, tool }: { lang: Lang; tool: Tool }) {
       {tool.download && (
         <Printable
           lang={lang}
+          id={tool.download.id}
           href={tool.download.href[lang]}
           title={tool.download.title[lang]}
           pages={tool.download.pages}

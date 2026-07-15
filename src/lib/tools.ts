@@ -29,8 +29,16 @@ export interface Tool {
   related?: { slug: Record<Lang, string>; label: L };
   /** Optional affiliate "you'll need" items shown on the tool page. */
   materials?: ToolMaterial[];
-  /** Optional printable PDF companion (path under /public), shown as a download card. */
-  download?: { href: Record<Lang, string>; title: L; pages: number; size: Record<Lang, string> };
+  /** Optional printable PDF companion (path under /public), shown as a download card.
+   *  `id` is the GTM tracking handle; it must match the id on the same printable's
+   *  <Printable> in the related article, so both surfaces report as one download. */
+  download?: {
+    id: string;
+    href: Record<Lang, string>;
+    title: L;
+    pages: number;
+    size: Record<Lang, string>;
+  };
 }
 
 export const tools: Tool[] = [
@@ -82,6 +90,7 @@ export const tools: Tool[] = [
       label: { en: "Make a physical cipher wheel", hr: "Napravite fizički kotač za šifriranje" },
     },
     download: {
+      id: "cipher-wheel",
       href: {
         en: "/downloads/cipher-wheel-template.pdf",
         hr: "/downloads/kotac-za-sifriranje-predlozak.pdf",
@@ -184,6 +193,7 @@ export const tools: Tool[] = [
       label: { en: "The full pattern activity", hr: "Cijela aktivnost o nizovima" },
     },
     download: {
+      id: "pattern-starter",
       href: {
         en: "/downloads/pattern-starter-pack.pdf",
         hr: "/downloads/predlozak-uzoraka.pdf",
@@ -313,6 +323,7 @@ export const tools: Tool[] = [
       { name: { en: "Small clear bottles", hr: "Male prozirne bočice" }, q: { en: "small clear bottles kids craft", hr: "male prozirne bočice" } },
     ],
     download: {
+      id: "color-lab",
       href: {
         en: "/downloads/color-mixing-lab.pdf",
         hr: "/downloads/laboratorij-boja.pdf",

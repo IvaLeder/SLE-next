@@ -20,6 +20,9 @@ function pageCount(lang: Lang, n: number): string {
 
 interface PrintableProps {
   lang?: Lang;
+  /** Stable tracking id on the download link; GTM's Click ID reads it.
+   *  Same value in both languages so EN + HR report as one printable. */
+  id?: string;
   /** e.g. /downloads/summer-of-curiosity.pdf */
   href: string;
   title: string;
@@ -34,15 +37,19 @@ interface PrintableProps {
 /**
  * Download card for PDF worksheets/printables:
  *
- *   <Printable href="/downloads/rainbow-rice.pdf" title="Rainbow rice worksheet" pages="3" size="1.2 MB">
+ *   <Printable id="rainbow-rice" href="/downloads/rainbow-rice.pdf" title="Rainbow rice worksheet" pages="3" size="1.2 MB">
  *   Coloring template plus a step-by-step picture guide.
  *   </Printable>
+ *
+ * `id` is the GTM tracking handle: give the EN and HR copies of the same
+ * printable the same id, and don't reuse an id twice on one page.
  *
  * Dashed border on purpose — reads as "cut me out". A download card is
  * useless on paper, so it's hidden in print.
  */
 export default function Printable({
   lang = "en",
+  id,
   href,
   title,
   pages,
@@ -79,6 +86,7 @@ export default function Printable({
         </div>
 
         <a
+          id={id}
           href={href}
           download
           className="shrink-0 rounded-full bg-brand px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-hover"
