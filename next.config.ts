@@ -1,5 +1,7 @@
 import createMDX from '@next/mdx';
 import type { NextConfig } from 'next';
+import fs from 'node:fs';
+import path from 'node:path';
 
 const withMDX = createMDX({
   extension: /\.mdx?$/,
@@ -318,6 +320,37 @@ const config: NextConfig = {
       ['/hr/o-nama/pravila-o-privatnosti', '/hr/privacy'],
       ['/hr/author/ierceg', '/hr/about'],
     ];
+
+    // ─── Bare (language-less) post URLs ──────────────────────────────────
+    // The original WordPress site served posts at the domain root, before
+    // the /en + /hr split. Google still crawls those old paths (they show
+    // up as language-less URLs in Search Console's 404 report) and old
+    // backlinks point there. Generate one 301 per post from the content
+    // directory so the list can never drift as posts are added or renamed.
+    // Drafts are skipped; on an EN/HR slug collision the EN post wins.
+    const seen = new Set(moved.map(([source]) => source));
+    const addBare = (source: string, destination: string) => {
+      if (seen.has(source)) return;
+      seen.add(source);
+      moved.push([source, destination]);
+    };
+    const postsDir = path.join(process.cwd(), 'src', 'content', 'posts');
+    for (const lang of ['en', 'hr'] as const) {
+      for (const file of fs.readdirSync(path.join(postsDir, lang))) {
+        if (!file.endsWith('.mdx')) continue;
+        const raw = fs.readFileSync(path.join(postsDir, lang, file), 'utf8');
+        if (/^draft:\s*true/m.test(raw)) continue;
+        const slug = file.slice(0, -'.mdx'.length);
+        addBare(`/${slug}`, `/${lang}/${slug}`);
+      }
+    }
+    // Renamed posts existed at the root under their OLD slug — reuse the
+    // /en|/hr mappings above to send those bare variants straight to the
+    // final destination (single hop, no chain through the prefixed 301).
+    for (const [source, destination] of [...moved]) {
+      const post = source.match(/^\/(?:en|hr)\/([^/]+)$/);
+      if (post) addBare(`/${post[1]}`, destination);
+    }
 
     return moved.map(([source, destination]) => ({ source, destination, permanent: true }));
   },
