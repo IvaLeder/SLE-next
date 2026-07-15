@@ -258,6 +258,65 @@ const config: NextConfig = {
       ['/hr/tag/kognitivni-razvoj', '/hr/tag/child-development'],
       ['/hr/tag/motoricke-vjestine', '/hr/tag/child-development'],
       ['/hr/tag/tantrum', '/hr/izazovi-roditeljstva-temper-tantrum'],
+      // ─── Remaining 404s from the 2026-07-15 Search Console export (sweep of
+      // all old www URLs still in Google's index after the June 1 migration).
+      // Two are ARTICLES whose slug changed without a redirect; the rest are
+      // WP tag/category/author archives mapped to the closest live equivalent.
+      // Posts
+      ['/hr/dijete-tri-godine', '/hr/dijete-3-godine'],
+      ['/en/speech-development-tips', '/en/how-to-encourage-speech-development-in-toddlers-and-children'],
+      // EN tags
+      ['/en/tag/stem-activities-1st-grade', '/en/activities'],
+      ['/en/tag/stem-activities-5th-grade', '/en/activities'],
+      ['/en/tag/stem-kindergarten', '/en/activities'],
+      ['/en/tag/stem-en', '/en/activities'],
+      ['/en/tag/newborn', '/en/baby-development-month-by-month'],
+      ['/en/tag/logical-skills', '/en/category/math'],
+      ['/en/tag/scientific-method', '/en/tag/experiment'],
+      ['/en/tag/scratch', '/en/learn-programming-with-scratch'],
+      ['/en/tag/learning-to-program', '/en/tag/coding'],
+      // EN categories / pages
+      ['/en/category/first-year-of-childs-life', '/en/category/psychology'],
+      ['/en/category/second-year-of-childs-life', '/en/category/psychology'],
+      ['/en/category/third-year-of-child-life', '/en/category/psychology'],
+      ['/en/category/stem-en/technology', '/en/category/technology'],
+      ['/en/about-us/stem-little-explorers-privacy-policy', '/en/privacy'],
+      ['/en/author/ierceg', '/en/about'],
+      // HR tags
+      ['/hr/tag/stem-aktivnosti-predskolska-dob', '/hr/activities'],
+      ['/hr/tag/stem-aktivnosti-vrticka-dob', '/hr/activities'],
+      ['/hr/tag/stem-aktivnosti-prvi-razred', '/hr/activities'],
+      ['/hr/tag/stem-aktivnosti-drugi-razred', '/hr/activities'],
+      ['/hr/tag/stem-aktivnosti-treci-razred', '/hr/activities'],
+      ['/hr/tag/stem-aktivnosti-4-razred', '/hr/activities'],
+      ['/hr/tag/stem-aktivnosti-peti-razred', '/hr/activities'],
+      ['/hr/tag/znanost-o-hrani', '/hr/tag/chemistry'],
+      ['/hr/tag/kuhinjski-eksperiment', '/hr/tag/chemistry'],
+      ['/hr/tag/soda-bikarbona', '/hr/tag/chemistry'],
+      ['/hr/tag/ocat', '/hr/tag/chemistry'],
+      ['/hr/tag/aktivnosti-s-kartonom', '/hr/tag/activity'],
+      ['/hr/tag/aktivnosti-od-papira', '/hr/tag/origami'],
+      ['/hr/tag/kreativnost', '/hr/tag/activity'],
+      ['/hr/tag/eksperiment', '/hr/tag/experiment'],
+      ['/hr/tag/znanost', '/hr/category/science'],
+      ['/hr/tag/gradnja', '/hr/category/engineering'],
+      ['/hr/tag/tehnologija', '/hr/category/technology'],
+      ['/hr/tag/logicke-vjestine', '/hr/category/math'],
+      ['/hr/tag/djeca', '/hr/tag/parenting'],
+      ['/hr/tag/roditeljstvo', '/hr/tag/parenting'],
+      ['/hr/tag/razvoj-djeteta', '/hr/tag/child-development'],
+      ['/hr/tag/senzorna-igra', '/hr/tag/sensory'],
+      ['/hr/tag/voda', '/hr/magicne-karakteristike-vode'],
+      ['/hr/tag/boje', '/hr/ucenje-boja-najzabavniji-nacin-kako-dijete-nauciti-o-bojama'],
+      ['/hr/tag/radno-pamcenje', '/hr/kako-poboljsati-radno-pamcenje-vaseg-djeteta'],
+      // HR categories / pages
+      ['/hr/category/prva-godina-djetetovog-zivota', '/hr/category/psychology'],
+      ['/hr/category/druga-godina-djetetovog-zivota', '/hr/category/psychology'],
+      ['/hr/category/treca-godina-djetetovog-zivota', '/hr/category/psychology'],
+      ['/hr/category/stem-hr/tehnologija', '/hr/category/technology'],
+      ['/hr/clanci', '/hr'],
+      ['/hr/o-nama/pravila-o-privatnosti', '/hr/privacy'],
+      ['/hr/author/ierceg', '/hr/about'],
     ];
 
     return moved.map(([source, destination]) => ({ source, destination, permanent: true }));
