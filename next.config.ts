@@ -319,6 +319,8 @@ const config: NextConfig = {
       ['/hr/clanci', '/hr'],
       ['/hr/o-nama/pravila-o-privatnosti', '/hr/privacy'],
       ['/hr/author/ierceg', '/hr/about'],
+      // Cross-language URL Google discovered somewhere (GSC 5xx report)
+      ['/en/kako-demonstrirati-difuziju', '/en/how-to-demonstrate-diffusion'],
     ];
 
     // ─── Bare (language-less) post URLs ──────────────────────────────────
