@@ -44,7 +44,7 @@ const COPY = {
     statusNext: "Next up",
     statusDone: "Done",
     disclaimer:
-      "Every baby is different - leap timing is a guide, not a schedule. If anything about your baby's development worries you, talk to your pediatrician.",
+      "Every baby is different - leap timing is a guide, not a schedule. The leap calendar comes from the Wonder Weeks model, a popular framework rather than confirmed science. If anything about your baby's development worries you, talk to your pediatrician.",
     leaps: [
       {
         name: "New sensations",
@@ -121,7 +121,7 @@ const COPY = {
     statusNext: "Slijedi",
     statusDone: "Prošao",
     disclaimer:
-      "Svaka je beba drukčija - vrijeme skokova je orijentir, a ne fiksni raspored. Ako vas išta u razvoju vaše bebe brine, obratite se pedijatru.",
+      "Svaka je beba drukčija - vrijeme skokova je orijentir, a ne fiksni raspored. Kalendar skokova dolazi iz modela knjige The Wonder Weeks, popularnog okvira koji nije znanstveno potvrđen. Ako vas išta u razvoju vaše bebe brine, obratite se pedijatru.",
     leaps: [
       {
         name: "Nove senzacije",
