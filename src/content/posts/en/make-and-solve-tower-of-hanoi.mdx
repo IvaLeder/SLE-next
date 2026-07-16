@@ -14,7 +14,7 @@ description: >-
   Tower of Hanoi rules, the algorithm to solve it, the minimum-moves formula
   (2^n − 1: 7 moves for 3 disks, 31 for 5), and how to make your own puzzle.
 date: '2020-06-25'
-dateModified: '2026-07-05'
+dateModified: '2026-07-16'
 author: Iva Leder
 coverImage: /images/posts/How-to-make-and-solve-the-Tower-of-Hanoi.jpg
 heroAlt: "The Tower of Hanoi puzzle"
@@ -63,7 +63,7 @@ You can play with any number of pieces and it’s getting progressively harder w
 
 Did you already try to solve the Tower of Hanoi and it looks simple? Try to solve the puzzle with 3 pieces in 7 moves. Or with 4 pieces in 15 moves. With 5 pieces, the minimum number of moves is 31! And so on...
 
-For every new piece we add, the **minimum number of moves doubles** (+ 1 on top of that)! The formula used to calculate this is **2n\-1**, where **n** is a number of pieces used.
+For every new piece we add, the **minimum number of moves doubles** (+ 1 on top of that)! The formula used to calculate this is **2^n − 1**, where **n** is the number of pieces used.
 
 For example:
 
@@ -74,7 +74,7 @@ For example:
 **5 Disks**: 2^5 - 1 = 32 - 1 = 31 moves
 ...
 
-Do you remember our monks who are trying to solve the puzzle with 64 pieces? They would need 264\-1 moves at a minimum. That’s **18446744073709551615** moves! Can you even read that number? If they do one move per second and do every move in the correct order, they would still need **585 billion years** to solve the puzzle! So we don’t really need to worry about that end of the world thing anytime soon.
+Do you remember our monks who are trying to solve the puzzle with 64 pieces? They would need 2^64 − 1 moves at a minimum. That’s **18446744073709551615** moves! Can you even read that number? If they do one move per second and do every move in the correct order, they would still need **585 billion years** to solve the puzzle! So we don’t really need to worry about that end of the world thing anytime soon.
 
 Now you’ll learn how to make your own simple Hanoi Tower and the algorithm for how to solve it. First, try to solve it yourself, the beauty of the puzzles is in struggling before coming to that aha moment.
 
