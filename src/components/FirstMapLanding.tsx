@@ -200,7 +200,6 @@ export default function FirstMapLanding({ lang }: { lang: Lang }) {
               <a
                 href={a.pdf}
                 id="first-map"
-                download
                 className="inline-flex items-center gap-2 rounded-full px-6 py-3 font-sans text-sm font-semibold transition-transform hover:scale-[1.03]"
                 style={{ background: "var(--me-gold)", color: "var(--me-plum-deep)" }}
               >
@@ -280,7 +279,6 @@ export default function FirstMapLanding({ lang }: { lang: Lang }) {
         <a
           href={a.pdf}
           id="first-map"
-          download
           className="mt-5 inline-flex items-center gap-2 rounded-full px-6 py-3 font-sans text-sm font-semibold transition-transform hover:scale-[1.03]"
           style={{ background: "var(--me-gold)", color: "var(--me-plum-deep)" }}
         >
