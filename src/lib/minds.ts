@@ -110,7 +110,7 @@ export const mindsCopy: Record<
     ],
     toolsHeading: "Take a map with you",
     toolsBlurb:
-      "Two small tools for the first 20 months: find out which developmental leap is happening around this time, and what each one means.",
+      "Three companions for the first 18 months: find out which developmental leap is happening around now, see what each one means, and take home a free printable keepsake.",
     tools: [
       {
         title: "Developmental leap calculator",
@@ -121,6 +121,11 @@ export const mindsCopy: Record<
         title: "Developmental leaps explorer",
         blurb: "What changes in each leap and how to support it.",
         href: "/en/developmental-leaps",
+      },
+      {
+        title: "The First Map (free keepsake)",
+        blurb: "A gentle printable guide to all ten leaps, one calm page each.",
+        href: "/en/the-first-map",
       },
     ],
     latestHeading: "Latest guides",
@@ -163,7 +168,7 @@ export const mindsCopy: Record<
     ],
     toolsHeading: "Ponesite kartu sa sobom",
     toolsBlurb:
-      "Dva mala alata za prvih 20 mjeseci: saznajte što su skokovi u razvoju i koji bi se trebao događati oko ovog perioda.",
+      "Tri suputnika za prvih 18 mjeseci: saznajte koji se skok događa oko ovog perioda, što svaki znači i ponesite besplatnu knjižicu za ispis.",
     tools: [
       {
         title: "Kalkulator skokova u razvoju",
@@ -174,6 +179,11 @@ export const mindsCopy: Record<
         title: "Vodič kroz skokove u razvoju",
         blurb: "Što se mijenja u svakom skoku i kako pružiti podršku.",
         href: "/hr/skokovi-u-razvoju",
+      },
+      {
+        title: "Prva karta (besplatna knjižica)",
+        blurb: "Ilustrirani vodič kroz svih deset skokova, be.",
+        href: "/hr/prva-karta",
       },
     ],
     latestHeading: "Najnoviji vodiči",
