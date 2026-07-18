@@ -19,16 +19,16 @@ export const authors: Record<string, AuthorInfo> = {
     name: "Iva Leder",
     role: "Psychologist",
     roleHr: "magistra psihologije",
-    bio: "The founder behind the site and a devoted lover of knowledge and learning in any shape or form. She has several years of experience in the field and is a strong believer in the power of education to transform lives. She is always searching for new, more creative and effective ways to teach, and sees real potential in every child — her job is simply to find the right way to unlock it.",
-    bioHr: "Idejna začetnica stranice i velika ljubiteljica znanja i učenja u bilo kojoj formi. Ima nekoliko godina iskustva u radu s djecom i vjeruje da edukacija može promijeniti živote nabolje. Neprestano traži nove, kreativnije i učinkovitije načine podučavanja te vidi velik potencijal u svakom djetetu — njezin je posao pronaći pravi način da ga oslobodi."
+    bio: "The founder of STEM Little Explorers and a lifelong lover of learning, she believes that education has the power to change lives. Always searching for more creative and effective ways to teach, she sees unlimited potential in every child. Her mission is simple: to help unlock that potential by finding the approach that works best for each unique learner.",
+    bioHr: "Osnivačica STEM Little Explorers-a i zaljubljenica u cjeloživotno učenje, vjeruje da obrazovanje ima moć mijenjati živote. Neprestano istražuje kreativnije i učinkovitije načine poučavanja te u svakom djetetu vidi neograničen potencijal. Njezina je misija jednostavna: pomoći svakom djetetu da ostvari svoj puni potencijal pronalazeći pristup koji najbolje odgovara upravo njemu."
   },
-    "Vedran Leder": {
+  "Vedran Leder": {
     avatar: "/images/vedran-leder.jpg",
     name: "Vedran Leder",
     role: "Psychologist",
     roleHr: "magistar psihologije",
-    bio: "He always found classical learning a little dull — he would rather experiment and learn by doing. Young at heart, he blends in with children effortlessly, and believes games and play are the best way to learn, weaving them into everything he teaches. Every new gadget (read: toy) fascinates him, and he is convinced technology opens up endless opportunities for fun, hands-on learning.",
-    bioHr: "Oduvijek je klasično učenje smatrao pomalo dosadnim — radije eksperimentira i zagovornik je iskustvenog učenja. Mlad u duši, bez problema se uklapa među djecu bez obzira na dob, i vjeruje da su igra i igranje najbolji način za stjecanje znanja pa ih uključuje u svaku svoju metodu podučavanja. Fascinira ga svaka nova tehnološka stvarčica (čitaj: igračka) i uvjeren je da tehnologija može obogatiti učenje i učiniti ga zabavnim."
+    bio: "He always found traditional learning a little dull; he'd much rather experiment, explore, and learn by doing. Young at heart, he connects effortlessly with children and believes that play is one of the most powerful ways to learn, weaving games into everything he teaches. Every new gadget (or toy!) captures his imagination, and he's convinced that technology opens up endless opportunities for fun, hands-on learning.",
+    bioHr: "Oduvijek je klasično učenje smatrao pomalo dosadnim - radije eksperimentira i zagovornik je iskustvenog učenja. Mlad u duši, bez problema se uklapa među djecu bez obzira na dob, i vjeruje da su igra i igranje najbolji način za stjecanje znanja pa ih uključuje u svaku svoju metodu podučavanja. Fascinira ga svaka nova tehnološka stvarčica (ili igračka!) i uvjeren je da tehnologija može obogatiti učenje i učiniti ga zabavnijim."
 },
 }
 /**
