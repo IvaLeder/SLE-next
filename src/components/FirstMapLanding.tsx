@@ -145,8 +145,8 @@ const COPY: Record<
     inside: [
       { icon: "🌙", title: "Svih deset skokova, prekrasno ilustrirani", body: "Što se mijenja u svakom, od 5. do 75. tjedna, jednostavnim jezikom." },
       { icon: "🧭", title: "Tri P, objašnjena", body: "Zašto plač, priljepljivost i promjene raspoloženja obično dolaze zajedno." },
-      { icon: "🤍", title: "Kako proći kroz skok", body: "Blizina kao gorivo, predvidljiv vanjski svijet i podjela tereta." },
-      { icon: "✦", title: "Knjižica za ispis", body: "Miran, ilustriran suputnik za pomoć u najtežim trenucima." },
+      { icon: "🤍", title: "Što činiti za vrijeme skoka", body: "Blizina, predvidljiv vanjski svijet i podjela tereta." },
+      { icon: "✦", title: "Knjižica za ispis", body: "Ilustrirani suputnik za pomoć u najtežim trenucima." },
     ],
     leapsHeading: "Svih deset skokova na jednom mjestu",
     leapsNote: "Brojite od termina poroda, a ne od datuma rođenja. Svaka stranica knjižice posvećena je jednom skoku:",
