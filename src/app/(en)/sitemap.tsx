@@ -3,6 +3,7 @@ import { KNOWN_TAGS } from "@/lib/tags";
 import { getAllAuthorSlugs } from "@/lib/authors";
 import { siteConfig } from "@/config/site";
 // import { SUMMER_SLUG } from "@/lib/summer-ebook";
+import { SUBSCRIBE_SLUG } from "@/lib/newsletter";
 import { tools, TOOLS_SLUG } from "@/lib/tools";
 import { MILESTONE_GUIDE_SLUG } from "@/lib/milestone-guide";
 import { MINDS_SLUG } from "@/lib/minds";
@@ -66,6 +67,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
   //   { url: `${BASE_URL}/en/${SUMMER_SLUG.en}`, lastModified: now, changeFrequency: "monthly", priority: 0.8, alternates: summerAlternates },
   //   { url: `${BASE_URL}/hr/${SUMMER_SLUG.hr}`, lastModified: now, changeFrequency: "monthly", priority: 0.8, alternates: summerAlternates },
   // ];
+
+  // Newsletter subscribe landing — slugs differ per language, hand-built with
+  // cross-pointing hreflang (like tools). The thank-you/welcome pages are
+  // deliberately NOT listed: they're noindex conversion-tracking pages.
+  const subscribeAlternates = {
+    languages: {
+      en: `${BASE_URL}/en/${SUBSCRIBE_SLUG.en}`,
+      hr: `${BASE_URL}/hr/${SUBSCRIBE_SLUG.hr}`,
+    },
+  };
+  const subscribeEntries: MetadataRoute.Sitemap = [
+    { url: `${BASE_URL}/en/${SUBSCRIBE_SLUG.en}`, lastModified: now, changeFrequency: "monthly", priority: 0.5, alternates: subscribeAlternates },
+    { url: `${BASE_URL}/hr/${SUBSCRIBE_SLUG.hr}`, lastModified: now, changeFrequency: "monthly", priority: 0.5, alternates: subscribeAlternates },
+  ];
 
   // Tools — hub + one entry per tool. Slugs differ per language (like summer),
   // so build both sides by hand with cross-pointing hreflang.
@@ -170,7 +185,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Deduplicate by URL
   const seen = new Set<string>();
-  return [...staticEntries, /* ...summerEntries, */ ...toolsEntries, ...milestoneGuideEntries, ...mindsEntries, ...categoryEntries, ...tagEntries, ...authorEntries, ...postEntries].filter((e) => {
+  return [...staticEntries, /* ...summerEntries, */ ...subscribeEntries, ...toolsEntries, ...milestoneGuideEntries, ...mindsEntries, ...categoryEntries, ...tagEntries, ...authorEntries, ...postEntries].filter((e) => {
     if (seen.has(e.url)) return false;
     seen.add(e.url);
     return true;

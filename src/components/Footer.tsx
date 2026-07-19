@@ -5,8 +5,10 @@ import { TOOLS_SLUG } from "@/lib/tools";
 import { MILESTONE_GUIDE_SLUG } from "@/lib/milestone-guide";
 import { MINDS_SLUG } from "@/lib/minds";
 import { subjectHref } from "@/lib/categories";
+import { SUBSCRIBE_SLUG } from "@/lib/newsletter";
 import { CompassMark } from "@/components/minds/motifs";
 import CookieSettingsButton from "./CookieSettingsButton";
+import NewsletterSignupForm from "./NewsletterSignupForm";
 
 // Inline SVG icons — avoid pulling a whole icon library for four glyphs.
 function FacebookIcon(props: React.SVGProps<SVGSVGElement>) {
@@ -54,8 +56,20 @@ const CATEGORY_KEYS = ["science", "engineering", "math", "technology", "psycholo
  * `minds` — set on Mind Explorers surfaces (psychology articles, the hub's
  * sibling pages): adds the endorsed lockup strip to the bottom bar (brand
  * sheet §2/§10 — every themed page carries "part of STEM Little Explorers").
+ *
+ * `newsletter` — the site-wide signup band above the link columns. Turned off
+ * on the subscribe landing page (a second form right under the main one) and
+ * on the thank-you/welcome pages (the reader just subscribed).
  */
-export default function Footer({ lang, minds = false }: { lang: "en" | "hr"; minds?: boolean }) {
+export default function Footer({
+  lang,
+  minds = false,
+  newsletter = true,
+}: {
+  lang: "en" | "hr";
+  minds?: boolean;
+  newsletter?: boolean;
+}) {
   const t = {
     en: {
       tagline:     "STEM activities and psychology insights for kids and parents.",
@@ -81,6 +95,9 @@ export default function Footer({ lang, minds = false }: { lang: "en" | "hr"; min
       follow:      "Follow us",
       rights:      "All rights reserved.",
       madeWith:    "Made for curious kids.",
+      nlTitle:     "Get new posts in your inbox",
+      nlBody:      "Experiments, Mind Explorers articles and free printables, about once or twice a month.",
+      nlMore:      "More about the newsletter",
     },
     hr: {
       tagline:     "STEM aktivnosti i psihološki savjeti za djecu i roditelje.",
@@ -106,6 +123,9 @@ export default function Footer({ lang, minds = false }: { lang: "en" | "hr"; min
       follow:      "Pratite nas",
       rights:      "Sva prava pridržana.",
       madeWith:    "Stvoreno za znatiželjnu djecu.",
+      nlTitle:     "Nove objave u vaš inbox",
+      nlBody:      "Pokusi, Mind Explorers članci i besplatni materijali, otprilike jednom do dvaput mjesečno.",
+      nlMore:      "Više o newsletteru",
     },
   }[lang];
 
@@ -120,6 +140,29 @@ export default function Footer({ lang, minds = false }: { lang: "en" | "hr"; min
 
   return (
     <footer className="mt-16 border-t bg-gray-50 font-sans">
+      {/* Newsletter band — site-wide compact signup (source tag "footer"). */}
+      {newsletter && (
+      <div className="border-b border-gray-200">
+        <div className="max-w-6xl mx-auto px-6 py-8 md:flex md:items-center md:justify-between md:gap-10">
+          <div className="mb-4 md:mb-0 md:max-w-md">
+            <h3 className="font-bold text-base">
+              <span aria-hidden="true">📨</span> {t.nlTitle}
+            </h3>
+            <p className="mt-1 text-sm leading-relaxed text-gray-600">{t.nlBody}</p>
+            <Link
+              href={`/${lang}/${SUBSCRIBE_SLUG[lang]}`}
+              className="mt-1 inline-block text-xs text-gray-500 underline hover:text-brand"
+            >
+              {t.nlMore}
+            </Link>
+          </div>
+          <div className="w-full md:max-w-sm">
+            <NewsletterSignupForm lang={lang} variant="compact" source="footer" />
+          </div>
+        </div>
+      </div>
+      )}
+
       <div className="max-w-6xl mx-auto px-6 py-10 grid gap-8 md:grid-cols-4 text-sm">
 
         {/* Brand + tagline + social */}

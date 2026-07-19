@@ -24,7 +24,7 @@ import ArticleHeader from "@/components/ArticleHeader";
 import AuthorBio from "@/components/AuthorBio";
 import ReadingProgress from "@/components/ReadingProgress";
 import ShareButtons from "@/components/ShareButtons";
-import { SubscribeButton } from "@/components/SubscribeButton";
+import NewsletterSignupForm from "@/components/NewsletterSignupForm";
 import TagChips from "@/components/TagChips";
 import { surfacedTagsOf } from "@/lib/tags";
 import { siteConfig } from "@/config/site";
@@ -140,14 +140,16 @@ export default async function PostPage({ params }: Props) {
       {/* Issue 21: author bio below the article body */}
       <AuthorBio name={post.author} lang="en" />
 
-      {/* Issue 24: inline subscribe CTA — visible on mobile, hidden on lg
-          where the floating card is already visible */}
-      <div data-no-print className="lg:hidden mt-10 p-6 bg-brand-soft rounded-xl text-center">
+      {/* Issue 24: inline subscribe CTA — visible up to xl, where the floating
+          card takes over (below xl the card would overlap the text column) */}
+      <div data-no-print className="xl:hidden mt-10 p-6 bg-brand-soft rounded-xl text-center">
         <p className="font-semibold text-gray-800 mb-1">Enjoyed this article?</p>
         <p className="text-sm text-gray-600 mb-4">
           Subscribe to get new posts straight to your inbox.
         </p>
-        <SubscribeButton lang="en" />
+        <div className="mx-auto max-w-sm">
+          <NewsletterSignupForm lang="en" variant="compact" source="article" />
+        </div>
       </div>
 
       {/* End-of-article ad — engaged readers who reached the bottom */}
