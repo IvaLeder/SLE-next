@@ -14,7 +14,7 @@ description: >-
   Tower of Hanoi rules, the algorithm to solve it, the minimum-moves formula
   (2^n − 1: 7 moves for 3 disks, 31 for 5), and how to make your own puzzle.
 date: '2020-06-25'
-dateModified: '2026-07-16'
+dateModified: "2026-07-19"
 author: Iva Leder
 coverImage: /images/posts/How-to-make-and-solve-the-Tower-of-Hanoi.jpg
 heroAlt: "The Tower of Hanoi puzzle"
@@ -26,6 +26,8 @@ tags:
 <YouTube id="S4HOSbrS4bY"
 title="How To make Tower of Hanoi (Tower of Brahma or Lucas Tower)"
 />
+
+<ActivityInfo age="5+" time="30 min" difficulty="Easy" mess="Low" supervision="yes" />
 
 <Callout type="tip" title="🎮 Play as you read">This guide has a playable Tower of Hanoi built in  - scroll down to try it with 3 to 6 disks. Prefer a full page? Open the [Tower of Hanoi puzzle tool](/en/tools/tower-of-hanoi).</Callout>
 
@@ -78,18 +80,27 @@ Do you remember our monks who are trying to solve the puzzle with 64 pieces? The
 
 Now you’ll learn how to make your own simple Hanoi Tower and the algorithm for how to solve it. First, try to solve it yourself, the beauty of the puzzles is in struggling before coming to that aha moment.
 
+<Prediction question="Solving the tower with 3 disks takes 7 moves. What's the minimum number of moves for 4 disks?">
+<PredictionOption>8</PredictionOption>
+<PredictionOption>14</PredictionOption>
+<PredictionOption correct="true">15</PredictionOption>
+<PredictionResult>
+**15 moves.** Each extra disk roughly **doubles** the work: the minimum follows the formula **2ⁿ − 1**, so 4 disks need 2⁴ − 1 = 16 − 1 = 15. To move 4 disks you first move the top 3 out of the way (7 moves), move the biggest disk (1 move), then move the 3 back on top (7 more): 7 + 1 + 7 = 15. That doubling is exactly why 64 disks would take longer than the age of the universe.
+</PredictionResult>
+</Prediction>
+
 ## Materials needed for Hanoi Tower
 
 <Figure src="/images/posts/Materials-Needed-to-make-Tower-of-Hanoi.jpg" alt="Materials Needed to make Tower of Hanoi">
   A homemade Hanoi Tower needs just cardboard, scissors and something for the rods.
 </Figure>
 
-To make our Tower of Hanoi, we will need Styrofoam or Cardboard, divider and a ruler.
+To make our Tower of Hanoi, we will need Styrofoam or Cardboard, compass and a ruler.
 
-- **Styrofoam** or **Cardboard**. We will use Styrofoam (Cardboard can be a good replacement too) to make our pieces for Hanoi Tower. You can make how many pieces you want, just make sure they are in different sizes.
-- **Divider**. We will use a divider to draw circles on our styrofoam or cardboard so we can precisely make shapes that are different in size.
-- **Ruler**. We will use a ruler to measure the different radius of our pieces. Take the ruler and divider, and measure a 1 cm radius. Draw the circle on styrofoam or cardboard. Then measure 2 cm radius and repeat the process. This way we can create as many shapes as we want by increasing the radius by 1 cm.
-- **Scalpel** or **Scissors**. We will use a scalpel or scissors to cut out our shapes. Scalpel will be better if we are using styrofoam and scissors if e are using cardboard.
+- **Styrofoam** or **Cardboard**. We will use Styrofoam (Cardboard can be a good replacement too) to make our pieces for Hanoi Tower. You can make as many pieces as you want, just make sure they are in different sizes.
+- **Compass**. We will use a compass to draw circles on our styrofoam or cardboard so we can precisely make shapes that are different in size.
+- **Ruler**. We will use a ruler to measure the different radius of our pieces. Take the ruler and compass, and measure a 1 cm radius. Draw the circle on styrofoam or cardboard. Then measure 2 cm radius and repeat the process. This way we can create as many shapes as we want by increasing the radius by 1 cm.
+- **Scalpel** or **Scissors**. We will use a scalpel or scissors to cut out our shapes. Scalpel will be better if we are using styrofoam and scissors if we are using cardboard.
 - **Markers**. This is a bonus and we will use it to decorate our shapes to make them more interesting and to distinguish them better.
 - **A4** or bigger **paper**. Instead of wooden sticks, we can use plain paper and draw 3 fields. The goal is the same: move all pieces from the first field to the third field.
 
@@ -99,7 +110,7 @@ For a step by step video guide on how to make the Tower of Hanoi, check out the 
 
 We will show you how to make the Hanoi Tower with 5 pieces. But you can easily follow the same steps to create more or fewer pieces for your Hanoi tower.
 
-- Take the **divider** and measure the radius of 5 cm with the help of a ruler. Draw a circle on the **styrofoam** or cardboard.
+- Take the **compass** and measure the radius of 5 cm with the help of a ruler. Draw a circle on the **styrofoam** or cardboard.
 - Cut the circle from styrofoam or cardboard using the **scalpel** or **scissors**.
 - Now repeat the process but this time measure the radius of 4 cm. Do the same procedure making more circles with 3 cm, 2 cm, and 1 cm radius. This will give you 5 pieces for our Hanoi Tower. If you want more, repeat with circles with a radius of 6+ cm.
 - Use **markers** to color your pieces so they are more recognizable.
@@ -144,6 +155,14 @@ Although it seems very abstract and it’s hard to visualize, when you start mov
 - Math skills, Algorithmic thinking, and approach to solving the problem in the most efficient way.
 - Technology skills. All computer programs are based on algorithms.
 - Logic skills.
+
+<KeyTakeaways>
+- The **Tower of Hanoi** is a classic puzzle: move a stack of disks from the first peg to the third, one disk at a time, never placing a bigger disk on a smaller one.
+- It was invented by **Édouard Lucas in 1883** and comes wrapped in a legend of monks moving 64 golden disks.
+- The minimum number of moves is **2ⁿ − 1** (3 disks = 7, 4 = 15, 5 = 31), so each extra disk roughly **doubles** the difficulty.
+- There's a simple repeating **algorithm** to solve it - a great first taste of the recursive, step-by-step thinking used in programming.
+- You can make one from **cardboard or styrofoam** discs, and adjust the difficulty just by changing the number of disks, so it suits any age.
+</KeyTakeaways>
 
 ## Tower of Hanoi  - Frequently Asked Questions
 

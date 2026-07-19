@@ -11,6 +11,7 @@ description: >-
   How do computers store letters using only 1s and 0s? Learn about binary and
   ASCII, then write your name in binary and make a cool bracelet to wear!
 date: "2026-06-08"
+dateModified: "2026-07-19"
 author: Iva Leder
 coverImage: /images/posts/binary-bracelet-cover.jpg
 heroAlt: "Write your name in binary code bracelet activity"
@@ -22,6 +23,8 @@ tags:
 ---
 
 <YouTube id="NRikJD-5SBU" title="Binary bracelet - write your name in binary"/>
+
+<ActivityInfo age="7+" time="30 min" difficulty="Easy" mess="Low" supervision="no" />
 
 <Callout type="tip" title="💻 Try it as you read">This guide has a live binary translator built in  - scroll down to see your name in 1s and 0s. Prefer a full page? Open the [name in binary tool](/en/tools/name-in-binary).</Callout>
 
@@ -41,7 +44,7 @@ Computers store numbers using a different number system called binary. They use 
   A byte is a group of 8 bits. It’s the standard unit of storage in computers. A single byte can store any number from 0 to 255, which is enough to represent all the letters, numbers and symbols we use in everyday life. 1024 bytes make a kilobyte (KB), 1024 KB make a megabyte (MB), 1024 MB make a gigabyte (GB), and 1024 GB make a terabyte (TB). That’s how computers measure storage space.
 </Callout>
 
-You are probably wondering why do they use only two digits. The reason is in computer architecture. Deep inside every computer are billions of tiny switches called **transistors**. A switch can only be in two states: **off (0)** or **on (1)**. Modern computer chips contain billions of these tiny switches packed into an area no larger than your fingernail. It’s the simplest, most reliable way to store information and it's the foundation of all digital technology.
+You are probably wondering why they use only two digits. The reason is in computer architecture. Deep inside every computer are billions of tiny switches called **transistors**. A switch can only be in two states: **off (0)** or **on (1)**. Modern computer chips contain billions of these tiny switches packed into an area no larger than your fingernail. It’s the simplest, most reliable way to store information and it's the foundation of all digital technology.
 
 <Figure src="/images/posts/write-your-name-in-binary-switches.png" alt="A row of eight light switches, some ON and some OFF, showing the binary pattern 01000001" width="1500" height="1000">
   A computer stores everything as switches that are either ON (1) or OFF (0).
@@ -78,7 +81,7 @@ Imagine a row of 8 lightbulbs. Starting from the right side and moving left, eac
 
 To read a binary number, you just look at which bulbs are turned **ON (1)** and add their values together. Any bulb that is **OFF (0)** is ignored.
 
-Take a look at the capital letter **A**, which we know is the stored as number **65**. Its binary code is 01000001.
+Take a look at the capital letter **A**, which we know is stored as the number **65**. Its binary code is 01000001.
 
 *   The **64** bulb is ON (1)
 
@@ -91,6 +94,15 @@ Take a look at the capital letter **A**, which we know is the stored as number *
 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 1 |
 
 If we add the ON bulbs together: 64 + 1 = 65! It works for any number up to 255.
+
+<Prediction question="Your turn! Which letter is hiding in the binary code 01000010?">
+<PredictionOption>A</PredictionOption>
+<PredictionOption correct="true">B</PredictionOption>
+<PredictionOption>C</PredictionOption>
+<PredictionResult>
+Only the **64** and **2** bulbs are ON, so 64 + 2 = **66**. We know **A is 65**, so the very next number, 66, must be **B**. You just decoded binary by hand!
+</PredictionResult>
+</Prediction>
 
 ## The Binary Alphabet
 
@@ -159,6 +171,37 @@ By chaining millions of these tiny on/off switches together, and agreeing on cod
 - **Place value and a new number system.** Working in base-2 strengthens math thinking and understanding of how place value works in any number system.
 - **Attention to detail and patience.** Reading numbers carefully and then threading beads one by one builds focus.
 - **Fine motor skills.** Threading beads is a great practice for fine motor control and precision.
+
+<KeyTakeaways>
+- Computers understand only **two states - on (1) and off (0)** - because that's easy and reliable to tell apart with electricity.
+- Each 0 or 1 is a **bit**; a group of **8 bits is a byte**, enough to store any letter, number, or symbol.
+- Letters are stored using a lookup table called **ASCII**: **A is 65, B is 66**, and so on, then written in binary (A = `01000001`).
+- Binary is **base-2**: reading right to left, each place doubles (1, 2, 4, 8, 16, 32, 64, 128); add up the ON bulbs to get the number.
+- Turn your name into an 8-bit-per-letter code, pick a colour for **0** and one for **1**, thread the beads, and you have a **secret binary bracelet**.
+</KeyTakeaways>
+
+## Frequently Asked Questions
+
+<FAQ>
+<Question question="How do you write your name in binary?">
+Write your name in capital letters, then look up each letter's 8-bit code in a binary alphabet chart (for example A = 01000001). String the codes together, letter by letter, and you have your name in binary - ready to turn into a beaded bracelet.
+</Question>
+<Question question="What is binary code?">
+Binary is a number system that uses only two digits, 0 and 1. Computers use it because their tiny switches (transistors) can only be off (0) or on (1). By combining many 0s and 1s, computers can represent any number, letter, image, or sound.
+</Question>
+<Question question="What is a bit and what is a byte?">
+A bit is a single 0 or 1 - the word is short for "binary digit." A byte is a group of 8 bits, the standard unit of storage. One byte can hold any value from 0 to 255, which is enough to represent every everyday letter, number, and symbol.
+</Question>
+<Question question="What is ASCII?">
+ASCII (said "ASK-ee") is an agreed-upon lookup table that gives every letter and symbol a number - capital A is 65, B is 66, and so on. The computer then stores that number in binary, which is how letters end up as rows of 0s and 1s.
+</Question>
+<Question question="Why do computers use only 0s and 1s?">
+It comes down to electricity. Telling apart ten different amounts of current would be unreliable, but telling apart just two states - current flowing (1) or not (0) - is easy and error-proof, like a light switch. That reliability is why all digital technology is built on binary.
+</Question>
+<Question question="How do you convert a letter to binary?">
+First find the letter's ASCII number (A = 65). Then write that number in base-2 using place values that double from the right: 1, 2, 4, 8, 16, 32, 64, 128. Turn on the bulbs that add up to your number - 64 + 1 = 65 gives A = 01000001.
+</Question>
+</FAQ>
 
 If you enjoyed this activity, here are some similar to try next:
 
