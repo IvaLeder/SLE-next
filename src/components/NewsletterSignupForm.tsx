@@ -164,6 +164,7 @@ export default function NewsletterSignupForm({
           token,
           website,
           source,
+          lang,
         }),
       });
       if (res.ok) {

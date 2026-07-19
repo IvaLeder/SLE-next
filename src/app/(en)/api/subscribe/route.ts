@@ -1,4 +1,5 @@
 import crypto from "node:crypto";
+import type { Lang } from "@/lib/newsletter";
 
 const RECAPTCHA_SECRET = process.env.RECAPTCHA_SECRET_KEY;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -35,18 +36,27 @@ function isRateLimited(ip: string): boolean {
 }
 
 // ─── Mailchimp ──────────────────────────────────────────────────────────────
+// One audience per language (the account also has legacy "NO NAME" audiences
+// that this flow deliberately ignores; the plan is to merge everything into a
+// single tagged audience later). The API key is account-wide, so only the
+// audience id varies.
+//
 // Upserts the address so we never downgrade an existing subscriber, then tags
-// it "site-subscribe" plus the on-site source. Double opt-in by default
-// (GDPR-friendly): new addresses go in as "pending" and must confirm via
-// Mailchimp's email before they're on the marketing list.
+// it "site-subscribe", the on-site source, and the language. The language tag
+// is redundant while the audiences are split, but it means every contact
+// carries its own language once the audiences are merged. Double opt-in by
+// default (GDPR-friendly): new addresses go in as "pending" and must confirm
+// via Mailchimp's email before they're on the marketing list.
 async function mailchimpSubscribe(
   email: string,
   source: string,
   firstName: string,
   lastName: string,
+  lang: Lang,
 ): Promise<"ok" | "skipped" | "failed"> {
   const key = process.env.MAILCHIMP_API_KEY;
-  const audience = process.env.MAILCHIMP_AUDIENCE_ID;
+  const audience =
+    lang === "hr" ? process.env.MAILCHIMP_AUDIENCE_ID_HR : process.env.MAILCHIMP_AUDIENCE_ID_EN;
   if (!key || !audience || !key.includes("-")) {
     // Not configured (local dev): let the flow proceed so the pages are
     // testable, but leave a trace — in production this would drop subscribers.
@@ -85,6 +95,7 @@ async function mailchimpSubscribe(
       tags: [
         { name: "site-subscribe", status: "active" },
         { name: source, status: "active" },
+        { name: `lang-${lang}`, status: "active" },
       ],
     }),
   }).catch(() => {});
@@ -107,7 +118,7 @@ export async function POST(req: Request) {
       return Response.json({ error: "Payload too large", code: "too_large" }, { status: 413 });
     }
 
-    const { email, consent, token, website, source, firstName, lastName } = await req.json();
+    const { email, consent, token, website, source, firstName, lastName, lang } = await req.json();
 
     // Honeypot — bots fill every field; return a fake success.
     if (typeof website === "string" && website.trim().length > 0) {
@@ -130,6 +141,9 @@ export async function POST(req: Request) {
       typeof source === "string" && KNOWN_SOURCES.has(source) ? source : DEFAULT_SOURCE;
     const safeFirst = typeof firstName === "string" ? firstName.trim().slice(0, MAX_NAME) : "";
     const safeLast = typeof lastName === "string" ? lastName.trim().slice(0, MAX_NAME) : "";
+    // Anything unrecognised goes to the EN list rather than being rejected: a
+    // stale cached bundle posting without `lang` should still subscribe.
+    const safeLang: Lang = lang === "hr" ? "hr" : "en";
 
     // reCAPTCHA
     const verifyRes = await fetch("https://www.google.com/recaptcha/api/siteverify", {
@@ -145,7 +159,7 @@ export async function POST(req: Request) {
     // Unlike the old e-book route there's no fallback delivery here: the whole
     // point is the list add, so a Mailchimp failure is a real error the user
     // should see (and retry) rather than a silent no-op "success".
-    const result = await mailchimpSubscribe(email, safeSource, safeFirst, safeLast);
+    const result = await mailchimpSubscribe(email, safeSource, safeFirst, safeLast, safeLang);
     if (result === "failed") {
       return Response.json({ error: "Subscription failed", code: "send_failed" }, { status: 502 });
     }
