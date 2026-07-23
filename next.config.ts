@@ -191,7 +191,9 @@ const config: NextConfig = {
       ['/hr/tag/senzomotorni-razvoj', '/hr/tag/sensory'],
       ['/en/kako-napraviti-raketu-od-sibica', '/en/how-to-make-match-head-rocket'],
       ['/en/contact-us', '/en/contact'],
-      ['/en/tag/development-stages', '/en/tag/milestone'],
+      // NB: point straight at the pillar, NOT at /{lang}/tag/milestone —
+      // that tag is itself redirected (above), so chaining here would 308→308.
+      ['/en/tag/development-stages', '/en/baby-development-month-by-month'],
       ['/hr/how-to-make-colored-rice', '/hr/kako-napraviti-obojanu-rizu'],
       ['/hr/develop-math-reasoning-skills-origami', '/hr/kako-razviti-matematicki-nacin-razmisljanja-uz-origami'],
       ['/hr/origami-vjetrenjaca', '/hr/kako-napraviti-origami-vjetrenjacu-od-papira'],
@@ -248,7 +250,7 @@ const config: NextConfig = {
       ['/hr/author/admin', '/hr/about'],
       ['/hr/tag/brojevi', '/hr/category/math'],
       ['/hr/tag/vjezbe', '/hr/tag/activity'],
-      ['/hr/tag/faze-razvoja', '/hr/tag/milestone'],
+      ['/hr/tag/faze-razvoja', '/hr/razvoj-djeteta-po-mjesecima'],
       ['/hr/tag/znanstvena-metoda', '/hr/tag/experiment'],
       ['/hr/tag/stem-aktivnosti-todleri', '/hr/activities'],
       ['/hr/tag/stem-aktivnosti-6-razred', '/hr/activities'],
