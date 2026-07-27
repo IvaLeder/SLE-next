@@ -14,7 +14,7 @@ description: >-
   Tower of Hanoi rules, the algorithm to solve it, the minimum-moves formula
   (2^n − 1: 7 moves for 3 disks, 31 for 5), and how to make your own puzzle.
 date: '2020-06-25'
-dateModified: "2026-07-19"
+dateModified: "2026-07-27"
 author: Iva Leder
 coverImage: /images/posts/How-to-make-and-solve-the-Tower-of-Hanoi.jpg
 heroAlt: "The Tower of Hanoi puzzle"
@@ -150,6 +150,31 @@ To solve the Hanoi Tower with 3 disks, we will need a minimum of 7 moves.
 
 Although it seems very abstract and it’s hard to visualize, when you start moving the pieces you will appreciate this algorithm. We say it's an algorithm because it’s a recipe to solve this problem for any number of inputs (pieces) in the minimum number of moves. Try with 6 or 7 pieces and see that it still works!
 
+## The Tower of Hanoi pattern (the trick)
+
+Play a few rounds and you start to feel a pattern hiding inside that algorithm. It's worth naming, because once you see it the puzzle stops being guesswork and becomes something you can almost do on autopilot. Here is the whole trick in three lines (the pieces are called disks or discs, both work):
+
+**Every second move is the smallest disc.** Move the smallest one, make the only other legal move on the board, move the smallest one again, and keep alternating until you're finished.
+
+**The smallest disc always travels in the same direction.** It never doubles back. Which direction depends on how many pieces you started with:
+
+- **Odd number of discs** (3, 5, 7): send the smallest one A → C → B → A → C → B and so on.
+- **Even number of discs** (4, 6): send the smallest one A → B → C → A → B → C and so on.
+
+**The in-between moves make themselves.** When it isn't the smallest disc's turn, there is only ever *one* legal move that doesn't involve it. You never have to choose. Just find it and play it.
+
+That's all there is to it. Follow the pattern without a single wrong turn and you will move all the discs to tower 3 in the minimum number of moves every time:
+
+| Discs | Minimum moves |
+|---|---|
+| 3 | 7 |
+| 4 | 15 |
+| 5 | 31 |
+| 6 | 63 |
+| 7 | 127 |
+
+If you lose your place, don't restart. Look at which peg the smallest disc sits on, remember which way it was travelling, and pick the pattern back up from there.
+
 ## What will you develop and learn by solving Hanoi Tower
 
 - Math skills, Algorithmic thinking, and approach to solving the problem in the most efficient way.
@@ -172,6 +197,9 @@ The minimum is **2^n − 1** moves, where n is the number of disks: 3 disks take
 </Question>
 <Question question="How do you move all the disks to tower 3?">
 Only ever place a smaller disk on a bigger one, and follow the alternating pattern: with an **odd** number of disks, make the first move to the target peg; with an **even** number, make the first move to the spare peg. Then keep cycling the smallest disk in the same direction and making the only other legal move in between  - the full algorithm is explained step by step above.
+</Question>
+<Question question="What is the pattern for solving the Tower of Hanoi?">
+Every second move is the **smallest disc**, and it always travels in the same direction, never doubling back: with an odd number of discs it cycles start → goal → middle, with an even number it cycles start → middle → goal. On every move in between there is only **one** legal move that doesn't involve the smallest disc, so you simply play it. Alternating those two steps solves the puzzle in the minimum number of moves.
 </Question>
 <Question question="Why is it called the Tower of Hanoi?">
 Its inventor, French mathematician Édouard Lucas, published the puzzle in 1883 together with a legend about a temple where monks move 64 golden disks; the tower of the legend was said to stand in Hanoi, Vietnam. The puzzle is also known as **Lucas' Tower** (after its inventor) and the **Tower of Brahma**.

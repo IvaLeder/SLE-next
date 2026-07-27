@@ -1,0 +1,169 @@
+---
+title: "Prime Numbers for Kids: Find All 25 by Crossing Out"
+slug: "prime-numbers-for-kids"
+lang: "en"
+translationKey: "prime-numbers-for-kids"
+date: "2026-07-27"
+author: "Iva Leder"
+description: "What prime numbers are, how to find every one up to 100 with the sieve of Eratosthenes, and why a prime can only ever make one rectangle."
+subtitle: >-
+  A prime number is one that refuses to be shared out evenly. There is no
+  formula that spits them out and no pattern anyone has ever fully cracked, but
+  there is a 2,200-year-old trick that finds every single one up to 100 with
+  nothing but a grid and four coloured pencils. Your child does not need to
+  divide anything to use it.
+categories:
+  - Math
+tags:
+  - activity
+  - stem
+coverImage: "/images/posts/prime-numbers-cover.jpg"
+heroAlt: "A hand-drawn grid of the numbers 1 to 100 on cream paper, with the multiples of 2, 3, 5 and 7 crossed out in blue, orange, green and purple crayon, leaving 25 numbers standing in plain pencil"
+draft: true
+previewToken: "7431f2d757ed7e0f7c73da997b85eea1"
+---
+
+Take 12 buttons and share them out into equal rows. You can make 2 rows of 6, or 3 rows of 4, or 4 rows of 3, or 6 rows of 2. Twelve is a generous, easy-going number.
+
+Now take 13 buttons and try again. Two rows leaves one button stranded. Three rows, four rows, five rows: something is always left over. The only way to lay out 13 buttons in equal rows is one long line of 13.
+
+That stubbornness is all a prime number is. And it is the beginning of one of the deepest, strangest subjects in all of mathematics.
+
+<ActivityInfo age="7+" time="30 min" difficulty="Easy" mess="None" supervision="no" />
+
+<Callout type="tip" title="🎮 Play as you read">
+This guide has an interactive prime explorer built in: cross out the grid a step at a time, then watch any number try to build a rectangle. Prefer a full page? Open the [prime number explorer](/en/tools/prime-number-explorer).
+</Callout>
+
+## What makes a number prime
+
+A **divisor** is a number that divides another one exactly, with nothing left over. The divisors of 12 are 1, 2, 3, 4, 6 and 12. The divisors of 13 are 1 and 13, and that is the whole list.
+
+> A **prime number** has exactly two divisors: 1 and itself. Every other whole number above 1 is called **composite**, because it can be composed out of smaller factors.
+
+The buttons are the clearest way to see it, and it is worth doing with real objects before touching a pencil. Composite numbers can be arranged into a proper rectangle with more than one row. Primes cannot. They only ever make a single line.
+
+Two small oddities that trip children up, and are worth naming out loud:
+
+- **1 is not prime.** It has only one divisor, itself, and a prime needs exactly two. It is not composite either. Mathematicians left it out of both clubs on purpose, and the reason is practical: every composite number breaks down into primes in exactly one way (12 is always 2 × 2 × 3), and if 1 counted as prime you could pad that answer with as many 1s as you liked.
+- **2 is prime**, and it is the only even number that is. Every other even number can be shared into two equal rows, which makes it composite by definition. Children often assume "prime" means "odd", so this is the number that fixes the idea.
+
+<Prediction question="One of these three numbers is prime. Which one?">
+<PredictionOption>51</PredictionOption>
+<PredictionOption correct="true">53</PredictionOption>
+<PredictionOption>57</PredictionOption>
+<PredictionResult>
+**53 is the prime.** The other two look prime, which is exactly why they make a good trap: 51 = 3 × 17 and 57 = 3 × 19.
+
+Here is the trick that catches them. **If the digits of a number add up to a multiple of 3, the number itself is a multiple of 3.** For 51 the digits add to 6, and for 57 they add to 12, so both are divisible by 3. For 53 they add to 8, which is not, and once you have also checked 2, 5 and 7, there is nothing left to check. 53 is prime.
+</PredictionResult>
+</Prediction>
+
+## The sieve of Eratosthenes
+
+Around 240 BCE, a Greek scholar named **Eratosthenes** was running the great library at Alexandria. He is most famous for working out the size of the Earth from the length of a shadow, but he also left behind the method we are about to use, and it is still the fastest way to find all the small primes.
+
+It is called a **sieve** because it does not test numbers one at a time. It shakes out the composite ones and leaves the primes behind, the way a kitchen sieve holds back the lumps.
+
+Write the numbers 1 to 100 in a grid, ten to a row. Then:
+
+1. **Cross out 1.** It is not prime, for the reason above.
+2. **Circle 2**, the first number left. Then colour in every other multiple of 2: 4, 6, 8, 10, and so on to 100. You do not need to know any times tables for this. Just count two squares at a time and colour.
+3. **Circle 3**, the first number still untouched. Colour every multiple of 3: 6, 9, 12, 15… Some of them, like 6 and 12, are already coloured. That is fine and it is interesting: it means they have more than one prime factor.
+4. **Circle 5** and colour its multiples, then **circle 7** and colour its multiples.
+5. **Stop.** Every number still uncoloured is prime.
+
+The moment the last multiple of 7 is coloured in is genuinely a small event. There is no more work to do, and the primes are simply sitting there. Count them: there are 25.
+
+<Printable lang="en" id="prime-sieve" href="/downloads/prime-sieve-grid.pdf" title="Prime sieve grid" pages="2" size="245 KB">
+The 1 to 100 grid with a colour key for the multiples of 2, 3, 5 and 7, plus a second page of dots to circle into equal groups so you can test any number by hand. Answer key at the foot of page 2.
+</Printable>
+
+Doing it on paper first matters. The colours pile up on numbers like 30 and 60, the columns of multiples make visible diagonal stripes, and the surviving numbers scatter with no pattern at all. None of that lands the same way on a screen.
+
+Then run it again here, one step at a time:
+
+<PrimeExplorer />
+
+## Why you can stop at 7
+
+This is the part that feels like a magic trick, and it is the best question in the whole activity: how did we know it was safe to stop after 7? What about the multiples of 11, or 23?
+
+Think about what a composite number under 100 must look like. It is made of at least two factors multiplied together. If **both** of those factors were 11 or more, then their product would be at least 11 × 11 = 121, which is already past 100.
+
+So every composite number below 100 must have at least one factor smaller than 11, which means a factor of 2, 3, 5 or 7. There is nowhere left to hide. By the time you have crossed out the multiples of those four primes, every composite number under 100 is gone.
+
+<Callout type="science" title="The same idea, for any number">
+To test whether a single number is prime, you only need to try dividing by primes up to its **square root**. For 97, the square root is a bit under 10, so 2, 3, 5 and 7 are enough: none divide it, so 97 is prime. For a number up to 400 you would test up to 20, and for a number up to 10,000 you would test up to 100. This is why testing a number gets slower as the number gets bigger, and it is the whole reason very large primes are useful.
+</Callout>
+
+## What the finished grid shows you
+
+The grid is worth looking at once it is done, because the answers are not tidy.
+
+**The primes thin out.** Count them decade by decade: there are 4 primes between 1 and 10, then 4, 2, 2, 3, 2, 2, 3, 2, and finally just 1 (97) between 91 and 100. They keep coming forever, but they get rarer as the numbers grow.
+
+**They never stop.** Around 300 BCE, Euclid proved there is no largest prime, with an argument a curious ten-year-old can follow: suppose you had a complete list of every prime. Multiply them all together and add 1. That new number leaves a remainder of 1 when divided by any prime on your list, so either it is prime itself or it has a prime factor you missed. Either way your list was not complete. The primes go on forever.
+
+**Some come in pairs.** 3 and 5, 5 and 7, 11 and 13, 17 and 19, 29 and 31, 41 and 43, 59 and 61, 71 and 73. Pairs two apart are called **twin primes**, and here is the astonishing bit: nobody knows whether they go on forever. It is one of the oldest unsolved problems in mathematics, and your child can find every pair under 100 with a crayon.
+
+<Callout type="tip" title="🔬 Turn it into a real experiment">
+Predict before you count. Ask: will there be more primes between 1 and 50, or between 51 and 100? Most children guess "about the same". The grid says 15 and 10. Then try the next hundred, 101 to 200, and count again (there are 21). Each round makes the same point more sharply: the primes are getting sparser, but they never quite run out.
+</Callout>
+
+## Where primes turn up outside the grid
+
+**Keeping secrets.** Modern encryption leans on one lopsided fact: multiplying two large primes together is easy, and taking the answer apart again is brutally hard. Multiply 61 by 53 and you get 3,233 in a moment. Handed 3,233 with no hints, you would be reduced to trying divisors. Now imagine both primes are hundreds of digits long. That gap between "easy forwards" and "hopeless backwards" is what protects a password when it travels across the internet, and it is a grown-up cousin of the [cipher wheel](/en/how-to-make-cipher-wheel).
+
+**Cicadas.** Some periodical cicadas in North America spend either 13 or 17 years underground before emerging all at once. Both numbers are prime, and one idea biologists have offered is that a prime-length cycle is hard for a predator with a 2, 3 or 4 year cycle to lock onto. It is a hypothesis rather than a settled fact, but it is a lovely thing to wonder about.
+
+**A prize nobody has claimed.** In 1742 Christian Goldbach guessed that every even number above 2 is the sum of two primes. 10 = 3 + 7. 24 = 11 + 13. 100 = 3 + 97. Computers have checked it for numbers with 18 digits and found no exception, and still nobody has proved it must always work. Try a few with your child. You are poking at an open problem with a pencil.
+
+## The other end of the telescope
+
+The grid finds small primes. The record-breakers are found by worldwide networks of volunteer computers, and the largest primes anyone has found now run to tens of millions of digits. Printed at normal size, a single one of those numbers would fill thousands of pages.
+
+They are almost all of the form 2ⁿ − 1, a shape your child may recognise: it is exactly the [Tower of Hanoi](/en/make-and-solve-tower-of-hanoi) formula, and the same doubling that shows up when you [write your name in binary](/en/write-your-name-in-binary).
+
+<KeyTakeaways>
+- A **prime number** has exactly two divisors, 1 and itself. Any other number above 1 is **composite**.
+- With buttons or dots, a prime can only make **one long line**. A composite number can make a proper rectangle, and every rectangle is a pair of factors.
+- **1 is not prime** (only one divisor) and **2 is** (the only even prime).
+- The **sieve of Eratosthenes** finds all 25 primes under 100 by crossing out the multiples of 2, 3, 5 and 7. No division needed.
+- You can **stop at 7** because two factors of 11 or more would already multiply past 100. In general you only test primes up to the square root.
+- Primes **thin out but never run out** (Euclid proved it), and open questions about them, like twin primes and Goldbach's guess, are still unsolved today.
+</KeyTakeaways>
+
+## Prime numbers - Frequently Asked Questions
+
+<FAQ>
+<Question question="What is a prime number in simple words?">
+A prime number is a whole number bigger than 1 that cannot be shared into equal groups except one group of everything, or groups of one. Its only divisors are 1 and itself. 7 is prime because nothing divides it evenly except 1 and 7. 8 is not, because 2 × 4 = 8.
+</Question>
+<Question question="How many prime numbers are there between 1 and 100?">
+There are **25**: 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97. They are spread unevenly: 4 of them are in the first ten numbers, and only one (97) is between 91 and 100.
+</Question>
+<Question question="Why is 1 not a prime number?">
+Because a prime must have **exactly two** divisors, and 1 has only one: itself. This is not a technicality for its own sake. It keeps prime factorisation unique, so 12 is always 2 × 2 × 3 and nothing else. If 1 were prime you could write 12 as 1 × 2 × 2 × 3, or with a hundred 1s in front, and the answer would stop being one single thing.
+</Question>
+<Question question="Is 2 a prime number?">
+Yes, and it is the only even prime. Every other even number can be divided by 2 into two equal parts, which gives it a third divisor and makes it composite. Children often think prime means odd, so 2 is a useful counter-example, and so is 9 (which is odd but equals 3 × 3).
+</Question>
+<Question question="What is the sieve of Eratosthenes?">
+A method from around 240 BCE for finding all the primes up to a limit. Write the numbers out, then repeatedly circle the smallest number you have not dealt with and cross out all of its multiples. For 1 to 100, doing this for 2, 3, 5 and 7 is enough, and everything still standing is prime. It is called a sieve because it removes the composite numbers instead of testing each number separately.
+</Question>
+<Question question="How can you tell quickly if a number is prime?">
+Try the small primes in order. Is it even? Then only 2 is prime. Do its digits add up to a multiple of 3 (like 51, where 5 + 1 = 6)? Then it divides by 3. Does it end in 0 or 5? Then it divides by 5. Then try 7, and for numbers over 121 also 11. You only ever need to test primes up to the square root of your number. The classic trap is **91**, which looks prime but is 7 × 13.
+</Question>
+<Question question="What age can children learn about prime numbers?">
+Around 6 or 7 they can do the button version: which piles can be shared into equal rows and which cannot. The crossing-out grid works well from about 7, because it needs counting rather than dividing. The reasoning about why you can stop at 7, and the square-root rule behind it, usually lands somewhere around 9 to 11.
+</Question>
+</FAQ>
+
+Primes are a good first taste of a subject with genuinely open questions in it, where a child with a crayon is looking at the same objects mathematicians are still arguing about. If you want more math that behaves like this, try these:
+
+- [Tower of Hanoi](/en/make-and-solve-tower-of-hanoi) - a puzzle whose minimum number of moves doubles with every disk you add.
+- [Where our numbers came from](/en/history-of-numbers-for-kids) - the long road from tally marks to the zero.
+- [Learning fractions with Lego](/en/how-to-learn-fractions-fun-easy-way) - equal parts you can hold in your hand.
+- [Make a cipher wheel](/en/how-to-make-cipher-wheel) - the hands-on end of the secret-keeping that big primes do for real.
+- [Guess my number in 7 questions](/en/guess-my-number-in-7-questions) - another party trick with real computer science hiding inside it.
