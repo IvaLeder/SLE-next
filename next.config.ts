@@ -323,6 +323,39 @@ const config: NextConfig = {
       ['/hr/author/ierceg', '/hr/about'],
       // Cross-language URL Google discovered somewhere (GSC 5xx report)
       ['/en/kako-demonstrirati-difuziju', '/en/how-to-demonstrate-diffusion'],
+      // ─── Still-404 archives from the 2026-07-28 Search Console validation
+      // export. All old WordPress tag/category/author archives; the HR twin of
+      // most of these was already mapped above, so these are the EN halves
+      // that were missed (plus two HR stragglers). Same rule as before: point
+      // at the closest live equivalent in the new taxonomy.
+      ['/en/tag/children', '/en/tag/parenting'],
+      ['/en/tag/cognitive-development', '/en/tag/child-development'],
+      ['/en/tag/motor-skills', '/en/tag/child-development'],
+      ['/en/tag/creativity', '/en/tag/activity'],
+      ['/en/tag/excercises', '/en/tag/activity'],
+      ['/en/tag/kitchen-experiment', '/en/tag/chemistry'],
+      ['/en/tag/vinegar', '/en/tag/chemistry'],
+      ['/en/tag/learning', '/en/activities'],
+      ['/en/tag/numbers', '/en/category/math'],
+      ['/en/tag/colors', '/en/learning-colors-how-to-teach-your-child-about-colors'],
+      ['/en/tag/memory', '/en/improve-childs-working-memory'],
+      ['/en/tag/water', '/en/the-amazing-properties-of-water'],
+      ['/en/tag/tantrum-en', '/en/challenges-parent-temper-tantrum'],
+      ['/en/author/admin', '/en/about'],
+      ['/hr/tag/matematika', '/hr/category/math'],
+      ['/hr/tag/ucenje-programiranja', '/hr/tag/coding'],
+      // Nested year-of-life categories. first/second (EN) and prva/druga (HR)
+      // were already mapped; these complete both sets.
+      ['/en/category/child-development/third-year-of-child-life', '/en/category/psychology'],
+      ['/hr/category/razvoj-djeteta/treca-godina-djetetovog-zivota', '/hr/category/psychology'],
+      ['/hr/category/razvoj-djeteta/cetvrta-godina-djetetovog-zivota', '/hr/category/psychology'],
+      // Site-wide WordPress comment feed, reached via the /feed rule below.
+      ['/en/comments', '/en'],
+      ['/hr/comments', '/hr'],
+      // Only ever crawled with a /feed suffix, so they have no entry above but
+      // the generic /feed rule below will land on them.
+      ['/hr/tag/pamcenje', '/hr/kako-poboljsati-radno-pamcenje-vaseg-djeteta'],
+      ['/en/category/uncategorized-en', '/en/activities'],
     ];
 
     // ─── Bare (language-less) post URLs ──────────────────────────────────
@@ -339,13 +372,23 @@ const config: NextConfig = {
       moved.push([source, destination]);
     };
     const postsDir = path.join(process.cwd(), 'src', 'content', 'posts');
+    // Published posts, indexed both ways, for the cross-language pass below.
+    const keyBySlug: Record<'en' | 'hr', Map<string, string>> = { en: new Map(), hr: new Map() };
+    const slugByKey: Record<'en' | 'hr', Map<string, string>> = { en: new Map(), hr: new Map() };
     for (const lang of ['en', 'hr'] as const) {
       for (const file of fs.readdirSync(path.join(postsDir, lang))) {
-        if (!file.endsWith('.mdx')) continue;
+        if (!/\.mdx?$/.test(file)) continue;
         const raw = fs.readFileSync(path.join(postsDir, lang, file), 'utf8');
         if (/^draft:\s*true/m.test(raw)) continue;
-        const slug = file.slice(0, -'.mdx'.length);
+        const slug = file.replace(/\.mdx?$/, '');
         addBare(`/${slug}`, `/${lang}/${slug}`);
+        // NB: sources are BOM-prefixed, so anchor on ^ in multiline mode
+        // rather than trying to parse the frontmatter block as a whole.
+        const key = raw.match(/^translationKey:\s*["']?([^"'\r\n]+)/m)?.[1].trim();
+        if (key) {
+          keyBySlug[lang].set(slug, key);
+          slugByKey[lang].set(key, slug);
+        }
       }
     }
     // Renamed posts existed at the root under their OLD slug — reuse the
@@ -356,7 +399,90 @@ const config: NextConfig = {
       if (post) addBare(`/${post[1]}`, destination);
     }
 
-    return moved.map(([source, destination]) => ({ source, destination, permanent: true }));
+    // ─── Cross-language slug URLs ────────────────────────────────────────
+    // Google holds a large set of /hr/<english-slug> and /en/<croatian-slug>
+    // URLs (106 of them were still 404ing in the 2026-07-28 validation
+    // export) — the migration's language split left posts briefly reachable
+    // under either prefix. Each goes to the SAME post in the language the
+    // prefix asks for, resolved through `translationKey`, which is exactly
+    // what the hand-written entries above already do one at a time.
+    //
+    // MUST run after the bare-slug passes: those derive `/slug` sources from
+    // every `/en|/hr` entry in `moved`, and a cross-language entry would make
+    // them derive the wrong language for the bare form.
+    //
+    // A slug that is a real post in the target language is skipped, so this
+    // can never shadow a live route.
+    for (const lang of ['en', 'hr'] as const) {
+      const other = lang === 'en' ? 'hr' : 'en';
+      for (const [foreignSlug, key] of keyBySlug[other]) {
+        if (keyBySlug[lang].has(foreignSlug)) continue;
+        const own = slugByKey[lang].get(key);
+        if (own) addBare(`/${lang}/${foreignSlug}`, `/${lang}/${own}`);
+      }
+    }
+
+    // ─── Legacy WordPress media (/wp-content/uploads/…) ──────────────────
+    // The old site served every image from /wp-content/uploads/YYYY/MM/, and
+    // the migration kept the original filenames — so the same file now lives
+    // at /images/posts/<filename>. Google Images still holds the old URLs
+    // (image search is a large share of clicks), and they currently return a
+    // hard error instead of pointing at the live file.
+    //
+    // Two rules, ORDER MATTERS. WordPress also generated resized derivatives
+    // with a `-WIDTHxHEIGHT` suffix (…-300x169.jpg) and those outnumber the
+    // full-size originals ~2:1 in Google's view of the old site, so the
+    // suffix-stripping rule has to be tried first; the plain rule then
+    // catches the originals. Filenames with no counterpart in
+    // public/images/posts land on a 404, which is a cleaner signal for a
+    // genuinely gone file than the error they return today.
+    //
+    // NB: these only take effect once Vercel's firewall stops denying
+    // /wp-content/* at the edge — see dev-quickstart "Domain & legacy
+    // redirects".
+    // ─── WordPress URL suffixes ──────────────────────────────────────────
+    // Every WP post/tag/category was also served at `…/amp/` (AMP version)
+    // and `…/feed/` (per-page comment feed). Both suffixes appear right
+    // across the Search Console 404 export. One rule each strips the suffix
+    // and hands the request to the parent page, which then follows whatever
+    // mapping above applies to it.
+    //
+    // The AMP variants matter most — those were real, indexable pages with
+    // their own history. The feed variants never ranked; stripping them is
+    // mainly so the 404 report stops drowning known-dead noise and a genuine
+    // new 404 stands out.
+    const wpSuffixes = [
+      {
+        source: '/:lang(en|hr)/:path*/amp',
+        destination: '/:lang/:path*',
+        permanent: true,
+      },
+      {
+        source: '/:lang(en|hr)/:path*/feed',
+        destination: '/:lang/:path*',
+        permanent: true,
+      },
+    ];
+
+    const legacyMedia = [
+      {
+        source:
+          '/wp-content/uploads/:year(\\d{4})/:month(\\d{2})/:name-:w(\\d{2,4})x:h(\\d{2,4}).:ext(jpg|jpeg|png|gif|webp)',
+        destination: '/images/posts/:name.:ext',
+        permanent: true,
+      },
+      {
+        source: '/wp-content/uploads/:year(\\d{4})/:month(\\d{2})/:file',
+        destination: '/images/posts/:file',
+        permanent: true,
+      },
+    ];
+
+    return [
+      ...moved.map(([source, destination]) => ({ source, destination, permanent: true })),
+      ...wpSuffixes,
+      ...legacyMedia,
+    ];
   },
 
   // ─── Security headers ─────────────────────────────────────────────────
@@ -371,6 +497,19 @@ const config: NextConfig = {
         source: '/(en|hr)/draft/:path*',
         headers: [
           { key: 'X-Robots-Tag', value: 'noindex, nofollow, noarchive' },
+        ],
+      },
+      // RSS feeds: crawlable, but never a search result. Each feed's
+      // <channel><link> points at the language homepage and its items repeat
+      // that page's listing, so Google indexes the feed, picks the homepage as
+      // canonical, and files the feed under "Duplicate without user-selected
+      // canonical" — XML carries no canonical tag it can honour instead.
+      // `noindex` settles it at the HTTP layer. `follow` is deliberate: the
+      // feed stays a discovery path for new posts.
+      {
+        source: '/rss-:feed.xml',
+        headers: [
+          { key: 'X-Robots-Tag', value: 'noindex, follow' },
         ],
       },
       {
