@@ -11,6 +11,11 @@ declare global {
 
 const LABEL = { en: "Advertisement", hr: "Oglas" } as const;
 
+/** How early (before a unit scrolls into view) to request its ad. Roughly one
+ *  mobile screen — enough lead time to render, short enough that units the
+ *  reader never reaches never request. */
+const ROOT_MARGIN = "600px 0px";
+
 type Props = {
   /** AdSense ad-unit slot id (10 digits). */
   slot: string;
@@ -46,19 +51,52 @@ export default function AdSlot({
   useEffect(() => {
     if (!ADSENSE_CLIENT || !slot) return;
 
-    // Request an ad for this unit exactly once per mount.
-    if (!pushed.current) {
+    const ins = insRef.current;
+    if (!ins) return;
+
+    /**
+     * Request an ad for this unit exactly once — and only once the unit is
+     * near the viewport.
+     *
+     * AdSense counts an impression when a unit *renders*, not when it is seen,
+     * so pushing every unit at mount burns an unviewed impression on each unit
+     * the reader never scrolls to. On these (long) articles that dragged
+     * account-wide Active View from ~89% to ~24%, and viewability is what the
+     * auction bids on — so the unseen units were also depressing the price of
+     * the seen ones. Gating on proximity means a unit the reader never reaches
+     * simply never requests, which costs nothing.
+     *
+     * ROOT_MARGIN is generous enough that the ad has rendered by the time it
+     * scrolls into view; units already on screen (e.g. the first in-feed card)
+     * fire immediately, since IntersectionObserver reports initial state.
+     */
+    const request = () => {
+      if (pushed.current) return;
+      pushed.current = true;
       try {
         (window.adsbygoogle = window.adsbygoogle || []).push({});
-        pushed.current = true;
       } catch {
         /* adsbygoogle.js not ready or blocked — leave the slot empty. */
       }
+    };
+
+    let io: IntersectionObserver | undefined;
+    if (typeof IntersectionObserver === "undefined") {
+      request(); // Very old browser: fall back to the previous eager behaviour.
+    } else {
+      io = new IntersectionObserver(
+        (entries) => {
+          if (entries.some((e) => e.isIntersecting)) {
+            request();
+            io?.disconnect();
+          }
+        },
+        { rootMargin: ROOT_MARGIN }
+      );
+      io.observe(ins);
     }
 
     // Hide the whole block if Google declines to fill it.
-    const ins = insRef.current;
-    if (!ins) return;
     const sync = () => {
       if (ins.getAttribute("data-ad-status") === "unfilled") {
         // DOM-sync setState (same pattern as TOC) — runs once when AdSense
@@ -70,7 +108,10 @@ export default function AdSlot({
     sync();
     const obs = new MutationObserver(sync);
     obs.observe(ins, { attributes: true, attributeFilter: ["data-ad-status"] });
-    return () => obs.disconnect();
+    return () => {
+      io?.disconnect();
+      obs.disconnect();
+    };
   }, [slot]);
 
   if (!ADSENSE_CLIENT || !slot || unfilled) return null;

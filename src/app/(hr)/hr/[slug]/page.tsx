@@ -1,9 +1,10 @@
+import { Fragment } from "react";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import TOC from "@/components/mdx/TOC";
 import PostBody from "@/components/PostBody";
 import AdSlot from "@/components/AdSlot";
-import { AD_SLOTS, splitContentForMidAd } from "@/lib/ads";
+import { AD_SLOTS, splitContentForAds } from "@/lib/ads";
 
 import { getPostBySlug, getAllPosts, Post } from "@/lib/posts";
 import { categorySlugFromName } from "@/lib/categories";
@@ -62,7 +63,11 @@ export default async function PostPage({ params }: Props) {
     minds ? { withinCategory: "psychology" } : undefined
   );
   const topicTags = surfacedTagsOf(post.tags);
-  const [bodyBefore, bodyAfter] = splitContentForMidAd(post.content);
+  // 1–3 body chunks; an ad goes between consecutive chunks. When the article
+  // is long enough to take two in-body ads the after-body slot is dropped, so
+  // an article never carries more than two units.
+  const bodyChunks = splitContentForAds(post.content);
+  const inBodyAdSlots = [AD_SLOTS.inArticle, AD_SLOTS.endOfArticle];
 
   // Build breadcrumb trail — include first category if available (issue 28)
   // Use the canonical English slug for the URL; display name for the label.
@@ -105,13 +110,12 @@ export default async function PostPage({ params }: Props) {
       <TOC lang="hr" />
 
       <article id="post-content" className="prose prose-lg max-w-none">
-        <PostBody source={bodyBefore} lang="hr" />
-        {bodyAfter && (
-          <>
-            <AdSlot slot={AD_SLOTS.inArticle} lang="hr" />
-            <PostBody source={bodyAfter} lang="hr" />
-          </>
-        )}
+        {bodyChunks.map((chunk, i) => (
+          <Fragment key={i}>
+            {i > 0 && <AdSlot slot={inBodyAdSlots[i - 1]} lang="hr" />}
+            <PostBody source={chunk} lang="hr" />
+          </Fragment>
+        ))}
       </article>
 
       {/* Prev/next month navigation on guide posts (self-hides elsewhere) */}
@@ -151,8 +155,11 @@ export default async function PostPage({ params }: Props) {
         </div>
       </div>
 
-      {/* End-of-article ad — engaged readers who reached the bottom */}
-      <AdSlot slot={AD_SLOTS.endOfArticle} lang="hr" />
+      {/* Fallback slot for articles too short to take a second in-body ad.
+          Long articles already placed it at ~2/3, so don't repeat it here. */}
+      {bodyChunks.length < 3 && (
+        <AdSlot slot={AD_SLOTS.endOfArticle} lang="hr" />
+      )}
 
       {relatedPosts.length > 0 && (
         <section data-no-print className={minds ? "mt-12" : "mt-12 border-t pt-6"}>

@@ -43,17 +43,31 @@ export const IN_FEED_LAYOUT_KEY = "-70+dm+1r-q+2l";
 export const adsEnabled = ADSENSE_CLIENT.length > 0;
 
 /**
- * Split a raw MDX body into `[before, after]` at a heading boundary so an
- * in-article ad can sit between two sections. Returns `[content, null]` when:
- *   - ads aren't configured (no client / no in-article slot), or
- *   - the article has fewer than 3 `## ` sections (too short to place cleanly).
+ * Split a raw MDX body at heading boundaries so in-article ads can sit between
+ * sections. Returns the body as 1–3 chunks; the caller renders an ad between
+ * consecutive chunks (`inArticle` after the first, `endOfArticle` after the
+ * second). A single-element result means "no in-body ads".
  *
- * The scan ignores ```fenced``` code blocks, and targets the 3rd H2 when there
- * are 4+ sections (upper-middle of the article) or the 2nd otherwise — always
- * guaranteeing real content both above and below the ad.
+ * The scan ignores ```fenced``` code blocks and only counts top-level `## `
+ * headings.
+ *
+ * Placement, by section count `n`:
+ *   - `n < 3`  → no split. Too short to place cleanly.
+ *   - `3 ≤ n < 6` → one ad, before the 3rd section (or the 2nd when n is 3),
+ *     landing roughly a third of the way down. Unchanged from the original
+ *     single-split behaviour.
+ *   - `n ≥ 6`  → two ads, at ~1/3 and ~2/3, with at least two sections above,
+ *     between and below them.
+ *
+ * The second position matters: previously the `endOfArticle` unit sat *after*
+ * the body and all the trailing components, measuring ~94% down the page. On
+ * articles this long almost no one reached it, so it served an ad that was
+ * paid for but never seen. Moving it to ~2/3 puts it where readers actually
+ * are, and short articles (which keep the after-body slot) now cost nothing
+ * when unreached, because AdSlot only requests on approach.
  */
-export function splitContentForMidAd(content: string): [string, string | null] {
-  if (!adsEnabled || !AD_SLOTS.inArticle) return [content, null];
+export function splitContentForAds(content: string): string[] {
+  if (!adsEnabled || !AD_SLOTS.inArticle) return [content];
 
   const lines = content.split("\n");
   const headingLines: number[] = [];
@@ -68,11 +82,28 @@ export function splitContentForMidAd(content: string): [string, string | null] {
     if (!inFence && /^## \S/.test(lines[i])) headingLines.push(i);
   }
 
-  if (headingLines.length < 3) return [content, null];
+  const n = headingLines.length;
+  if (n < 3) return [content];
 
-  const targetLine = headingLines[headingLines.length >= 4 ? 2 : 1];
-  return [
-    lines.slice(0, targetLine).join("\n"),
-    lines.slice(targetLine).join("\n"),
-  ];
+  const first = n >= 4 ? 2 : 1;
+
+  // Second ad only when the article can spare two sections between the ads and
+  // two more below the last one — otherwise they'd stack up too close.
+  const second =
+    AD_SLOTS.endOfArticle && n >= 6
+      ? Math.min(Math.round((2 * n) / 3), n - 2)
+      : -1;
+
+  const cuts = (second > first ? [first, second] : [first]).map(
+    (i) => headingLines[i]
+  );
+
+  const chunks: string[] = [];
+  let start = 0;
+  for (const cut of cuts) {
+    chunks.push(lines.slice(start, cut).join("\n"));
+    start = cut;
+  }
+  chunks.push(lines.slice(start).join("\n"));
+  return chunks;
 }
