@@ -22,7 +22,10 @@ export const metadata: Metadata = {
     languages: {
       en: "https://stemlittleexplorers.com/en",
       hr: "https://stemlittleexplorers.com/hr",
-      "x-default": "https://stemlittleexplorers.com/en",
+      // x-default is the language-neutral entry point: "/" picks a language
+      // from the visitor's own Accept-Language (see src/proxy.ts), which is
+      // exactly what x-default is meant to advertise.
+      "x-default": "https://stemlittleexplorers.com/",
     },
   },
 };

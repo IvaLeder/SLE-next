@@ -18,7 +18,8 @@ export const metadata: Metadata = {
     languages: {
       en: "https://stemlittleexplorers.com/en",
       hr: "https://stemlittleexplorers.com/hr",
-      "x-default": "https://stemlittleexplorers.com/en",
+      // Same language-neutral root as the English home page advertises.
+      "x-default": "https://stemlittleexplorers.com/",
     },
   },
 };
