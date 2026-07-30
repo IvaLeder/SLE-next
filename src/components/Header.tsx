@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useState, useRef, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Search from "./Search";
+import LanguageSuggestion from "./LanguageSuggestion";
 import { TOOLS_SLUG } from "@/lib/tools";
 import { CATEGORY_DISPLAY, subjectHref, type CategorySlug } from "@/lib/categories";
 
@@ -117,6 +118,7 @@ export default function Header({ lang, switchUrl }: HeaderProps) {
   };
 
   return (
+    <>
     <header className="sticky top-0 z-50 font-sans border-b border-gray-200/70 bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/75">
       {/* Compact mobile bar (~48px tall) — expands on lg+ */}
       <div className="max-w-5xl mx-auto flex items-center justify-between px-4 py-2 lg:py-4">
@@ -255,18 +257,33 @@ export default function Header({ lang, switchUrl }: HeaderProps) {
           <Search lang={lang} />
         </nav>
 
-        <button
-          className="lg:hidden p-2 -mr-2 text-xl leading-none"
-          onClick={() => setOpen(!open)}
-          aria-label={
-            open
-              ? lang === "hr" ? "Zatvori izbornik" : "Close menu"
-              : lang === "hr" ? "Otvori izbornik" : "Open menu"
-          }
-          aria-expanded={open}
-        >
-          {open ? "✕" : "☰"}
-        </button>
+        {/* Mobile controls. The language toggle lives in the bar itself, not
+            inside the hamburger: buried at the bottom of the menu it was
+            effectively undiscoverable for the readers who need it most. */}
+        <div className="flex items-center gap-1 lg:hidden">
+          <Link
+            href={finalSwitchUrl}
+            hrefLang={switchLang}
+            lang={switchLang}
+            aria-label={switchLang === "hr" ? "Prebaci na hrvatski" : "Switch to English"}
+            className="inline-flex items-center min-h-[40px] px-2.5 text-xs font-bold border rounded hover:bg-gray-100"
+          >
+            {switchLang.toUpperCase()}
+          </Link>
+
+          <button
+            className="p-2 -mr-2 text-xl leading-none"
+            onClick={() => setOpen(!open)}
+            aria-label={
+              open
+                ? lang === "hr" ? "Zatvori izbornik" : "Close menu"
+                : lang === "hr" ? "Otvori izbornik" : "Open menu"
+            }
+            aria-expanded={open}
+          >
+            {open ? "✕" : "☰"}
+          </button>
+        </div>
       </div>
 
       {/* Mobile menu */}
@@ -329,23 +346,29 @@ export default function Header({ lang, switchUrl }: HeaderProps) {
             {lang === "en" ? "About" : "O nama"}
           </Link>
 
+          {/* No language link here — it sits in the mobile bar next to ☰. */}
           <Link
             href={`/${lang}/contact`}
-            className="block px-4 py-3 border-b hover:bg-gray-50"
+            className="block px-4 py-3 hover:bg-gray-50"
             onClick={() => setOpen(false)}
           >
             {lang === "en" ? "Contact" : "Kontakt"}
           </Link>
-
-          <Link
-            href={finalSwitchUrl}
-            className="block px-4 py-3 hover:bg-gray-50"
-            onClick={() => setOpen(false)}
-          >
-            {switchLang.toUpperCase()}
-          </Link>
         </div>
       )}
+
     </header>
+
+    {/* Croatian-speaking visitor on an English page: offer the swap once.
+        Rendered OUTSIDE <header> on purpose — the header's backdrop-blur makes
+        it a containing block, which would anchor the card's `fixed` position
+        to the header box instead of the viewport. */}
+    {lang === "en" && (
+      <LanguageSuggestion
+        switchUrl={finalSwitchUrl}
+        siteWide={finalSwitchUrl === "/hr"}
+      />
+    )}
+    </>
   );
 }

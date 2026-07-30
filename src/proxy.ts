@@ -7,13 +7,44 @@ import type { NextRequest } from "next/server";
  * static root layout, so we no longer need to stamp x-pathname for the layout
  * to read.
  */
+/**
+ * Language tags from an Accept-Language header, most-preferred first.
+ * "en-US,hr;q=0.9,de;q=0.8" → ["en-us", "hr", "de"]. Sort is stable, so tags
+ * sharing a q-value keep the order the browser sent them in.
+ */
+function preferredTags(header: string): string[] {
+  return header
+    .split(",")
+    .map((part) => {
+      const [tag, ...params] = part.trim().split(";");
+      const q = params.find((p) => p.trim().startsWith("q="));
+      return {
+        tag: tag.trim().toLowerCase(),
+        q: q ? Number.parseFloat(q.split("=")[1]) || 0 : 1,
+      };
+    })
+    .filter((entry) => entry.tag)
+    .sort((a, b) => b.q - a.q)
+    .map((entry) => entry.tag);
+}
+
 export function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   if (pathname === "/") {
-    const acceptLanguage = req.headers.get("accept-language")?.toLowerCase() ?? "";
-    const locale = acceptLanguage.startsWith("hr") ? "hr" : "en";
-    return NextResponse.redirect(new URL(`/${locale}`, req.url));
+    // Device language decides, because that is what actually says whether a
+    // reader *can* read English. Croatian wins only when it outranks English
+    // in the browser's own ordered list, so "en-GB,hr" still gets English.
+    // Vercel's edge geo header is a tiebreaker for the rare visitor whose
+    // languages mention neither (e.g. a German-only phone in Croatia).
+    const tags = preferredTags(req.headers.get("accept-language") ?? "");
+    const hr = tags.findIndex((t) => t.startsWith("hr"));
+    const en = tags.findIndex((t) => t.startsWith("en"));
+    const wantsCroatian =
+      hr !== -1
+        ? en === -1 || hr < en
+        : en === -1 && req.headers.get("x-vercel-ip-country") === "HR";
+    return NextResponse.redirect(new URL(wantsCroatian ? "/hr" : "/en", req.url));
   }
 
   // Non-ASCII URL guard. Some old WordPress permalinks contained non-ASCII
