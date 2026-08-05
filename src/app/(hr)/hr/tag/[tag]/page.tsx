@@ -21,9 +21,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const displayName = TAG_DISPLAY["hr"][slug];
   const description = TAG_DESCRIPTION["hr"][slug];
+  const seoTitle = slug === "origami" ? "Origami za djecu" : displayName;
 
   return {
-    title: `${displayName} | STEM Little Explorers`,
+    title: `${seoTitle} | STEM Little Explorers`,
     description,
     alternates: {
       canonical: `${siteConfig.url}/hr/tag/${slug}`,

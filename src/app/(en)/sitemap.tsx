@@ -50,8 +50,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...bilingual("/topics",     now, 0.7, "weekly"),
     ...bilingual("/about",      now, 0.5, "monthly"),
     ...bilingual("/contact",    now, 0.4, "yearly"),
-    ...bilingual("/privacy",    now, 0.2, "yearly"),
-    ...bilingual("/terms",      now, 0.2, "yearly"),
   ];
 
   // Summer e-book landing pages — slugs differ per language, so they can't use

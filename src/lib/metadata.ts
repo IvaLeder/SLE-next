@@ -217,7 +217,7 @@ export function generateWebsiteJsonLd(lang: "en" | "hr") {
     inLanguage: lang,
     description:
       lang === "hr"
-        ? "Zabavne STEM aktivnosti i psihološki savjeti za djecu i roditelje."
+        ? "Praktični STEM pokusi, vodiči za razvoj djeteta i savjeti iz psihologije za znatiželjnu djecu te njihove roditelje i odgojitelje."
         : siteConfig.description,
   };
 }

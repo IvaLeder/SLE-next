@@ -11,8 +11,9 @@ import { AD_SLOTS } from "@/lib/ads";
 import { generateWebsiteJsonLd, generateOrganizationJsonLd } from "@/lib/metadata";
 
 export const metadata: Metadata = {
-  title: "STEM Little Explorers",
-  description: "Zabavne STEM aktivnosti i psihološki savjeti za djecu i roditelje.",
+  title: "STEM i znanost za znatiželjnu djecu | STEM Little Explorers",
+  description:
+    "Praktični STEM pokusi, vodiči za razvoj djeteta i savjeti iz psihologije za znatiželjnu djecu te njihove roditelje i odgojitelje.",
   alternates: {
     canonical: "https://stemlittleexplorers.com/hr",
     languages: {

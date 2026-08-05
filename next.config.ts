@@ -131,6 +131,7 @@ const config: NextConfig = {
       ['/en/apple-oxidation-experiment', '/en/apple-oxidation'],
       ['/en/child-cognitive-development', '/en/your-childs-cognitive-development'],
       ['/en/engineering-stem-kids-activity-let-us-build-something', '/en/create-amazing-structures'],
+      ['/en/explore-number-pi-π', '/en/explore-number-pi'],
       ['/en/how-to-make-an-origami-boat', '/en/how-to-make-origami-boat'],
       ['/en/stem-activity-kids-learn-programming-scratch-scratch', '/en/learn-programming-with-scratch'],
       ['/en/teach-child-colors-fun-way', '/en/learning-colors-how-to-teach-your-child-about-colors'],
@@ -144,6 +145,7 @@ const config: NextConfig = {
       ['/hr/dijete-21-i-22-mjesec', '/hr/sto-ocekivati-od-djeteta-u-dvadeset-prvom-i-dvadeset-drugom-mjesecu-zivota'],
       ['/hr/dijete-deseti-mjesec-zivota', '/hr/sto-ocekivati-od-djeteta-u-desetom-mjesecu-zivota'],
       ['/hr/dijete-deveti-mjesec-zivota', '/hr/sto-ocekivati-od-djeteta-u-devetom-mjesecu-zivota'],
+      ['/hr/istrazimo-broj-pi-π', '/hr/istrazimo-broj-pi'],
       ['/hr/dijete-trinaesti-i-cetrnaesti-mjesec', '/hr/sto-ocekivati-od-djeteta-u-trinaestom-i-cetrnaestom-mjesecu-zivota'],
       ['/hr/djetete-dvije-godine-devet-mjeseci', '/hr/sto-ocekivati-od-djeteta-s-dvije-godine-i-devet-mjeseci'],
       ['/hr/djetete-petnaesti-i-sesnaesti-mjesecu-zivota', '/hr/sto-ocekivati-od-djeteta-u-petnaestom-i-sesnaestom-mjesecu-zivota'],
@@ -201,6 +203,8 @@ const config: NextConfig = {
       ['/hr/how-to-make-potato-battery', '/hr/kako-napraviti-bateriju-od-krumpira'],
       ['/hr/stem-mali-istrazivaci-stem-aktivnosti-za-djecu', '/hr'],
       ['/en/tag/food-science', '/en/tag/chemistry'],
+      ['/en/tag/paper-activities', '/en/tag/origami'],
+      ['/en/tag/technology', '/en/category/technology'],
       ['/make-cardboard-clock-learn-tell-time', '/en/make-cardboard-clock-learn-tell-time'],
       ['/en/category/stem-en/math', '/en/category/math'],
       ['/hr/category/stem-hr/math', '/hr/category/math'],
@@ -437,9 +441,9 @@ const config: NextConfig = {
     // public/images/posts land on a 404, which is a cleaner signal for a
     // genuinely gone file than the error they return today.
     //
-    // NB: these only take effect once Vercel's firewall stops denying
-    // /wp-content/* at the edge — see dev-quickstart "Domain & legacy
-    // redirects".
+    // Vercel currently has no custom firewall rule for /wp-content/uploads/*,
+    // so these application redirects are reachable at the edge. Automatic
+    // DDoS mitigation does not need a matching allow rule.
     // ─── WordPress URL suffixes ──────────────────────────────────────────
     // Every WP post/tag/category was also served at `…/amp/` (AMP version)
     // and `…/feed/` (per-page comment feed). Both suffixes appear right
@@ -464,6 +468,148 @@ const config: NextConfig = {
       },
     ];
 
+    // A small set of migrated files changed only by case, diacritics, a removed
+    // π character, compression suffix, or output format. The two generic rules
+    // below cannot express those filename changes, so keep the exceptions in a
+    // compact data table and generate both original + WP-resized aliases.
+    const legacyMediaAliasFiles: Array<{
+      year: string;
+      month: string;
+      oldStem: string;
+      oldExt: string;
+      destination: string;
+      derivatives?: boolean;
+    }> = [
+      {
+        year: '2017', month: '07',
+        oldStem: '5-odličnih-eksperimenata-s-balonima-Pocetna-Slika', oldExt: 'jpg',
+        destination: '/images/posts/5-odlicnih-eksperimenata-s-balonima-Pocetna-Slika.jpg',
+        derivatives: true,
+      },
+      {
+        year: '2017', month: '08',
+        oldStem: '7-zabavnih-aktivnosti-za-učenje-abecede-i-brojeva-Pocetna-Slika', oldExt: 'jpg',
+        destination: '/images/posts/7-zabavnih-aktivnosti-za-ucenje-abecede-i-brojeva-Pocetna-Slika.jpg',
+        derivatives: true,
+      },
+      {
+        year: '2017', month: '08',
+        oldStem: 'Kako-napraviti-Origami-Kucicu-Pocetna-slika', oldExt: 'jpg',
+        destination: '/images/posts/Kako-napraviti-origami-kucicu-Pocetna-slika.jpg',
+        derivatives: true,
+      },
+      ...[
+        'Explore-the-Mysterious-Number-Pi-π-Archimedes-Pi',
+        'Explore-the-Mysterious-Number-Pi-π-Materials-Needed',
+        'Explore-the-Mysterious-Number-Pi-π-Pi-explored',
+        'Explore-the-Mysterious-Number-Pi-π-Pi-is-irrational-number',
+      ].map((oldStem) => ({
+        year: '2019', month: '03', oldStem, oldExt: 'jpg', derivatives: true,
+        destination: `/images/posts/${oldStem.replace('-π', '')}.jpg`,
+      })),
+      ...[
+        'Istražimo-Misteriozan-Broj-Pi-π-Arhimedov-Pi',
+        'Istražimo-Misteriozan-Broj-Pi-π-Pi-je-iracionalan-broj',
+        'Istražimo-Misteriozan-Broj-Pi-π-Potrebni-materijali',
+      ].map((oldStem) => ({
+        year: '2019', month: '03', oldStem, oldExt: 'jpg',
+        destination: `/images/posts/${oldStem.replace('-π', '')}.jpg`,
+      })),
+      {
+        year: '2021', month: '11',
+        oldStem: 'Balloon-getting-sucked-into-the-jar', oldExt: 'gif',
+        destination: '/images/posts/Balloon-getting-sucked-into-the-jar.webp',
+      },
+      {
+        year: '2022', month: '06',
+        oldStem: 'Intenzitet-stresa-u-nasem-zivotu', oldExt: 'jpg',
+        destination: '/images/posts/Intenzitet-stresa-u-nasem-zivotu-min.jpg',
+        derivatives: true,
+      },
+      // Covers deliberately replaced during the redesign. Redirect the old
+      // image URL to the new cover for the same article instead of letting the
+      // generic same-filename rule land on a 404.
+      ...[
+        ['2017', '10', 'How-to-Shrink-a-Bag-with-Microwaves-Cover-Image', '/images/posts/microwave-cover.jpg'],
+        ['2020', '01', 'What-is-inertia-and-how-to-demonstrate-it-Bead-Chain-Experiment', '/images/posts/What-is-inertia.jpg'],
+        ['2017', '11', 'Aktivnost-za-Senzomotoricki-Razvoj-Pocetna-slika-1', '/images/posts/sensory-play.jpg'],
+        ['2017', '11', 'Demonstracija-Osmoze-pomocu-gumenih-bombona-Pocetna-slika-1', '/images/posts/gummy-osmosis.jpg'],
+        ['2021', '08', 'Fun-Activity-to-Introduce-Letters-to-Preschoolers-Cover-Image', '/images/posts/7-fun-Activities-to-Learn-Letters-and-Numbers-Cover-Image.jpg'],
+        ['2017', '11', 'Gummy-Bears-Osmosis-Experiment-Cover-Image', '/images/posts/gummy-osmosis.jpg'],
+        ['2017', '10', 'How-to-Demonstrate-Air-Pressure-with-Can-Crush-Experiment-Cover-Image', '/images/posts/can-crush-cover.jpg'],
+        ['2020', '04', 'How-to-Make-a-Colored-Rainbow-Rice-Indoors-Activity-for-Kids-Cover-Image', '/images/posts/How-to-Make-a-Colored-Rainbow-Rice.webp'],
+        ['2022', '01', 'How-to-Make-a-Lava-Lamp-Cover-Image', '/images/posts/lava-lamp.jpg'],
+        ['2017', '11', 'How-to-make-Sensory-Play-Colors-Cover-Image', '/images/posts/sensory-play.jpg'],
+        ['2017', '10', 'Kako-demonstrirati-pritisak-zraka-pomocu-pokusa-gnjecenja-limenke-Pocetna-slika', '/images/posts/can-crush-cover.jpg'],
+        ['2017', '11', 'Kako-napraviti-Lava-Lampu-Pocetna-slika-1', '/images/posts/lava-lamp.jpg'],
+        ['2017', '09', 'Kako-napraviti-raketu-od-šibica', '/images/posts/How-to-make-a-Match-Head-Rocket.jpg'],
+        ['2017', '10', 'Kako-smanjiti-vrecicu-pomocu-mikrovalova-Pocetna-slika', '/images/posts/microwave-cover.jpg'],
+        ['2017', '12', 'Kako-uciti-o-polaritetu-koristeci-mlijeko-i-boje-Pocetna-Slika-1', '/images/posts/How-to-Make-Colorful-Milk-Polarity-Experiment-Cover-Image.jpg'],
+        ['2021', '07', 'Pokus-oksidacije-jabuke-Pocetna-slika', '/images/posts/apple-oxidation-cover.jpg'],
+        ['2020', '01', 'Sto-je-inercija-i-kako-ju-demonstrirati-Pokus-s-ukrasnim-lancom', '/images/posts/What-is-inertia.jpg'],
+        ['2020', '04', 'What-to-expect-from-the-Two-years-old-Toddler-Cover-Image', '/images/posts/What-to-expect-from-the-Two-years-old-Toddler.webp'],
+        ['2021', '08', 'Zabavna-aktivnost-za-ucenje-slova-kod-predskolaca-Pocetna-slika', '/images/posts/7-zabavnih-aktivnosti-za-ucenje-abecede-i-brojeva-Pocetna-Slika.jpg'],
+        ['2018', '11', 'Fun-activities-for-practicing-matching-patterns-Cover-Picture', '/images/posts/Zabavne-aktivnosti-prepoznavanja-i-dovršavanja-uzoraka-Pocetna-slika.jpg'],
+        ['2018', '01', 'Poticanje-djevojčica-na-STEM-karijere.jpg', '/images/posts/Poticanje-djevojčica-na-STEM-karijere.jpg'],
+        ['2018', '01', 'Women-in-STEM-cover.jpg', '/images/posts/Women-in-STEM-cover.jpg'],
+        ['2019', '09', 'What-to-expect-from-17-and-18-month-old-toddler-Cover-Picture', '/images/posts/Sto-ocekivati-od-17-i-18-mjeseci-starog-djeteta-Pocetna-Slika.webp'],
+      ].map(([year, month, oldStem, destination]) => ({
+        year, month, oldStem, destination, oldExt: 'jpg', derivatives: true,
+      })),
+    ];
+
+    const legacyMediaAliases = legacyMediaAliasFiles.flatMap((file) => {
+      // Next matches redirect regexes against the raw URL path. Browsers send
+      // non-ASCII filenames percent-encoded, so emit both spellings whenever
+      // they differ (for example `π` + `%CF%80`, or `č` + `%C4%8D`).
+      const sourceStems = [...new Set([file.oldStem, encodeURI(file.oldStem)])];
+      return sourceStems.flatMap((sourceStem) => [
+        ...(file.derivatives
+          ? [{
+              source: `/wp-content/uploads/${file.year}/${file.month}/${sourceStem}-:w(\\d{2,4})x:h(\\d{2,4}).${file.oldExt}`,
+              destination: file.destination,
+              permanent: true,
+            }]
+          : []),
+        {
+          source: `/wp-content/uploads/${file.year}/${file.month}/${sourceStem}.${file.oldExt}`,
+          destination: file.destination,
+          permanent: true,
+        },
+      ]);
+    });
+
+    // A few WP-sized derivatives are themselves the files retained by the
+    // migration (for example `Big-House-1024x576.jpg`); there is no full-size
+    // `Big-House.jpg` to strip back to. Generate one family alias that sends
+    // every historical size, plus the old original URL, to the retained file.
+    const migratedImageFiles = fs.readdirSync(
+      path.join(process.cwd(), 'public', 'images', 'posts'),
+    );
+    const migratedDerivativeFamilies = migratedImageFiles
+      .map((file) => {
+        const match = file.match(/^(.*)-\d{2,4}x\d{2,4}(\.(?:jpe?g|png|gif|webp))$/i);
+        if (!match) return null;
+        const [, stem, extension] = match;
+        // When the true original is present, the generic strip-to-original rule
+        // below is preferable and this exception is unnecessary.
+        if (migratedImageFiles.includes(`${stem}${extension}`)) return null;
+        return { stem, extension, file };
+      })
+      .filter((item): item is { stem: string; extension: string; file: string } => Boolean(item));
+    const legacyRetainedDerivativeAliases = migratedDerivativeFamilies.flatMap((item) => [
+      {
+        source: `/wp-content/uploads/:year(\\d{4})/:month(\\d{2})/${item.stem}-:w(\\d{2,4})x:h(\\d{2,4})${item.extension}`,
+        destination: `/images/posts/${item.file}`,
+        permanent: true,
+      },
+      {
+        source: `/wp-content/uploads/:year(\\d{4})/:month(\\d{2})/${item.stem}${item.extension}`,
+        destination: `/images/posts/${item.file}`,
+        permanent: true,
+      },
+    ]);
+
     const legacyMedia = [
       {
         source:
@@ -481,6 +627,8 @@ const config: NextConfig = {
     return [
       ...moved.map(([source, destination]) => ({ source, destination, permanent: true })),
       ...wpSuffixes,
+      ...legacyMediaAliases,
+      ...legacyRetainedDerivativeAliases,
       ...legacyMedia,
     ];
   },

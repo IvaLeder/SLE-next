@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+
 export const siteConfig = {
   name: "STEM Little Explorers",
   url: "https://stemlittleexplorers.com",
@@ -6,7 +8,7 @@ export const siteConfig = {
     url: "https://stemlittleexplorers.com/about",
   },
   description:
-    "Hands-on STEM activities, psychology insights, and educational resources for curious kids and parents.",
+    "Hands-on STEM experiments, child development guides, and practical psychology insights for curious kids, parents, and educators.",
   locale: "en",
   languages: ["en", "hr"],
 
@@ -18,3 +20,21 @@ export const siteConfig = {
     tiktok:    "https://www.tiktok.com/@stem.little.explorers",
   },
 } as const;
+
+// Let search engines use the full text, large images, and available video when
+// composing search-result previews. Individual utility/private pages can still
+// override this at page level with `robots: { index: false, ... }`.
+export const searchPreviewRobots = {
+  index: true,
+  follow: true,
+  "max-snippet": -1,
+  "max-image-preview": "large",
+  "max-video-preview": -1,
+  googleBot: {
+    index: true,
+    follow: true,
+    "max-snippet": -1,
+    "max-image-preview": "large",
+    "max-video-preview": -1,
+  },
+} satisfies Metadata["robots"];

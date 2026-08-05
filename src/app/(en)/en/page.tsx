@@ -14,9 +14,9 @@ import {
 } from "@/lib/metadata";
 
 export const metadata: Metadata = {
-  title: "STEM Little Explorers",
+  title: "STEM & Science for Curious Kids | STEM Little Explorers",
   description:
-    "Hands-on STEM activities, psychology insights, and educational resources for curious kids and parents.",
+    "Hands-on STEM experiments, child development guides, and practical psychology insights for curious kids, parents, and educators.",
   alternates: {
     canonical: "https://stemlittleexplorers.com/en",
     languages: {

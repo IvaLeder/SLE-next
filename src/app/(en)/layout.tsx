@@ -4,7 +4,7 @@
 import "../globals.css";
 import { Lora, Inter } from "next/font/google";
 import type { Metadata, Viewport } from "next";
-import { siteConfig } from "@/config/site";
+import { searchPreviewRobots, siteConfig } from "@/config/site";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import GtmWithConsent from "@/components/GtmWithConsent";
@@ -43,6 +43,7 @@ const pinterestVerify = process.env.PINTEREST_DOMAIN_VERIFY;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
+  robots: searchPreviewRobots,
   ...(pinterestVerify ? { verification: { other: { "p:domain_verify": pinterestVerify } } } : {}),
   alternates: {
     types: {
