@@ -117,7 +117,7 @@ const allTools: Tool[] = [
     },
     description: {
       en: "Play the Tower of Hanoi puzzle online: move the disk stack to the last peg without ever putting a bigger disk on a smaller one. A fun logic puzzle for kids.",
-      hr: "Igrajte zagonetku Hanojski toranj online: premjestite toranj diskova na zadnji štap, a da veći disk nikad ne stavite na manji. Zabavna logička zagonetka za djecu.",
+      hr: "Igrajte Hanojski toranj online: premjestite sve diskove na zadnji štap bez stavljanja većeg diska na manji. Logička igra za djecu.",
     },
     related: {
       slug: {
@@ -140,8 +140,8 @@ const allTools: Tool[] = [
       hr: "Ne možete se odlučiti? Zavrtite i vidite što će biti vaša sljedeća praktična STEM aktivnost.",
     },
     description: {
-      en: "Can't decide what to make? Spin the wheel for a random hands-on STEM activity for kids - experiments, crafts and more.",
-      hr: "Ne znate što biste? Zavrtite kotač za nasumičnu praktičnu STEM aktivnost za djecu - pokuse, radove i još mnogo toga.",
+      en: "Can't decide what to make? Spin for a random hands-on STEM activity for kids — experiments, crafts and more. Start exploring with one click.",
+      hr: "Ne znate što biste? Zavrtite kotač za nasumičnu praktičnu STEM aktivnost za djecu — pokus, projekt ili kreativni rad — i odmah otvorite vodič.",
     },
     related: {
       slug: { en: "activities", hr: "activities" },
@@ -161,8 +161,8 @@ const allTools: Tool[] = [
       hr: "Vizualizirajte svaki razlomak kao pitu (kružni model) i kao traku (pravokutni model). Možete pratiti kako postaje postotak i decimalni broj.",
     },
     description: {
-      en: "A free fraction visualizer for kids: pick a numerator and denominator and see the fraction as a pie chart and bar, plus its percentage, decimal and simplest form.",
-      hr: "Besplatni vizualizator razlomaka za djecu: odaberite brojnik i nazivnik i vidite razlomak kao pitu i traku, uz postotak, decimalni broj i najjednostavniji oblik.",
+      en: "Free fraction visualizer for kids: choose a numerator and denominator, then compare the fraction as a pie, bar, percentage, decimal and simplest form.",
+      hr: "Besplatni vizualizator razlomaka za djecu: odaberite brojnik i nazivnik pa usporedite pitu, traku, postotak, decimalni zapis i skraćeni razlomak.",
     },
     related: {
       slug: {
@@ -185,8 +185,8 @@ const allTools: Tool[] = [
       hr: "Odaberite oblike, boje, slova ili sličice i dovršite uzorak koji se ponavlja. Ispišite radni list za zabavu bez ekrana.",
     },
     description: {
-      en: "A free pattern maker for kids: choose shapes, colors, letters, numbers or pictures, complete the repeating pattern, or build your own and print a practice worksheet.",
-      hr: "Besplatni kreator nizova za djecu: odaberite oblike, boje, slova, brojeve ili sličice, dovršite uzorak koji se ponavlja ili složite vlastiti i ispišite radni list za vježbu.",
+      en: "Free pattern maker for kids: complete sequences with shapes, colors, letters, numbers or pictures, build your own and print a practice worksheet.",
+      hr: "Besplatni kreator nizova za djecu: dovršite uzorke s oblicima, bojama, slovima, brojevima ili sličicama, složite vlastiti i ispišite radni list.",
     },
     related: {
       slug: {
@@ -219,8 +219,8 @@ const allTools: Tool[] = [
       hr: "Upišite svoj rođendan i otkrijte gdje se točno te znamenke pojavljuju u beskonačnom broju π.",
     },
     description: {
-      en: "A free tool that searches a million digits of Pi for your birthday (or any number) and shows exactly where it hides in π. A fun way to explore an irrational number.",
-      hr: "Besplatni alat koji pretražuje milijun znamenki broja Pi i traži vaš rođendan (ili bilo koji broj) te pokazuje gdje se točno krije u π. Zabavan način istraživanja iracionalnog broja.",
+      en: "Search one million digits of Pi for your birthday or any number and see exactly where it appears. A free, playful way for kids to explore π.",
+      hr: "Pretražite milijun znamenki broja Pi i pronađite svoj rođendan ili drugi broj. Besplatan alat pokazuje gdje se niz točno krije u broju π.",
     },
     related: {
       slug: {
@@ -243,8 +243,8 @@ const allTools: Tool[] = [
       hr: "Povucite kazaljke interaktivnog sata i reći će vam koje je vrijeme, jednostavan i zabavan način za učenje čitanja analognog sata.",
     },
     description: {
-      en: "A free interactive analog clock for kids: drag the hour and minute hands to set any time and see it read out in words and digits, with a practice mode for telling time.",
-      hr: "Besplatni interaktivni analogni sat za djecu: povlačite satnu i minutnu kazaljku, postavite vrijeme i pročitajte ga riječima i brojkama, uz dodatnu opciju za vježbu.",
+      en: "Free interactive analog clock for kids: drag the hands to set a time, read it in words and digits, then practise telling time with quick challenges.",
+      hr: "Besplatni interaktivni analogni sat za djecu: pomičite kazaljke, pročitajte vrijeme riječima i brojkama te vježbajte kroz kratke zadatke.",
     },
     related: {
       slug: {
@@ -271,7 +271,7 @@ const allTools: Tool[] = [
     },
     description: {
       en: "A free Morse code translator for kids: type a message to see it in dots and dashes, play it as sound and light, or decode Morse back into text.",
-      hr: "Besplatni prevoditelj Morseove abecede za djecu: upišite poruku i vidite je u točkicama i crticama, odsvirajte je kao zvuk i svjetlo ili dešifrirajte Morse natrag u tekst.",
+      hr: "Besplatni prevoditelj Morseove abecede za djecu: pretvorite tekst u točkice i crtice, reproducirajte ga zvukom i svjetlom ili dešifrirajte poruku.",
     },
     related: {
       slug: {
@@ -297,8 +297,8 @@ const allTools: Tool[] = [
       hr: "Upišite termin poroda i dobit ćete osobni kalendar svih 10 skokova u razvoju, uz kratki opis što očekivati od svakoga.",
     },
     description: {
-      en: "Free developmental leap calculator: enter your baby's due date to see the dates of all 10 mental leaps in the first 20 months, which leap is happening now and what to expect.",
-      hr: "Besplatni kalkulator skokova u razvoju: upišite termin poroda i saznajte datume svih 10 skokova u prvih 20 mjeseci, koji je skok u tijeku i što očekivati.",
+      en: "Free developmental leap calculator: enter your baby's due date to estimate all 10 leap periods in the first 20 months and see what families commonly notice.",
+      hr: "Besplatni kalkulator skokova u razvoju: upišite termin poroda, procijenite razdoblja svih 10 skokova i pročitajte što obitelji često primjećuju.",
     },
     related: {
       slug: { en: "developmental-leaps", hr: "skokovi-u-razvoju" },

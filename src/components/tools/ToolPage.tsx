@@ -12,15 +12,14 @@ import ClockTool from "@/components/tools/ClockTool";
 import DevelopmentalLeaps from "@/components/tools/DevelopmentalLeaps";
 import PatternMaker from "@/components/tools/PatternMaker";
 import ColorMixer from "@/components/tools/ColorMixer";
-import NumberSystems from "@/components/tools/NumberSystems";
-import WeightOnPlanets from "@/components/tools/WeightOnPlanets";
-import PrimeExplorer from "@/components/tools/PrimeExplorer";
-import GuessMyNumber from "@/components/tools/GuessMyNumber";
-import TrussTester from "@/components/tools/TrussTester";
 import ToolFrame from "@/components/tools/ToolFrame";
 import ToolPageAnalytics from "@/components/tools/ToolPageAnalytics";
 import { ToolRecommendations } from "@/components/tools/ToolDiscovery";
+import ToolGuide from "@/components/tools/ToolGuide";
+import JsonLd from "@/components/JsonLd";
 import { getSpinActivities } from "@/lib/spin-activities";
+import { getToolContent } from "@/lib/tool-content";
+import { siteConfig } from "@/config/site";
 
 // Maps a tool's `key` to its interactive UI. Add new tools here. (The activity
 // spinner is special-cased below because it needs a server-fetched post list.)
@@ -50,9 +49,71 @@ const COPY = {
 export default function ToolPage({ lang, tool }: { lang: Lang; tool: Tool }) {
   const t = COPY[lang];
   const Comp = TOOL_UI[tool.key];
+  const content = getToolContent(tool.key);
+  const toolUrl = `${siteConfig.url}/${lang}/${TOOLS_SLUG[lang]}/${tool.slug[lang]}`;
+  const hubUrl = `${siteConfig.url}/${lang}/${TOOLS_SLUG[lang]}`;
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "@id": `${toolUrl}#application`,
+        name: tool.title[lang],
+        description: tool.description[lang],
+        url: toolUrl,
+        inLanguage: lang,
+        applicationCategory: "EducationalApplication",
+        applicationSubCategory: "Interactive learning tool",
+        operatingSystem: "Any",
+        browserRequirements: "Requires JavaScript and a modern web browser",
+        isAccessibleForFree: true,
+        isFamilyFriendly: true,
+        ...(content && { featureList: content.learns[lang] }),
+        ...(tool.related && {
+          isBasedOn: `${siteConfig.url}/${lang}/${tool.related.slug[lang]}`,
+        }),
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "EUR",
+          availability: "https://schema.org/InStock",
+        },
+        author: {
+          "@type": "Organization",
+          name: siteConfig.name,
+          url: siteConfig.url,
+        },
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${toolUrl}#breadcrumb`,
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: lang === "en" ? "Home" : "Naslovnica",
+            item: `${siteConfig.url}/${lang}`,
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: lang === "en" ? "Tools & games" : "Alati i igre",
+            item: hubUrl,
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: tool.title[lang],
+            item: toolUrl,
+          },
+        ],
+      },
+    ],
+  };
 
   return (
     <ToolPageAnalytics lang={lang} toolKey={tool.key}>
+      <JsonLd data={structuredData} />
       <nav className="mb-4 font-sans text-sm">
         <Link href={`/${lang}/${TOOLS_SLUG[lang]}`} className="text-gray-500 hover:text-brand">
           ← {t.back}
@@ -78,6 +139,8 @@ export default function ToolPage({ lang, tool }: { lang: Lang; tool: Tool }) {
           </div>
         </ToolFrame>
       </div>
+
+      {content && <ToolGuide lang={lang} content={content} />}
 
       {tool.download && (
         <Printable

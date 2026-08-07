@@ -7,6 +7,7 @@ import AdSlot from "@/components/AdSlot";
 import { AD_SLOTS } from "@/lib/ads";
 import { tools, toolBySlug } from "@/lib/tools";
 import { Metadata } from "next";
+import { generateToolMetadata } from "@/lib/tool-metadata";
 
 type Props = { params: Promise<{ tool: string }> };
 
@@ -18,18 +19,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { tool } = await params;
   const data = toolBySlug("en", tool);
   if (!data) return {};
-  return {
-    title: `${data.title.en} | STEM Little Explorers`,
-    description: data.description.en,
-    alternates: {
-      canonical: `https://stemlittleexplorers.com/en/tools/${data.slug.en}`,
-      languages: {
-        en: `https://stemlittleexplorers.com/en/tools/${data.slug.en}`,
-        hr: `https://stemlittleexplorers.com/hr/alati/${data.slug.hr}`,
-        "x-default": `https://stemlittleexplorers.com/en/tools/${data.slug.en}`,
-      },
-    },
-  };
+  return generateToolMetadata(data, "en");
 }
 
 export default async function ToolDetailPage({ params }: Props) {
