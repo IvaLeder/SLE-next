@@ -3,7 +3,7 @@
 import { Fragment, useEffect, useRef, useState } from "react";
 
 type Lang = "en" | "hr";
-type Tab = "see" | "break" | "table";
+type Tab = "see" | "break" | "table" | "practice";
 type View = "groups" | "array" | "line";
 
 const COPY = {
@@ -44,6 +44,36 @@ const COPY = {
     famMirror: "Mirror twins: 6 × 4 is the same as 4 × 6",
     a11yCell: (a: number, b: number, p: number) => `${a} times ${b} equals ${p}`,
     a11yFlip: "Swap the two numbers",
+    tabPractice: "Practice",
+    pracIntro:
+      "Ten questions on a handful of facts, so each one comes round twice. Get one twice in a row and it fills in on the chart.",
+    pracPoolHint:
+      "You only get asked the facts left after the tricks you crossed off in The table. Cross off more there and this pool shrinks.",
+    pracStart: "Start a round",
+    pracQuestion: (n: number, total: number) => `Question ${n} of ${total}`,
+    pracCorrect: "Yes!",
+    pracWrong: (p: number) => `Not quite. It is ${p}.`,
+    pracNext: "Next",
+    pracShowMe: "Show me this one",
+    pracDone: "Round finished",
+    pracScore: (c: number, total: number) => `${c} of ${total} right`,
+    pracNewMastered: (n: number) =>
+      n === 0
+        ? "No new squares filled in this time. Another round will get you there."
+        : n === 1
+          ? "1 new fact filled in on the chart"
+          : `${n} new facts filled in on the chart`,
+    pracAgain: "Go again",
+    pracSeeChart: "See the chart",
+    pracProgress: (m: number, n: number) => `${m} of ${n} facts filled in`,
+    pracAllDone: "Every fact in your pool is filled in. Keep going to stay sharp, or start over.",
+    pracReset: "Start over",
+    pracResetArmed: "Tap again to clear",
+    pracLegend: "Practice fills these in:",
+    pracLegendLearning: "getting there",
+    pracLegendMastered: "two in a row",
+    a11yOption: (p: number) => `Answer ${p}`,
+    a11yAsk: (x: number, y: number) => `What is ${x} times ${y}?`,
   },
   hr: {
     tabSee: "Vizualiziraj",
@@ -82,6 +112,34 @@ const COPY = {
     famMirror: "Blizanci: 6 × 4 isto je što i 4 × 6",
     a11yCell: (a: number, b: number, p: number) => `${a} puta ${b} jednako je ${p}`,
     a11yFlip: "Zamijeni brojeve",
+    tabPractice: "Vježbaj",
+    pracIntro:
+      "Deset pitanja o nekoliko umnožaka, pa svaki dolazi na red dvaput. Pogodi isti dvaput zaredom i popunit će se na tablici.",
+    pracPoolHint:
+      "Pitamo te samo umnoške koji ostaju nakon prekriženih trikova u Tablici množenja. Prekriži ih još i ovaj skup se smanjuje.",
+    pracStart: "Počni krug",
+    pracQuestion: (n: number, total: number) => `${n}. pitanje od ${total}`,
+    pracCorrect: "Točno!",
+    pracWrong: (p: number) => `Nije točno. Rezultat je ${p}.`,
+    pracNext: "Dalje",
+    pracShowMe: "Pokaži mi ovaj",
+    pracDone: "Krug je gotov",
+    pracScore: (c: number, total: number) => `${c} od ${total} točno`,
+    pracNewMastered: (n: number) =>
+      n === 0
+        ? "Ovaj put nema novih polja. Još jedan krug i bit će ih."
+        : `${n} ${hrPlural(n, "novi umnožak popunjen", "nova umnoška popunjena", "novih umnožaka popunjeno")} na tablici`,
+    pracAgain: "Još jedan krug",
+    pracSeeChart: "Pogledaj tablicu",
+    pracProgress: (m: number, n: number) => `${m} od ${n} umnožaka popunjeno`,
+    pracAllDone: "Svi umnošci iz tvog skupa su popunjeni. Nastavi vježbati ili počni ispočetka.",
+    pracReset: "Počni ispočetka",
+    pracResetArmed: "Dodirni ponovno za brisanje",
+    pracLegend: "Vježba popunjava ovako:",
+    pracLegendLearning: "na dobrom putu",
+    pracLegendMastered: "dva puta zaredom",
+    a11yOption: (p: number) => `Odgovor ${p}`,
+    a11yAsk: (x: number, y: number) => `Koliko je ${x} puta ${y}?`,
   },
 } as const;
 
@@ -98,6 +156,108 @@ const ACCENT = "#FB6F52"; // brand coral
 const MAX = 12;
 const STORE_SIZE = "mult-viz:tableMax";
 const STORE_KNOWN = "mult-viz:known";
+const STORE_MASTERY = "mult-viz:mastery";
+
+/* ----- practice mode ----- */
+
+const ROUND_LEN = 10;
+/** Facts a single round drills. Ten questions over five facts = two goes each. */
+const FOCUS_SIZE = 5;
+/** Correct answers in a row before a fact counts as learned (fills in green). */
+const MASTER_AT = 2;
+
+/** Per-fact record: s = current correct streak, m = misses so far. */
+type FactStat = { s: number; m: number };
+type Mastery = Record<string, FactStat>;
+
+/** Mirror twins are one fact, so the key is always the sorted pair: 7×3 → "3x7". */
+const factKey = (x: number, y: number) => `${Math.min(x, y)}x${Math.max(x, y)}`;
+const isMastered = (st?: FactStat) => (st?.s ?? 0) >= MASTER_AT;
+
+/**
+ * Missed facts are picked for a round soonest, then half-learned ones, then
+ * unseen, and a learned fact only turns up as the occasional refresher.
+ */
+function weightOf(st: FactStat | undefined): number {
+  if (!st) return 4;
+  if (st.s === 0) return 8;
+  return st.s >= MASTER_AT ? 1 : 6;
+}
+
+function shuffle<T>(arr: T[]): T[] {
+  const out = [...arr];
+  for (let i = out.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [out[i], out[j]] = [out[j], out[i]];
+  }
+  return out;
+}
+
+/** Near misses a child would plausibly make: one row/column off, off by one, digits swapped. */
+function distractorsFor(x: number, y: number): number[] {
+  const p = x * y;
+  const swapped = p >= 10 ? Number(String(p).split("").reverse().join("")) : 0;
+  const seen = new Set([p, 0]);
+  const out: number[] = [];
+  for (const c of shuffle([p + x, p - x, p + y, p - y, swapped, p + 1, p - 1, p + 10])) {
+    if (c > 0 && !seen.has(c)) {
+      seen.add(c);
+      out.push(c);
+      if (out.length === 3) break;
+    }
+  }
+  return out;
+}
+
+type Fact = [number, number];
+type Question = { x: number; y: number; options: number[] };
+
+/** Weighted draw of `size` different facts, heaviest weights most likely. */
+function pickFocus(pool: Fact[], mastery: Mastery, size: number): Fact[] {
+  const left = [...pool];
+  const focus: Fact[] = [];
+  while (focus.length < size && left.length) {
+    const weights = left.map(([x, y]) => weightOf(mastery[factKey(x, y)]));
+    let roll = Math.random() * weights.reduce((sum, w) => sum + w, 0);
+    let idx = left.length - 1;
+    for (let i = 0; i < left.length; i++) {
+      roll -= weights[i];
+      if (roll <= 0) {
+        idx = i;
+        break;
+      }
+    }
+    focus.push(left[idx]);
+    left.splice(idx, 1);
+  }
+  return focus;
+}
+
+/**
+ * A round is a small focus set asked twice over, shuffled, never twice in a row.
+ * Drawing ten facts at random from a pool of dozens would mean no fact is ever
+ * asked twice in a sitting, so nothing could reach MASTER_AT and the chart would
+ * never fill in.
+ */
+function buildRound(pool: Fact[], mastery: Mastery): Fact[] {
+  const focus = pickFocus(pool, mastery, Math.min(FOCUS_SIZE, pool.length));
+  const seq: Fact[] = [];
+  while (seq.length < ROUND_LEN) {
+    const batch = shuffle(focus);
+    if (batch.length > 1 && seq.length && batch[0] === seq[seq.length - 1]) {
+      batch.push(batch.shift()!);
+    }
+    seq.push(...batch);
+  }
+  return seq.slice(0, ROUND_LEN);
+}
+
+/** Four answers in random order. Twins are asked both ways round so
+ * commutativity keeps getting rehearsed. */
+function questionFor([lo, hi]: Fact): Question {
+  const [x, y] = Math.random() < 0.5 ? [lo, hi] : [hi, lo];
+  return { x, y, options: shuffle([x * y, ...distractorsFor(x, y)]) };
+}
 
 /** Fact families that have a mental-math trick. ×11 only shows on the 12-table. */
 const FAMILIES = [1, 2, 5, 9, 10, 11] as const;
@@ -126,6 +286,18 @@ export default function MultiplicationVisualizer({ lang = "en" }: { lang?: Lang 
   const breakSvgRef = useRef<SVGSVGElement | null>(null);
   const draggingRef = useRef(false);
 
+  /* practice mode */
+  const [mastery, setMastery] = useState<Mastery>({});
+  const [queue, setQueue] = useState<Fact[]>([]); // this round's facts, in order
+  const [question, setQuestion] = useState<Question | null>(null);
+  const [picked, setPicked] = useState<number | null>(null);
+  const [answered, setAnswered] = useState(0); // questions done in this round
+  const [correct, setCorrect] = useState(0);
+  const [gained, setGained] = useState(0); // facts that reached MASTER_AT this round
+  const [roundDone, setRoundDone] = useState(false);
+  const [resetArmed, setResetArmed] = useState(false);
+  const advanceRef = useRef<number | null>(null);
+
   const product = a * b;
   /* Break-apart derived state: split stays inside 1..a-1; the ×9 subtraction
    * view only makes sense while the first factor IS 9. */
@@ -149,11 +321,28 @@ export default function MultiplicationVisualizer({ lang = "en" }: { lang?: Lang 
         setKnown((parsed.fams ?? []).filter((n): n is Family => FAMILIES.includes(n as Family)));
         setMirror(!!parsed.mirror);
       }
+      const rawMastery = localStorage.getItem(STORE_MASTERY);
+      if (rawMastery) {
+        const parsed = JSON.parse(rawMastery) as Mastery;
+        const clean: Mastery = {};
+        for (const [key, st] of Object.entries(parsed ?? {})) {
+          if (st && typeof st.s === "number" && typeof st.m === "number") clean[key] = st;
+        }
+        setMastery(clean);
+      }
     } catch {
       /* private mode — persistence is best-effort */
     }
     /* eslint-enable react-hooks/set-state-in-effect */
   }, []);
+
+  /* A correct answer auto-advances on a timer; drop it if the tool unmounts first. */
+  useEffect(
+    () => () => {
+      if (advanceRef.current) window.clearTimeout(advanceRef.current);
+    },
+    [],
+  );
 
   const persistKnown = (fams: Family[], mir: boolean) => {
     try {
@@ -222,6 +411,94 @@ export default function MultiplicationVisualizer({ lang = "en" }: { lang?: Lang 
   const remaining = mirror ? (freeCount * (freeCount + 1)) / 2 : freeCount * freeCount;
   const isMuted = (row: number, col: number) =>
     famSet.has(row) || famSet.has(col) || (mirror && row > col);
+
+  /* ----- practice pool -----
+   * Exactly the facts the eliminator leaves standing, counted once per mirror
+   * pair. Crossing off another family in "The table" shrinks it on the spot. */
+  const pool: [number, number][] = [];
+  for (let row = 1; row <= tableMax; row++) {
+    if (famSet.has(row)) continue;
+    for (let col = row; col <= tableMax; col++) {
+      if (!famSet.has(col)) pool.push([row, col]);
+    }
+  }
+  const poolMastered = pool.filter(([x, y]) => isMastered(mastery[factKey(x, y)])).length;
+  const poolDone = pool.length > 0 && poolMastered === pool.length;
+
+  const persistMastery = (next: Mastery) => {
+    try {
+      localStorage.setItem(STORE_MASTERY, JSON.stringify(next));
+    } catch {}
+  };
+
+  const nextQuestion = (done: number) => {
+    setPicked(null);
+    if (done >= queue.length) {
+      setQuestion(null);
+      setRoundDone(true);
+      return;
+    }
+    setQuestion(questionFor(queue[done]));
+  };
+
+  const startRound = () => {
+    if (!pool.length) return;
+    const round = buildRound(pool, mastery);
+    setQueue(round);
+    setQuestion(questionFor(round[0]));
+    setAnswered(0);
+    setCorrect(0);
+    setGained(0);
+    setRoundDone(false);
+    setPicked(null);
+    setResetArmed(false);
+  };
+
+  const answerQuestion = (value: number) => {
+    if (!question || picked !== null) return;
+    const key = factKey(question.x, question.y);
+    const prev = mastery[key];
+    const ok = value === question.x * question.y;
+    const stat: FactStat = ok
+      ? { s: (prev?.s ?? 0) + 1, m: prev?.m ?? 0 }
+      : { s: 0, m: (prev?.m ?? 0) + 1 };
+    const next = { ...mastery, [key]: stat };
+    const done = answered + 1;
+
+    setPicked(value);
+    setMastery(next);
+    persistMastery(next);
+    setAnswered(done);
+    if (ok) {
+      setCorrect((c) => c + 1);
+      if (!isMastered(prev) && isMastered(stat)) setGained((g) => g + 1);
+      advanceRef.current = window.setTimeout(() => nextQuestion(done), 750);
+    }
+  };
+
+  /* A miss is a teaching moment: jump to the same fact in "Break it apart". */
+  const showMissedFact = () => {
+    if (!question) return;
+    setA(question.x);
+    setB(question.y);
+    setMinusMode(false);
+    setTab("break");
+  };
+
+  const resetMastery = () => {
+    if (!resetArmed) {
+      setResetArmed(true);
+      return;
+    }
+    setMastery({});
+    persistMastery({});
+    setResetArmed(false);
+    setQuestion(null);
+    setRoundDone(false);
+    setAnswered(0);
+    setCorrect(0);
+    setGained(0);
+  };
 
   /* ----- shared bits ----- */
   const stepper = (label: string, value: number, onChange: (n: number) => void) => (
@@ -541,6 +818,11 @@ export default function MultiplicationVisualizer({ lang = "en" }: { lang?: Lang 
                 const twin = row === b && col === a && a !== b;
                 const onPath = (row === a && col < b) || (col === b && row < a);
                 const muted = isMuted(row, col);
+                /* Practice fills the chart in: the bar stays visible even while
+                 * the cell is lit up as the selected row/column. */
+                const stat = muted ? undefined : mastery[factKey(row, col)];
+                const learned = isMastered(stat);
+                const learning = !!stat && !learned;
                 return (
                   <button
                     key={col}
@@ -548,14 +830,25 @@ export default function MultiplicationVisualizer({ lang = "en" }: { lang?: Lang 
                     onClick={() => pickCell(row, col)}
                     aria-label={t.a11yCell(row, col, row * col)}
                     aria-pressed={sel}
+                    style={{
+                      boxShadow: learned
+                        ? "inset 0 -3px 0 #22c55e"
+                        : learning
+                          ? "inset 0 -3px 0 #86efac"
+                          : undefined,
+                    }}
                     className={`rounded p-1 text-center font-sans text-[11px] font-semibold transition-colors sm:text-xs ${
                       sel
                         ? "bg-indigo-600 text-white"
                         : onPath
                           ? "bg-orange-100 text-gray-800"
-                          : row === col
-                            ? "bg-indigo-50 text-indigo-800"
-                            : "bg-white text-gray-700 hover:bg-gray-100"
+                          : learned
+                            ? "bg-green-100 text-green-900"
+                            : learning
+                              ? "bg-green-50 text-green-800"
+                              : row === col
+                                ? "bg-indigo-50 text-indigo-800"
+                                : "bg-white text-gray-700 hover:bg-gray-100"
                     } ${twin ? "outline-2 outline-dashed outline-[#FB6F52]" : ""} ${
                       muted && !sel ? "text-gray-300 line-through" : ""
                     }`}
@@ -568,6 +861,20 @@ export default function MultiplicationVisualizer({ lang = "en" }: { lang?: Lang 
           );
         })}
       </div>
+
+      {Object.keys(mastery).length > 0 && (
+        <div className="mt-2 flex flex-wrap items-center justify-end gap-x-3 gap-y-1 font-sans text-xs text-gray-500">
+          <span>{t.pracLegend}</span>
+          <span className="flex items-center gap-1.5">
+            <span className="h-3.5 w-5 rounded bg-green-50" style={{ boxShadow: "inset 0 -3px 0 #86efac" }} />
+            {t.pracLegendLearning}
+          </span>
+          <span className="flex items-center gap-1.5">
+            <span className="h-3.5 w-5 rounded bg-green-100" style={{ boxShadow: "inset 0 -3px 0 #22c55e" }} />
+            {t.pracLegendMastered}
+          </span>
+        </div>
+      )}
 
       <div className="mt-4 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 rounded-xl bg-indigo-50 p-3 font-sans">
         <span className="text-xl font-bold text-indigo-700">
@@ -622,6 +929,146 @@ export default function MultiplicationVisualizer({ lang = "en" }: { lang?: Lang 
     </div>
   );
 
+  /* ----- practice tab ----- */
+
+  const qProduct = question ? question.x * question.y : 0;
+  const qNumber = picked === null ? answered + 1 : answered;
+
+  const practiceProgress = (
+    <div className="mt-5">
+      <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 font-sans text-xs text-gray-500">
+        <span>{t.pracProgress(poolMastered, pool.length)}</span>
+        <button
+          type="button"
+          onClick={resetMastery}
+          onBlur={() => setResetArmed(false)}
+          className={`rounded-full px-2 py-1 font-semibold transition-colors ${
+            resetArmed ? "bg-orange-100 text-[#FB6F52]" : "text-gray-400 hover:bg-gray-100"
+          }`}
+        >
+          {resetArmed ? t.pracResetArmed : t.pracReset}
+        </button>
+      </div>
+      <div className="mt-1 h-2 w-full overflow-hidden rounded-full bg-gray-100">
+        <div
+          className="h-full rounded-full bg-green-500 transition-all duration-500"
+          style={{ width: `${pool.length ? (poolMastered / pool.length) * 100 : 0}%` }}
+        />
+      </div>
+    </div>
+  );
+
+  const practiceTab = (
+    <div>
+      {question ? (
+        <div>
+          <p className="text-center font-sans text-xs font-semibold tracking-wide text-gray-400 uppercase">
+            {t.pracQuestion(qNumber, ROUND_LEN)}
+          </p>
+          <p className="mt-2 text-center text-4xl font-extrabold text-gray-900" aria-hidden="true">
+            {question.x} × {question.y} = <span className="text-gray-300">?</span>
+          </p>
+          {/* The visible line reads as symbols, so announce the question in words. */}
+          <p className="sr-only" aria-live="polite">
+            {t.a11yAsk(question.x, question.y)}
+          </p>
+
+          <div className="mx-auto mt-5 grid max-w-md grid-cols-2 gap-2.5">
+            {question.options.map((opt) => {
+              const isAnswer = opt === qProduct;
+              const chosen = picked === opt;
+              const settled = picked !== null;
+              return (
+                <button
+                  key={opt}
+                  type="button"
+                  onClick={() => answerQuestion(opt)}
+                  disabled={settled}
+                  aria-label={t.a11yOption(opt)}
+                  className={`rounded-xl py-4 text-2xl font-bold transition-colors disabled:opacity-100 ${
+                    settled && isAnswer
+                      ? "bg-green-100 text-green-800 ring-2 ring-green-500"
+                      : chosen
+                        ? "bg-red-50 text-red-600 ring-2 ring-red-400"
+                        : settled
+                          ? "bg-gray-50 text-gray-300"
+                          : "bg-gray-100 text-gray-800 hover:bg-indigo-50 hover:text-indigo-700"
+                  }`}
+                >
+                  {opt}
+                </button>
+              );
+            })}
+          </div>
+
+          <div aria-live="polite" className="mt-4 min-h-20 text-center font-sans">
+            {picked !== null && picked === qProduct && (
+              <p className="text-lg font-bold text-green-600">{t.pracCorrect}</p>
+            )}
+            {picked !== null && picked !== qProduct && (
+              <>
+                <p className="text-base font-semibold text-gray-700">{t.pracWrong(qProduct)}</p>
+                <div className="mt-2 flex flex-wrap justify-center gap-2">
+                  <button
+                    type="button"
+                    onClick={showMissedFact}
+                    className="rounded-full bg-orange-50 px-3 py-1.5 text-sm font-semibold text-[#FB6F52] hover:bg-orange-100"
+                  >
+                    {t.pracShowMe}
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => nextQuestion(answered)}
+                    className="rounded-full bg-indigo-600 px-4 py-1.5 text-sm font-semibold text-white hover:bg-indigo-700"
+                  >
+                    {t.pracNext} →
+                  </button>
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+      ) : roundDone ? (
+        <div className="rounded-xl bg-indigo-50 p-5 text-center font-sans">
+          <p className="text-sm font-semibold tracking-wide text-indigo-400 uppercase">{t.pracDone}</p>
+          <p className="mt-1 text-3xl font-extrabold text-indigo-700">{t.pracScore(correct, ROUND_LEN)}</p>
+          <p className="mt-1 text-sm text-gray-600">{t.pracNewMastered(gained)}</p>
+          <div className="mt-4 flex flex-wrap justify-center gap-2">
+            <button
+              type="button"
+              onClick={startRound}
+              className="rounded-full bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700"
+            >
+              {t.pracAgain}
+            </button>
+            <button
+              type="button"
+              onClick={() => setTab("table")}
+              className="rounded-full bg-white px-4 py-2 text-sm font-semibold text-indigo-700 hover:bg-indigo-100"
+            >
+              {t.pracSeeChart} →
+            </button>
+          </div>
+        </div>
+      ) : (
+        <div className="rounded-xl border border-gray-100 bg-gray-50 p-5 text-center font-sans">
+          <p className="text-base font-medium text-gray-700">{poolDone ? t.pracAllDone : t.pracIntro}</p>
+          <p className="mx-auto mt-2 max-w-md text-sm text-gray-500">{t.pracPoolHint}</p>
+          <button
+            type="button"
+            onClick={startRound}
+            disabled={!pool.length}
+            className="mt-4 rounded-full bg-indigo-600 px-5 py-2.5 font-semibold text-white hover:bg-indigo-700 disabled:opacity-40"
+          >
+            {t.pracStart}
+          </button>
+        </div>
+      )}
+
+      {practiceProgress}
+    </div>
+  );
+
   /* ----- shell ----- */
 
   return (
@@ -630,9 +1077,10 @@ export default function MultiplicationVisualizer({ lang = "en" }: { lang?: Lang 
         {chip(tab === "see", t.tabSee, () => setTab("see"))}
         {chip(tab === "break", t.tabBreak, () => setTab("break"))}
         {chip(tab === "table", t.tabTable, () => setTab("table"))}
+        {chip(tab === "practice", t.tabPractice, () => setTab("practice"))}
       </div>
 
-      {tab !== "table" ? (
+      {tab === "see" || tab === "break" ? (
         <div className="mt-5">
           <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-3">
             {stepper("a", a, (n) => setA(Math.min(MAX, Math.max(1, n))))}
@@ -673,13 +1121,17 @@ export default function MultiplicationVisualizer({ lang = "en" }: { lang?: Lang 
             <div className="mt-4">{breakTab}</div>
           )}
         </div>
-      ) : (
+      ) : tab === "table" ? (
         <div className="mt-5">{tableTab}</div>
+      ) : (
+        <div className="mt-5">{practiceTab}</div>
       )}
 
-      <p className="sr-only" aria-live="polite">
-        {t.a11yCell(a, b, product)}
-      </p>
+      {tab !== "practice" && (
+        <p className="sr-only" aria-live="polite">
+          {t.a11yCell(a, b, product)}
+        </p>
+      )}
     </div>
   );
 }
