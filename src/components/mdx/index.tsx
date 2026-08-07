@@ -31,6 +31,11 @@ import MorseCode from "../tools/MorseCode";
 import ClockTool from "../tools/ClockTool";
 import PatternMaker from "../tools/PatternMaker";
 import ColorMixer from "../tools/ColorMixer";
+import NumberSystems from "../tools/NumberSystems";
+import WeightOnPlanets from "../tools/WeightOnPlanets";
+import PrimeExplorer from "../tools/PrimeExplorer";
+import GuessMyNumber from "../tools/GuessMyNumber";
+import TrussTester from "../tools/TrussTester";
 import { SubscribeButton } from "../SubscribeButton";
 
 // Markdown ![alt](src) and <Image src=…/> in MDX both flow through here.
@@ -141,6 +146,11 @@ export function mdxComponents(lang: Lang = "en") {
     ClockTool: () => <ClockTool lang={lang} />,
     PatternMaker: () => <PatternMaker lang={lang} />,
     ColorMixer: () => <ColorMixer lang={lang} />,
+    NumberSystems: () => <NumberSystems lang={lang} />,
+    WeightOnPlanets: () => <WeightOnPlanets lang={lang} />,
+    PrimeExplorer: () => <PrimeExplorer lang={lang} />,
+    GuessMyNumber: () => <GuessMyNumber lang={lang} />,
+    TrussTester: () => <TrussTester lang={lang} />,
     Subscribe: (props: React.ComponentProps<typeof SubscribeButton>) => (
       <SubscribeButton lang={lang} {...props} />
     ),
@@ -193,8 +203,8 @@ export function mdxComponents(lang: Lang = "en") {
     Milestone,
     Term,
     // Hand-placed in-article ad for long posts: drop `<Ad />` between two
-    // sections. Note the auto mid-article ad (splitContentForMidAd) still
-    // applies — remember total density when adding these.
+    // sections. Note the automatic in-body ads (splitContentForAds) still
+    // apply — remember total density when adding these.
     Ad: () => <AdSlot slot={AD_SLOTS.inArticle} lang={lang} />,
   };
 }
