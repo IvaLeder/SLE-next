@@ -32,6 +32,7 @@ import { siteConfig } from "@/config/site";
 import CoverImage from "@/components/CoverImage";
 import SummerBanner from "@/components/SummerBanner";
 import { MilestoneGuideBanner, MilestonePrevNext } from "@/components/MilestoneSeriesNav";
+import { ArticleToolPromo } from "@/components/tools/ToolDiscovery";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -121,6 +122,9 @@ export default async function PostPage({ params }: Props) {
 
       {/* Prev/next month navigation on guide posts (self-hides elsewhere) */}
       <MilestonePrevNext lang="en" translationKey={post.translationKey} />
+
+      {/* Give companion tools a consistent, prominent link from their article. */}
+      <ArticleToolPromo lang="en" postSlug={post.slug} />
 
       {/* Topic tags — links to tag landing pages for "more like this" */}
       {topicTags.length > 0 && (

@@ -273,6 +273,16 @@ const allTools: Tool[] = [
       en: "A free Morse code translator for kids: type a message to see it in dots and dashes, play it as sound and light, or decode Morse back into text.",
       hr: "Besplatni prevoditelj Morseove abecede za djecu: upišite poruku i vidite je u točkicama i crticama, odsvirajte je kao zvuk i svjetlo ili dešifrirajte Morse natrag u tekst.",
     },
+    related: {
+      slug: {
+        en: "history-of-communication-for-kids",
+        hr: "povijest-komunikacije-za-djecu",
+      },
+      label: {
+        en: "Discover how messages travelled before phones",
+        hr: "Otkrijte kako su poruke putovale prije telefona",
+      },
+    },
   },
   {
     key: "developmental-leaps",
@@ -501,6 +511,44 @@ const allTools: Tool[] = [
 /** The only tool collection public surfaces may consume. Keeping the filter
  *  here makes an accidental deploy of in-progress tool code harmless. */
 export const tools: Tool[] = allTools.filter((tool) => tool.status !== "draft");
+
+/** Curated, stable set used on high-traffic discovery surfaces. */
+export const FEATURED_TOOL_KEYS = [
+  "clock",
+  "name-in-binary",
+  "color-mixer",
+  "developmental-leaps",
+] as const;
+
+const TOOL_RECOMMENDATIONS: Record<string, readonly string[]> = {
+  "name-in-binary": ["caesar-cipher", "morse-code", "pattern-maker"],
+  "caesar-cipher": ["morse-code", "name-in-binary", "tower-of-hanoi"],
+  "tower-of-hanoi": ["fraction-visualizer", "pattern-maker", "find-birthday-in-pi"],
+  "activity-spinner": ["color-mixer", "pattern-maker", "clock"],
+  "fraction-visualizer": ["clock", "find-birthday-in-pi", "tower-of-hanoi"],
+  "pattern-maker": ["color-mixer", "activity-spinner", "fraction-visualizer"],
+  "find-birthday-in-pi": ["fraction-visualizer", "tower-of-hanoi", "clock"],
+  clock: ["fraction-visualizer", "pattern-maker", "activity-spinner"],
+  "morse-code": ["caesar-cipher", "name-in-binary", "activity-spinner"],
+  "developmental-leaps": ["clock", "pattern-maker", "activity-spinner"],
+  "color-mixer": ["pattern-maker", "activity-spinner", "fraction-visualizer"],
+};
+
+export function toolsByKey(keys: readonly string[]): Tool[] {
+  return keys
+    .map((key) => tools.find((tool) => tool.key === key))
+    .filter((tool): tool is Tool => Boolean(tool));
+}
+
+/** Find the public tool that was made as a companion to an article. */
+export function toolForRelatedPost(lang: Lang, postSlug: string): Tool | undefined {
+  return tools.find((tool) => tool.related?.slug[lang] === postSlug);
+}
+
+/** Curated next choices keep tool landing pages connected instead of dead-ending. */
+export function recommendedTools(toolKey: string): Tool[] {
+  return toolsByKey(TOOL_RECOMMENDATIONS[toolKey] ?? []).slice(0, 3);
+}
 
 export function toolBySlug(lang: Lang, slug: string): Tool | undefined {
   return tools.find((t) => t.slug[lang] === slug);

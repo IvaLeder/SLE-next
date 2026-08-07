@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
 import SummerBanner from "@/components/SummerBanner";
+import { HomeToolsPromo } from "@/components/tools/ToolDiscovery";
 import { Metadata } from "next";
 import JsonLd from "@/components/JsonLd";
 import AdSenseScript from "@/components/AdSenseScript";
@@ -48,6 +49,7 @@ export default function EnglishHomePage() {
         <SummerBanner lang="en" />
       </div>
       <main id="main-content" className="max-w-6xl mx-auto px-4 py-10">
+        <HomeToolsPromo lang="en" />
         <div className="mb-2">
           <h2 className="font-sans text-2xl md:text-3xl font-bold tracking-tight">
             Latest articles

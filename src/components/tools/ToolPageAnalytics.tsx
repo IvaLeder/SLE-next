@@ -38,6 +38,18 @@ export default function ToolPageAnalytics({
           trackToolEvent("tool_download", { tool_key: toolKey, lang, source: "detail" });
         } else if (event.target.closest("[data-tool-related]")) {
           trackToolEvent("tool_related_click", { tool_key: toolKey, lang, source: "detail" });
+        } else {
+          const recommendation = event.target.closest<HTMLElement>("[data-tool-recommendation]");
+          const targetKey = recommendation?.dataset.toolRecommendation;
+          if (targetKey) {
+            trackToolEvent("tool_recommendation_click", {
+              tool_key: toolKey,
+              lang,
+              source: "detail",
+              placement: "recommendation",
+              action: targetKey,
+            });
+          }
         }
       }}
     >

@@ -1,7 +1,12 @@
 import Link from "next/link";
 import JsonLd from "@/components/JsonLd";
 import { siteConfig } from "@/config/site";
-import { tools, TOOLS_SLUG, type Lang, type Tool } from "@/lib/tools";
+import {
+  FEATURED_TOOL_KEYS,
+  toolsByKey,
+  TOOLS_SLUG,
+  type Lang,
+} from "@/lib/tools";
 import ToolsHubAnalytics from "@/components/tools/ToolsHubAnalytics";
 
 const COPY = {
@@ -69,13 +74,6 @@ const COPY = {
 
 type GroupKey = keyof (typeof COPY)["en"]["groups"];
 
-const FEATURED_KEYS = [
-  "clock",
-  "name-in-binary",
-  "color-mixer",
-  "developmental-leaps",
-] as const;
-
 const GROUPS: { key: GroupKey; toolKeys: readonly string[] }[] = [
   {
     key: "math",
@@ -95,19 +93,13 @@ const GROUPS: { key: GroupKey; toolKeys: readonly string[] }[] = [
   },
 ];
 
-function resolveTools(keys: readonly string[]): Tool[] {
-  return keys
-    .map((key) => tools.find((tool) => tool.key === key))
-    .filter((tool): tool is Tool => Boolean(tool));
-}
-
 export default function ToolsHub({ lang }: { lang: Lang }) {
   const t = COPY[lang];
   const base = TOOLS_SLUG[lang];
-  const featured = resolveTools(FEATURED_KEYS);
+  const featured = toolsByKey(FEATURED_TOOL_KEYS);
   const groups = GROUPS.map((group) => ({
     ...group,
-    tools: resolveTools(group.toolKeys),
+    tools: toolsByKey(group.toolKeys),
   })).filter((group) => group.tools.length > 0);
   const visibleOrder = groups.flatMap((group) => group.tools);
 

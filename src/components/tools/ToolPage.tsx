@@ -19,6 +19,7 @@ import GuessMyNumber from "@/components/tools/GuessMyNumber";
 import TrussTester from "@/components/tools/TrussTester";
 import ToolFrame from "@/components/tools/ToolFrame";
 import ToolPageAnalytics from "@/components/tools/ToolPageAnalytics";
+import { ToolRecommendations } from "@/components/tools/ToolDiscovery";
 import { getSpinActivities } from "@/lib/spin-activities";
 
 // Maps a tool's `key` to its interactive UI. Add new tools here. (The activity
@@ -101,6 +102,8 @@ export default function ToolPage({ lang, tool }: { lang: Lang; tool: Tool }) {
           </Link>
         </div>
       )}
+
+      <ToolRecommendations lang={lang} toolKey={tool.key} />
     </ToolPageAnalytics>
   );
 }

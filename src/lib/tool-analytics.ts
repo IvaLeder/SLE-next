@@ -8,13 +8,15 @@ export type ToolEventName =
   | "tool_fullscreen"
   | "tool_download"
   | "tool_related_click"
+  | "tool_recommendation_click"
+  | "tool_discovery_click"
   | "tool_hub_click";
 
 export interface ToolEventData {
   tool_key: string;
   lang: Lang;
-  source?: "detail" | "hub";
-  placement?: "featured" | "group";
+  source?: "detail" | "hub" | "home" | "article";
+  placement?: "featured" | "group" | "contextual" | "recommendation";
   action?: string;
 }
 
