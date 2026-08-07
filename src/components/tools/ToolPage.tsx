@@ -16,6 +16,7 @@ import NumberSystems from "@/components/tools/NumberSystems";
 import WeightOnPlanets from "@/components/tools/WeightOnPlanets";
 import PrimeExplorer from "@/components/tools/PrimeExplorer";
 import GuessMyNumber from "@/components/tools/GuessMyNumber";
+import TrussTester from "@/components/tools/TrussTester";
 import ToolFrame from "@/components/tools/ToolFrame";
 import ToolPageAnalytics from "@/components/tools/ToolPageAnalytics";
 import { ToolRecommendations } from "@/components/tools/ToolDiscovery";
