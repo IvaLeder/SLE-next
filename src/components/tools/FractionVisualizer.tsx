@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useToolEventOnce } from "@/components/tools/useToolAnalytics";
 
 type Lang = "en" | "hr";
 
@@ -46,14 +47,19 @@ function sector(cx: number, cy: number, r: number, a0: number, a1: number): stri
 
 export default function FractionVisualizer({ lang = "en" }: { lang?: Lang }) {
   const t = COPY[lang];
+  const trackResult = useToolEventOnce("tool_result", "fraction-visualizer", lang);
   const [num, setNum] = useState(3);
   const [denom, setDenom] = useState(4);
 
-  const setNumClamped = (n: number) => setNum(Math.min(denom, Math.max(0, n)));
+  const setNumClamped = (n: number) => {
+    setNum(Math.min(denom, Math.max(0, n)));
+    trackResult("fraction-changed");
+  };
   const setDenomClamped = (d: number) => {
     const nd = Math.min(12, Math.max(1, d));
     setDenom(nd);
     if (num > nd) setNum(nd);
+    trackResult("fraction-changed");
   };
 
   const dec = num / denom;

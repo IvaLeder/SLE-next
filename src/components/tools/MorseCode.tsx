@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useToolEventOnce } from "@/components/tools/useToolAnalytics";
 
 type Lang = "en" | "hr";
 
@@ -124,6 +125,7 @@ function toSegments(morse: string): Seg[] {
 
 export default function MorseCode({ lang = "en" }: { lang?: Lang }) {
   const t = COPY[lang];
+  const trackResult = useToolEventOnce("tool_result", "morse-code", lang);
   const [mode, setMode] = useState<"toMorse" | "toText">("toMorse");
   const [input, setInput] = useState<string>(t.placeholder);
   const [slow, setSlow] = useState(false);
@@ -156,6 +158,7 @@ export default function MorseCode({ lang = "en" }: { lang?: Lang }) {
     stop();
     const segs = toSegments(morse);
     if (!segs.length) return;
+    trackResult("played");
 
     const unit = slow ? 160 : 90; // ms per Morse unit
     const Ctor =
@@ -245,7 +248,10 @@ export default function MorseCode({ lang = "en" }: { lang?: Lang }) {
         id="morse-input"
         rows={2}
         value={input}
-        onChange={(e) => setInput(e.target.value)}
+        onChange={(e) => {
+          setInput(e.target.value);
+          if (e.target.value.trim()) trackResult(mode);
+        }}
         className="mt-1 w-full resize-y rounded-lg border border-gray-300 px-3 py-2 font-mono focus:outline-none focus:ring-2 focus:ring-brand"
       />
       {mode === "toText" && <p className="mt-1 text-xs text-gray-400">{t.morseHint}</p>}

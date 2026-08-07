@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useToolEventOnce } from "@/components/tools/useToolAnalytics";
 
 type Lang = "en" | "hr";
 type Mode = "mix" | "quiz";
@@ -240,6 +241,8 @@ function EmptySlot({ size = 48 }: { size?: number }) {
 
 export default function ColorMixer({ lang = "en" }: { lang?: Lang }) {
   const t = COPY[lang];
+  const trackResult = useToolEventOnce("tool_result", "color-mixer", lang);
+  const trackComplete = useToolEventOnce("tool_complete", "color-mixer", lang);
   const [mode, setMode] = useState<Mode>("mix");
   const [model, setModel] = useState<Model>("paint");
   const [selected, setSelected] = useState<string[]>([]);
@@ -259,8 +262,13 @@ export default function ColorMixer({ lang = "en" }: { lang?: Lang }) {
     setTint(0);
     setSelected((sel) => {
       if (sel.includes(id)) return sel.filter((s) => s !== id);
-      if (sel.length >= maxSel) return [...sel.slice(1), id]; // replace the oldest pick
-      return [...sel, id];
+      if (sel.length >= maxSel) {
+        trackResult(model);
+        return [...sel.slice(1), id]; // replace the oldest pick
+      }
+      const next = [...sel, id];
+      if (next.length >= 2) trackResult(model);
+      return next;
     });
   };
 
@@ -282,6 +290,8 @@ export default function ColorMixer({ lang = "en" }: { lang?: Lang }) {
     if (round.options[optIdx] === round.pairIdx) {
       setSolved(true);
       setStatus("correct");
+      trackResult("quiz");
+      trackComplete("quiz-correct");
     } else {
       setStatus("wrong");
       setWrongIdx(optIdx);

@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { useToolEventOnce } from "@/components/tools/useToolAnalytics";
 
 type Lang = "en" | "hr";
 
@@ -43,6 +44,7 @@ export default function FindBirthdayInPi({ lang = "en" }: { lang?: Lang }) {
   const [loading, setLoading] = useState(false);
   const [failed, setFailed] = useState(false);
   const [result, setResult] = useState<Result | null>(null);
+  const trackResult = useToolEventOnce("tool_result", "find-birthday-in-pi", lang);
   const piRef = useRef<string | null>(null);
 
   const nf = (n: number) => n.toLocaleString(lang === "hr" ? "hr-HR" : "en-US");
@@ -77,8 +79,10 @@ export default function FindBirthdayInPi({ lang = "en" }: { lang?: Lang }) {
           before: pi.slice(Math.max(0, i - 12), i),
           after: pi.slice(i + digits.length, i + digits.length + 12),
         });
+        trackResult("found");
       } else {
         setResult({ found: false, digits, total: pi.length });
+        trackResult("not-found");
       }
     } catch {
       setResult(null);

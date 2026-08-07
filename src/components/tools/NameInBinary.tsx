@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useToolEventOnce } from "@/components/tools/useToolAnalytics";
 
 type Lang = "en" | "hr";
 
@@ -47,6 +48,7 @@ function encodeName(name: string): { ch: string; bits: string }[] {
 
 export default function NameInBinary({ lang = "en" }: { lang?: Lang }) {
   const t = COPY[lang];
+  const trackResult = useToolEventOnce("tool_result", "name-in-binary", lang);
   const [name, setName] = useState("LEA");
   const upper = name.toUpperCase();
   const letters = useMemo(() => encodeName(upper), [upper]);
@@ -64,7 +66,10 @@ export default function NameInBinary({ lang = "en" }: { lang?: Lang }) {
           type="text"
           maxLength={14}
           value={name}
-          onChange={(e) => setName(e.target.value)}
+          onChange={(e) => {
+            setName(e.target.value);
+            if (e.target.value.trim()) trackResult("generated");
+          }}
           className="flex-1 rounded-lg border border-gray-300 px-3 py-2 uppercase focus:outline-none focus:ring-2 focus:ring-[#FB6F52]"
         />
       </div>

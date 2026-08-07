@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { trackToolEvent } from "@/lib/tool-analytics";
 
 type Lang = "en" | "hr";
 
@@ -30,10 +31,12 @@ const COPY = {
  */
 export default function ToolFrame({
   lang = "en",
+  toolKey,
   title,
   children,
 }: {
   lang?: Lang;
+  toolKey: string;
   title?: string;
   children: React.ReactNode;
 }) {
@@ -100,6 +103,14 @@ export default function ToolFrame({
           type="button"
           onClick={(e) => {
             e.stopPropagation();
+            if (!expanded) {
+              trackToolEvent("tool_fullscreen", {
+                tool_key: toolKey,
+                lang,
+                source: "detail",
+                action: "open",
+              });
+            }
             setExpanded((v) => !v);
           }}
           aria-label={expanded ? t.close : t.open}

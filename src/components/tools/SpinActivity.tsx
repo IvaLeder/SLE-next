@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { useToolEventOnce } from "@/components/tools/useToolAnalytics";
 
 type Lang = "en" | "hr";
 type Activity = { slug: string; title: string; emoji: string };
@@ -33,6 +34,7 @@ export default function SpinActivity({
   activities: Activity[];
 }) {
   const t = COPY[lang];
+  const trackResult = useToolEventOnce("tool_result", "activity-spinner", lang);
   const [current, setCurrent] = useState<Activity | null>(null);
   const [spinning, setSpinning] = useState(false);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
@@ -56,6 +58,7 @@ export default function SpinActivity({
       if (intervalRef.current) clearInterval(intervalRef.current);
       setCurrent(pick());
       setSpinning(false);
+      trackResult("activity-picked");
     }, 1200);
   }
 

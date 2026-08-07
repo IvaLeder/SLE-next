@@ -17,6 +17,9 @@ export interface ToolMaterial {
 export interface Tool {
   /** Stable id; maps to the interactive component in ToolPage. */
   key: string;
+  /** Draft tools stay available to developers without entering public routes,
+   *  the hub, or the sitemap. Omit for public tools. */
+  status?: "draft";
   /** Per-language URL slug under /{lang}/{TOOLS_SLUG}. */
   slug: Record<Lang, string>;
   icon: string;
@@ -41,7 +44,7 @@ export interface Tool {
   };
 }
 
-export const tools: Tool[] = [
+const allTools: Tool[] = [
 {
     key: "name-in-binary",
     slug: { en: "name-in-binary", hr: "ime-u-binarnom-kodu" },
@@ -333,7 +336,171 @@ export const tools: Tool[] = [
       size: { en: "267 KB", hr: "269 KB" },
     },
   },
+  {
+    key: "number-systems",
+    status: "draft",
+    slug: { en: "number-system-converter", hr: "pretvarac-brojevnih-sustava" },
+    icon: "🔢",
+    title: {
+      en: "Number system converter",
+      hr: "Pretvarač brojevnih sustava",
+    },
+    tagline: {
+      en: "Type any number and see how seven civilisations would have written it, from tally marks and hieroglyphs to binary.",
+      hr: "Upišite bilo koji broj i vidite kako bi ga zapisalo sedam civilizacija, od crtica i hijeroglifa do binarnog koda.",
+    },
+    description: {
+      en: "Free number system converter for kids: write any number in tally marks, Egyptian, Babylonian, Maya, Roman, binary and our own digits, and compare how many symbols each one needs.",
+      hr: "Besplatni pretvarač brojevnih sustava za djecu: zapišite broj crticama te egipatskim, babilonskim, majanskim, rimskim i binarnim brojevima i usporedite koliko znakova svaki treba.",
+    },
+    related: {
+      slug: {
+        en: "history-of-numbers-for-kids",
+        hr: "povijest-brojeva-za-djecu",
+      },
+      label: {
+        en: "Read the story behind the numbers",
+        hr: "Pročitajte priču koja stoji iza brojeva",
+      },
+    },
+  },
+  {
+    key: "weight-on-planets",
+    status: "draft",
+    slug: { en: "weight-on-other-planets", hr: "koliko-tezim-na-drugim-planetima" },
+    icon: "🪐",
+    title: {
+      en: "What do you weigh on other planets?",
+      hr: "Koliko biste težili na drugim planetima?",
+    },
+    tagline: {
+      en: "Type your weight and see what the scale would read on nine worlds, and how high you could jump on each one.",
+      hr: "Upišite svoju težinu i vidite što bi vaga pokazala na devet svjetova i koliko biste visoko skočili na svakom.",
+    },
+    description: {
+      en: "Free weight on other planets calculator for kids: enter your weight in kg or lb and see it on Mercury, Mars, Jupiter, the Moon and more, plus how high you could jump there.",
+      hr: "Besplatni kalkulator težine na drugim planetima za djecu: upišite težinu u kilogramima i vidite je na Merkuru, Marsu, Jupiteru, Mjesecu i drugdje, uz visinu skoka.",
+    },
+    related: {
+      slug: {
+        en: "where-do-we-live-in-the-universe",
+        hr: "gdje-zivimo-u-svemiru",
+      },
+      label: {
+        en: "Take the tour of all nine worlds",
+        hr: "Prošećite se kroz svih devet svjetova",
+      },
+    },
+  },
+  {
+    key: "prime-explorer",
+    status: "draft",
+    slug: { en: "prime-number-explorer", hr: "istrazivac-prostih-brojeva" },
+    icon: "🧮",
+    title: {
+      en: "Prime number explorer",
+      hr: "Istraživač prostih brojeva",
+    },
+    tagline: {
+      en: "Cross out the multiples on a 1 to 100 grid and watch the 25 primes appear, then see why a prime can only ever make one rectangle.",
+      hr: "Prekrižite višekratnike na mreži od 1 do 100 i gledajte kako se pojavljuje 25 prostih brojeva, a onda otkrijte zašto prosti broj može složiti samo jedan pravokutnik.",
+    },
+    description: {
+      en: "Free prime numbers tool for kids: run the Sieve of Eratosthenes on a 1 to 100 grid, build factor rectangles for any number, and test yourself with a prime-or-not quiz.",
+      hr: "Besplatni alat za proste brojeve za djecu: pokrenite Eratostenovo sito na mreži od 1 do 100, složite pravokutnike za bilo koji broj i provjerite se kvizom prost ili nije.",
+    },
+    related: {
+      slug: {
+        en: "prime-numbers-for-kids",
+        hr: "prosti-brojevi-za-djecu",
+      },
+      label: {
+        en: "Read how the crossing-out trick works",
+        hr: "Pročitajte kako radi trik s prekrižavanjem",
+      },
+    },
+    download: {
+      id: "prime-sieve",
+      href: {
+        en: "/downloads/prime-sieve-grid.pdf",
+        hr: "/downloads/sito-prostih-brojeva.pdf",
+      },
+      title: { en: "Prime sieve grid", hr: "Sito prostih brojeva" },
+      pages: 2,
+      size: { en: "245 KB", hr: "247 KB" },
+    },
+  },
+  {
+    key: "guess-my-number",
+    status: "draft",
+    slug: { en: "guess-my-number", hr: "pogodi-broj" },
+    icon: "🎯",
+    title: {
+      en: "Guess my number in 7 questions",
+      hr: "Pogodi broj u 7 pitanja",
+    },
+    tagline: {
+      en: "Think of a number from 1 to 100 and this will find it in seven questions, then let you try the same trick on it.",
+      hr: "Zamislite broj od 1 do 100 i alat će ga naći u sedam pitanja, a onda vi možete isprobati isti trik na njemu.",
+    },
+    description: {
+      en: "Free binary search game for kids: think of a number from 1 to 100 and watch it be found in 7 questions by halving, then see why 10 questions are enough for 1000.",
+      hr: "Besplatna igra binarnog traženja za djecu: zamislite broj od 1 do 100 i gledajte kako ga polovljenje nađe u 7 pitanja, pa vidite zašto je 10 pitanja dovoljno za 1000.",
+    },
+    related: {
+      slug: {
+        en: "guess-my-number-in-7-questions",
+        hr: "pogodi-broj-u-7-pitanja",
+      },
+      label: {
+        en: "Read why halving always wins",
+        hr: "Pročitajte zašto polovljenje uvijek pobjeđuje",
+      },
+    },
+  },
+  {
+    key: "truss-tester",
+    status: "draft",
+    slug: { en: "shape-strength-tester", hr: "ispitivac-cvrstoce-oblika" },
+    icon: "📐",
+    title: {
+      en: "Shape strength tester",
+      hr: "Ispitivač čvrstoće oblika",
+    },
+    tagline: {
+      en: "Push a square frame and watch it fold, add one diagonal and watch it hold, then brace a bridge before the truck arrives.",
+      hr: "Gurnite kvadratni okvir i gledajte kako se preklapa, dodajte jednu dijagonalu i gledajte kako drži, pa ukrutite most prije nego što stigne kamion.",
+    },
+    description: {
+      en: "Free structures tool for kids: rack a square frame, brace it into triangles, build a truss bridge that survives the load, and learn the 2J − 3 counting rule.",
+      hr: "Besplatni alat o konstrukcijama za djecu: nakrivite kvadratni okvir, ukrutite ga u trokute, složite rešetkasti most koji izdrži opterećenje i naučite pravilo 2S − 3.",
+    },
+    related: {
+      slug: {
+        en: "why-triangles-are-the-strongest-shape",
+        hr: "zasto-je-trokut-najjaci-oblik",
+      },
+      label: {
+        en: "Read why the triangle wins",
+        hr: "Pročitajte zašto trokut pobjeđuje",
+      },
+    },
+    download: {
+      id: "bridge-lab",
+      href: {
+        en: "/downloads/bridge-test-lab.pdf",
+        hr: "/downloads/laboratorij-za-mostove.pdf",
+      },
+      title: { en: "Bridge test lab", hr: "Laboratorij za mostove" },
+      pages: 2,
+      size: { en: "180 KB", hr: "183 KB" },
+    },
+  },
 ];
+
+/** The only tool collection public surfaces may consume. Keeping the filter
+ *  here makes an accidental deploy of in-progress tool code harmless. */
+export const tools: Tool[] = allTools.filter((tool) => tool.status !== "draft");
 
 export function toolBySlug(lang: Lang, slug: string): Tool | undefined {
   return tools.find((t) => t.slug[lang] === slug);

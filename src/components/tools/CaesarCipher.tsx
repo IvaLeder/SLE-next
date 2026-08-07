@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useToolEventOnce } from "@/components/tools/useToolAnalytics";
 
 type Lang = "en" | "hr";
 
@@ -94,6 +95,7 @@ function caesar(text: string, shift: number, alphabet: string[]): string {
 
 export default function CaesarCipher({ lang = "en" }: { lang?: Lang }) {
   const t = COPY[lang];
+  const trackResult = useToolEventOnce("tool_result", "caesar-cipher", lang);
   const alphabet = ALPHABETS[lang];
   const maxShift = alphabet.length - 1;
   const [mode, setMode] = useState<"encode" | "decode">("encode");
@@ -147,7 +149,10 @@ export default function CaesarCipher({ lang = "en" }: { lang?: Lang }) {
         id="caesar-text"
         rows={2}
         value={text}
-        onChange={(e) => setText(e.target.value)}
+        onChange={(e) => {
+          setText(e.target.value);
+          if (e.target.value.trim()) trackResult(mode);
+        }}
         className="mt-1 w-full resize-y rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-brand"
       />
 
@@ -162,7 +167,10 @@ export default function CaesarCipher({ lang = "en" }: { lang?: Lang }) {
           max={maxShift}
           step={1}
           value={shift}
-          onChange={(e) => setShift(Number(e.target.value))}
+          onChange={(e) => {
+            setShift(Number(e.target.value));
+            trackResult(mode);
+          }}
           className="flex-1 accent-brand"
         />
         <span className="w-14 text-center font-mono text-sm font-semibold text-gray-800">

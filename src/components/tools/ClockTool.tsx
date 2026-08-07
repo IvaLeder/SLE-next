@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { useToolEventOnce } from "@/components/tools/useToolAnalytics";
 
 type Lang = "en" | "hr";
 
@@ -104,6 +105,7 @@ function timeWords(hour: number, minute: number, lang: Lang): string {
 
 export default function ClockTool({ lang = "en" }: { lang?: Lang }) {
   const t = COPY[lang];
+  const trackResult = useToolEventOnce("tool_result", "clock", lang);
   // Single source of truth: minutes since 12:00, 0–719.
   const [total, setTotal] = useState(3 * 60 + 15); // 3:15
   const [pm, setPm] = useState(false); // morning / afternoon
@@ -122,15 +124,20 @@ export default function ClockTool({ lang = "en" }: { lang?: Lang }) {
   const minuteAngle = minute * 6;
   const hourAngle = (hour % 12) * 30 + minute * 0.5;
 
-  const setTime = (h: number, m: number) =>
+  const setTime = (h: number, m: number) => {
     setTotal(((((h % 12) + 12) % 12) * 60 + ((m % 60) + 60) % 60));
+    trackResult("time-changed");
+  };
 
-  const step = (deltaMinutes: number) =>
+  const step = (deltaMinutes: number) => {
     setTotal((prev) => (((prev + deltaMinutes) % 720) + 720) % 720);
+    trackResult("time-changed");
+  };
 
   const randomize = () => {
     setTotal(Math.floor(Math.random() * 12) * 60 + Math.floor(Math.random() * 12) * 5);
     setRevealed(false);
+    trackResult("practice-randomized");
   };
 
   /** Pointer angle relative to the clock centre, in SVG degrees (0 = top). */

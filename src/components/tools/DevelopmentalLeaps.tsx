@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useToolEventOnce } from "@/components/tools/useToolAnalytics";
 
 type Lang = "en" | "hr";
 
@@ -189,6 +190,7 @@ function parseLocal(value: string): Date | null {
 
 export default function DevelopmentalLeaps({ lang = "en" }: { lang?: Lang }) {
   const t = COPY[lang];
+  const trackResult = useToolEventOnce("tool_result", "developmental-leaps", lang);
   const locale = lang === "hr" ? "hr-HR" : "en-US";
   const [mode, setMode] = useState<"due" | "birth">("due");
   const [value, setValue] = useState("");
@@ -259,7 +261,10 @@ export default function DevelopmentalLeaps({ lang = "en" }: { lang?: Lang }) {
           <input
             type="date"
             value={value}
-            onChange={(e) => setValue(e.target.value)}
+            onChange={(e) => {
+              setValue(e.target.value);
+              if (e.target.value) trackResult(mode);
+            }}
             className="rounded-lg border border-gray-200 px-3 py-1.5 text-sm text-gray-900 focus:border-brand focus:outline-none"
           />
         </label>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useToolEventOnce } from "@/components/tools/useToolAnalytics";
 
 type Lang = "en" | "hr";
 
@@ -45,6 +46,8 @@ function makePegs(n: number): number[][] {
 
 export default function TowerOfHanoi({ lang = "en" }: { lang?: Lang }) {
   const t = COPY[lang];
+  const trackResult = useToolEventOnce("tool_result", "tower-of-hanoi", lang);
+  const trackComplete = useToolEventOnce("tool_complete", "tower-of-hanoi", lang);
   const [numDisks, setNumDisks] = useState(3);
   const [pegs, setPegs] = useState<number[][]>(() => makePegs(3));
   const [selected, setSelected] = useState<number | null>(null);
@@ -95,6 +98,10 @@ export default function TowerOfHanoi({ lang = "en" }: { lang?: Lang }) {
       setPegs(next);
       setMoves((m) => m + 1);
       setSelected(null);
+      if (next[2].length === numDisks) {
+        trackResult("solved");
+        trackComplete("solved");
+      }
     } else {
       setError(true);
     }

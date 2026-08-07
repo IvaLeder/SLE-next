@@ -12,7 +12,13 @@ import ClockTool from "@/components/tools/ClockTool";
 import DevelopmentalLeaps from "@/components/tools/DevelopmentalLeaps";
 import PatternMaker from "@/components/tools/PatternMaker";
 import ColorMixer from "@/components/tools/ColorMixer";
+import NumberSystems from "@/components/tools/NumberSystems";
+import WeightOnPlanets from "@/components/tools/WeightOnPlanets";
+import PrimeExplorer from "@/components/tools/PrimeExplorer";
+import GuessMyNumber from "@/components/tools/GuessMyNumber";
+import TrussTester from "@/components/tools/TrussTester";
 import ToolFrame from "@/components/tools/ToolFrame";
+import ToolPageAnalytics from "@/components/tools/ToolPageAnalytics";
 import { getSpinActivities } from "@/lib/spin-activities";
 
 // Maps a tool's `key` to its interactive UI. Add new tools here. (The activity
@@ -28,6 +34,11 @@ const TOOL_UI: Record<string, React.ComponentType<{ lang: Lang }>> = {
   "developmental-leaps": DevelopmentalLeaps,
   "pattern-maker": PatternMaker,
   "color-mixer": ColorMixer,
+  "number-systems": NumberSystems,
+  "weight-on-planets": WeightOnPlanets,
+  "prime-explorer": PrimeExplorer,
+  "guess-my-number": GuessMyNumber,
+  "truss-tester": TrussTester,
 };
 
 const COPY = {
@@ -40,7 +51,7 @@ export default function ToolPage({ lang, tool }: { lang: Lang; tool: Tool }) {
   const Comp = TOOL_UI[tool.key];
 
   return (
-    <div>
+    <ToolPageAnalytics lang={lang} toolKey={tool.key}>
       <nav className="mb-4 font-sans text-sm">
         <Link href={`/${lang}/${TOOLS_SLUG[lang]}`} className="text-gray-500 hover:text-brand">
           ← {t.back}
@@ -56,12 +67,14 @@ export default function ToolPage({ lang, tool }: { lang: Lang; tool: Tool }) {
       </div>
 
       <div className="mt-6">
-        <ToolFrame lang={lang} title={tool.title[lang]}>
-          {tool.key === "activity-spinner" ? (
-            <SpinActivity lang={lang} activities={getSpinActivities(lang)} />
-          ) : (
-            Comp && <Comp lang={lang} />
-          )}
+        <ToolFrame lang={lang} toolKey={tool.key} title={tool.title[lang]}>
+          <div data-tool-interactive>
+            {tool.key === "activity-spinner" ? (
+              <SpinActivity lang={lang} activities={getSpinActivities(lang)} />
+            ) : (
+              Comp && <Comp lang={lang} />
+            )}
+          </div>
         </ToolFrame>
       </div>
 
@@ -80,6 +93,7 @@ export default function ToolPage({ lang, tool }: { lang: Lang; tool: Tool }) {
         <div className="mt-8 rounded-2xl bg-brand-soft p-5">
           <p className="font-sans font-semibold text-gray-800">{t.related}</p>
           <Link
+            data-tool-related
             href={`/${lang}/${tool.related.slug[lang]}`}
             className="mt-1 inline-block font-sans text-sm font-semibold text-brand hover:underline"
           >
@@ -87,6 +101,6 @@ export default function ToolPage({ lang, tool }: { lang: Lang; tool: Tool }) {
           </Link>
         </div>
       )}
-    </div>
+    </ToolPageAnalytics>
   );
 }

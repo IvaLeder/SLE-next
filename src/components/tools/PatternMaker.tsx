@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useToolEventOnce } from "@/components/tools/useToolAnalytics";
 
 type Lang = "en" | "hr";
 type Variant = "shapes" | "colors" | "pics" | "letters" | "numbers";
@@ -199,6 +200,8 @@ function Tile({ markup }: { markup: string }) {
 
 export default function PatternMaker({ lang = "en" }: { lang?: Lang }) {
   const t = COPY[lang];
+  const trackResult = useToolEventOnce("tool_result", "pattern-maker", lang);
+  const trackComplete = useToolEventOnce("tool_complete", "pattern-maker", lang);
   const [mode, setMode] = useState<"play" | "build">("play");
   const [variant, setVariant] = useState<Variant>("shapes");
   const [pack, setPack] = useState<Pack>("animals");
@@ -242,6 +245,8 @@ export default function PatternMaker({ lang = "en" }: { lang?: Lang }) {
     if (game.options[i].correct) {
       setSolved(true);
       setStatus("correct");
+      trackResult("pattern-completed");
+      trackComplete("pattern-completed");
     } else {
       setStatus("wrong");
       setWrongIdx(i);
@@ -250,6 +255,7 @@ export default function PatternMaker({ lang = "en" }: { lang?: Lang }) {
   };
 
   const printWorksheet = () => {
+    trackResult("worksheet-opened");
     const w = window.open("", "_blank", "width=820,height=1060");
     if (!w) return;
     const cols = 8;
