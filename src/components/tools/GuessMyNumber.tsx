@@ -123,9 +123,9 @@ const COPY = {
     revealed: (n: number) => `Broj je bio ${n}.`,
 
     whyIntro:
-      "Polovljenje je jače nego što se čini. Svako dodatno pitanje otprilike udvostruči gomilu koju možeš pretražiti, pa gomila raste eksplozivno, a broj pitanja povećava se jedno po jedno.",
+      "Polovljenje je moćnije nego što se čini. Svako dodatno pitanje otprilike udvostruči količinu koju možeš pretražiti, pa količina raste eksponencijalno, a broj pitanja povećava se jedno po jedno.",
     qCol: "Pitanja",
-    canFindCol: "Najveća gomila koju možeš pretražiti",
+    canFindCol: "Najveća količina koju možeš pretražiti",
     tableNote:
       "Kad posljednji broj morate potvrditi, q pitanja pokriva 2^q - 1 brojeva. Deset pitanja pokriva 1.023 broja, a dvadeset 1.048.575.",
     walk: "Gledaj kako 100 brojeva nestaje",

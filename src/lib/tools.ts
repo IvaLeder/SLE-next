@@ -442,7 +442,6 @@ const allTools: Tool[] = [
   },
   {
     key: "guess-my-number",
-    status: "draft",
     slug: { en: "guess-my-number", hr: "pogodi-broj" },
     icon: "🎯",
     title: {

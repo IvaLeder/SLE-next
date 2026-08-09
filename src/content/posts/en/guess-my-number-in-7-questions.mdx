@@ -3,7 +3,7 @@ title: "Guess My Number in 7 Questions: Binary Search for Kids"
 slug: "guess-my-number-in-7-questions"
 lang: "en"
 translationKey: "guess-my-number-in-7-questions"
-date: "2026-07-27"
+date: "2026-08-09"
 author: "Iva Leder"
 description: "Think of a number from 1 to 100 and it can always be found in 7 questions. The halving trick is binary search, a fast way to search ordered data."
 subtitle: >-
@@ -18,8 +18,6 @@ tags:
   - coding
 coverImage: "/images/posts/guess-my-number-cover.jpg"
 heroAlt: "Paper-cut illustration of a child arranging number cards from 50 through 90 in a narrowing guessing path, with 90 circled"
-draft: true
-previewToken: "689d862c48791bbf3fe1778127a13ca7"
 ---
 
 Here is a trick you can do in a car, in a queue, or at a birthday party.
@@ -80,7 +78,7 @@ For preschool, kindergarten and early elementary, start with numbers from **1 to
 Leave powers of two, software terms, and even the name "binary search" for later. For now, ask: **Which number is in the middle? Which numbers can we cover?** The central idea is enough: choosing the middle lets us rule out lots of numbers at once.
 </Callout>
 
-The full 1-to-100 game is an especially good fit for elementary school. Children around 7 to 11 can work with the middle of a range, higher and lower, elimination, efficient versus inefficient strategies, and ordered versus shuffled numbers. Older learners (11+)can go further into powers of two, algorithms as repeatable instructions, and why 1,000 still needs only ten questions.
+The full 1-to-100 game is an especially good fit for elementary school. Children around 7 to 11 can work with the middle of a range, higher and lower, elimination, efficient versus inefficient strategies, and ordered versus shuffled numbers. Older learners (11+) can go further into powers of two, algorithms as repeatable instructions, and why 1,000 still needs only ten questions.
 
 <Prediction question="Seven questions are enough for 1 to 100. How many questions do you need for 1 to 1000?">
 <PredictionOption correct="true">10</PredictionOption>
@@ -136,7 +134,7 @@ while lowest <= highest:
   if too high: highest = middle - 1
 ```
 
-For an optional mathematics challenge, the exact number of questions in this article's confirmed-final-guess version is **⌈log₂(n + 1)⌉**. You may also see **⌈log₂ n⌉** used for the number of halving decisions needed to narrow a range to one candidate; the extra confirmation question is why the formulas differ at powers of two.
+For an optional mathematics extra, the exact number of questions in this article's confirmed-final-guess version is **⌈log₂(n + 1)⌉**. You may also see **⌈log₂ n⌉** used for the number of halving decisions needed to narrow a range to one candidate; the extra confirmation question is why the formulas differ at powers of two.
 </Callout>
 
 ## Playing it away from a screen
@@ -177,7 +175,7 @@ Because the answers only help if they let you rule out a whole half at once. "Hi
 It is the same idea applied to ideas rather than numbers. Twenty yes-or-no questions can separate more than a million possibilities, as long as each question splits what is left roughly in half. That is why "is it alive?" is a much better opening question than "is it a goldfish?".
 </Question>
 <Question question="What age can children learn binary search?">
-The guessing game itself works from about 5 or 6, played out loud with an adult doing the halving. Around 7 or 8 most children can find the middle themselves and stick to the strategy. The reasoning about why doubling makes 7 enough for 100, and the fact that the list must be sorted, usually clicks between 9 and 12.
+The guessing game itself works from about 5 or 6, played out loud with an adult doing the halving. Around 8 or 9 most children can find the middle themselves and stick to the strategy. The reasoning about why doubling makes 7 enough for 100, and the fact that the list must be sorted is all about exponentials and logarithms, so it's a good fit for middle schoolers (11+).
 </Question>
 <Question question="How is binary search used in real programs?">
 Binary search appears wherever programs keep comparable data in order. A program can search a sorted array directly; database tree indexes use the same discard-large-regions principle; and version-control tools such as `git bisect` find the change that broke a program by repeatedly testing the middle of a known good-to-bad history. Other jobs may use different structures, such as hash tables or prefix trees, so not every computer search is binary search.
@@ -190,3 +188,5 @@ If your child liked seeing a party trick turn into real computer science, these 
 - [Tower of Hanoi](/en/make-and-solve-tower-of-hanoi) - a puzzle whose minimum number of moves doubles with every disk.
 - [Learn programming with Scratch](/en/learn-programming-with-scratch) - where loops and conditions like "higher or lower" become code.
 - [Make a cipher wheel](/en/how-to-make-cipher-wheel) - another pencil-and-paper way into how computers handle information.
+
+Till next time, enjoy the game and keep exploring!

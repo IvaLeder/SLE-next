@@ -1,0 +1,192 @@
+---
+title: "Pogodi broj u 7 pitanja: binarno traženje za djecu"
+slug: "pogodi-broj-u-7-pitanja"
+lang: "hr"
+translationKey: "guess-my-number-in-7-questions"
+date: "2026-08-09"
+author: "Iva Leder"
+description: "Zamislite broj od 1 do 100 i uvijek se može otkriti u 7 pitanja. Trik s polovljenjem jest binarno pretraživanje, brz način pretraživanja poredanih podataka."
+subtitle: >-
+  Zamolite dijete da zamisli broj od 1 do 100 i obećajte da ćete ga naći u sedam
+  pitanja. Izgledat ćete kao da čitate misli, a jedino što radite jest da svaki
+  put približno prepolovite mogućnosti. Računala istu ideju koriste za
+  pretraživanje poredanih podataka, a zove se binarno traženje.
+categories:
+  - Tehnologija
+tags:
+  - activity
+  - coding
+coverImage: "/images/posts/guess-my-number-cover.jpg"
+heroAlt: "Ilustracija od izrezanog papira na kojoj dijete slaže kartice s brojevima od 50 do 90 u sve uži put pogađanja, dok je 90 zaokružen"
+---
+
+Evo trika koji možete izvesti u autu, u redu za blagajnu ili na rođendanu.
+
+Zamolite nekoga da zamisli broj od 1 do 100 i drži ga u tajnosti. Recite mu da ćete ga naći u sedam pitanja i da mora odgovarati samo "više", "manje" ili "to je moj broj".
+
+Onda pitajte: **je li 50?**
+
+Više. Pitajte 75. Više. Pitajte 88. Više. Pitajte 94. Manje. Pitajte 91. Manje. Pitajte 89. Više. Ostao je samo jedan broj koji može biti, pa postavite sedmo pitanje: **je li to 90?** To je taj.
+
+Uspijeva svaki put, za svaki broj do 100, i nikada nije potrebno osmo pitanje. Ujedno je i jedna od najkorisnijih ideja u računalnoj znanosti, a dijete koje ovu igru igra desetak minuta shvaća cijeli princip.
+
+<ActivityInfo age="6+" time="15 min" difficulty="Lako" mess="Nimalo" supervision="no" />
+
+<Callout type="tip" title="🎮 Igrajte se dok čitate">
+Igra ispod radi u oba smjera: pustite računalo da pronađe vaš broj ili sami pokušajte pronaći broj u najviše sedam pitanja. Želite cijelu stranicu? Otvorite [pogodi broj u 7 pitanja](/hr/alati/pogodi-broj).
+</Callout>
+
+## Pravilo: uvijek ciljajte na sredinu
+
+Cijela metoda stane u jednu rečenicu: **gađajte sredinu onoga što je još moguće.**
+
+Na početku je moguće sve od 1 do 100, pa je sredina 50. Ako je odgovor "više", onda su brojevi od 1 do 50 otpali i ostao je raspon od 51 do 100. Sredina toga je 75. Ako je odgovor "manje", brojevi od 76 do 100 otpadaju i preostaje raspon od 51 do 74.
+
+Nakon svakog pogrešnog pokušaja ostaje najviše pola prethodnog raspona. Ako raspon sadrži neparan broj mogućnosti, pokušaj je točno u sredini pa su obje strane jednake. Ako ih je paran broj, na jednoj strani može biti jedan broj više. U svakom slučaju, odgovori "više" i "manje" gotovo su jednako korisni, a "to je moj broj" završava igru.
+
+Gledajte kako se gomila smanjuje:
+
+| Dosadašnjih pogrešnih pokušaja | Najviše ovoliko brojeva preostaje |
+|---|---|
+| 0 | 100 |
+| 1 | 50 |
+| 2 | 25 |
+| 3 | 12 |
+| 4 | 6 |
+| 5 | 3 |
+| 6 | 1 |
+
+Nakon šest pogrešnih pokušaja ostaje najviše jedan broj. Sedmo pitanje imenuje ga i potvrđuje. Ne trebamo osmo pitanje.
+
+<Figure src="/images/posts/guess-my-number-halving.svg" alt="Sedam centriranih traka koje se sužavaju od cijelog raspona od 1 do 100 preko raspona od 51 do 100, od 76 do 100, od 89 do 100, od 89 do 93 i od 89 do 90, sve do jedinog broja 90" width="1500" height="820">
+Početni primjer pretvoren u sliku: svaki odgovor zadržava jedan manji raspon, a sve ostalo odbacuje. Nakon šest pogrešnih pokušaja ostaje samo 90; sedmo pitanje to potvrđuje.
+</Figure>
+
+<GuessMyNumber />
+
+## Igrajte i obrnuto
+
+Kad je dijete gledalo kako vi to izvodite, zamijenite se. Vi zamislite broj i pustite njih da ga nađu, i oduprite se porivu da ih navodite.
+
+Gotovo svako dijete prvo pogađa 1, pa 2, pa 3. Vrijedi ih pustiti da to malo rade, jer se brzo primijeti da je to neefikasno. Ako idemo redom od 1 do 100, u najgorem slučaju (broj je 100) trebamo 100 pokušaja. Onda ih zamolite da pokušaju početi od sredine i pustite ih da osjete razliku.
+
+Trenutak koji treba dočekati je onaj kad prestanu pogađati "neki broj" i počnu pogađati "sredinu onoga što je ostalo". To su dvije posve različite igre, a druga je **algoritam**: recept koji radi za bilo koji broj i ne ovisi o sreći.
+
+<Callout type="tip" title="Za mlađe učenike">
+Za vrtićku i predškolsku dob, pa i niže razrede osnovne, počnite s brojevima od **1 do 10**, a zatim prijeđite na 1 do 20. Nacrtajte brojevni pravac ili posložite kartice s brojevima licem prema gore pa recite djetetu da prekrije brojeve koje svaki odgovor isključuje pomoću žetona ili papira, a može ih i fizički maknuti sa stola. Vizualno i taktilno iskustvo čini iskustvo konkretnijim nego samo reći "više" ili "manje".
+
+Potencije broja dva, računalne pojmove pa čak i naziv "binarno traženje" ostavite za poslije. Zasad pitajte: **Koji je broj u sredini? Koje brojeve sada možemo prekriti?** Dovoljna je glavna ideja: odabirom sredine možemo eliminirati puno brojeva.
+</Callout>
+
+Cijela igra s brojevima od 1 do 100 posebno je prikladna za osnovnu školu. Djeca od otprilike 7 do 11 godina mogu razumjeti sredinu raspona, više i manje, odbacivanje mogućnosti, učinkovite i neučinkovite strategije te razliku između poredanih i izmiješanih brojeva. Stariji osnovnoškolci (11+) mogu istražiti potencije broja dva, algoritam kao ponovljiv niz uputa i razlog zbog kojeg je za 1000 brojeva dovoljno samo deset pitanja.
+
+<Prediction question="Sedam pitanja dovoljno je za brojeve od 1 do 100. Koliko pitanja treba za brojeve od 1 do 1000?">
+<PredictionOption correct="true">10</PredictionOption>
+<PredictionOption>70</PredictionOption>
+<PredictionOption>500</PredictionOption>
+<PredictionResult>
+**Samo 10.** To je dio koji iznenadi i odrasle. Deset puta više brojeva ne znači deset puta više pitanja, jer svako dodatno pitanje **udvostruči** gomilu koju možemo pretražiti.
+
+Jedno pitanje pokriva 1 broj, dva pitanja najviše 3, pa 7, 15, 31, 63 i 127. Sedam pitanja zato pokriva svih 100 mogućnosti. Nastavite: 255, 511, 1023. Deset pitanja pokriva svih 1000 brojeva.
+
+Dvadeset pitanja pokrilo bi više od milijun brojeva.
+</PredictionResult>
+</Prediction>
+
+## Zašto je udvostručavanje toliko moćno
+
+Ti su kapaciteti za jedan manji od potencija broja dva: 1, 3, 7, 15, 31, 63, 127, 255… Dodajte jedno pitanje i gomila koju možete pretražiti približno se udvostruči. Preciznije, ako posljednji broj morate potvrditi, **q** pitanja pokriva **2^q − 1** brojeva.
+
+Okrenite to i dobijete pravilo: nastavite udvostručavati dok kapacitet ne dosegne vaš raspon. Za sto treba 7 pitanja jer je 2⁷ − 1 = 127. Za tisuću treba 10 jer je 2¹⁰ − 1 = 1023. Za milijun treba 20, a za milijardu samo 30.
+
+Dijete je to udvostručavanje već srelo ako je igralo [Hanojski toranj](/hr/kako-napraviti-rijesiti-hanoi-toranj), gdje svaki dodatni disk udvostruči prethodni najmanji broj poteza i doda još jedan, ili ako je [napisalo svoje ime u binarnom kodu](/hr/napisi-svoje-ime-binarnim-kodom), gdje svaki dodatni bit udvostruči broj različitih znakova koje možemo kodirati. Isti obrazac eksponencijalnog rasta pokreće sve tri ideje.
+
+<Callout type="science" title="Gdje se trik s polovljenjem pojavljuje u životu">
+Kad tražite riječ u papirnatom rječniku, ne počinjete od A. Otvorite ga negdje blizu sredine, vidite dolazi li vaša riječ prije ili poslije i odaberete stranu. To nije savršeno precizno binarno traženje, ali koristi istu ideju sredine i eliminacije. Programeri primjenjuju točan postupak alatima poput `git bisect`: ispitaju promjenu na pola puta između verzije za koju znaju da radi i one koja je kriva, a zatim odbace polovicu povijesti.
+</Callout>
+
+## Uvjet zbog kojeg je ovo računalna znanost
+
+Postoji jedan uvjet, i on je ključan da bi ovo funkcioniralo, a prilično je intuitivan. Pitajte dijete:
+
+> Bi li se ova igra mogla igrati kad bi brojevi bili izmiješani, tako da "više" i "manje" ne znače ništa?
+
+Ne bi. Polovljenje radi samo zato što su brojevi **po redu**. Odgovor "više" koristan je jedino ako vam dopušta da izbacite sve ispod, a za to gomila mora biti sortirana.
+
+To je jedan od razloga zbog kojih računala neke podatke drže poredanima. Poredani popis od 2000 kontakata može se pretražiti u najviše **11** usporedbi sa sredinom. Jednostavno pretraživanje neporedanog popisa možda bi moralo pregledati svih 2000. Sortiranje ili indeksiranje traži nešto rada unaprijed, ali ponavljana pretraživanja može učiniti mnogo bržima.
+
+<Callout type="tip" title="🔬 Napravite od toga pravi pokus">
+Provjerite taj uvjet umjesto da nam vjerujete na riječ. Napišite brojeve od 1 do 20 na kartice, promiješajte ih i položite u red, licem nadolje. Sada pokušajte naći karticu s brojem 13. Nakon svakog okretanja usporedite otkriveni broj s 13 — ali zato što su kartice promiješane, odgovor "više" ili "manje" ne govori vam gdje dalje tražiti. Prebrojite okretanja: u prosjeku ćete okrenuti oko pola kartica, a ponekad i sve. Onda iste kartice poslažite po redu, licem nadolje, i igrajte ponovno. Najviše pet okretanja, svaki put. Iste kartice, ista usporedba, a promijenio se samo red.
+</Callout>
+
+<Callout type="science" title="Za starije istraživače: pretvorite postupak u kôd">
+Učenici viših razreda osnovne škole mogu zapisati strategiju u Scratchu ili pseudokodu. Definirajte dvije varijable, **najmanji** i **najveći**, izračunajte sredinu i nakon svakog odgovora promijenite jednu granicu:
+
+```text
+najmanji = 1
+najveći = 100
+
+dok je najmanji <= najveći:
+  sredina = floor((najmanji + najveći) / 2)
+  pitaj je li sredina točna, premala ili prevelika
+  ako je točna: stani
+  ako je premala: najmanji = sredina + 1
+  ako je prevelika: najveći = sredina - 1
+```
+
+Kao neobavezan matematički bonus, točan broj pitanja u verziji iz ovog članka, u kojoj posljednji pokušaj treba potvrditi, jest **⌈log₂(n + 1)⌉**. Možda ćete naići i na **⌈log₂ n⌉** za broj odluka prepolovljavanja potrebnih da se raspon suzi na jednog kandidata; dodatna potvrda objašnjava zašto se formule razlikuju kod potencija broja dva.
+</Callout>
+
+## Kako igrati bez ekrana
+
+**Brojevni pravac na papiru.** Nacrtajte 1 do 100 kao pravac i prekrižite polovicu koju svaki odgovor eliminira. Kad se preostali dio vidljivo skraćuje, to daje djetetu intuitivno razumijevanje procesa.
+
+**Utrka rječnikom.** Vi tražite riječ počinjući od A i listajući stranicu po stranicu. Dijete traži drugu riječ tako da otvori sredinu i polovi. Utrkujte se. Nije ni blizu.
+
+**Pogodi godine, pogodi težinu.** Isti trik nalazi sve što ima neki redoslijed: koliko je bombona u staklenki, koliko knjiga ima stranica, na koji broj mislim između 1 i 1000.
+
+**Dvadeset pitanja, kako treba.** Klasična igra je nešto slično binarnom traženju, ali s idejama umjesto s brojevima, a dobro pitanje je ono koje mogućnosti razdijeli približno na pola. "Je li životinja?" je korisnije pitanje nego "Je li hrčak?".
+
+<KeyTakeaways>
+- Da nađete tajni broj od 1 do 100, uvijek pogađajte **sredinu** onoga što je još moguće. Treba najviše **7** pitanja.
+- Nakon svakog pogrešnog pokušaja ostaje **najviše pola** prethodnog raspona; točan pokušaj završava igru.
+- Svako dodatno pitanje približno **udvostruči** veličinu gomile koju možete pretražiti: 7 potvrđenih pitanja pokriva 127 brojeva, 10 pokriva 1.023, a 20 pokriva 1.048.575.
+- To se zove **binarno traženje** i radi samo kad su stvari koje tražite **po redu**. Zato računala često drže podatke sortiranima.
+- Isto polovljenje nalazi riječ u rječniku, stranicu u knjizi i grešku u programu.
+- Pogađanje 1, 2, 3, 4 po redu pokazuje prednost ove metode: moglo bi trebati i 100 pokušaja umjesto samo 7.
+</KeyTakeaways>
+
+## Igre pogađanja i binarno traženje - često postavljana pitanja
+
+<FAQ>
+<Question question="Kako se broj od 1 do 100 uvijek može pogoditi u 7 pokušaja?">
+Uvijek pogađajte sredinu raspona koji je još moguć. Počnite s 50. Ako je odgovor "više", raspon postaje od 51 do 100 i pogađate 75; ako je "manje", postaje od 1 do 49 i pogađate 25. U najgorem slučaju raspon mogućnosti smanjuje se sa 100 na 50, 25, 12, 6, 3 i 1. Sedmo pitanje potvrđuje taj posljednji broj.
+</Question>
+<Question question="Što je binarno traženje jednostavnim riječima?">
+Način pronalaženja nečega u sortiranom popisu tako da se popis stalno reže na pola. Pogledate srednji član, odlučite je li ono što tražite prije ili poslije njega, odbacite drugu polovicu i ponovite. "Binarno" znači dvojno, jer svaki korak dijeli stvari na dva dijela i jedan odbacuje.
+</Question>
+<Question question="Koliko pokušaja treba za brojeve od 1 do 1000?">
+Deset. Kad posljednji broj moramo potvrditi, najveći raspon raste 1, 3, 7, 15, 31, 63, 127, 255, 511, 1023. Deset pitanja zato pokriva svaki broj od 1 do 1000. Za milijun ih treba samo 20, a za milijardu 30.
+</Question>
+<Question question="Zašto binarnom traženju treba sortirani popis?">
+Zato što odgovori pomažu samo ako dopuštaju da odjednom izbacite cijelu polovicu. "Više" vam o pomiješanoj gomili ne govori ništa: broj koji tražite i dalje može biti bilo gdje. U sortiranom popisu "više" izbacuje sve ispod člana kojeg ste provjerili. Bez redoslijeda nema polovljenja i vraćate se na gledanje jedne stvari po jednoj.
+</Question>
+<Question question="Je li to isto kao igra 20 pitanja?">
+Slična ideja, samo primijenjena na ideje umjesto na brojeve. Dvadeset pitanja s odgovorom da ili ne može razlučiti više od milijun mogućnosti, dokle god svako pitanje ono što je ostalo dijeli približno na pola. Zato je "je li živo?" mnogo bolje početno pitanje od "je li zlatna ribica?".
+</Question>
+<Question question="Djeca koje dobi mogu naučiti binarno traženje?">
+Sama igra pogađanja može biti zanimljiva od oko pete ili šeste godine, naglas, s odraslom osobom koja smanjuje raspon. Oko osme ili devete većina djece može sama naći sredinu i držati se strategije. Razumijevanje zašto nam je dovoljno samo sedan pitanja za brojeve do 100 i zašto popis mora biti sortiran zahtjeva znanje o eksponentima i logaritmima, pa je prikladno za starije osnovnoškolce (11+ godina).
+</Question>
+<Question question="Kako se binarno traženje koristi u pravim programima?">
+Binarno traženje pojavljuje se svugdje gdje programi usporedive podatke drže poredanima. Program može izravno pretražiti sortirani niz; indeksi baza podataka u obliku stabla koriste sličnu ideju odbacivanja velikih područja; a alati za verzioniranje poput `git bisect` nalaze promjenu koja je poremetila program stalnim ispitivanjem sredine između poznate ispravne i pogrešne verzije. Za druge poslove postoje drukčije strukture, poput raspršenih tablica (hash tablica) i prefiksnih stabala (trie), pa nije svako računalno pretraživanje binarno.
+</Question>
+</FAQ>
+
+Ako ste uživali gledajući kako se zanimljivi trik pretvara u pravu računalnu znanost, probajte i ove aktivnosti:
+
+- [Napiši svoje ime binarnim kodom](/hr/napisi-svoje-ime-binarnim-kodom) - isto udvostručavanje, iskorišteno za pohranu slova u nulama i jedinicama.
+- [Hanojski toranj](/hr/kako-napraviti-rijesiti-hanoi-toranj) - slagalica kojoj se najmanji broj poteza udvostruči sa svakim diskom.
+- [Programiranje uz Scratch](/hr/ucenje-programiranja-scratch) - gdje petlje i uvjeti kao "više ili manje" postaju kod.
+- [Napravite kotač za šifriranje](/hr/kako-napraviti-kotac-za-sifriranje) - još jedan nedigitalni pogled u šifriranje i cyber sigurnost.
+
+Do sljedećeg puta, uživajte u igri i nastavite istraživati!

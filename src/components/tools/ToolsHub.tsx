@@ -81,7 +81,7 @@ const GROUPS: { key: GroupKey; toolKeys: readonly string[] }[] = [
   },
   {
     key: "codes",
-    toolKeys: ["name-in-binary", "caesar-cipher", "morse-code"],
+    toolKeys: ["name-in-binary", "caesar-cipher", "morse-code", "guess-my-number"],
   },
   {
     key: "create",
