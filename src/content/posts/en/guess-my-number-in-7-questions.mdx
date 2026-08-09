@@ -5,61 +5,64 @@ lang: "en"
 translationKey: "guess-my-number-in-7-questions"
 date: "2026-07-27"
 author: "Iva Leder"
-description: "Think of a number from 1 to 100 and it can always be found in 7 questions. The halving trick behind it is how computers search through millions of things."
+description: "Think of a number from 1 to 100 and it can always be found in 7 questions. The halving trick is binary search, a fast way to search ordered data."
 subtitle: >-
   Ask a child to think of a number between 1 and 100 and promise to find it in
   seven questions. You will look like a mind reader, and the only thing you are
-  doing is cutting the possibilities in half every time. Computers do exactly
-  this, millions of times a second, and it is called binary search.
+  doing is cutting the possibilities roughly in half every time. Computers use
+  the same idea to search ordered data, and it is called binary search.
 categories:
   - Technology
 tags:
   - activity
   - coding
 coverImage: "/images/posts/guess-my-number-cover.jpg"
-heroAlt: "A child's notebook page showing a number line from 1 to 100 with the range crossed in half again and again, seven times, until only one number is circled"
+heroAlt: "Paper-cut illustration of a child arranging number cards from 50 through 90 in a narrowing guessing path, with 90 circled"
 draft: true
 previewToken: "689d862c48791bbf3fe1778127a13ca7"
 ---
 
 Here is a trick you can do in a car, in a queue, or at a birthday party.
 
-Ask someone to think of a number from 1 to 100 and keep it secret. Tell them you will find it in seven questions, and that all they have to answer is "higher" or "lower".
+Ask someone to think of a number from 1 to 100 and keep it secret. Tell them you will find it in seven questions, and that all they have to answer is "higher", "lower", or "that's it".
 
 Then ask: **is it 50?**
 
-Higher. Ask 75. Higher. Ask 88. Higher. Ask 94. Lower. Ask 91. Lower. Ask 89. Higher. There is only one number left that fits every answer, so it is 90, and that was your seventh question.
+Higher. Ask 75. Higher. Ask 88. Higher. Ask 94. Lower. Ask 91. Lower. Ask 89. Higher. There is only one number left that fits every answer, so ask your seventh question: **is it 90?** That's it.
 
-It works every time, for every number, and it never needs an eighth question. It also happens to be one of the most useful ideas in computer science, and a child who plays this game for ten minutes has understood it properly.
+It works every time, for every number, and it never needs an eighth question. It also happens to be one of the most useful ideas in computer science, and a child who plays this game for ten minutes can figure it out.
 
 <ActivityInfo age="6+" time="15 min" difficulty="Easy" mess="None" supervision="no" />
 
 <Callout type="tip" title="🎮 Play as you read">
-The game below plays both sides: let it find your number, or try to find its number yourself and see whether you can match seven. Prefer a full page? Open [guess my number in 7 questions](/en/tools/guess-my-number).
+The game below plays both sides: let it find your number, or try to find its number yourself and see whether you can do it in seven questions or fewer. Prefer a full page? Open [guess my number in 7 questions](/en/tools/guess-my-number).
 </Callout>
 
 ## The rule: always aim for the middle
 
 The whole method is one sentence: **guess the middle of whatever is still possible.**
 
-At the start, anything from 1 to 100 is possible, so the middle is 50. If the answer is "higher", then 1 to 50 are all gone at once, and you are left with 51 to 100. The middle of that is 75. If the answer is "lower", 76 to 100 disappear, and you are down to 51 to 74.
+At the start, anything from 1 to 100 is possible, so the middle is 50. If the answer is "higher", you can eliminate everything from 1 to 50, and you are left with 51 to 100. The middle of that is 75. If the answer is "lower", 76 to 100 disappear, and you are down to 51 to 74.
 
-Each answer throws away half the numbers, whichever way it goes. That is the part worth saying out loud, because it is where children usually expect the trick to have a catch: it does not matter what the answer is. Both answers are equally useful.
+Every wrong guess leaves at most half the previous range. If the range contains an odd number of possibilities, the guess itself sits in the middle, so the two sides are exactly equal. If it contains an even number, one side can contain one more number than the other. Either way, "higher" and "lower" are almost equally useful, and "that's it" ends the game.
 
 Watch the pile shrink:
 
-| Questions asked | Numbers that could still be right |
+| Wrong guesses so far | At most this many numbers remain |
 |---|---|
 | 0 | 100 |
 | 1 | 50 |
 | 2 | 25 |
-| 3 | 13 |
-| 4 | 7 |
-| 5 | 4 |
-| 6 | 2 |
-| 7 | 1 |
+| 3 | 12 |
+| 4 | 6 |
+| 5 | 3 |
+| 6 | 1 |
 
-Seven halvings take 100 possibilities down to one. There is no room left for an eighth question, because after seven there is nothing left to be unsure about.
+After six wrong guesses, at most one number remains. Question seven names and confirms it. There is no room left for an eighth question.
+
+<Figure src="/images/posts/guess-my-number-halving.svg" alt="Seven centered bars narrowing from the full range 1 to 100 through 51 to 100, 76 to 100, 89 to 100, 89 to 93, 89 to 90, and finally the single number 90" width="1500" height="820">
+The example opening written as a picture: every answer keeps one smaller range and discards everything else. After six wrong guesses, only 90 remains; question seven confirms it.
+</Figure>
 
 <GuessMyNumber />
 
@@ -67,47 +70,73 @@ Seven halvings take 100 possibilities down to one. There is no room left for an 
 
 Once your child has watched you do it, swap. You think of the number and let them find it, and resist the urge to coach.
 
-What almost every child does first is guess 1, then 2, then 3. This is worth letting them do for a while, because the tedium is the lesson. Counting up from 1 needs up to 100 guesses. Then ask them to try starting in the middle, and let them feel the difference.
+What almost every child does first is guess 1, then 2, then 3. It's good to let them do it for a while, because it's quickly obvious that this approach is inefficient. Counting up from 1 needs up to 100 guesses. Then ask them to try starting in the middle, and let them feel the difference.
 
 The moment to watch for is when they stop guessing "a number" and start guessing "the middle of what is left". Those are two completely different games, and the second one is an **algorithm**: a recipe that works for any number without needing luck.
+
+<Callout type="tip" title="For younger learners">
+For preschool, kindergarten and early elementary, start with numbers from **1 to 10**, then move to 1 to 20. Draw a number line or lay numbered cards face up, and let the child cover the eliminated numbers with counters or strips of paper or physically move them out of the way. The visual and tactile experience makes the halving trick more concrete than just saying "higher" or "lower".
+
+Leave powers of two, software terms, and even the name "binary search" for later. For now, ask: **Which number is in the middle? Which numbers can we cover?** The central idea is enough: choosing the middle lets us rule out lots of numbers at once.
+</Callout>
+
+The full 1-to-100 game is an especially good fit for elementary school. Children around 7 to 11 can work with the middle of a range, higher and lower, elimination, efficient versus inefficient strategies, and ordered versus shuffled numbers. Older learners (11+)can go further into powers of two, algorithms as repeatable instructions, and why 1,000 still needs only ten questions.
 
 <Prediction question="Seven questions are enough for 1 to 100. How many questions do you need for 1 to 1000?">
 <PredictionOption correct="true">10</PredictionOption>
 <PredictionOption>70</PredictionOption>
 <PredictionOption>500</PredictionOption>
 <PredictionResult>
-**Just 10.** This is the part that surprises adults too. Ten times as many numbers does not mean ten times as many questions, because every extra question **doubles** the pile you can handle.
+**Just 10.** This can surprise adults too. Ten times as many numbers does not mean ten times as many questions, because every extra question **doubles** the pile you can handle.
 
-One question copes with 2 numbers, two questions cope with 4, then 8, 16, 32, 64, 128. Seven questions already cover more than 100. Keep going: 256, 512, 1024. Ten questions cover more than 1000.
+One confirmed guess can cover 1 number, two questions cover up to 3, then 7, 15, 31, 63 and 127. Seven questions therefore cover all 100 possibilities. Keep going: 255, 511, 1023. Ten questions cover all 1000.
 
-Twenty questions would cover more than a million numbers. That is why the guessing game "20 questions" works at all.
+Twenty questions would cover more than a million numbers.
 </PredictionResult>
 </Prediction>
 
 ## Why doubling is so powerful
 
-The numbers in that prediction are the powers of two: 2, 4, 8, 16, 32, 64, 128, 256… Add one question and the pile you can search doubles.
+Those capacities sit one below the powers of two: 1, 3, 7, 15, 31, 63, 127, 255… Add one question and the pile you can search roughly doubles. More precisely, if the final guess must be confirmed, **q** questions can cover **2^q − 1** numbers.
 
-Turn it around and you get the rule: to search a pile of any size, you need the number of questions that gets you past the size by doubling. 100 needs 7, because 2⁷ = 128. A thousand needs 10. A million needs 20. A billion needs only 30.
+Turn it around and you get the rule: keep doubling until the capacity reaches your range. A hundred needs 7 questions because 2⁷ − 1 = 127. A thousand needs 10 because 2¹⁰ − 1 = 1023. A million needs 20. A billion needs only 30.
 
-Your child has met this doubling before if they have played with the [Tower of Hanoi](/en/make-and-solve-tower-of-hanoi), where each extra disk doubles the number of moves, or if they have [written their name in binary](/en/write-your-name-in-binary), where each extra bit doubles how many letters you can spell. It is the same engine driving all three.
+Your child has met this doubling before if they have played with the [Tower of Hanoi](/en/make-and-solve-tower-of-hanoi), where each extra disk doubles the previous minimum and adds one move, or if they have [written their name in binary](/en/write-your-name-in-binary), where each extra bit doubles how many different symbols can be encoded. The same growth pattern drives all three.
 
-<Callout type="science" title="Where the halving trick hides in your day">
-When you look up a word in a paper dictionary, you do not start at A. You open it somewhere near the middle, see whether your word comes before or after, and pick a side. That is binary search, done with a thumb. The same goes for finding a page number in a thick book, and for the way a programmer hunts a bug by checking the middle of a list of changes rather than replaying all of them.
+<Callout type="science" title="Where the halving trick shows in everyday life">
+When you look up a word in a paper dictionary, you do not start at A. You open it somewhere near the middle, see whether your word comes before or after, and pick a side. It is not a perfectly measured binary search, but it uses the same middle-and-discard idea. Programmers use the exact method with tools such as `git bisect`: test a change halfway between a version known to work and one known to be broken, then discard half the history.
 </Callout>
 
 ## The catch that makes it computer science
 
-There is one condition, and it is the real lesson of the whole activity. Ask your child:
+There is one condition, and you probably know it intuitively. Ask your child:
 
 > Could you play this game if the numbers were shuffled up, so that "higher" and "lower" meant nothing?
 
 You could not. Halving only works because the numbers are **in order**. The answer "higher" is only useful if it lets you rule out everything below, and that needs the pile to be sorted.
 
-This is why computers spend so much effort keeping things in order. A phone with 2,000 contacts sorted by name can find one in **11** comparisons. Unsorted, it might have to look at all 2,000. Sorting a list once, so that every later search can be a binary search, is one of the most common trades in all of software.
+This is one reason computers keep some data in order. A sorted list of 2,000 contacts can be searched in at most **11** midpoint comparisons. Unsorted, a simple search might have to inspect all 2,000. Sorting or indexing data takes work up front, but it can make repeated searches much faster.
 
 <Callout type="tip" title="🔬 Turn it into a real experiment">
-Test the condition instead of taking our word for it. Write the numbers 1 to 20 on cards, shuffle them, and lay them face down in a row. Now try to find the card with 13 on it, with the only allowed question being "is this higher or lower than 13?" Count the flips: on average you will turn over about half the cards, and sometimes all of them. Then lay the same cards out in order, face down, and play again. Five flips at most, every time. Same cards, same question, and the only thing that changed was the order.
+Test the condition instead of taking our word for it. Write the numbers 1 to 20 on cards, shuffle them, and lay them face down in a row. Now try to find the card with 13 on it. After each flip, compare the revealed number with 13, but because the cards are shuffled, "higher" or "lower" tells you nothing about where to look next. Count the flips: on average you will turn over about half the cards, and sometimes all of them. Then lay the same cards out in order, face down, and play again. Five flips at most, every time. Same cards, same comparison, and the only thing that changed was the order.
+</Callout>
+
+<Callout type="science" title="For older explorers: turn it into code">
+Middle-school learners can write the strategy in Scratch or pseudocode. Keep two variables, **lowest** and **highest**, calculate the middle, and update one boundary after every answer:
+
+```text
+lowest = 1
+highest = 100
+
+while lowest <= highest:
+  middle = floor((lowest + highest) / 2)
+  ask whether middle is correct, too low, or too high
+  if correct: stop
+  if too low: lowest = middle + 1
+  if too high: highest = middle - 1
+```
+
+For an optional mathematics challenge, the exact number of questions in this article's confirmed-final-guess version is **⌈log₂(n + 1)⌉**. You may also see **⌈log₂ n⌉** used for the number of halving decisions needed to narrow a range to one candidate; the extra confirmation question is why the formulas differ at powers of two.
 </Callout>
 
 ## Playing it away from a screen
@@ -118,12 +147,12 @@ Test the condition instead of taking our word for it. Write the numbers 1 to 20 
 
 **Guess the age, guess the weight.** The same trick finds anything with an order to it: how many sweets are in the jar, how many pages in the book, what number I am thinking of between 1 and 1000.
 
-**Twenty questions, properly.** The classic game is binary search on ideas rather than numbers, and a good question is one that splits the possibilities roughly in half. "Is it an animal?" is a strong question. "Is it a hamster?" is a weak one. That is a genuinely useful thing for a child to notice about questions.
+**Twenty questions, properly.** The classic game is similar to binary search, but on ideas rather than numbers. A good question is one that splits the possibilities roughly in half. "Is it an animal?" is a strong question. "Is it a hamster?" is a weak one. That is a genuinely useful thing for a child to notice about questions.
 
 <KeyTakeaways>
 - To find a secret number from 1 to 100, always guess the **middle** of what is still possible. It takes at most **7** questions.
-- Every answer removes **half** the remaining possibilities, no matter which answer it is.
-- Each extra question **doubles** the size of the pile you can search: 7 questions cover 128 numbers, 10 cover 1024, 20 cover over a million.
+- Every wrong guess leaves **at most half** the previous range; an exact guess ends the game.
+- Each extra question roughly **doubles** the size of the pile you can search: 7 confirmed questions cover 127 numbers, 10 cover 1,023, and 20 cover 1,048,575.
 - This is called **binary search**, and it only works when the things you are searching are **in order**. That is why computers sort things.
 - The same halving finds a word in a dictionary, a page in a book, and a bug in a program.
 - Guessing 1, 2, 3, 4 in turn is the honest comparison: up to 100 guesses instead of 7.
@@ -133,13 +162,13 @@ Test the condition instead of taking our word for it. Write the numbers 1 to 20 
 
 <FAQ>
 <Question question="How can you always guess a number from 1 to 100 in 7 tries?">
-Always guess the middle of the range that is still possible. Start at 50. If the answer is "higher", the range becomes 51 to 100 and you guess 75; if "lower", it becomes 1 to 49 and you guess 25. Each answer halves the range: 100, 50, 25, 13, 7, 4, 2, 1. After seven halvings only one number can be left, so seven questions are always enough.
+Always guess the middle of the range that is still possible. Start at 50. If the answer is "higher", the range becomes 51 to 100 and you guess 75; if "lower", it becomes 1 to 49 and you guess 25. In the worst case the possible range shrinks from 100 to 50, 25, 12, 6, 3 and 1. The seventh question confirms that final number.
 </Question>
 <Question question="What is binary search in simple terms?">
 It is a way of finding something in an ordered list by repeatedly cutting the list in half. Look at the middle item, decide whether what you want is before or after it, throw the other half away, and repeat. "Binary" means two, because every step splits things into two parts and discards one.
 </Question>
 <Question question="How many guesses do you need for 1 to 1000?">
-Ten. Every extra question doubles the amount you can search, so the coverage grows 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024. Ten questions cover more than a thousand numbers. For a million you need only 20, and for a billion 30.
+Ten. With a confirmed final guess, the maximum range grows 1, 3, 7, 15, 31, 63, 127, 255, 511, 1023. Ten questions therefore cover every number from 1 to 1000. For a million you need only 20, and for a billion 30.
 </Question>
 <Question question="Why does binary search need a sorted list?">
 Because the answers only help if they let you rule out a whole half at once. "Higher" tells you nothing about a shuffled pile: the number you want could still be anywhere. In an ordered list, "higher" eliminates everything below the item you checked. No order, no halving, and you are back to looking at things one by one.
@@ -151,7 +180,7 @@ It is the same idea applied to ideas rather than numbers. Twenty yes-or-no quest
 The guessing game itself works from about 5 or 6, played out loud with an adult doing the halving. Around 7 or 8 most children can find the middle themselves and stick to the strategy. The reasoning about why doubling makes 7 enough for 100, and the fact that the list must be sorted, usually clicks between 9 and 12.
 </Question>
 <Question question="How is binary search used in real programs?">
-Constantly, wherever data is kept in order. Databases use sorted indexes so a search touches a handful of records instead of millions. Version control tools find the change that broke a program by testing the middle of the history and halving. Autocomplete narrows a sorted word list. Even a spell checker leans on it.
+Binary search appears wherever programs keep comparable data in order. A program can search a sorted array directly; database tree indexes use the same discard-large-regions principle; and version-control tools such as `git bisect` find the change that broke a program by repeatedly testing the middle of a known good-to-bad history. Other jobs may use different structures, such as hash tables or prefix trees, so not every computer search is binary search.
 </Question>
 </FAQ>
 
@@ -160,5 +189,4 @@ If your child liked seeing a party trick turn into real computer science, these 
 - [Write your name in binary](/en/write-your-name-in-binary) - the same doubling, used to store letters as 1s and 0s.
 - [Tower of Hanoi](/en/make-and-solve-tower-of-hanoi) - a puzzle whose minimum number of moves doubles with every disk.
 - [Learn programming with Scratch](/en/learn-programming-with-scratch) - where loops and conditions like "higher or lower" become code.
-- [Prime numbers for kids](/en/prime-numbers-for-kids) - crossing out multiples to find all 25 primes under 100.
 - [Make a cipher wheel](/en/how-to-make-cipher-wheel) - another pencil-and-paper way into how computers handle information.
