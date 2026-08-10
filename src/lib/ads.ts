@@ -42,35 +42,71 @@ export const IN_FEED_LAYOUT_KEY = "-70+dm+1r-q+2l";
 /** True once a publisher id is configured. */
 export const adsEnabled = ADSENSE_CLIENT.length > 0;
 
+const FIRST_AD_TARGET = 0.32;
+const SECOND_AD_TARGET = 0.68;
+const MIN_WORDS_AROUND_AD = 300;
+
+function countContentWords(value: string): number {
+  // Remove JSX/HTML tags so long image alt text and component props don't skew
+  // the reading-position estimate. Unicode properties cover both languages.
+  return value.replace(/<[^>]*>/g, " ").match(/[\p{L}\p{N}]+/gu)?.length ?? 0;
+}
+
+function closestHeadingCut({
+  lines,
+  candidates,
+  target,
+  totalWords,
+  minimumWordsBefore,
+  minimumWordsAfter,
+}: {
+  lines: string[];
+  candidates: number[];
+  target: number;
+  totalWords: number;
+  minimumWordsBefore: number;
+  minimumWordsAfter: number;
+}): number | null {
+  let best: { line: number; distance: number } | null = null;
+
+  for (const line of candidates) {
+    const wordsBefore = countContentWords(lines.slice(0, line).join("\n"));
+    if (
+      wordsBefore < minimumWordsBefore ||
+      totalWords - wordsBefore < minimumWordsAfter
+    ) {
+      continue;
+    }
+
+    const distance = Math.abs(wordsBefore / totalWords - target);
+    if (!best || distance < best.distance) best = { line, distance };
+  }
+
+  return best?.line ?? null;
+}
+
 /**
- * Split a raw MDX body at heading boundaries so in-article ads can sit between
- * sections. Returns the body as 1–3 chunks; the caller renders an ad between
- * consecutive chunks (`inArticle` after the first, `endOfArticle` after the
- * second). A single-element result means "no in-body ads".
+ * Split a raw MDX body at section-heading boundaries so in-article ads can sit
+ * between real content blocks. Returns the body as 1–3 chunks; the caller puts
+ * one ad between consecutive chunks. A single-element result means "no safe
+ * in-body placement".
  *
- * The scan ignores ```fenced``` code blocks and only counts top-level `## `
- * headings.
+ * Placement is based on article words, not heading count. The old "third H2"
+ * rule put first ads anywhere from 10–75% through the current corpus because
+ * section lengths vary wildly. We now choose the eligible boundary nearest 32%
+ * and, on articles with six or more sections, another nearest 68%. Every unit
+ * must have at least 300 words before and after it (and between two units).
  *
- * Placement, by section count `n`:
- *   - `n < 3`  → no split. Too short to place cleanly.
- *   - `3 ≤ n < 6` → one ad, before the 3rd section (or the 2nd when n is 3),
- *     landing roughly a third of the way down. Unchanged from the original
- *     single-split behaviour.
- *   - `n ≥ 6`  → two ads, at ~1/3 and ~2/3, with at least two sections above,
- *     between and below them.
- *
- * The second position matters: previously the `endOfArticle` unit sat *after*
- * the body and all the trailing components, measuring ~94% down the page. On
- * articles this long almost no one reached it, so it served an ad that was
- * paid for but never seen. Moving it to ~2/3 puts it where readers actually
- * are, and short articles (which keep the after-body slot) now cost nothing
- * when unreached, because AdSlot only requests on approach.
+ * Most posts use H2 sections. A small set of long, migrated posts use H3 for
+ * their primary sections; when there aren't enough H2s, H3s are the fallback.
+ * Fenced code blocks are ignored. The hard maximum remains two ads per article.
  */
 export function splitContentForAds(content: string): string[] {
   if (!adsEnabled || !AD_SLOTS.inArticle) return [content];
 
   const lines = content.split("\n");
-  const headingLines: number[] = [];
+  const h2Lines: number[] = [];
+  const h3Lines: number[] = [];
   let inFence = false;
 
   for (let i = 0; i < lines.length; i++) {
@@ -78,25 +114,41 @@ export function splitContentForAds(content: string): string[] {
       inFence = !inFence;
       continue;
     }
-    // Top-level H2 only ("## Heading" — not "### " or "##nospace").
-    if (!inFence && /^## \S/.test(lines[i])) headingLines.push(i);
+    if (inFence) continue;
+    if (/^## \S/.test(lines[i])) h2Lines.push(i);
+    else if (/^### \S/.test(lines[i])) h3Lines.push(i);
   }
 
+  const headingLines = h2Lines.length >= 3 ? h2Lines : h3Lines;
   const n = headingLines.length;
   if (n < 3) return [content];
 
-  const first = n >= 4 ? 2 : 1;
+  const totalWords = countContentWords(content);
+  const first = closestHeadingCut({
+    lines,
+    candidates: headingLines,
+    target: FIRST_AD_TARGET,
+    totalWords,
+    minimumWordsBefore: MIN_WORDS_AROUND_AD,
+    minimumWordsAfter: MIN_WORDS_AROUND_AD,
+  });
+  if (first === null) return [content];
 
-  // Second ad only when the article can spare two sections between the ads and
-  // two more below the last one — otherwise they'd stack up too close.
-  const second =
-    AD_SLOTS.endOfArticle && n >= 6
-      ? Math.min(Math.round((2 * n) / 3), n - 2)
-      : -1;
-
-  const cuts = (second > first ? [first, second] : [first]).map(
-    (i) => headingLines[i]
+  const wordsBeforeFirst = countContentWords(
+    lines.slice(0, first).join("\n")
   );
+  const second = AD_SLOTS.endOfArticle && n >= 6
+    ? closestHeadingCut({
+        lines,
+        candidates: headingLines.filter((line) => line > first),
+        target: SECOND_AD_TARGET,
+        totalWords,
+        minimumWordsBefore: wordsBeforeFirst + MIN_WORDS_AROUND_AD,
+        minimumWordsAfter: MIN_WORDS_AROUND_AD,
+      })
+    : null;
+
+  const cuts = second !== null ? [first, second] : [first];
 
   const chunks: string[] = [];
   let start = 0;
