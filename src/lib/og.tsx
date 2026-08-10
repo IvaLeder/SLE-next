@@ -34,6 +34,12 @@ const SUMMER: Record<Lang, { kicker: string; title: string; tagline: string }> =
   },
 };
 
+const BACK_TO_SCHOOL = {
+  kicker: "Back-to-school guide · STEM Little Explorers",
+  title: "Curious, calm and ready to learn",
+  tagline: "School readiness · gentler routines · learning help · free 8-page printable",
+};
+
 /** Centred brand card used as the default OG image for each route group. */
 export function renderSiteDefaultOg(lang: Lang): ImageResponse {
   const c = SITE[lang];
@@ -105,5 +111,89 @@ export function renderSummerOg(lang: Lang): ImageResponse {
       </div>
     ),
     { ...OG_SIZE, emoji: "twemoji" },
+  );
+}
+
+/** Indigo school-notebook card for the English back-to-school hub. */
+export function renderBackToSchoolOg(): ImageResponse {
+  const c = BACK_TO_SCHOOL;
+  return new ImageResponse(
+    (
+      <div
+        style={{
+          width: "100%",
+          height: "100%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          background: "linear-gradient(135deg, #312E81 0%, #5744A0 52%, #A74375 100%)",
+          color: "white",
+          padding: 72,
+          fontFamily: "system-ui, sans-serif",
+        }}
+      >
+        <div style={{ display: "flex", flexDirection: "column", maxWidth: 910 }}>
+          <div style={{ fontSize: 25, opacity: 0.88, letterSpacing: 2, textTransform: "uppercase", marginBottom: 28 }}>
+            {c.kicker}
+          </div>
+          <div style={{ fontSize: 68, fontWeight: 800, lineHeight: 1.08 }}>{c.title}</div>
+          <div style={{ fontSize: 29, opacity: 0.9, marginTop: 26, lineHeight: 1.35 }}>{c.tagline}</div>
+        </div>
+        <div
+          style={{
+            position: "relative",
+            display: "flex",
+            width: 178,
+            height: 202,
+            flexShrink: 0,
+            marginLeft: 42,
+            borderRadius: 40,
+            border: "8px solid #F8B84E",
+            background: "#FB6F52",
+            boxShadow: "0 22px 40px rgba(22, 16, 68, .28)",
+          }}
+        >
+          <div
+            style={{
+              position: "absolute",
+              left: 45,
+              top: -40,
+              display: "flex",
+              width: 72,
+              height: 48,
+              border: "10px solid #F8B84E",
+              borderBottom: "0px",
+              borderRadius: "28px 28px 0 0",
+            }}
+          />
+          <div
+            style={{
+              position: "absolute",
+              left: 22,
+              bottom: 24,
+              display: "flex",
+              width: 118,
+              height: 72,
+              borderRadius: 24,
+              background: "#D95770",
+              border: "5px solid rgba(255,255,255,.55)",
+            }}
+          />
+          <div
+            style={{
+              position: "absolute",
+              left: 74,
+              bottom: 44,
+              display: "flex",
+              width: 18,
+              height: 18,
+              borderRadius: 99,
+              background: "#F8B84E",
+            }}
+          />
+        </div>
+      </div>
+    ),
+    { ...OG_SIZE },
   );
 }
