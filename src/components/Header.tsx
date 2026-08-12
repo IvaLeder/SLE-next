@@ -8,6 +8,7 @@ import Search from "./Search";
 import LanguageSuggestion from "./LanguageSuggestion";
 import { TOOLS_SLUG } from "@/lib/tools";
 import { CATEGORY_DISPLAY, subjectHref, type CategorySlug } from "@/lib/categories";
+import { SUBSCRIBE_SLUG } from "@/lib/newsletter";
 
 type HeaderProps = {
   lang: "en" | "hr";
@@ -232,19 +233,20 @@ export default function Header({ lang, switchUrl }: HeaderProps) {
           </Link>
 
           <Link
-            href={`/${lang}/about`}
-            aria-current={ariaCurrent(`/${lang}/about`)}
-            className="whitespace-nowrap hover:opacity-70 aria-[current=page]:font-semibold"
+            href={`/${lang}/${SUBSCRIBE_SLUG[lang]}`}
+            aria-current={ariaCurrent(`/${lang}/${SUBSCRIBE_SLUG[lang]}`)}
+            className="inline-flex items-center gap-1 whitespace-nowrap rounded-full bg-newsletter px-3 py-1.5 font-semibold text-white transition-colors hover:bg-newsletter-hover"
           >
-            {lang === "en" ? "About" : "O nama"}
+            <span aria-hidden="true">📨</span>
+            Newsletter
           </Link>
 
           <Link
-            href={`/${lang}/contact`}
-            aria-current={ariaCurrent(`/${lang}/contact`)}
-            className="whitespace-nowrap hover:opacity-70 aria-[current=page]:font-semibold"
+            href={`/${lang}/about`}
+            aria-current={ariaCurrent(`/${lang}/about`)}
+            className="hidden whitespace-nowrap hover:opacity-70 aria-[current=page]:font-semibold xl:block"
           >
-            {lang === "en" ? "Contact" : "Kontakt"}
+            {lang === "en" ? "About" : "O nama"}
           </Link>
 
           <Link
@@ -300,6 +302,14 @@ export default function Header({ lang, switchUrl }: HeaderProps) {
             onClick={() => setOpen(false)}
           >
             ⚡ {lang === "en" ? "Activities" : "Aktivnosti"}
+          </Link>
+
+          <Link
+            href={`/${lang}/${SUBSCRIBE_SLUG[lang]}`}
+            className="block border-b bg-brand-soft/50 px-4 py-3 font-semibold text-newsletter hover:bg-brand-soft"
+            onClick={() => setOpen(false)}
+          >
+            📨 Newsletter
           </Link>
 
           {/* Subjects — flat list in mobile */}

@@ -2,8 +2,8 @@ import Link from "next/link";
 import { SUBSCRIBE_SLUG } from "@/lib/newsletter";
 
 const LABEL: Record<"en" | "hr", string> = {
-  en: "Subscribe to Newsletter",
-  hr: "Pretplati se na newsletter",
+  en: "Get fresh ideas",
+  hr: "Želim nove ideje",
 };
 
 export function SubscribeButton({ lang = "en" }: { lang?: "en" | "hr" }) {

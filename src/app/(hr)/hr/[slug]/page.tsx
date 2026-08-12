@@ -25,7 +25,7 @@ import ArticleHeader from "@/components/ArticleHeader";
 import AuthorBio from "@/components/AuthorBio";
 import ReadingProgress from "@/components/ReadingProgress";
 import ShareButtons from "@/components/ShareButtons";
-import NewsletterSignupForm from "@/components/NewsletterSignupForm";
+import NewsletterPromo from "@/components/NewsletterPromo";
 import TagChips from "@/components/TagChips";
 import { surfacedTagsOf } from "@/lib/tags";
 import { siteConfig } from "@/config/site";
@@ -33,6 +33,7 @@ import CoverImage from "@/components/CoverImage";
 import SummerBanner from "@/components/SummerBanner";
 import { MilestoneGuideBanner, MilestonePrevNext } from "@/components/MilestoneSeriesNav";
 import { ArticleToolPromo } from "@/components/tools/ToolDiscovery";
+import { splitContentForNewsletter } from "@/lib/newsletter";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -69,6 +70,9 @@ export default async function PostPage({ params }: Props) {
   // an article never carries more than two units.
   const bodyChunks = splitContentForAds(post.content);
   const inBodyAdSlots = [AD_SLOTS.inArticle, AD_SLOTS.endOfArticle];
+  const newsletterChunkIndex = Math.min(1, bodyChunks.length - 1);
+  const newsletterPieces = splitContentForNewsletter(bodyChunks[newsletterChunkIndex]);
+  const hasMidArticleNewsletter = newsletterPieces.length === 2;
 
   // Build breadcrumb trail — include first category if available (issue 28)
   // Use the canonical English slug for the URL; display name for the label.
@@ -111,12 +115,21 @@ export default async function PostPage({ params }: Props) {
       <TOC lang="hr" />
 
       <article id="post-content" className="prose prose-lg max-w-none">
-        {bodyChunks.map((chunk, i) => (
-          <Fragment key={i}>
-            {i > 0 && <AdSlot slot={inBodyAdSlots[i - 1]} lang="hr" />}
-            <PostBody source={chunk} lang="hr" />
-          </Fragment>
-        ))}
+        {bodyChunks.map((chunk, i) => {
+          const isNewsletterChunk = i === newsletterChunkIndex && hasMidArticleNewsletter;
+          return (
+            <Fragment key={i}>
+              {i > 0 && <AdSlot slot={inBodyAdSlots[i - 1]} lang="hr" />}
+              <PostBody source={isNewsletterChunk ? newsletterPieces[0] : chunk} lang="hr" />
+              {isNewsletterChunk && (
+                <>
+                  <NewsletterPromo lang="hr" placement="article" />
+                  <PostBody source={newsletterPieces[1]} lang="hr" />
+                </>
+              )}
+            </Fragment>
+          );
+        })}
       </article>
 
       {/* Prev/next month navigation on guide posts (self-hides elsewhere) */}
@@ -147,17 +160,7 @@ export default async function PostPage({ params }: Props) {
       {/* Issue 21: author bio below the article body */}
       <AuthorBio name={post.author} lang="hr" />
 
-      {/* Issue 24: inline subscribe CTA — visible up to xl, where the floating
-          card takes over (below xl the card would overlap the text column) */}
-      <div data-no-print className="xl:hidden mt-10 p-6 bg-brand-soft rounded-xl text-center">
-        <p className="font-semibold text-gray-800 mb-1">Sviđa vam se ovaj članak?</p>
-        <p className="text-sm text-gray-600 mb-4">
-          Pretplatite se i primajte nove objave ravno u inbox.
-        </p>
-        <div className="mx-auto max-w-sm">
-          <NewsletterSignupForm lang="hr" variant="compact" source="article" />
-        </div>
-      </div>
+      {!hasMidArticleNewsletter && <NewsletterPromo lang="hr" placement="article" />}
 
       {/* Fallback slot for articles too short to take a second in-body ad.
           Long articles already placed it at ~2/3, so don't repeat it here. */}

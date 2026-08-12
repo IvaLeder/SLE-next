@@ -6,7 +6,6 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { THANK_YOU_SLUG, type Lang } from "@/lib/newsletter";
 
 const MAX_EMAIL = 254;
-
 const MAX_NAME = 100;
 
 const COPY = {
@@ -14,14 +13,14 @@ const COPY = {
     emailLabel: "Your email",
     emailPlaceholder: "you@example.com",
     firstNameLabel: "First name (optional)",
-    lastNameLabel: "Last name (optional)",
+    firstNamePlaceholder: "e.g. Alex",
     consent:
-      "Send me the newsletter with new activities and articles. I can unsubscribe anytime.",
-    submit: "Subscribe",
-    submitting: "Subscribing…",
+      "Yes — send me practical STEM activities, parenting reads and free resources. I can unsubscribe anytime.",
+    submit: "Get fresh ideas",
+    submitting: "Joining…",
     privacy: "We'll never share your email. See our",
     privacyLink: "Privacy Policy",
-    compactNote: "No spam, unsubscribe anytime.",
+    compactNote: "1–2 emails a month · No spam · Unsubscribe anytime",
     errors: {
       recaptcha: "We couldn't verify you're human. Please reload the page and try again.",
       rate_limited: "Too many attempts. Please wait a few minutes and try again.",
@@ -37,14 +36,14 @@ const COPY = {
     emailLabel: "Vaš email",
     emailPlaceholder: "vi@primjer.com",
     firstNameLabel: "Ime (neobavezno)",
-    lastNameLabel: "Prezime (neobavezno)",
+    firstNamePlaceholder: "npr. Iva",
     consent:
-      "Šaljite mi newsletter s novim aktivnostima i člancima. Mogu se odjaviti u svakom trenutku.",
-    submit: "Pretplati se",
-    submitting: "Pretplaćujem…",
+      "Da — šaljite mi praktične STEM aktivnosti, tekstove za roditelje i besplatne materijale. Mogu se odjaviti bilo kada.",
+    submit: "Želim nove ideje",
+    submitting: "Pridružujem vas…",
     privacy: "Nikada nećemo dijeliti vaš email. Pogledajte našu",
     privacyLink: "Politiku privatnosti",
-    compactNote: "Bez spama, odjava u svakom trenutku.",
+    compactNote: "1–2 emaila mjesečno · Bez spama · Odjava bilo kada",
     errors: {
       recaptcha: "Nismo uspjeli potvrditi da niste robot. Osvježite stranicu i pokušajte ponovo.",
       rate_limited: "Previše pokušaja. Pričekajte nekoliko minuta i pokušajte ponovo.",
@@ -78,9 +77,9 @@ const subscribeNoop = () => () => {};
 /**
  * The newsletter signup form. Two variants:
  *
- * - "full" (subscribe landing page): label, explicit GDPR consent checkbox,
- *   privacy-policy line, eager reCAPTCHA.
- * - "compact" (article boxes: floating card + end-of-article CTA): email +
+ * - "full" (subscribe landing page): email, optional first name, explicit GDPR
+ *   consent checkbox, privacy-policy line and eager reCAPTCHA.
+ * - "compact" (homepage/article promos, floating card and footer): email +
  *   button + microcopy only. Consent is implied by the act of subscribing
  *   (the double opt-in email is the explicit consent step), and reCAPTCHA
  *   only mounts once the reader focuses the field, so article pages don't
@@ -95,20 +94,22 @@ export default function NewsletterSignupForm({
   lang,
   source = "subscribe-page",
   variant = "full",
+  compactLayout = "stacked",
 }: {
   lang: Lang;
   source?: string;
   variant?: "full" | "compact";
+  compactLayout?: "stacked" | "inline";
 }) {
   const t = COPY[lang];
   const uid = useId();
   const emailId = `nl-email-${uid}`;
+  const firstNameId = `nl-first-name-${uid}`;
   const honeypotId = `nl-website-${uid}`;
   const buttonId =
     source === "subscribe-page" ? "newsletter-subscribe" : `newsletter-subscribe-${source}`;
   const [email, setEmail] = useState("");
-  const [firstName, setFirstName] = useState(""); // full variant only
-  const [lastName, setLastName] = useState(""); // full variant only
+  const [firstName, setFirstName] = useState("");
   const [consent, setConsent] = useState(false);
   const [website, setWebsite] = useState(""); // honeypot
   const [armed, setArmed] = useState(variant === "full"); // compact: mount reCAPTCHA on first focus
@@ -158,8 +159,8 @@ export default function NewsletterSignupForm({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email,
-          firstName,
-          lastName,
+          firstName: variant === "full" ? firstName : "",
+          lastName: "",
           consent: variant === "compact" ? true : consent,
           token,
           website,
@@ -212,27 +213,40 @@ export default function NewsletterSignupForm({
     return (
       <form onSubmit={handleSubmit} className="font-sans text-left" noValidate>
         {honeypot}
-        <label htmlFor={emailId} className="sr-only">
-          {t.emailLabel}
-        </label>
-        <input
-          id={emailId}
-          name="email"
-          type="email"
-          required
-          maxLength={MAX_EMAIL}
-          autoComplete="email"
-          inputMode="email"
-          placeholder={t.emailPlaceholder}
-          value={email}
-          onFocus={() => setArmed(true)}
-          onChange={(e) => {
-            setArmed(true);
-            setEmail(e.target.value);
-            if (status === "error") setStatus("idle");
-          }}
-          className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-newsletter"
-        />
+        <div className={compactLayout === "inline" ? "sm:flex sm:items-start sm:gap-2" : ""}>
+          <label htmlFor={emailId} className="sr-only">
+            {t.emailLabel}
+          </label>
+          <input
+            id={emailId}
+            name="email"
+            type="email"
+            required
+            maxLength={MAX_EMAIL}
+            autoComplete="email"
+            inputMode="email"
+            placeholder={t.emailPlaceholder}
+            value={email}
+            onFocus={() => setArmed(true)}
+            onChange={(e) => {
+              setArmed(true);
+              setEmail(e.target.value);
+              if (status === "error") setStatus("idle");
+            }}
+            className="min-w-0 flex-1 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-newsletter"
+          />
+
+          <button
+            id={buttonId}
+            type="submit"
+            disabled={status === "submitting"}
+            className={`w-full rounded-lg bg-newsletter px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-newsletter-hover disabled:opacity-60 ${
+              compactLayout === "inline" ? "mt-2 whitespace-nowrap sm:mt-0 sm:w-auto" : "mt-2"
+            }`}
+          >
+            {status === "submitting" ? t.submitting : t.submit}
+          </button>
+        </div>
 
         {recaptcha}
 
@@ -241,15 +255,6 @@ export default function NewsletterSignupForm({
             {errorMessage}
           </p>
         )}
-
-        <button
-          id={buttonId}
-          type="submit"
-          disabled={status === "submitting"}
-          className="mt-2 w-full rounded-lg bg-newsletter px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-newsletter-hover disabled:opacity-60"
-        >
-          {status === "submitting" ? t.submitting : t.submit}
-        </button>
 
         <p className="mt-2 text-center text-[11px] leading-snug text-gray-400">{t.compactNote}</p>
       </form>
@@ -260,40 +265,7 @@ export default function NewsletterSignupForm({
     <form onSubmit={handleSubmit} className="font-sans" noValidate>
       {honeypot}
 
-      <div className="grid gap-3 sm:grid-cols-2">
-        <div>
-          <label htmlFor={`nl-fname-${uid}`} className="block text-sm font-semibold text-gray-700">
-            {t.firstNameLabel}
-          </label>
-          <input
-            id={`nl-fname-${uid}`}
-            name="firstName"
-            type="text"
-            maxLength={MAX_NAME}
-            autoComplete="given-name"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            className="mt-1 w-full rounded-xl border border-gray-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-newsletter"
-          />
-        </div>
-        <div>
-          <label htmlFor={`nl-lname-${uid}`} className="block text-sm font-semibold text-gray-700">
-            {t.lastNameLabel}
-          </label>
-          <input
-            id={`nl-lname-${uid}`}
-            name="lastName"
-            type="text"
-            maxLength={MAX_NAME}
-            autoComplete="family-name"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-            className="mt-1 w-full rounded-xl border border-gray-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-newsletter"
-          />
-        </div>
-      </div>
-
-      <label htmlFor={emailId} className="mt-3 block text-sm font-semibold text-gray-700">
+      <label htmlFor={emailId} className="block text-sm font-semibold text-gray-700">
         {t.emailLabel}
       </label>
       <input
@@ -308,6 +280,24 @@ export default function NewsletterSignupForm({
         value={email}
         onChange={(e) => {
           setEmail(e.target.value);
+          if (status === "error") setStatus("idle");
+        }}
+        className="mt-1 w-full rounded-xl border border-gray-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-newsletter"
+      />
+
+      <label htmlFor={firstNameId} className="mt-4 block text-sm font-semibold text-gray-700">
+        {t.firstNameLabel}
+      </label>
+      <input
+        id={firstNameId}
+        name="firstName"
+        type="text"
+        maxLength={MAX_NAME}
+        autoComplete="given-name"
+        placeholder={t.firstNamePlaceholder}
+        value={firstName}
+        onChange={(e) => {
+          setFirstName(e.target.value);
           if (status === "error") setStatus("idle");
         }}
         className="mt-1 w-full rounded-xl border border-gray-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-newsletter"

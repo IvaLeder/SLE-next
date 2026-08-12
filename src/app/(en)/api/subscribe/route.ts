@@ -7,7 +7,7 @@ const MAX_EMAIL = 254;
 
 // Where on the site the signup came from. Whitelisted so the Mailchimp tag set
 // stays clean; unknown values fall back to the landing-page tag.
-const KNOWN_SOURCES = new Set(["subscribe-page", "article", "floating", "footer", "minds"]);
+const KNOWN_SOURCES = new Set(["subscribe-page", "home", "article", "floating", "footer", "minds"]);
 const MAX_NAME = 100;
 const DEFAULT_SOURCE = "subscribe-page";
 

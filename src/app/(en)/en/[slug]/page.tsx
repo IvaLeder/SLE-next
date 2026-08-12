@@ -25,14 +25,15 @@ import ArticleHeader from "@/components/ArticleHeader";
 import AuthorBio from "@/components/AuthorBio";
 import ReadingProgress from "@/components/ReadingProgress";
 import ShareButtons from "@/components/ShareButtons";
-import NewsletterSignupForm from "@/components/NewsletterSignupForm";
+import NewsletterPromo from "@/components/NewsletterPromo";
 import TagChips from "@/components/TagChips";
 import { surfacedTagsOf } from "@/lib/tags";
 import { siteConfig } from "@/config/site";
 import CoverImage from "@/components/CoverImage";
-import SummerBanner from "@/components/SummerBanner";
+import BackToSchoolBanner from "@/components/BackToSchoolBanner";
 import { MilestoneGuideBanner, MilestonePrevNext } from "@/components/MilestoneSeriesNav";
 import { ArticleToolPromo } from "@/components/tools/ToolDiscovery";
+import { splitContentForNewsletter } from "@/lib/newsletter";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -69,6 +70,12 @@ export default async function PostPage({ params }: Props) {
   // an article never carries more than two units.
   const bodyChunks = splitContentForAds(post.content);
   const inBodyAdSlots = [AD_SLOTS.inArticle, AD_SLOTS.endOfArticle];
+  // Put the newsletter inside the middle reading stretch, safely between MDX
+  // headings. With 2–3 ad chunks this avoids stacking it directly beside an
+  // ad; without ads it still lands around the article midpoint.
+  const newsletterChunkIndex = Math.min(1, bodyChunks.length - 1);
+  const newsletterPieces = splitContentForNewsletter(bodyChunks[newsletterChunkIndex]);
+  const hasMidArticleNewsletter = newsletterPieces.length === 2;
 
   // Build breadcrumb trail — include first category if available (issue 28)
   // Use the canonical English slug for the URL; display name for the label.
@@ -103,8 +110,8 @@ export default async function PostPage({ params }: Props) {
 
       <ArticleHeader post={post} lang="en" />
 
-      {/* Seasonal promo for the free summer e-book — remove after summer */}
-      <SummerBanner lang="en" />
+      {/* Seasonal back-to-school campaign promo — remove after the campaign */}
+      <BackToSchoolBanner />
 
       {/* Month-by-month guide posts get a link to the pillar (self-hides elsewhere) */}
       <MilestoneGuideBanner lang="en" translationKey={post.translationKey} />
@@ -112,12 +119,21 @@ export default async function PostPage({ params }: Props) {
       <TOC lang="en" />
 
       <article id="post-content" className="prose prose-lg max-w-none">
-        {bodyChunks.map((chunk, i) => (
-          <Fragment key={i}>
-            {i > 0 && <AdSlot slot={inBodyAdSlots[i - 1]} lang="en" />}
-            <PostBody source={chunk} lang="en" />
-          </Fragment>
-        ))}
+        {bodyChunks.map((chunk, i) => {
+          const isNewsletterChunk = i === newsletterChunkIndex && hasMidArticleNewsletter;
+          return (
+            <Fragment key={i}>
+              {i > 0 && <AdSlot slot={inBodyAdSlots[i - 1]} lang="en" />}
+              <PostBody source={isNewsletterChunk ? newsletterPieces[0] : chunk} lang="en" />
+              {isNewsletterChunk && (
+                <>
+                  <NewsletterPromo lang="en" placement="article" />
+                  <PostBody source={newsletterPieces[1]} lang="en" />
+                </>
+              )}
+            </Fragment>
+          );
+        })}
       </article>
 
       {/* Prev/next month navigation on guide posts (self-hides elsewhere) */}
@@ -148,17 +164,9 @@ export default async function PostPage({ params }: Props) {
       {/* Issue 21: author bio below the article body */}
       <AuthorBio name={post.author} lang="en" />
 
-      {/* Issue 24: inline subscribe CTA — visible up to xl, where the floating
-          card takes over (below xl the card would overlap the text column) */}
-      <div data-no-print className="xl:hidden mt-10 p-6 bg-brand-soft rounded-xl text-center">
-        <p className="font-semibold text-gray-800 mb-1">Enjoyed this article?</p>
-        <p className="text-sm text-gray-600 mb-4">
-          Subscribe to get new posts straight to your inbox.
-        </p>
-        <div className="mx-auto max-w-sm">
-          <NewsletterSignupForm lang="en" variant="compact" source="article" />
-        </div>
-      </div>
+      {/* Very short or unusually structured posts may have no safe heading at
+          which to split MDX. Keep one end-of-article fallback for those only. */}
+      {!hasMidArticleNewsletter && <NewsletterPromo lang="en" placement="article" />}
 
       {/* Fallback slot for articles too short to take a second in-body ad.
           Long articles already placed it at ~2/3, so don't repeat it here. */}

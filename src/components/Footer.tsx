@@ -95,9 +95,9 @@ export default function Footer({
       follow:      "Follow us",
       rights:      "All rights reserved.",
       madeWith:    "Made for curious kids.",
-      nlTitle:     "Get new posts in your inbox",
-      nlBody:      "Experiments, Mind Explorers articles and free printables, about once or twice a month.",
-      nlMore:      "More about the newsletter",
+      nlTitle:     "Fresh ideas for curious kids",
+      nlBody:      "Practical STEM activities, parenting reads and free printables, once or twice a month.",
+      nlMore:      "See what you’ll get",
     },
     hr: {
       tagline:     "STEM aktivnosti i psihološki savjeti za djecu i roditelje.",
@@ -123,9 +123,9 @@ export default function Footer({
       follow:      "Pratite nas",
       rights:      "Sva prava pridržana.",
       madeWith:    "Stvoreno za znatiželjnu djecu.",
-      nlTitle:     "Nove objave u vaš inbox",
-      nlBody:      "Pokusi, Mind Explorers članci i besplatni materijali, otprilike jednom do dvaput mjesečno.",
-      nlMore:      "Više o newsletteru",
+      nlTitle:     "Svježe ideje za znatiželjnu djecu",
+      nlBody:      "Praktične STEM aktivnosti, tekstovi za roditelje i besplatni materijali, jednom do dvaput mjesečno.",
+      nlMore:      "Pogledajte što ćete dobivati",
     },
   }[lang];
 

@@ -32,6 +32,8 @@ export default function SubscribeLanding({ lang }: { lang: Lang }) {
       </div>
 
       <div className="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-black/5">
+        <h2 className="font-sans text-xl font-bold text-gray-900">{c.formTitle}</h2>
+        <p className="mt-1 mb-5 text-sm leading-relaxed text-gray-500">{c.formNote}</p>
         <NewsletterSignupForm lang={lang} />
       </div>
     </div>

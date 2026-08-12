@@ -27,47 +27,96 @@ export const subscribeCopy: Record<
     intro: string;
     bullets: { icon: string; text: string }[];
     frequency: string;
+    formTitle: string;
+    formNote: string;
   }
 > = {
   en: {
     eyebrow: "Newsletter",
-    title: "Get new experiments in your inbox",
+    title: "Fresh ideas for curious kids, delivered",
     intro:
-      "Join the STEM Little Explorers newsletter and be the first to hear about our newest hands-on activities, free printables, and Mind Explorers, our corner on child psychology and parenting.",
+      "Spend less time searching for what to do next and more time exploring together. Our short newsletter brings the newest hands-on STEM activities, thoughtful child-development reads and useful free resources into one place.",
     bullets: [
-      { icon: "🧪", text: "Hands-on STEM experiments and activities for every age" },
+      { icon: "🧪", text: "Clear STEM activities using materials you often already have" },
       {
         icon: "🧭",
-        text: "Mind Explorers: warm, science-backed reads on child psychology and parenting",
+        text: "Warm, science-backed guidance on child development and parenting",
       },
       {
         icon: "🎁",
-        text: "Free printables, e-books and interactive tools, before anyone else",
+        text: "Free printables, e-books and new interactive tools",
       },
     ],
     frequency:
-      "About once or twice a month. No spam, and you can unsubscribe anytime.",
+      "Once or twice a month. No spam, and you can unsubscribe anytime.",
+    formTitle: "Join the curious list",
+    formNote: "Enter your email, then confirm it from your inbox. That’s it.",
   },
   hr: {
     eyebrow: "Newsletter",
-    title: "Novi pokusi ravno u vaš inbox",
+    title: "Svježe ideje za znatiželjnu djecu, ravno u inbox",
     intro:
-      "Pridružite se STEM Little Explorers newsletteru i prvi saznajte za naše najnovije praktične aktivnosti, besplatne materijale i Mind Explorers, naš kutak o dječjoj psihologiji i roditeljstvu.",
+      "Manje vremena tražite što raditi, a više vremena provedite istražujući zajedno. U kratkom newsletteru donosimo najnovije praktične STEM aktivnosti, korisne tekstove o razvoju djeteta i besplatne materijale na jednom mjestu.",
     bullets: [
-      { icon: "🧪", text: "Praktični STEM pokusi i aktivnosti za svaku dob" },
+      { icon: "🧪", text: "Jasne STEM aktivnosti s priborom koji često već imate" },
       {
         icon: "🧭",
-        text: "Mind Explorers: topli, znanstveno utemeljeni tekstovi o dječjoj psihologiji i roditeljstvu",
+        text: "Topli, znanstveno utemeljeni tekstovi o razvoju djeteta i roditeljstvu",
       },
       {
         icon: "🎁",
-        text: "Besplatni materijali za ispis, e-knjige i interaktivni alati, prije svih",
+        text: "Besplatni materijali za ispis, e-knjige i novi interaktivni alati",
       },
     ],
     frequency:
-      "Otprilike jednom do dvaput mjesečno. Bez spama, a odjaviti se možete u svakom trenutku.",
+      "Jednom do dvaput mjesečno. Bez spama, uz odjavu u svakom trenutku.",
+    formTitle: "Pridružite se znatiželjnoj ekipi",
+    formNote: "Unesite email i zatim ga potvrdite iz svog inboxa. To je sve.",
   },
 };
+
+/**
+ * Split one already-safe article chunk at the heading closest to its middle.
+ * Article pages use this to place the newsletter between real sections rather
+ * than at the very end. Heading-only cuts keep MDX/JSX blocks intact.
+ */
+export function splitContentForNewsletter(content: string): string[] {
+  const lines = content.split("\n");
+  const h2Lines: number[] = [];
+  const h3Lines: number[] = [];
+  let inFence = false;
+
+  for (let i = 0; i < lines.length; i++) {
+    if (/^\s*(```|~~~)/.test(lines[i])) {
+      inFence = !inFence;
+      continue;
+    }
+    if (inFence) continue;
+    if (/^## \S/.test(lines[i])) h2Lines.push(i);
+    else if (/^### \S/.test(lines[i])) h3Lines.push(i);
+  }
+
+  const candidates = h2Lines.length > 1 ? h2Lines : h3Lines;
+  const countWords = (value: string) =>
+    value.replace(/<[^>]*>/g, " ").match(/[\p{L}\p{N}]+/gu)?.length ?? 0;
+  const totalWords = countWords(content);
+  const minimumSide = Math.min(100, Math.floor(totalWords * 0.25));
+  let best: { line: number; distance: number } | null = null;
+
+  for (const line of candidates) {
+    const wordsBefore = countWords(lines.slice(0, line).join("\n"));
+    const wordsAfter = totalWords - wordsBefore;
+    if (wordsBefore < minimumSide || wordsAfter < minimumSide) continue;
+    const distance = Math.abs(wordsBefore / totalWords - 0.5);
+    if (!best || distance < best.distance) best = { line, distance };
+  }
+
+  if (!best) return [content];
+  return [
+    lines.slice(0, best.line).join("\n"),
+    lines.slice(best.line).join("\n"),
+  ];
+}
 
 /** Copy for the two post-signup status pages (thank-you + welcome). */
 export const statusCopy: Record<
