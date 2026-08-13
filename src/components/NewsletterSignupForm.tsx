@@ -3,7 +3,7 @@
 import { useId, useRef, useState, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import ReCAPTCHA from "react-google-recaptcha";
-import { THANK_YOU_SLUG, type Lang } from "@/lib/newsletter";
+import { THANK_YOU_SLUG, WELCOME_SLUG, type Lang } from "@/lib/newsletter";
 
 const MAX_EMAIL = 254;
 const MAX_NAME = 100;
@@ -21,6 +21,11 @@ const COPY = {
     privacy: "We'll never share your email. See our",
     privacyLink: "Privacy Policy",
     compactNote: "1–2 emails a month · No spam · Unsubscribe anytime",
+    notices: {
+      already_subscribed: "You're already subscribed — you're all set!",
+      confirmation_pending:
+        "This address is already waiting for confirmation. Check for an earlier Mailchimp email, or try another address.",
+    } as Record<string, string>,
     errors: {
       recaptcha: "We couldn't verify you're human. Please reload the page and try again.",
       rate_limited: "Too many attempts. Please wait a few minutes and try again.",
@@ -28,6 +33,10 @@ const COPY = {
       consent_required: "Please tick the box so we can add you to the list.",
       validation: "Please check the form and try again.",
       send_failed: "Something went wrong on our end. Please try again in a moment.",
+      configuration_error:
+        "Signup is temporarily unavailable. We've logged the problem — please try again later.",
+      address_unavailable:
+        "This address can't be added automatically. Please try another address or contact us.",
       network: "Network problem. Please check your connection and try again.",
       generic: "Something went wrong. Please try again later.",
     } as Record<string, string>,
@@ -44,6 +53,11 @@ const COPY = {
     privacy: "Nikada nećemo dijeliti vaš email. Pogledajte našu",
     privacyLink: "Politiku privatnosti",
     compactNote: "1–2 emaila mjesečno · Bez spama · Odjava bilo kada",
+    notices: {
+      already_subscribed: "Već ste pretplaćeni — sve je spremno!",
+      confirmation_pending:
+        "Ova adresa već čeka potvrdu. Potražite raniji Mailchimp email ili pokušajte s drugom adresom.",
+    } as Record<string, string>,
     errors: {
       recaptcha: "Nismo uspjeli potvrditi da niste robot. Osvježite stranicu i pokušajte ponovo.",
       rate_limited: "Previše pokušaja. Pričekajte nekoliko minuta i pokušajte ponovo.",
@@ -51,6 +65,10 @@ const COPY = {
       consent_required: "Označite okvir kako bismo vas mogli dodati na popis.",
       validation: "Provjerite obrazac i pokušajte ponovo.",
       send_failed: "Nešto je pošlo po zlu kod nas. Pokušajte ponovo za trenutak.",
+      configuration_error:
+        "Pretplata je privremeno nedostupna. Zabilježili smo problem — pokušajte ponovo kasnije.",
+      address_unavailable:
+        "Ovu adresu ne možemo automatski dodati. Pokušajte s drugom adresom ili nam se javite.",
       network: "Problem s mrežom. Provjerite vezu i pokušajte ponovo.",
       generic: "Nešto je pošlo po zlu. Pokušajte ponovo kasnije.",
     } as Record<string, string>,
@@ -66,6 +84,8 @@ const CODE_MAP: Record<string, string> = {
   missing_fields: "validation",
   too_large: "validation",
   send_failed: "send_failed",
+  configuration_error: "configuration_error",
+  address_unavailable: "address_unavailable",
   network: "network",
 };
 
@@ -114,8 +134,9 @@ export default function NewsletterSignupForm({
   const [website, setWebsite] = useState(""); // honeypot
   const [armed, setArmed] = useState(variant === "full"); // compact: mount reCAPTCHA on first focus
   const mounted = useSyncExternalStore(subscribeNoop, () => true, () => false);
-  const [status, setStatus] = useState<"idle" | "submitting" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "submitting" | "notice" | "error">("idle");
   const [errorCode, setErrorCode] = useState("generic");
+  const [noticeCode, setNoticeCode] = useState("");
   const recaptchaRef = useRef<ReCAPTCHA>(null);
 
   const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
@@ -168,13 +189,19 @@ export default function NewsletterSignupForm({
           lang,
         }),
       });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && (data?.code === "already_subscribed" || data?.code === "confirmation_pending")) {
+        setNoticeCode(data.code);
+        setStatus("notice");
+        return;
+      }
       if (res.ok) {
         // Full navigation (not router.push) so the thank-you pageview always
         // fires in GTM regardless of how its triggers handle SPA transitions.
-        window.location.assign(`/${lang}/${THANK_YOU_SLUG[lang]}`);
+        const slug = data?.code === "subscribed" ? WELCOME_SLUG[lang] : THANK_YOU_SLUG[lang];
+        window.location.assign(`/${lang}/${slug}`);
         return;
       }
-      const data = await res.json().catch(() => ({}));
       fail(typeof data?.code === "string" ? data.code : "generic");
     } catch {
       fail("network");
@@ -182,6 +209,7 @@ export default function NewsletterSignupForm({
   };
 
   const errorMessage = t.errors[CODE_MAP[errorCode] ?? "generic"] ?? t.errors.generic;
+  const noticeMessage = t.notices[noticeCode] ?? "";
 
   // The badge is portalled to <body>: the floating card sits inside a CSS
   // transform (-translate-y-1/2), which would hijack the badge's
@@ -231,7 +259,7 @@ export default function NewsletterSignupForm({
             onChange={(e) => {
               setArmed(true);
               setEmail(e.target.value);
-              if (status === "error") setStatus("idle");
+              if (status === "error" || status === "notice") setStatus("idle");
             }}
             className="min-w-0 flex-1 w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-newsletter"
           />
@@ -253,6 +281,12 @@ export default function NewsletterSignupForm({
         {status === "error" && (
           <p className="mt-2 rounded-lg bg-red-50 px-3 py-2 text-xs text-red-700" role="alert">
             {errorMessage}
+          </p>
+        )}
+
+        {status === "notice" && (
+          <p className="mt-2 rounded-lg bg-blue-50 px-3 py-2 text-xs text-blue-800" role="status">
+            {noticeMessage}
           </p>
         )}
 
@@ -280,7 +314,7 @@ export default function NewsletterSignupForm({
         value={email}
         onChange={(e) => {
           setEmail(e.target.value);
-          if (status === "error") setStatus("idle");
+          if (status === "error" || status === "notice") setStatus("idle");
         }}
         className="mt-1 w-full rounded-xl border border-gray-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-newsletter"
       />
@@ -298,7 +332,7 @@ export default function NewsletterSignupForm({
         value={firstName}
         onChange={(e) => {
           setFirstName(e.target.value);
-          if (status === "error") setStatus("idle");
+          if (status === "error" || status === "notice") setStatus("idle");
         }}
         className="mt-1 w-full rounded-xl border border-gray-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-newsletter"
       />
@@ -309,7 +343,7 @@ export default function NewsletterSignupForm({
           checked={consent}
           onChange={(e) => {
             setConsent(e.target.checked);
-            if (status === "error") setStatus("idle");
+            if (status === "error" || status === "notice") setStatus("idle");
           }}
           className="mt-1 h-4 w-4 flex-none accent-newsletter"
         />
@@ -321,6 +355,12 @@ export default function NewsletterSignupForm({
       {status === "error" && (
         <p className="mt-3 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700" role="alert">
           {errorMessage}
+        </p>
+      )}
+
+      {status === "notice" && (
+        <p className="mt-3 rounded-lg bg-blue-50 px-3 py-2 text-sm text-blue-800" role="status">
+          {noticeMessage}
         </p>
       )}
 

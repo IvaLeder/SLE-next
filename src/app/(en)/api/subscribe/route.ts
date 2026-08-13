@@ -1,7 +1,6 @@
 import crypto from "node:crypto";
 import type { Lang } from "@/lib/newsletter";
 
-const RECAPTCHA_SECRET = process.env.RECAPTCHA_SECRET_KEY;
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const MAX_EMAIL = 254;
 
@@ -41,34 +40,112 @@ function isRateLimited(ip: string): boolean {
 // single tagged audience later). The API key is account-wide, so only the
 // audience id varies.
 //
-// Upserts the address so we never downgrade an existing subscriber, then tags
-// it "site-subscribe", the on-site source, and the language. The language tag
-// is redundant while the audiences are split, but it means every contact
-// carries its own language once the audiences are merged. Double opt-in by
-// default (GDPR-friendly): new addresses go in as "pending" and must confirm
-// via Mailchimp's email before they're on the marketing list.
+type MailchimpOutcome =
+  | "confirmation_sent"
+  | "subscribed"
+  | "already_subscribed"
+  | "confirmation_pending";
+
+type MailchimpResult =
+  | { ok: true; outcome: MailchimpOutcome; memberStatus: string }
+  | { ok: false; code: "configuration_error" | "address_unavailable" | "send_failed" };
+
+type MailchimpErrorBody = { title?: unknown; type?: unknown };
+
+async function logMailchimpFailure(
+  operation: string,
+  res: Response,
+  level: "error" | "warning" = "error",
+) {
+  const data: MailchimpErrorBody = await res.json().catch(() => ({}));
+  // Deliberately omit the response `detail`: Mailchimp sometimes includes the
+  // submitted address there. These fields are enough to diagnose auth, list-id
+  // and member-state failures without putting subscriber data in Vercel logs.
+  const log = level === "warning" ? console.warn : console.error;
+  log("Newsletter Mailchimp request failed", {
+    operation,
+    httpStatus: res.status,
+    mailchimpTitle: typeof data.title === "string" ? data.title.slice(0, 120) : undefined,
+    mailchimpType: typeof data.type === "string" ? data.type.slice(0, 160) : undefined,
+    requestId: res.headers.get("x-request-id") ?? undefined,
+  });
+}
+
+async function tagMailchimpMember(
+  base: string,
+  auth: string,
+  source: string,
+  lang: Lang,
+) {
+  try {
+    const res = await fetch(`${base}/tags`, {
+      method: "POST",
+      headers: { Authorization: auth, "Content-Type": "application/json" },
+      body: JSON.stringify({
+        tags: [
+          { name: "site-subscribe", status: "active" },
+          { name: source, status: "active" },
+          { name: `lang-${lang}`, status: "active" },
+        ],
+      }),
+    });
+    if (!res.ok) await logMailchimpFailure("tag_member", res, "warning");
+  } catch {
+    // Tags are useful attribution, but a transient tag failure must not turn a
+    // successful subscription into a failure. Keep it visible in logs.
+    console.warn("Newsletter Mailchimp tag request failed", { source, lang });
+  }
+}
+
+// Check the current member state before updating. `status_if_new` only affects
+// new contacts, so without this step a repeat pending/subscribed address would
+// return 200 even though Mailchimp sends no new confirmation email.
 async function mailchimpSubscribe(
   email: string,
   source: string,
   firstName: string,
   lastName: string,
   lang: Lang,
-): Promise<"ok" | "skipped" | "failed"> {
+): Promise<MailchimpResult> {
   const key = process.env.MAILCHIMP_API_KEY;
   const audience =
     lang === "hr" ? process.env.MAILCHIMP_AUDIENCE_ID_HR : process.env.MAILCHIMP_AUDIENCE_ID_EN;
   if (!key || !audience || !key.includes("-")) {
-    // Not configured (local dev): let the flow proceed so the pages are
-    // testable, but leave a trace — in production this would drop subscribers.
-    console.warn("Newsletter subscribe: MAILCHIMP_* env not set, skipping list add");
-    return "skipped";
+    console.error("Newsletter configuration is missing or malformed", {
+      hasApiKey: Boolean(key),
+      apiKeyHasDataCenter: Boolean(key?.includes("-")),
+      hasAudienceId: Boolean(audience),
+      lang,
+    });
+    return { ok: false, code: "configuration_error" };
   }
 
   const dc = key.split("-")[1];
   const hash = crypto.createHash("md5").update(email.toLowerCase()).digest("hex");
   const doubleOptin = (process.env.MAILCHIMP_DOUBLE_OPTIN ?? "true") !== "false";
+  const targetStatus = doubleOptin ? "pending" : "subscribed";
   const auth = "Basic " + Buffer.from(`anystring:${key}`).toString("base64");
   const base = `https://${dc}.api.mailchimp.com/3.0/lists/${audience}/members/${hash}`;
+
+  let existingStatus: string | null = null;
+  try {
+    const memberRes = await fetch(base, { headers: { Authorization: auth } });
+    if (memberRes.ok) {
+      const member: { status?: unknown } = await memberRes.json();
+      existingStatus = typeof member.status === "string" ? member.status : "unknown";
+    } else if (memberRes.status !== 404) {
+      await logMailchimpFailure("get_member", memberRes);
+      return { ok: false, code: "send_failed" };
+    }
+  } catch {
+    console.error("Newsletter Mailchimp request failed", { operation: "get_member", reason: "network" });
+    return { ok: false, code: "send_failed" };
+  }
+
+  if (existingStatus === "cleaned") {
+    console.info("Newsletter signup resolved", { outcome: "address_unavailable", source, lang });
+    return { ok: false, code: "address_unavailable" };
+  }
 
   // Only send the merge fields the user actually filled in, so an upsert of an
   // existing member never blanks a name Mailchimp already has.
@@ -76,31 +153,50 @@ async function mailchimpSubscribe(
   if (firstName) mergeFields.FNAME = firstName;
   if (lastName) mergeFields.LNAME = lastName;
 
-  const res = await fetch(base, {
-    method: "PUT",
-    headers: { Authorization: auth, "Content-Type": "application/json" },
-    body: JSON.stringify({
-      email_address: email,
-      status_if_new: doubleOptin ? "pending" : "subscribed",
-      ...(Object.keys(mergeFields).length > 0 && { merge_fields: mergeFields }),
-    }),
-  });
-  if (!res.ok) return "failed";
+  // Existing unsubscribed/transactional contacts explicitly asked to join
+  // again, so move them through the opt-in flow. Existing subscribed/pending
+  // contacts keep their status; the PUT only updates supplied merge fields.
+  const shouldSetStatus =
+    existingStatus !== null &&
+    existingStatus !== "subscribed" &&
+    existingStatus !== "pending";
 
-  // Best-effort tags so the audience can be segmented.
-  await fetch(`${base}/tags`, {
-    method: "POST",
-    headers: { Authorization: auth, "Content-Type": "application/json" },
-    body: JSON.stringify({
-      tags: [
-        { name: "site-subscribe", status: "active" },
-        { name: source, status: "active" },
-        { name: `lang-${lang}`, status: "active" },
-      ],
-    }),
-  }).catch(() => {});
+  let memberStatus = existingStatus ?? targetStatus;
+  try {
+    const res = await fetch(base, {
+      method: "PUT",
+      headers: { Authorization: auth, "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email_address: email,
+        status_if_new: targetStatus,
+        ...(shouldSetStatus && { status: targetStatus }),
+        ...(Object.keys(mergeFields).length > 0 && { merge_fields: mergeFields }),
+      }),
+    });
+    if (!res.ok) {
+      await logMailchimpFailure("put_member", res);
+      return { ok: false, code: "send_failed" };
+    }
+    const member: { status?: unknown } = await res.json();
+    if (typeof member.status === "string") memberStatus = member.status;
+  } catch {
+    console.error("Newsletter Mailchimp request failed", { operation: "put_member", reason: "network" });
+    return { ok: false, code: "send_failed" };
+  }
 
-  return "ok";
+  await tagMailchimpMember(base, auth, source, lang);
+
+  const outcome: MailchimpOutcome =
+    existingStatus === "subscribed"
+      ? "already_subscribed"
+      : existingStatus === "pending"
+        ? "confirmation_pending"
+        : doubleOptin
+          ? "confirmation_sent"
+          : "subscribed";
+
+  console.info("Newsletter signup resolved", { outcome, memberStatus, source, lang });
+  return { ok: true, outcome, memberStatus };
 }
 
 export async function POST(req: Request) {
@@ -146,10 +242,18 @@ export async function POST(req: Request) {
     const safeLang: Lang = lang === "hr" ? "hr" : "en";
 
     // reCAPTCHA
+    const recaptchaSecret = process.env.RECAPTCHA_SECRET_KEY;
+    if (!recaptchaSecret) {
+      console.error("Newsletter configuration is missing", { hasRecaptchaSecret: false });
+      return Response.json(
+        { error: "Newsletter is temporarily unavailable", code: "configuration_error" },
+        { status: 503 },
+      );
+    }
     const verifyRes = await fetch("https://www.google.com/recaptcha/api/siteverify", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: `secret=${RECAPTCHA_SECRET}&response=${encodeURIComponent(token)}`,
+      body: `secret=${recaptchaSecret}&response=${encodeURIComponent(token)}`,
     });
     const verifyData = await verifyRes.json();
     if (!verifyData.success) {
@@ -160,11 +264,12 @@ export async function POST(req: Request) {
     // point is the list add, so a Mailchimp failure is a real error the user
     // should see (and retry) rather than a silent no-op "success".
     const result = await mailchimpSubscribe(email, safeSource, safeFirst, safeLast, safeLang);
-    if (result === "failed") {
-      return Response.json({ error: "Subscription failed", code: "send_failed" }, { status: 502 });
+    if (!result.ok) {
+      const status = result.code === "configuration_error" ? 503 : result.code === "address_unavailable" ? 409 : 502;
+      return Response.json({ error: "Subscription failed", code: result.code }, { status });
     }
 
-    return Response.json({ success: true });
+    return Response.json({ success: true, code: result.outcome });
   } catch (error) {
     console.error("Newsletter subscribe error:", error);
     return Response.json({ error: "Something went wrong", code: "send_failed" }, { status: 500 });
