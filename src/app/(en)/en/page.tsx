@@ -3,7 +3,7 @@ import PostList from "@/components/PostList";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Hero from "@/components/Hero";
-import SummerBanner from "@/components/SummerBanner";
+import BackToSchoolBanner from "@/components/BackToSchoolBanner";
 import NewsletterPromo from "@/components/NewsletterPromo";
 import { HomeToolsPromo } from "@/components/tools/ToolDiscovery";
 import { Metadata } from "next";
@@ -47,7 +47,7 @@ export default function EnglishHomePage() {
       {/* Issues 16 & 26: hero with value proposition replaces the empty top area */}
       <Hero lang="en" />
       <div className="px-4">
-        <SummerBanner lang="en" />
+        <BackToSchoolBanner lang="en" />
       </div>
       <main id="main-content" className="max-w-6xl mx-auto px-4 py-10">
         <HomeToolsPromo lang="en" />

@@ -26,6 +26,7 @@ import NameInBinary from "../tools/NameInBinary";
 import CaesarCipher from "../tools/CaesarCipher";
 import TowerOfHanoi from "../tools/TowerOfHanoi";
 import FractionVisualizer from "../tools/FractionVisualizer";
+import MultiplicationVisualizer from "../tools/MultiplicationVisualizer";
 import FindBirthdayInPi from "../tools/FindBirthdayInPi";
 import MorseCode from "../tools/MorseCode";
 import ClockTool from "../tools/ClockTool";
@@ -141,6 +142,7 @@ export function mdxComponents(lang: Lang = "en") {
     CaesarCipher: () => <CaesarCipher lang={lang} />,
     TowerOfHanoi: () => <TowerOfHanoi lang={lang} />,
     FractionVisualizer: () => <FractionVisualizer lang={lang} />,
+    MultiplicationVisualizer: () => <MultiplicationVisualizer lang={lang} />,
     FindBirthdayInPi: () => <FindBirthdayInPi lang={lang} />,
     MorseCode: () => <MorseCode lang={lang} />,
     ClockTool: () => <ClockTool lang={lang} />,

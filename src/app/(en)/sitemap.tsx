@@ -7,6 +7,7 @@ import { SUBSCRIBE_SLUG } from "@/lib/newsletter";
 import { tools, TOOLS_SLUG } from "@/lib/tools";
 import { MILESTONE_GUIDE_SLUG } from "@/lib/milestone-guide";
 import { MINDS_SLUG } from "@/lib/minds";
+import { BACK_TO_SCHOOL_SLUG } from "@/lib/back-to-school";
 import type { MetadataRoute } from "next";
 
 // IMPORTANT: must match the canonical host used everywhere else (no www).
@@ -50,6 +51,33 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...bilingual("/topics",     now, 0.7, "weekly"),
     ...bilingual("/about",      now, 0.5, "monthly"),
     ...bilingual("/contact",    now, 0.4, "yearly"),
+  ];
+
+  const backToSchoolEntries: MetadataRoute.Sitemap = [
+    {
+      url: `${BASE_URL}/en/${BACK_TO_SCHOOL_SLUG.en}`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.8,
+      alternates: {
+        languages: {
+          en: `${BASE_URL}/en/${BACK_TO_SCHOOL_SLUG.en}`,
+          hr: `${BASE_URL}/hr/${BACK_TO_SCHOOL_SLUG.hr}`,
+        },
+      },
+    },
+    {
+      url: `${BASE_URL}/hr/${BACK_TO_SCHOOL_SLUG.hr}`,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 0.8,
+      alternates: {
+        languages: {
+          en: `${BASE_URL}/en/${BACK_TO_SCHOOL_SLUG.en}`,
+          hr: `${BASE_URL}/hr/${BACK_TO_SCHOOL_SLUG.hr}`,
+        },
+      },
+    },
   ];
 
   // Summer e-book landing pages — slugs differ per language, so they can't use
@@ -183,7 +211,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Deduplicate by URL
   const seen = new Set<string>();
-  return [...staticEntries, /* ...summerEntries, */ ...subscribeEntries, ...toolsEntries, ...milestoneGuideEntries, ...mindsEntries, ...categoryEntries, ...tagEntries, ...authorEntries, ...postEntries].filter((e) => {
+  return [...staticEntries, ...backToSchoolEntries, /* ...summerEntries, */ ...subscribeEntries, ...toolsEntries, ...milestoneGuideEntries, ...mindsEntries, ...categoryEntries, ...tagEntries, ...authorEntries, ...postEntries].filter((e) => {
     if (seen.has(e.url)) return false;
     seen.add(e.url);
     return true;

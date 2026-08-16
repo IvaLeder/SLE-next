@@ -34,10 +34,17 @@ const SUMMER: Record<Lang, { kicker: string; title: string; tagline: string }> =
   },
 };
 
-const BACK_TO_SCHOOL = {
-  kicker: "Back-to-school guide · STEM Little Explorers",
-  title: "Curious, calm and ready to learn",
-  tagline: "School readiness · gentler routines · learning help · free 8-page printable",
+const BACK_TO_SCHOOL: Record<Lang, { kicker: string; title: string; tagline: string }> = {
+  en: {
+    kicker: "Back-to-school guide · STEM Little Explorers",
+    title: "Curious, calm and ready to learn",
+    tagline: "School readiness · gentler routines · learning help · free 8-page printable",
+  },
+  hr: {
+    kicker: "Vodič za početak škole · STEM Little Explorers",
+    title: "Znatiželjno, mirno i spremno za učenje",
+    tagline: "Spremnost za školu · nježnije rutine · pomoć pri učenju · besplatan paket od 8 stranica",
+  },
 };
 
 /** Centred brand card used as the default OG image for each route group. */
@@ -114,9 +121,9 @@ export function renderSummerOg(lang: Lang): ImageResponse {
   );
 }
 
-/** Indigo school-notebook card for the English back-to-school hub. */
-export function renderBackToSchoolOg(): ImageResponse {
-  const c = BACK_TO_SCHOOL;
+/** Indigo school-notebook card for the bilingual back-to-school hub. */
+export function renderBackToSchoolOg(lang: Lang): ImageResponse {
+  const c = BACK_TO_SCHOOL[lang];
   return new ImageResponse(
     (
       <div

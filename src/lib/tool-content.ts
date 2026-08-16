@@ -143,6 +143,32 @@ export const TOOL_CONTENT: Record<string, ToolContent> = {
       ],
     },
   },
+  "multiplication-visualizer": {
+    steps: {
+      en: [
+        "Choose two factors and view the fact as equal groups, an array or jumps on a number line.",
+        "Flip the factors or split one factor into two easier parts to see why the product stays the same.",
+        "Cross off fact families you understand, then practise the smaller set that remains.",
+      ],
+      hr: [
+        "Odaberite dva faktora i prikažite množenje kao jednake skupine, polje ili skokove na brojevnoj crti.",
+        "Okrenite faktore ili jedan faktor rastavite na dva lakša dijela i pratite zašto umnožak ostaje isti.",
+        "Prekrižite skupine koje razumijete, a zatim vježbajte manji skup koji je preostao.",
+      ],
+    },
+    learns: {
+      en: [
+        "Multiplication describes equal groups and rectangular arrays.",
+        "Flipping the factors changes the arrangement but not the product.",
+        "A difficult fact can be split into easier known facts and recombined.",
+      ],
+      hr: [
+        "Množenje opisuje jednake skupine i pravokutna polja.",
+        "Okretanje faktora mijenja raspored, ali ne i umnožak.",
+        "Tešku činjenicu možemo rastaviti na lakše poznate činjenice i ponovno ih spojiti.",
+      ],
+    },
+  },
   "pattern-maker": {
     steps: {
       en: [

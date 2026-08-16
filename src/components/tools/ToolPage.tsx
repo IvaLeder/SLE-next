@@ -6,6 +6,7 @@ import CaesarCipher from "@/components/tools/CaesarCipher";
 import TowerOfHanoi from "@/components/tools/TowerOfHanoi";
 import SpinActivity from "@/components/tools/SpinActivity";
 import FractionVisualizer from "@/components/tools/FractionVisualizer";
+import MultiplicationVisualizer from "@/components/tools/MultiplicationVisualizer";
 import FindBirthdayInPi from "@/components/tools/FindBirthdayInPi";
 import MorseCode from "@/components/tools/MorseCode";
 import ClockTool from "@/components/tools/ClockTool";
@@ -33,6 +34,7 @@ const TOOL_UI: Record<string, React.ComponentType<{ lang: Lang }>> = {
   "caesar-cipher": CaesarCipher,
   "tower-of-hanoi": TowerOfHanoi,
   "fraction-visualizer": FractionVisualizer,
+  "multiplication-visualizer": MultiplicationVisualizer,
   "find-birthday-in-pi": FindBirthdayInPi,
   "morse-code": MorseCode,
   "clock": ClockTool,

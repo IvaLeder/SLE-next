@@ -173,6 +173,36 @@ const allTools: Tool[] = [
     },
   },
   {
+    key: "multiplication-visualizer",
+    slug: {
+      en: "multiplication-visualizer",
+      hr: "vizualizator-mnozenja",
+    },
+    icon: "✖️",
+    title: {
+      en: "Multiplication visualizer",
+      hr: "Vizualizator množenja",
+    },
+    tagline: {
+      en: "Build, flip and split multiplication facts, then practise the small set that still needs attention.",
+      hr: "Izgradite, okrenite i rastavite činjenice množenja, a zatim vježbajte mali skup koji još traži pažnju.",
+    },
+    description: {
+      en: "A free multiplication visualizer for kids with arrays, equal groups, number-line jumps, break-apart strategies, a times table and focused practice.",
+      hr: "Besplatan vizualizator množenja za djecu s poljima, jednakim skupinama, brojevnom crtom, rastavljanjem, tablicom i ciljanom vježbom.",
+    },
+    related: {
+      slug: {
+        en: "how-to-learn-multiplication-tables",
+        hr: "kako-nauciti-tablicu-mnozenja",
+      },
+      label: {
+        en: "Learn all 12 multiplication strategies",
+        hr: "Naučite svih 12 strategija množenja",
+      },
+    },
+  },
+  {
     key: "pattern-maker",
     slug: { en: "pattern-maker", hr: "slagalica-uzoraka" },
     icon: "🧩",

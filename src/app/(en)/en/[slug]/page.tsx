@@ -30,7 +30,7 @@ import TagChips from "@/components/TagChips";
 import { surfacedTagsOf } from "@/lib/tags";
 import { siteConfig } from "@/config/site";
 import CoverImage from "@/components/CoverImage";
-import SummerBanner from "@/components/SummerBanner";
+import BackToSchoolBanner from "@/components/BackToSchoolBanner";
 import { MilestoneGuideBanner, MilestonePrevNext } from "@/components/MilestoneSeriesNav";
 import { ArticleToolPromo } from "@/components/tools/ToolDiscovery";
 import { splitContentForNewsletter } from "@/lib/newsletter";
@@ -110,8 +110,8 @@ export default async function PostPage({ params }: Props) {
 
       <ArticleHeader post={post} lang="en" />
 
-      {/* Seasonal promo for the free summer e-book — remove after summer */}
-      <SummerBanner lang="en" />
+      {/* Seasonal back-to-school promo — replace when the campaign ends. */}
+      <BackToSchoolBanner lang="en" />
 
       {/* Month-by-month guide posts get a link to the pillar (self-hides elsewhere) */}
       <MilestoneGuideBanner lang="en" translationKey={post.translationKey} />
