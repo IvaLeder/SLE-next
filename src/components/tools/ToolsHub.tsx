@@ -14,7 +14,7 @@ const COPY = {
     eyebrow: "Free · No sign-up · Play in your browser",
     title: "Free STEM tools & games for kids",
     intro:
-      "Turn a name into binary, crack secret codes, explore fractions, practise telling time and more. Pick a tool and start experimenting — nothing to install.",
+      "Turn a name into binary, crack secret codes, explore fractions and multiplication, practise telling time and more. Pick a tool and start experimenting — nothing to install.",
     featuredTitle: "Start exploring",
     featuredIntro: "Four favourites for curious kids, families and classrooms.",
     featuredBadge: "Featured",
@@ -44,7 +44,7 @@ const COPY = {
     eyebrow: "Besplatno · Bez registracije · Igrajte u pregledniku",
     title: "Besplatni STEM alati i igre za djecu",
     intro:
-      "Pretvorite ime u binarni kod, razbijajte tajne šifre, istražujte razlomke, vježbajte gledanje na sat i još mnogo toga. Odaberite alat i krenite — ne trebate ništa instalirati.",
+      "Pretvorite ime u binarni kod, razbijajte tajne šifre, istražujte razlomke i množenje, vježbajte gledanje na sat i još mnogo toga. Odaberite alat i krenite — ne trebate ništa instalirati.",
     featuredTitle: "Krenite u istraživanje",
     featuredIntro: "Četiri omiljena alata za znatiželjnu djecu, obitelji i učionice.",
     featuredBadge: "Izdvojeno",
@@ -77,7 +77,7 @@ type GroupKey = keyof (typeof COPY)["en"]["groups"];
 const GROUPS: { key: GroupKey; toolKeys: readonly string[] }[] = [
   {
     key: "math",
-    toolKeys: ["tower-of-hanoi", "fraction-visualizer", "find-birthday-in-pi", "clock"],
+    toolKeys: ["tower-of-hanoi", "fraction-visualizer", "multiplication-visualizer", "find-birthday-in-pi", "clock"],
   },
   {
     key: "codes",
