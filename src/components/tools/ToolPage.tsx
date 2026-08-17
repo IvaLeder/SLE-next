@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { TOOLS_SLUG, type Tool, type Lang } from "@/lib/tools";
+import { MINDS_SLUG } from "@/lib/minds";
 import Printable from "@/components/mdx/Printable";
 import NameInBinary from "@/components/tools/NameInBinary";
 import CaesarCipher from "@/components/tools/CaesarCipher";
@@ -49,8 +50,8 @@ const TOOL_UI: Record<string, React.ComponentType<{ lang: Lang }>> = {
 };
 
 const COPY = {
-  en: { back: "All tools", related: "Want the why behind it?" },
-  hr: { back: "Svi alati", related: "Želite znati kako to radi?" },
+  en: { back: "All tools", mindsBack: "Mind Explorers", related: "Want the why behind it?" },
+  hr: { back: "Svi alati", mindsBack: "Mind Explorers", related: "Želite znati kako to radi?" },
 } as const;
 
 export default function ToolPage({ lang, tool }: { lang: Lang; tool: Tool }) {
@@ -58,7 +59,10 @@ export default function ToolPage({ lang, tool }: { lang: Lang; tool: Tool }) {
   const Comp = TOOL_UI[tool.key];
   const content = getToolContent(tool.key);
   const toolUrl = `${siteConfig.url}/${lang}/${TOOLS_SLUG[lang]}/${tool.slug[lang]}`;
-  const hubUrl = `${siteConfig.url}/${lang}/${TOOLS_SLUG[lang]}`;
+  const isMindsTool = tool.key === "developmental-leaps";
+  const hubPath = isMindsTool ? `/${lang}/${MINDS_SLUG[lang]}` : `/${lang}/${TOOLS_SLUG[lang]}`;
+  const hubUrl = `${siteConfig.url}${hubPath}`;
+  const hubLabel = isMindsTool ? t.mindsBack : t.back;
   const structuredData = {
     "@context": "https://schema.org",
     "@graph": [
@@ -104,7 +108,11 @@ export default function ToolPage({ lang, tool }: { lang: Lang; tool: Tool }) {
           {
             "@type": "ListItem",
             position: 2,
-            name: lang === "en" ? "Tools & games" : "Alati i igre",
+            name: isMindsTool
+              ? "Mind Explorers"
+              : lang === "en"
+                ? "Tools & games"
+                : "Alati i igre",
             item: hubUrl,
           },
           {
@@ -122,8 +130,8 @@ export default function ToolPage({ lang, tool }: { lang: Lang; tool: Tool }) {
     <ToolPageAnalytics lang={lang} toolKey={tool.key}>
       <JsonLd data={structuredData} />
       <nav className="mb-4 font-sans text-sm">
-        <Link href={`/${lang}/${TOOLS_SLUG[lang]}`} className="text-gray-500 hover:text-brand">
-          ← {t.back}
+        <Link href={hubPath} className="text-gray-500 hover:text-brand">
+          ← {hubLabel}
         </Link>
       </nav>
 

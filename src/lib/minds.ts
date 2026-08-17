@@ -68,8 +68,10 @@ export const mindsCopy: Record<
     pillars: MindsPillar[];
     toolsHeading: string;
     toolsBlurb: string;
-    tools: { title: string; blurb: string; href: string }[];
+    tools: { eyebrow: string; title: string; blurb: string; href: string; cta: string }[];
     latestHeading: string;
+    latestBlurb: string;
+    featuredGuides: { label: string; slug: string }[];
     allLink: string;
   }
 > = {
@@ -81,7 +83,7 @@ export const mindsCopy: Record<
     h1: "Mind Explorers",
     tagline: "Maps for growing minds",
     intro:
-      "STEM Little Explorers explores the outer world. Mind Explorers turns inward: how children grow, learn and feel, and how you can support them. You are the explorer here, and these are your maps. We offer them to help you navigate the journey, not to tell you what to do.",
+      "STEM Little Explorers explores the outer world. Mind Explorers turns inward to how children grow, learn and feel. You are the explorer here; these calm, evidence-based maps help you navigate without pretending there is only one right route.",
     pillarsHeading: "Pick a map",
     pillars: [
       {
@@ -104,31 +106,44 @@ export const mindsCopy: Record<
         id: "learning",
         title: "Learning & study",
         blurb:
-          "Learning, study methods and focus. This part of the map is still being drawn; the first guides are on their way.",
-        href: null,
+          "Readiness, working memory, focus and practical ways to make learning feel more possible.",
+        href: "/en/back-to-school",
+        linkLabel: "Explore learning and school guides",
       },
     ],
-    toolsHeading: "Take a map with you",
+    toolsHeading: "Tools for the journey",
     toolsBlurb:
-      "Three companions for the first 18 months: find out which developmental leap is happening around now, see what each one means, and take home a free printable keepsake.",
+      "Start with your baby's due date, understand what each developmental leap may bring, then keep the free map nearby.",
     tools: [
       {
+        eyebrow: "Start here",
         title: "Developmental leap calculator",
         blurb: "Enter the due date and get the dates of all 10 leaps predicted.",
         href: "/en/tools/developmental-leap-calculator",
+        cta: "Calculate leap dates",
       },
       {
+        eyebrow: "Then understand",
         title: "Developmental leaps explorer",
         blurb: "What changes in each leap and how to support it.",
         href: "/en/developmental-leaps",
+        cta: "Explore all 10 leaps",
       },
       {
+        eyebrow: "Keep nearby",
         title: "The First Map (free keepsake)",
         blurb: "A gentle printable guide to all ten leaps, one calm page each.",
         href: "/en/the-first-map",
+        cta: "Download the free map",
       },
     ],
-    latestHeading: "Latest guides",
+    latestHeading: "Start exploring",
+    latestBlurb: "One useful place to begin in each part of the map.",
+    featuredGuides: [
+      { label: "Baby & toddler", slug: "developmental-leaps" },
+      { label: "Parenting psychology", slug: "challenges-parent-temper-tantrum" },
+      { label: "Learning & study", slug: "improve-childs-working-memory" },
+    ],
     allLink: "Browse every psychology guide",
   },
   hr: {
@@ -139,7 +154,7 @@ export const mindsCopy: Record<
     h1: "Mind Explorers",
     tagline: "Karte za umove koji rastu",
     intro:
-      "STEM Little Explorers istražuje vanjski svijet. Mind Explorers okreće se prema unutra: kako djeca rastu, uče i osjećaju, i kako ih u tome možete podržati. Ovdje ste vi istraživač, a ovo su vaše karte. Nudimo ih da vam olakšaju navigaciju, a ne da vam govore što morate raditi.",
+      "STEM Little Explorers istražuje vanjski svijet. Mind Explorers okreće se prema unutra: kako djeca rastu, uče i osjećaju. Ovdje ste vi istraživač; ove smirene, znanstveno utemeljene karte pomažu vam pronaći put bez pretpostavke da postoji samo jedan ispravan smjer.",
     pillarsHeading: "Odaberite kartu",
     pillars: [
       {
@@ -162,31 +177,44 @@ export const mindsCopy: Record<
         id: "learning",
         title: "Učenje i pamćenje",
         blurb:
-          "Učenje, pamćenje i koncentracija. Ovaj dio karte tek se crta; prvi vodiči su na putu.",
-        href: null,
+          "Spremnost, radno pamćenje, koncentracija i praktični načini da učenje postane lakše.",
+        href: "/hr/kako-poboljsati-radno-pamcenje-vaseg-djeteta",
+        linkLabel: "Istražite učenje i pamćenje",
       },
     ],
-    toolsHeading: "Ponesite kartu sa sobom",
+    toolsHeading: "Alati za put",
     toolsBlurb:
-      "Tri suputnika za prvih 18 mjeseci: saznajte koji se skok događa oko ovog perioda, što svaki znači i ponesite besplatnu knjižicu za ispis.",
+      "Počnite s terminom poroda, upoznajte što svaki razvojni skok može donijeti i spremite besplatnu kartu pri ruci.",
     tools: [
       {
+        eyebrow: "Počnite ovdje",
         title: "Kalkulator skokova u razvoju",
         blurb: "Upišite termin poroda i dobijte približne datume svih 10 skokova.",
         href: "/hr/alati/kalkulator-skokova-u-razvoju",
+        cta: "Izračunajte datume skokova",
       },
       {
+        eyebrow: "Zatim upoznajte",
         title: "Vodič kroz skokove u razvoju",
         blurb: "Što se mijenja u svakom skoku i kako pružiti podršku.",
         href: "/hr/skokovi-u-razvoju",
+        cta: "Istražite svih 10 skokova",
       },
       {
+        eyebrow: "Spremite pri ruci",
         title: "Prva karta (besplatna knjižica)",
-        blurb: "Ilustrirani vodič kroz svih deset skokova, be.",
+        blurb: "Ilustrirani vodič kroz svih deset skokova, s jednom mirnom stranicom za svaki.",
         href: "/hr/prva-karta",
+        cta: "Preuzmite besplatnu kartu",
       },
     ],
-    latestHeading: "Najnoviji vodiči",
+    latestHeading: "Krenite u istraživanje",
+    latestBlurb: "Po jedno korisno mjesto za početak u svakom dijelu karte.",
+    featuredGuides: [
+      { label: "Bebe i mališani", slug: "skokovi-u-razvoju" },
+      { label: "Psihologija roditeljstva", slug: "izazovi-roditeljstva-temper-tantrum" },
+      { label: "Učenje i pamćenje", slug: "kako-poboljsati-radno-pamcenje-vaseg-djeteta" },
+    ],
     allLink: "Pregledaj sve vodiče iz psihologije",
   },
 };

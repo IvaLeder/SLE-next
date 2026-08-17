@@ -8,6 +8,7 @@ import { AD_SLOTS } from "@/lib/ads";
 import { tools, toolBySlug } from "@/lib/tools";
 import { Metadata } from "next";
 import { generateToolMetadata } from "@/lib/tool-metadata";
+import MindsTheme from "@/components/minds/MindsTheme";
 
 type Props = { params: Promise<{ tool: string }> };
 
@@ -27,7 +28,7 @@ export default async function ToolDetailPage({ params }: Props) {
   const data = toolBySlug("hr", tool);
   if (!data) return notFound();
 
-  return (
+  const page = (
     <>
       <AdSenseScript />
       <Header lang="hr" switchUrl={`/en/tools/${data.slug.en}`} />
@@ -39,4 +40,6 @@ export default async function ToolDetailPage({ params }: Props) {
       <Footer lang="hr" />
     </>
   );
+
+  return data.key === "developmental-leaps" ? <MindsTheme>{page}</MindsTheme> : page;
 }
