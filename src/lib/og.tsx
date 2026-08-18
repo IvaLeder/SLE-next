@@ -1,4 +1,6 @@
 import { ImageResponse } from "next/og";
+import fs from "node:fs";
+import path from "node:path";
 
 // Shared social-preview (OG) cards. 1200×630, generated at build time by the
 // various opengraph-image routes. Tool cards live in tool-og.tsx; this file
@@ -34,18 +36,36 @@ const SUMMER: Record<Lang, { kicker: string; title: string; tagline: string }> =
   },
 };
 
-const BACK_TO_SCHOOL: Record<Lang, { kicker: string; title: string; tagline: string }> = {
+const BACK_TO_SCHOOL: Record<Lang, { kicker: string; title: string; tagline: string; badge: string }> = {
   en: {
-    kicker: "Back-to-school guide · STEM Little Explorers",
+    kicker: "STEM Little Explorers · Back-to-school guide",
     title: "Curious, calm and ready to learn",
-    tagline: "School readiness · gentler routines · learning help · free 8-page printable",
+    tagline: "School readiness · calmer routines · multiplication that makes sense",
+    badge: "3 guides + free 8-page printable",
   },
   hr: {
-    kicker: "Vodič za početak škole · STEM Little Explorers",
-    title: "Znatiželjno, mirno i spremno za učenje",
-    tagline: "Spremnost za školu · nježnije rutine · pomoć pri učenju · besplatan paket od 8 stranica",
+    kicker: "STEM Little Explorers · Vodič za početak škole",
+    title: "Znatiželjno, smireno i spremno za učenje",
+    tagline: "Spremnost za školu · lagane rutine · množenje s razumijevanjem",
+    badge: "3 članka + besplatan paket od 8 stranica",
   },
 };
+
+function publicImageDataUri(publicPath: string): string {
+  const absolutePath = path.join(process.cwd(), "public", publicPath.replace(/^\//, ""));
+  const extension = path.extname(absolutePath).slice(1).toLowerCase();
+  const mime = extension === "jpg" ? "jpeg" : extension;
+  return `data:image/${mime};base64,${fs.readFileSync(absolutePath).toString("base64")}`;
+}
+
+function backToSchoolOgFonts() {
+  const font = (weight: number) => fs.readFileSync(path.join(process.cwd(), "scripts", "social", "fonts", `Inter-${weight}.ttf`));
+  return [
+    { name: "Inter", data: font(400), weight: 400 as const, style: "normal" as const },
+    { name: "Inter", data: font(700), weight: 700 as const, style: "normal" as const },
+    { name: "Inter", data: font(800), weight: 800 as const, style: "normal" as const },
+  ];
+}
 
 /** Centred brand card used as the default OG image for each route group. */
 export function renderSiteDefaultOg(lang: Lang): ImageResponse {
@@ -63,7 +83,7 @@ export function renderSiteDefaultOg(lang: Lang): ImageResponse {
           background: "linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #ec4899 100%)",
           color: "white",
           padding: 80,
-          fontFamily: "system-ui, sans-serif",
+          fontFamily: lang === "en" ? "Inter" : "system-ui, sans-serif",
         }}
       >
         <div style={{ fontSize: 32, opacity: 0.85, marginBottom: 24, letterSpacing: 4, textTransform: "uppercase" }}>
@@ -121,86 +141,143 @@ export function renderSummerOg(lang: Lang): ImageResponse {
   );
 }
 
-/** Indigo school-notebook card for the bilingual back-to-school hub. */
+/** Visual collage card for the bilingual back-to-school hub and Facebook. */
 export function renderBackToSchoolOg(lang: Lang): ImageResponse {
   const c = BACK_TO_SCHOOL[lang];
+  const images = {
+    readiness: publicImageDataUri("/images/posts/school-readiness-beyond-letters-and-numbers-cover.png"),
+    calm: publicImageDataUri("/images/posts/curious-and-calm-back-to-school-cover.png"),
+    multiplication: publicImageDataUri("/images/posts/multiplication-tables-cover.jpg"),
+  };
+  const visualCard = (
+    src: string,
+    top: number,
+    left: number,
+    width: number,
+    height: number,
+    rotation: number,
+    objectPosition: string,
+  ) => (
+    <div
+      style={{
+        position: "absolute",
+        top,
+        left,
+        width,
+        height,
+        display: "flex",
+        overflow: "hidden",
+        borderRadius: 28,
+        border: "7px solid #FFF9EF",
+        background: "#FFF9EF",
+        boxShadow: "0 22px 40px rgba(23, 14, 61, .35)",
+        transform: `rotate(${rotation}deg)`,
+      }}
+    >
+      <img src={src} width={width} height={height} style={{ objectFit: "cover", objectPosition }} />
+    </div>
+  );
   return new ImageResponse(
     (
       <div
         style={{
+          position: "relative",
           width: "100%",
           height: "100%",
           display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          background: "linear-gradient(135deg, #312E81 0%, #5744A0 52%, #A74375 100%)",
+          overflow: "hidden",
+          background: "linear-gradient(135deg, #312E81 0%, #51419A 54%, #A74375 100%)",
           color: "white",
-          padding: 72,
           fontFamily: "system-ui, sans-serif",
         }}
       >
-        <div style={{ display: "flex", flexDirection: "column", maxWidth: 910 }}>
-          <div style={{ fontSize: 25, opacity: 0.88, letterSpacing: 2, textTransform: "uppercase", marginBottom: 28 }}>
-            {c.kicker}
-          </div>
-          <div style={{ fontSize: 68, fontWeight: 800, lineHeight: 1.08 }}>{c.title}</div>
-          <div style={{ fontSize: 29, opacity: 0.9, marginTop: 26, lineHeight: 1.35 }}>{c.tagline}</div>
-        </div>
+        <div
+          style={{
+            position: "absolute",
+            top: -190,
+            left: -160,
+            display: "flex",
+            width: 470,
+            height: 470,
+            borderRadius: 999,
+            border: "34px solid rgba(255,255,255,.07)",
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            bottom: -230,
+            left: 300,
+            display: "flex",
+            width: 500,
+            height: 500,
+            borderRadius: 999,
+            background: "rgba(255,255,255,.045)",
+          }}
+        />
+
         <div
           style={{
             position: "relative",
             display: "flex",
-            width: 178,
-            height: 202,
-            flexShrink: 0,
-            marginLeft: 42,
-            borderRadius: 40,
-            border: "8px solid #F8B84E",
-            background: "#FB6F52",
-            boxShadow: "0 22px 40px rgba(22, 16, 68, .28)",
+            flexDirection: "column",
+            justifyContent: "center",
+            width: 705,
+            height: "100%",
+            padding: "54px 26px 54px 64px",
+          }}
+        >
+          <div style={{ display: "flex", color: "#F8C75A", fontSize: 22, fontWeight: 700, letterSpacing: 2.3, textTransform: "uppercase", marginBottom: 24 }}>
+            {c.kicker}
+          </div>
+          <div style={{ display: "flex", fontSize: lang === "en" ? 67 : 59, fontWeight: 800, lineHeight: 1.02, letterSpacing: -1.6 }}>
+            {c.title}
+          </div>
+          <div style={{ display: "flex", fontSize: lang === "en" ? 27 : 25, opacity: 0.93, marginTop: 24, lineHeight: 1.35, maxWidth: 610 }}>
+            {c.tagline}
+          </div>
+          <div
+            style={{
+              display: "flex",
+              alignSelf: "flex-start",
+              marginTop: 30,
+              padding: "12px 20px",
+              borderRadius: 999,
+              background: "#F8C75A",
+              color: "#312E81",
+              fontSize: lang === "en" ? 22 : 20,
+              fontWeight: 800,
+            }}
+          >
+            {c.badge}
+          </div>
+        </div>
+
+        <div
+          style={{
+            position: "relative",
+            display: "flex",
+            flex: 1,
+            height: "100%",
           }}
         >
           <div
             style={{
               position: "absolute",
-              left: 45,
-              top: -40,
+              top: 0,
+              left: 0,
               display: "flex",
-              width: 72,
-              height: 48,
-              border: "10px solid #F8B84E",
-              borderBottom: "0px",
-              borderRadius: "28px 28px 0 0",
+              width: "100%",
+              height: "100%",
+              background: "linear-gradient(to right, rgba(49,46,129,.78) 0%, rgba(49,46,129,.08) 38%, rgba(49,46,129,0) 100%)",
             }}
           />
-          <div
-            style={{
-              position: "absolute",
-              left: 22,
-              bottom: 24,
-              display: "flex",
-              width: 118,
-              height: 72,
-              borderRadius: 24,
-              background: "#D95770",
-              border: "5px solid rgba(255,255,255,.55)",
-            }}
-          />
-          <div
-            style={{
-              position: "absolute",
-              left: 74,
-              bottom: 44,
-              display: "flex",
-              width: 18,
-              height: 18,
-              borderRadius: 99,
-              background: "#F8B84E",
-            }}
-          />
+          {visualCard(images.readiness, 48, 28, 430, 190, 3, "center 48%")}
+          {visualCard(images.calm, 221, 94, 410, 194, -2, "center 55%")}
+          {visualCard(images.multiplication, 404, 22, 450, 190, 2, "center 52%")}
         </div>
       </div>
     ),
-    { ...OG_SIZE },
+    lang === "en" ? { ...OG_SIZE, fonts: backToSchoolOgFonts() } : { ...OG_SIZE },
   );
 }
