@@ -15,14 +15,14 @@ const COPY = {
     firstNameLabel: "First name (optional)",
     firstNamePlaceholder: "e.g. Alex",
     consent:
-      "Yes — send me practical STEM activities, parenting reads and free resources. I can unsubscribe anytime.",
+      "Yes, send me practical STEM activities, parenting reads and free resources. I can unsubscribe anytime.",
     submit: "Get fresh ideas",
     submitting: "Joining…",
     privacy: "We'll never share your email. See our",
     privacyLink: "Privacy Policy",
-    compactNote: "1–2 emails a month · No spam · Unsubscribe anytime",
+    compactNote: "2-3 emails a month · No spam · Unsubscribe anytime",
     notices: {
-      already_subscribed: "You're already subscribed — you're all set!",
+      already_subscribed: "You're already subscribed, you're all set!",
       confirmation_pending:
         "This address is already waiting for confirmation. Check for an earlier Mailchimp email, or try another address.",
     } as Record<string, string>,
@@ -34,7 +34,7 @@ const COPY = {
       validation: "Please check the form and try again.",
       send_failed: "Something went wrong on our end. Please try again in a moment.",
       configuration_error:
-        "Signup is temporarily unavailable. We've logged the problem — please try again later.",
+        "Signup is temporarily unavailable. We've logged the problem, please try again later.",
       address_unavailable:
         "This address can't be added automatically. Please try another address or contact us.",
       network: "Network problem. Please check your connection and try again.",
@@ -47,14 +47,14 @@ const COPY = {
     firstNameLabel: "Ime (neobavezno)",
     firstNamePlaceholder: "npr. Iva",
     consent:
-      "Da — šaljite mi praktične STEM aktivnosti, tekstove za roditelje i besplatne materijale. Mogu se odjaviti bilo kada.",
+      "Da, šaljite mi praktične STEM aktivnosti, tekstove za roditelje i besplatne materijale. Mogu se odjaviti bilo kada.",
     submit: "Želim nove ideje",
-    submitting: "Pridružujem vas…",
+    submitting: "Dodajemo vas…",
     privacy: "Nikada nećemo dijeliti vaš email. Pogledajte našu",
     privacyLink: "Politiku privatnosti",
     compactNote: "1–2 emaila mjesečno · Bez spama · Odjava bilo kada",
     notices: {
-      already_subscribed: "Već ste pretplaćeni — sve je spremno!",
+      already_subscribed: "Već ste pretplaćeni, sve je spremno!",
       confirmation_pending:
         "Ova adresa već čeka potvrdu. Potražite raniji Mailchimp email ili pokušajte s drugom adresom.",
     } as Record<string, string>,
@@ -62,11 +62,11 @@ const COPY = {
       recaptcha: "Nismo uspjeli potvrditi da niste robot. Osvježite stranicu i pokušajte ponovo.",
       rate_limited: "Previše pokušaja. Pričekajte nekoliko minuta i pokušajte ponovo.",
       invalid_email: "Unesite ispravnu adresu e-pošte.",
-      consent_required: "Označite okvir kako bismo vas mogli dodati na popis.",
+      consent_required: "Označite pristanak kako bismo vas mogli dodati na popis.",
       validation: "Provjerite obrazac i pokušajte ponovo.",
-      send_failed: "Nešto je pošlo po zlu kod nas. Pokušajte ponovo za trenutak.",
+      send_failed: "Nešto je pošlo po zlu na našoj strani. Pokušajte ponovo za trenutak.",
       configuration_error:
-        "Pretplata je privremeno nedostupna. Zabilježili smo problem — pokušajte ponovo kasnije.",
+        "Pretplata je privremeno nedostupna. Zabilježili smo problem, pokušajte ponovo kasnije.",
       address_unavailable:
         "Ovu adresu ne možemo automatski dodati. Pokušajte s drugom adresom ili nam se javite.",
       network: "Problem s mrežom. Provjerite vezu i pokušajte ponovo.",
