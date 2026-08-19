@@ -7,7 +7,7 @@ const COPY = {
     home: {
       eyebrow: "A little inspiration in your inbox",
       title: "Fresh ideas for curious kids, ready when you are",
-      body: "Hands-on STEM activities, thoughtful parenting reads and useful free printables — in one calm email, once or twice a month.",
+      body: "Hands-on STEM activities, psychology insights and useful free printables, two or three times a month.",
     },
     article: {
       eyebrow: "Keep the curiosity going",
@@ -20,7 +20,7 @@ const COPY = {
     home: {
       eyebrow: "Malo inspiracije u vašem inboxu",
       title: "Svježe ideje za znatiželjnu djecu, uvijek pri ruci",
-      body: "Praktične STEM aktivnosti, korisni tekstovi za roditelje i besplatni materijali — u jednom kratkom emailu, jednom do dvaput mjesečno.",
+      body: "Praktične STEM aktivnosti, korisni tekstovi za roditelje i besplatni materijali, dva do tri puta mjesečno.",
     },
     article: {
       eyebrow: "Nastavite poticati znatiželju",
