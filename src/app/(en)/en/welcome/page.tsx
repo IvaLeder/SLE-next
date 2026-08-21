@@ -3,12 +3,12 @@ import Footer from "@/components/Footer";
 import NewsletterStatusPage from "@/components/NewsletterStatusPage";
 import { Metadata } from "next";
 
-// Post-signup step 2: Mailchimp's double-opt-in confirmation link lands here.
-// Set as the audience's "Confirmation thank you page" URL in Mailchimp admin.
-// Tracked in GTM as the "subscription confirmed" conversion pageview.
+// Completed signup page. Single opt-in lands here directly; legacy Mailchimp
+// double-opt-in confirmation links use the same destination. Tracked in GTM as
+// the completed-subscription conversion pageview.
 export const metadata: Metadata = {
   title: "Welcome aboard | STEM Little Explorers",
-  description: "Your newsletter subscription is confirmed.",
+  description: "You’re subscribed to the STEM Little Explorers newsletter.",
   robots: { index: false, follow: true },
 };
 

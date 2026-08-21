@@ -98,8 +98,8 @@ async function tagMailchimpMember(
 }
 
 // Check the current member state before updating. `status_if_new` only affects
-// new contacts, so without this step a repeat pending/subscribed address would
-// return 200 even though Mailchimp sends no new confirmation email.
+// new contacts, so this lookup lets single opt-in recover an existing pending
+// contact and lets both modes report already-subscribed addresses accurately.
 async function mailchimpSubscribe(
   email: string,
   source: string,
@@ -122,7 +122,10 @@ async function mailchimpSubscribe(
 
   const dc = key.split("-")[1];
   const hash = crypto.createHash("md5").update(email.toLowerCase()).digest("hex");
-  const doubleOptin = (process.env.MAILCHIMP_DOUBLE_OPTIN ?? "true") !== "false";
+  // Our on-site form already requires explicit consent and passes invisible
+  // reCAPTCHA. Keep Mailchimp double opt-in available as an explicit fallback,
+  // but default to the shorter single-opt-in flow.
+  const doubleOptin = process.env.MAILCHIMP_DOUBLE_OPTIN === "true";
   const targetStatus = doubleOptin ? "pending" : "subscribed";
   const auth = "Basic " + Buffer.from(`anystring:${key}`).toString("base64");
   const base = `https://${dc}.api.mailchimp.com/3.0/lists/${audience}/members/${hash}`;
@@ -154,12 +157,13 @@ async function mailchimpSubscribe(
   if (lastName) mergeFields.LNAME = lastName;
 
   // Existing unsubscribed/transactional contacts explicitly asked to join
-  // again, so move them through the opt-in flow. Existing subscribed/pending
-  // contacts keep their status; the PUT only updates supplied merge fields.
+  // again, so move them through the configured opt-in flow. In single-opt-in
+  // mode, a pending contact that submits the consent box again is promoted to
+  // subscribed instead of remaining stuck behind a lost confirmation email.
   const shouldSetStatus =
     existingStatus !== null &&
     existingStatus !== "subscribed" &&
-    existingStatus !== "pending";
+    existingStatus !== targetStatus;
 
   let memberStatus = existingStatus ?? targetStatus;
   try {
@@ -189,7 +193,7 @@ async function mailchimpSubscribe(
   const outcome: MailchimpOutcome =
     existingStatus === "subscribed"
       ? "already_subscribed"
-      : existingStatus === "pending"
+      : doubleOptin && existingStatus === "pending"
         ? "confirmation_pending"
         : doubleOptin
           ? "confirmation_sent"

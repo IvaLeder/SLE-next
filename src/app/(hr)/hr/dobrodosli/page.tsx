@@ -3,13 +3,11 @@ import Footer from "@/components/Footer";
 import NewsletterStatusPage from "@/components/NewsletterStatusPage";
 import { Metadata } from "next";
 
-// Post-signup step 2: Mailchimp's double-opt-in confirmation link lands here.
-// Mailchimp allows a single "Confirmation thank you page" per audience (set to
-// the EN /welcome page); this HR twin exists for the header language switch
-// and any future per-language routing.
+// Dovršena pretplata. Single opt-in vodi ovdje izravno; ista stranica ostaje
+// odredište za stare Mailchimp double-opt-in poveznice.
 export const metadata: Metadata = {
   title: "Dobro došli | STEM Little Explorers",
-  description: "Vaša pretplata na newsletter je potvrđena.",
+  description: "Pretplaćeni ste na STEM Little Explorers newsletter.",
   robots: { index: false, follow: true },
 };
 

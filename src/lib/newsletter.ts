@@ -3,12 +3,11 @@
  * truth for the three page pairs:
  *   - landing:   /en/subscribe  + /hr/pretplata   (form, indexable)
  *   - thank-you: /en/thank-you  + /hr/hvala       (after form submit, noindex)
- *   - welcome:   /en/welcome    + /hr/dobrodosli  (after double opt-in
- *     confirmation — set as the audience's "Confirmation thank you page" in
- *     Mailchimp, noindex)
+ *   - welcome:   /en/welcome    + /hr/dobrodosli  (successful single opt-in,
+ *     and the confirmation destination if double opt-in is re-enabled; noindex)
  *
- * The thank-you and welcome URLs exist for GTM/GA4 conversion tracking: a
- * pageview on each marks "signup submitted" and "subscription confirmed".
+ * A welcome pageview marks a completed subscription. The thank-you page remains
+ * available for the optional double-opt-in mode and legacy pending signups.
  * Browser-safe (no Node imports).
  */
 
@@ -50,7 +49,7 @@ export const subscribeCopy: Record<
     frequency:
       "Once or twice a month. No spam, and you can unsubscribe anytime.",
     formTitle: "Join the curious list",
-    formNote: "Enter your email, then confirm it from your inbox. That’s it.",
+    formNote: "Enter your email, tick the consent box and you’re in—no confirmation email needed.",
   },
   hr: {
     eyebrow: "Newsletter",
@@ -71,7 +70,7 @@ export const subscribeCopy: Record<
     frequency:
       "Jednom do dvaput mjesečno. Bez spama, uz odjavu u svakom trenutku.",
     formTitle: "Pridružite se znatiželjnoj ekipi",
-    formNote: "Unesite email i zatim ga potvrdite iz svog inboxa. To je sve.",
+    formNote: "Unesite email, označite pristanak i odmah ste na popisu—bez dodatne potvrde.",
   },
 };
 
@@ -138,12 +137,12 @@ export const statusCopy: Record<
   welcome: {
     en: {
       emoji: "🎉",
-      title: "Subscription confirmed, welcome aboard!",
+      title: "You’re on the list—welcome aboard!",
       body: "You're on the list. From now on, new experiments, activities and Mind Explorers articles land straight in your inbox. To make sure we never end up in spam, add our address to your contacts.",
     },
     hr: {
       emoji: "🎉",
-      title: "Pretplata potvrđena, dobro došli!",
+      title: "Na popisu ste—dobro došli!",
       body: "Na popisu ste. Od sada novi pokusi, aktivnosti i Mind Explorers članci stižu ravno u vaš inbox. Da nikad ne završimo u spamu, dodajte našu adresu u svoje kontakte.",
     },
   },

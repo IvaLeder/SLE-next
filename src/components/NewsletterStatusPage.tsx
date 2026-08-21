@@ -1,10 +1,9 @@
 import Link from "next/link";
 import { statusCopy, exploreCopy, type Lang } from "@/lib/newsletter";
 
-// Body of the two post-signup status pages: the thank-you page (after the
-// on-site form submits — "confirm your email") and the welcome page (after the
-// Mailchimp double-opt-in link is clicked). Each has its own URL purely so
-// GTM/GA4 can count the two funnel steps as plain pageviews.
+// Body of the two post-signup status pages. The welcome page is the completed
+// single-opt-in conversion; the thank-you page remains for the optional
+// double-opt-in mode and legacy confirmation emails.
 export default function NewsletterStatusPage({
   lang,
   kind,

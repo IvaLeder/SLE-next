@@ -16,11 +16,12 @@ const COPY = {
     firstNamePlaceholder: "e.g. Alex",
     consent:
       "Yes, send me practical STEM activities, parenting reads and free resources. I can unsubscribe anytime.",
+    compactConsent: "Yes, send me these emails. I can unsubscribe anytime.",
     submit: "Get fresh ideas",
     submitting: "Joining…",
     privacy: "We'll never share your email. See our",
     privacyLink: "Privacy Policy",
-    compactNote: "2-3 emails a month · No spam · Unsubscribe anytime",
+    compactNote: "2–3 emails a month · No spam",
     notices: {
       already_subscribed: "You're already subscribed, you're all set!",
       confirmation_pending:
@@ -48,11 +49,12 @@ const COPY = {
     firstNamePlaceholder: "npr. Iva",
     consent:
       "Da, šaljite mi praktične STEM aktivnosti, tekstove za roditelje i besplatne materijale. Mogu se odjaviti bilo kada.",
+    compactConsent: "Da, želim primati ove poruke. Mogu se odjaviti bilo kada.",
     submit: "Želim nove ideje",
     submitting: "Dodajemo vas…",
     privacy: "Nikada nećemo dijeliti vaš email. Pogledajte našu",
     privacyLink: "Politiku privatnosti",
-    compactNote: "1–2 emaila mjesečno · Bez spama · Odjava bilo kada",
+    compactNote: "1–2 emaila mjesečno · Bez spama",
     notices: {
       already_subscribed: "Već ste pretplaćeni, sve je spremno!",
       confirmation_pending:
@@ -99,11 +101,10 @@ const subscribeNoop = () => () => {};
  *
  * - "full" (subscribe landing page): email, optional first name, explicit GDPR
  *   consent checkbox, privacy-policy line and eager reCAPTCHA.
- * - "compact" (homepage/article promos, floating card and footer): email +
- *   button + microcopy only. Consent is implied by the act of subscribing
- *   (the double opt-in email is the explicit consent step), and reCAPTCHA
- *   only mounts once the reader focuses the field, so article pages don't
- *   pay its script cost for a form most readers never touch.
+ * - "compact" (homepage/article promos, floating card and footer): email,
+ *   explicit consent, button and short trust copy. reCAPTCHA only mounts once
+ *   the reader focuses a field, so article pages don't pay its script cost for
+ *   a form most readers never touch.
  *
  * Multiple instances can hydrate on one page (floating + inline), so all
  * DOM ids are namespaced per instance via useId; the GTM button id is
@@ -125,6 +126,7 @@ export default function NewsletterSignupForm({
   const uid = useId();
   const emailId = `nl-email-${uid}`;
   const firstNameId = `nl-first-name-${uid}`;
+  const consentId = `nl-consent-${uid}`;
   const honeypotId = `nl-website-${uid}`;
   const buttonId =
     source === "subscribe-page" ? "newsletter-subscribe" : `newsletter-subscribe-${source}`;
@@ -147,7 +149,7 @@ export default function NewsletterSignupForm({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (variant === "full" && !consent) {
+    if (!consent) {
       fail("consent_required");
       return;
     }
@@ -182,7 +184,7 @@ export default function NewsletterSignupForm({
           email,
           firstName: variant === "full" ? firstName : "",
           lastName: "",
-          consent: variant === "compact" ? true : consent,
+          consent,
           token,
           website,
           source,
@@ -276,6 +278,27 @@ export default function NewsletterSignupForm({
           </button>
         </div>
 
+        <label
+          htmlFor={consentId}
+          className="mt-2 flex items-start gap-2 text-[11px] leading-snug text-gray-600"
+        >
+          <input
+            id={consentId}
+            name="consent"
+            type="checkbox"
+            required
+            checked={consent}
+            onFocus={() => setArmed(true)}
+            onChange={(e) => {
+              setArmed(true);
+              setConsent(e.target.checked);
+              if (status === "error" || status === "notice") setStatus("idle");
+            }}
+            className="mt-0.5 h-4 w-4 flex-none accent-newsletter"
+          />
+          <span>{t.compactConsent}</span>
+        </label>
+
         {recaptcha}
 
         {status === "error" && (
@@ -290,7 +313,12 @@ export default function NewsletterSignupForm({
           </p>
         )}
 
-        <p className="mt-2 text-center text-[11px] leading-snug text-gray-400">{t.compactNote}</p>
+        <p className="mt-2 text-center text-[11px] leading-snug text-gray-400">
+          {t.compactNote} ·{" "}
+          <a href={`/${lang}/privacy`} className="underline hover:text-gray-600">
+            {t.privacyLink}
+          </a>
+        </p>
       </form>
     );
   }
@@ -337,9 +365,15 @@ export default function NewsletterSignupForm({
         className="mt-1 w-full rounded-xl border border-gray-300 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-newsletter"
       />
 
-      <label className="mt-3 flex items-start gap-2 text-sm leading-relaxed text-gray-600">
+      <label
+        htmlFor={consentId}
+        className="mt-3 flex items-start gap-2 text-sm leading-relaxed text-gray-600"
+      >
         <input
+          id={consentId}
+          name="consent"
           type="checkbox"
+          required
           checked={consent}
           onChange={(e) => {
             setConsent(e.target.checked);

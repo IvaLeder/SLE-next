@@ -83,27 +83,29 @@ function silenceExpectedLogs(t) {
   t.mock.method(console, "error", () => {});
 }
 
-test("a new address receives the confirmation-sent outcome", async (t) => {
+test("a new address is subscribed immediately by default", async (t) => {
   configureTestEnvironment(t);
   silenceExpectedLogs(t);
   const calls = mockMailchimp(t);
 
   const res = await POST(subscribeRequest());
   assert.equal(res.status, 200);
-  assert.deepEqual(await res.json(), { success: true, code: "confirmation_sent" });
+  assert.deepEqual(await res.json(), { success: true, code: "subscribed" });
   assert.deepEqual(calls.map(({ method }) => method), ["GET", "PUT", "POST"]);
+  const putBody = JSON.parse(String(calls.find(({ method }) => method === "PUT")?.body));
+  assert.equal(putBody.status_if_new, "subscribed");
 });
 
-test("an existing pending address gets an accurate notice outcome", async (t) => {
+test("an existing pending address is recovered after fresh consent", async (t) => {
   configureTestEnvironment(t);
   silenceExpectedLogs(t);
   const calls = mockMailchimp(t, "pending");
 
   const res = await POST(subscribeRequest());
   assert.equal(res.status, 200);
-  assert.deepEqual(await res.json(), { success: true, code: "confirmation_pending" });
+  assert.deepEqual(await res.json(), { success: true, code: "subscribed" });
   const putBody = JSON.parse(String(calls.find(({ method }) => method === "PUT")?.body));
-  assert.equal(putBody.status, undefined);
+  assert.equal(putBody.status, "subscribed");
 });
 
 test("an existing subscribed address does not get a check-inbox redirect", async (t) => {
@@ -116,16 +118,62 @@ test("an existing subscribed address does not get a check-inbox redirect", async
   assert.deepEqual(await res.json(), { success: true, code: "already_subscribed" });
 });
 
-test("an unsubscribed address re-enters double opt-in", async (t) => {
+test("an unsubscribed address can explicitly subscribe again", async (t) => {
   configureTestEnvironment(t);
   silenceExpectedLogs(t);
   const calls = mockMailchimp(t, "unsubscribed");
 
   const res = await POST(subscribeRequest());
   assert.equal(res.status, 200);
+  assert.deepEqual(await res.json(), { success: true, code: "subscribed" });
+  const putBody = JSON.parse(String(calls.find(({ method }) => method === "PUT")?.body));
+  assert.equal(putBody.status, "subscribed");
+});
+
+test("double opt-in remains available when explicitly enabled", async (t) => {
+  configureTestEnvironment(t);
+  silenceExpectedLogs(t);
+  process.env.MAILCHIMP_DOUBLE_OPTIN = "true";
+  const calls = mockMailchimp(t);
+
+  const res = await POST(subscribeRequest());
+  assert.equal(res.status, 200);
   assert.deepEqual(await res.json(), { success: true, code: "confirmation_sent" });
   const putBody = JSON.parse(String(calls.find(({ method }) => method === "PUT")?.body));
-  assert.equal(putBody.status, "pending");
+  assert.equal(putBody.status_if_new, "pending");
+});
+
+test("double opt-in reports an existing pending address without changing it", async (t) => {
+  configureTestEnvironment(t);
+  silenceExpectedLogs(t);
+  process.env.MAILCHIMP_DOUBLE_OPTIN = "true";
+  const calls = mockMailchimp(t, "pending");
+
+  const res = await POST(subscribeRequest());
+  assert.equal(res.status, 200);
+  assert.deepEqual(await res.json(), { success: true, code: "confirmation_pending" });
+  const putBody = JSON.parse(String(calls.find(({ method }) => method === "PUT")?.body));
+  assert.equal(putBody.status, undefined);
+});
+
+test("explicit consent is required before contacting Mailchimp", async (t) => {
+  configureTestEnvironment(t);
+  silenceExpectedLogs(t);
+  const calls = mockMailchimp(t);
+  const req = subscribeRequest();
+  const body = await req.json();
+  body.consent = false;
+  const res = await POST(
+    new Request(req.url, {
+      method: "POST",
+      headers: req.headers,
+      body: JSON.stringify(body),
+    }),
+  );
+
+  assert.equal(res.status, 400);
+  assert.deepEqual(await res.json(), { error: "Consent required", code: "consent_required" });
+  assert.equal(calls.length, 0);
 });
 
 test("a cleaned address fails visibly", async (t) => {
