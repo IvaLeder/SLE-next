@@ -25,7 +25,7 @@ export default function TOC({ lang = "en" }: { lang?: "en" | "hr" }) {
 
     const headings = Array.from(
       container.querySelectorAll<HTMLElement>("h2, h3, h4")
-    );
+    ).filter((heading) => !heading.closest("[data-no-toc]"));
 
     // Apply CSS scroll-margin so #anchor jumps land below the sticky header.
     // Doing it here keeps the styling co-located with the TOC behaviour.

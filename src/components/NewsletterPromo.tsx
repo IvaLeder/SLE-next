@@ -45,6 +45,7 @@ export default function NewsletterPromo({
   return (
     <section
       data-no-print
+      data-no-toc
       aria-labelledby={headingId}
       className={`not-prose overflow-hidden rounded-3xl border border-brand/15 bg-gradient-to-br from-brand-soft/80 via-white to-white shadow-sm ${
         placement === "home" ? "mb-12" : "my-10 xl:hidden"
