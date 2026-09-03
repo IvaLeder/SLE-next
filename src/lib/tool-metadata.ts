@@ -3,7 +3,9 @@ import { siteConfig } from "@/config/site";
 import { TOOLS_SLUG, type Lang, type Tool } from "@/lib/tools";
 
 export function generateToolMetadata(tool: Tool, lang: Lang): Metadata {
-  const title = `${tool.title[lang]} | STEM Little Explorers`;
+  const pageTitle = tool.title[lang];
+  const socialTitle = `${pageTitle} | ${siteConfig.name}`;
+  const title = socialTitle.length <= 60 ? socialTitle : pageTitle;
   const description = tool.description[lang];
   const url = `${siteConfig.url}/${lang}/${TOOLS_SLUG[lang]}/${tool.slug[lang]}`;
   return {
@@ -20,7 +22,7 @@ export function generateToolMetadata(tool: Tool, lang: Lang): Metadata {
     openGraph: {
       type: "website",
       url,
-      title,
+      title: socialTitle,
       description,
       siteName: siteConfig.name,
       locale: lang === "en" ? "en_US" : "hr_HR",
@@ -28,7 +30,7 @@ export function generateToolMetadata(tool: Tool, lang: Lang): Metadata {
     },
     twitter: {
       card: "summary_large_image",
-      title,
+      title: socialTitle,
       description,
     },
   };

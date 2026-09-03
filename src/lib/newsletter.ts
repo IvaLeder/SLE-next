@@ -49,7 +49,7 @@ export const subscribeCopy: Record<
     frequency:
       "Once or twice a month. No spam, and you can unsubscribe anytime.",
     formTitle: "Join the curious list",
-    formNote: "Enter your email, tick the consent box and you’re in—no confirmation email needed.",
+    formNote: "Enter your email, tick the consent box and you’re in, no confirmation email needed.",
   },
   hr: {
     eyebrow: "Newsletter",

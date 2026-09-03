@@ -64,6 +64,7 @@ export default function FindBirthdayInPi({ lang = "en" }: { lang?: Lang }) {
     const digits = digitsOf(input);
     if (!digits) {
       setResult(null);
+      setFailed(false);
       return;
     }
     setLoading(true);
@@ -117,7 +118,7 @@ export default function FindBirthdayInPi({ lang = "en" }: { lang?: Lang }) {
           </button>
         </div>
         {liveDigits && (
-          <p className="mt-2 text-xs text-gray-400">
+          <p className="mt-2 text-xs text-gray-600">
             {t.searchFor}: <span className="font-mono font-semibold text-gray-600">{liveDigits}</span>
           </p>
         )}
@@ -139,9 +140,9 @@ export default function FindBirthdayInPi({ lang = "en" }: { lang?: Lang }) {
           <p className="font-semibold text-gray-900">{t.foundTitle(nf(result.pos))}</p>
           <p className="mt-1 text-sm text-gray-600">{t.foundBody(result.digits)}</p>
           <p className="mt-2 break-all font-mono text-[15px] text-gray-700">
-            π = 3.<span className="text-gray-400">…{result.before}</span>
+            π = 3.<span className="text-gray-600">…{result.before}</span>
             <span className="rounded bg-brand px-1 font-bold text-white">{result.digits}</span>
-            <span className="text-gray-400">{result.after}…</span>
+            <span className="text-gray-600">{result.after}…</span>
           </p>
         </div>
       )}
