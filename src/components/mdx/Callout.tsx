@@ -12,7 +12,7 @@ const STYLES: Record<CalloutType, string> = {
   tip: "bg-teal-50 border-teal-300 text-teal-900",
 };
 
-// Default headings when the author doesn't pass `title`. `lang` is injected by
+// Default labels when the author doesn't pass `title`. `lang` is injected by
 // the MDX components factory, so HR articles get HR defaults automatically.
 const TITLES: Record<Lang, Record<CalloutType, string>> = {
   en: {
@@ -52,9 +52,9 @@ export function Callout({
     // semantic colours below apply as normal.
     <div data-callout={type} className={`border-l-4 p-4 my-6 rounded ${STYLES[type]}`}>
       <div className="flex items-center gap-2 mb-2 font-semibold">
-        <h4 className="text-sm font-bold leading-none">
+        <p className="text-sm font-bold leading-none">
           {title ?? TITLES[lang][type]}
-        </h4>
+        </p>
       </div>
 
       <div className="text-sm leading-relaxed">{children}</div>

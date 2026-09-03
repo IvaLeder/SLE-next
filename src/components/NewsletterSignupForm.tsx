@@ -313,7 +313,7 @@ export default function NewsletterSignupForm({
           </p>
         )}
 
-        <p className="mt-2 text-center text-[11px] leading-snug text-gray-400">
+        <p className="mt-2 text-center text-[11px] leading-snug text-gray-600">
           {t.compactNote} ·{" "}
           <a href={`/${lang}/privacy`} className="underline hover:text-gray-600">
             {t.privacyLink}
@@ -407,7 +407,7 @@ export default function NewsletterSignupForm({
         {status === "submitting" ? t.submitting : t.submit}
       </button>
 
-      <p className="mt-3 text-center text-xs text-gray-400">
+      <p className="mt-3 text-center text-xs text-gray-600">
         {t.privacy}{" "}
         <a href={`/${lang}/privacy`} className="underline hover:text-gray-600">
           {t.privacyLink}

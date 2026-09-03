@@ -35,6 +35,7 @@ const KNOWN_TAGS = new Set([
   "experiment",
   "coding",
   "stem",
+  "space",
 ]);
 
 const KNOWN_AUTHORS = new Set(["Iva Leder", "Vedran Leder"]);
@@ -61,6 +62,11 @@ const KNOWN_MDX_COMPONENTS = new Set([
   "PatternMaker",
   "MultiplicationVisualizer",
   "ColorMixer",
+  "NumberSystems",
+  "WeightOnPlanets",
+  "PrimeExplorer",
+  "GuessMyNumber",
+  "TrussTester",
   "ActivityInfo",
   "Steps",
   "Step",

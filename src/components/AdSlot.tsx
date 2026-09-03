@@ -131,7 +131,7 @@ export default function AdSlot({
         data-no-print
         className="flex h-full flex-col rounded-xl border border-gray-100 bg-white p-4 shadow"
       >
-        <span className="mb-2 block font-sans text-[11px] uppercase tracking-wider text-gray-400">
+        <span className="mb-2 block font-sans text-[11px] uppercase tracking-wider text-gray-600">
           {LABEL[lang]}
         </span>
         <ins
@@ -148,7 +148,7 @@ export default function AdSlot({
 
   return (
     <div data-no-print className="not-prose my-10 text-center">
-      <span className="mb-1 block font-sans text-[11px] uppercase tracking-wider text-gray-400">
+      <span className="mb-1 block font-sans text-[11px] uppercase tracking-wider text-gray-600">
         {LABEL[lang]}
       </span>
       <ins

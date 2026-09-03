@@ -40,6 +40,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         languages: {
           en: `${BASE_URL}/en${path}`,
           hr: `${BASE_URL}/hr${path}`,
+          "x-default": `${BASE_URL}/en${path}`,
         },
       },
     }));
@@ -63,6 +64,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         languages: {
           en: `${BASE_URL}/en/${BACK_TO_SCHOOL_SLUG.en}`,
           hr: `${BASE_URL}/hr/${BACK_TO_SCHOOL_SLUG.hr}`,
+          "x-default": `${BASE_URL}/en/${BACK_TO_SCHOOL_SLUG.en}`,
         },
       },
     },
@@ -75,6 +77,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         languages: {
           en: `${BASE_URL}/en/${BACK_TO_SCHOOL_SLUG.en}`,
           hr: `${BASE_URL}/hr/${BACK_TO_SCHOOL_SLUG.hr}`,
+          "x-default": `${BASE_URL}/en/${BACK_TO_SCHOOL_SLUG.en}`,
         },
       },
     },
@@ -101,6 +104,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     languages: {
       en: `${BASE_URL}/en/${SUBSCRIBE_SLUG.en}`,
       hr: `${BASE_URL}/hr/${SUBSCRIBE_SLUG.hr}`,
+      "x-default": `${BASE_URL}/en/${SUBSCRIBE_SLUG.en}`,
     },
   };
   const subscribeEntries: MetadataRoute.Sitemap = [
@@ -114,6 +118,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     languages: {
       en: `${BASE_URL}/en/${TOOLS_SLUG.en}`,
       hr: `${BASE_URL}/hr/${TOOLS_SLUG.hr}`,
+      "x-default": `${BASE_URL}/en/${TOOLS_SLUG.en}`,
     },
   };
   const toolsEntries: MetadataRoute.Sitemap = [
@@ -124,6 +129,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
         languages: {
           en: `${BASE_URL}/en/${TOOLS_SLUG.en}/${tool.slug.en}`,
           hr: `${BASE_URL}/hr/${TOOLS_SLUG.hr}/${tool.slug.hr}`,
+          "x-default": `${BASE_URL}/en/${TOOLS_SLUG.en}/${tool.slug.en}`,
         },
       };
       return [
@@ -138,6 +144,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     languages: {
       en: `${BASE_URL}/en/${MILESTONE_GUIDE_SLUG.en}`,
       hr: `${BASE_URL}/hr/${MILESTONE_GUIDE_SLUG.hr}`,
+      "x-default": `${BASE_URL}/en/${MILESTONE_GUIDE_SLUG.en}`,
     },
   };
   const milestoneGuideEntries: MetadataRoute.Sitemap = [
@@ -150,6 +157,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     languages: {
       en: `${BASE_URL}/en/${MINDS_SLUG.en}`,
       hr: `${BASE_URL}/hr/${MINDS_SLUG.hr}`,
+      "x-default": `${BASE_URL}/en/${MINDS_SLUG.en}`,
     },
   };
   const mindsEntries: MetadataRoute.Sitemap = [
@@ -190,6 +198,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       if (translated) {
         languages[otherLang] = `${BASE_URL}/${otherLang}/${translated.slug}`;
       }
+      // Match the HTML metadata: prefer English, otherwise use this post.
+      languages["x-default"] = languages.en ?? `${BASE_URL}/${lang}/${post.slug}`;
 
       return {
         url: `${BASE_URL}/${lang}/${post.slug}`,
