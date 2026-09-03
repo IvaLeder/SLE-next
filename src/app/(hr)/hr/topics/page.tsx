@@ -9,7 +9,7 @@ import { siteConfig } from "@/config/site";
 export const metadata: Metadata = {
   title: "Teme | STEM Little Explorers",
   description:
-    "Pregledajte članke po temama: origami, kemija, fizika, senzorne igre i eksperimenti. Odaberite temu da vidite sve povezane aktivnosti.",
+    "Pregledajte članke po temama: svemir, origami, kemija, fizika, senzorne igre i eksperimenti. Odaberite temu da vidite sve povezane aktivnosti.",
   alternates: {
     canonical: `${siteConfig.url}/hr/topics`,
     languages: {

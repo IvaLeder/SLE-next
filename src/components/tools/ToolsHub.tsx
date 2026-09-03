@@ -14,7 +14,7 @@ const COPY = {
     eyebrow: "Free · No sign-up · Play in your browser",
     title: "Free STEM tools & games for kids",
     intro:
-      "Turn a name into binary, crack secret codes, explore fractions and multiplication, practise telling time and more. Pick a tool and start experimenting, nothing to install.",
+      "Turn a name into binary, crack secret codes, compare gravity across worlds, explore fractions and multiplication, practise telling time and more. Pick a tool and start experimenting, nothing to install.",
     featuredTitle: "Start exploring",
     featuredIntro: "Four favourites for curious kids, families and classrooms.",
     featuredBadge: "Featured",
@@ -25,6 +25,10 @@ const COPY = {
       math: {
         label: "Math & logic",
         description: "Make numbers visible, solve a classic puzzle and practise useful skills.",
+      },
+      science: {
+        label: "Science & space",
+        description: "Experiment with colour and compare gravity across planets, moons and other worlds.",
       },
       codes: {
         label: "Codes & communication",
@@ -44,7 +48,7 @@ const COPY = {
     eyebrow: "Besplatno · Bez registracije · Igrajte u pregledniku",
     title: "Besplatni STEM alati i igre za djecu",
     intro:
-      "Pretvorite ime u binarni kod, razbijajte tajne šifre, istražujte razlomke i množenje, vježbajte gledanje na sat i još mnogo toga. Odaberite alat i krenite, ne trebate ništa instalirati.",
+      "Pretvorite ime u binarni kod, razbijajte tajne šifre, usporedite gravitaciju na drugim svjetovima, istražujte razlomke i množenje, vježbajte gledanje na sat i još mnogo toga. Odaberite alat i krenite, ne trebate ništa instalirati.",
     featuredTitle: "Krenite u istraživanje",
     featuredIntro: "Četiri omiljena alata za znatiželjnu djecu, obitelji i učionice.",
     featuredBadge: "Izdvojeno",
@@ -55,6 +59,10 @@ const COPY = {
       math: {
         label: "Matematika i logika",
         description: "Učinite brojeve vidljivima, riješite klasičnu zagonetku i vježbajte korisne vještine.",
+      },
+      science: {
+        label: "Znanost i svemir",
+        description: "Eksperimentirajte s bojama i usporedite gravitaciju na planetima, mjesecima i drugim svjetovima.",
       },
       codes: {
         label: "Kodovi i komunikacija",
@@ -80,12 +88,16 @@ const GROUPS: { key: GroupKey; toolKeys: readonly string[] }[] = [
     toolKeys: ["tower-of-hanoi", "fraction-visualizer", "multiplication-visualizer", "find-birthday-in-pi", "clock"],
   },
   {
+    key: "science",
+    toolKeys: ["weight-on-planets", "color-mixer"],
+  },
+  {
     key: "codes",
     toolKeys: ["name-in-binary", "caesar-cipher", "morse-code", "guess-my-number"],
   },
   {
     key: "create",
-    toolKeys: ["pattern-maker", "color-mixer", "activity-spinner"],
+    toolKeys: ["pattern-maker", "activity-spinner"],
   },
   {
     key: "parents",

@@ -9,7 +9,7 @@ import { siteConfig } from "@/config/site";
 export const metadata: Metadata = {
   title: "Topics | STEM Little Explorers",
   description:
-    "Browse articles by topic: origami, chemistry, physics, sensory play and experiments. Pick a topic to see every related activity.",
+    "Browse articles by topic: space, origami, chemistry, physics, sensory play and experiments. Pick a topic to see every related activity.",
   alternates: {
     canonical: `${siteConfig.url}/en/topics`,
     languages: {

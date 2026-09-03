@@ -13,6 +13,7 @@ export const KNOWN_TAGS = [
   "activity",
   "chemistry",
   "physics",
+  "space",
   "origami",
   "sensory",
   "parenting",
@@ -29,6 +30,7 @@ export const TAG_DISPLAY: Record<"en" | "hr", Record<TagSlug, string>> = {
     activity:            "Activities",
     chemistry:           "Chemistry",
     physics:             "Physics",
+    space:               "Space",
     origami:             "Origami",
     sensory:             "Sensory play",
     parenting:           "Parenting",
@@ -40,6 +42,7 @@ export const TAG_DISPLAY: Record<"en" | "hr", Record<TagSlug, string>> = {
     activity:            "Aktivnosti",
     chemistry:           "Kemija",
     physics:             "Fizika",
+    space:               "Svemir",
     origami:             "Origami",
     sensory:             "Senzorne igre",
     parenting:           "Roditeljstvo",
@@ -58,6 +61,8 @@ export const TAG_DESCRIPTION: Record<"en" | "hr", Record<TagSlug, string>> = {
       "Acid–base reactions, polymers, polarity, solubility: everything that fizzes, dissolves, dyes or transforms. All projects use kitchen ingredients; no lab equipment required.",
     physics:
       "Forces, motion, pressure, light, heat: the science of how the world moves. From homemade rockets to refraction demos, designed to make abstract concepts visible.",
+    space:
+      "Explore Earth, the Moon, planets and the wider Universe through clear explanations, scale comparisons and hands-on models for curious kids.",
     origami:
       "Paper folding for math, focus and patience. Each project implicitly teaches a geometry concept (symmetry, fractions, spatial reasoning).",
     sensory:
@@ -78,6 +83,8 @@ export const TAG_DESCRIPTION: Record<"en" | "hr", Record<TagSlug, string>> = {
       "Kiseline i baze, polimeri, polaritet, topljivost... Sve što se pjeni, otapa, mijenja oblik ili boju. Svi projekti koriste jednostavne kuhinjske sastojke; nije potrebna posebna oprema.",
     physics:
       "Sile, gibanje, tlak, svjetlost, toplina: znanost o tome kako se svijet kreće. Od domaćih raketa do demonstracija loma svjetlosti, smišljeno da pojasni apstraktne koncepte.",
+    space:
+      "Istražite Zemlju, Mjesec, planete i svemir kroz jasna objašnjenja, usporedbe veličina i praktične modele za znatiželjnu djecu.",
     origami:
       "Savijanje papira idealno za razvijanje matematičkog razmišljanja, koncentracije i strpljenja. Svaki projekt implicitno podučava geometrijski koncept (simetrija, razlomci, prostorno razmišljanje).",
     sensory:
@@ -106,6 +113,7 @@ export const SURFACED_TAGS: readonly TagSlug[] = [
   "origami",
   "chemistry",
   "physics",
+  "space",
   "sensory",
   "experiment",
   "coding",

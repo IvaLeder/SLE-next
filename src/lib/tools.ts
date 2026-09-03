@@ -185,7 +185,7 @@ const allTools: Tool[] = [
     },
     tagline: {
       en: "Build, flip and split multiplication facts, then practise the small set that still needs attention.",
-      hr: "Izgradite, okrenite i rastavite činjenice množenja, a zatim vježbajte mali skup koji još traži pažnju.",
+      hr: "Izgradite, okrenite i rastavite činjenice množenja, a zatim vježbajte činjenice koje još nisu svladane.",
     },
     description: {
       en: "A free multiplication visualizer for kids with arrays, equal groups, number-line jumps, break-apart strategies, a times table and focused practice.",
@@ -245,8 +245,8 @@ const allTools: Tool[] = [
       hr: "Pronađite rođendan u broju pi: pretraga milijun znamenki",
     },
     tagline: {
-      en: "Type a birthday and discover whether—and where—those digits appear in the first million decimal places of π.",
-      hr: "Upišite rođendan i otkrijte pojavljuju li se—i gdje—te znamenke u prvih milijun decimala broja π.",
+      en: "Type a birthday and discover whether, and where, those digits appear in the first million decimal places of π.",
+      hr: "Upišite rođendan i otkrijte pojavljuju li se, i gdje, te znamenke u prvih milijun decimala broja π.",
     },
     description: {
       en: "Search one million digits of Pi for your birthday or any number and see exactly where it appears. A free, playful way for kids to explore π.",
