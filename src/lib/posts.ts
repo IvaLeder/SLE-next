@@ -144,7 +144,10 @@ export function getAllPosts(lang: "en" | "hr"): Post[] {
  * PostCard directly) don't need this — their props never leave the server.
  */
 export function toPostMeta(posts: Post[]): PostMeta[] {
-  return posts.map(({ content: _content, ...meta }) => meta);
+  return posts.map(({ content, ...meta }) => {
+    void content; // Intentionally strip the full MDX body at the server boundary.
+    return meta;
+  });
 }
 
 /**

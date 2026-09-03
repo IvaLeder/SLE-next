@@ -174,7 +174,9 @@ export function renderBackToSchoolOg(lang: Lang): ImageResponse {
         transform: `rotate(${rotation}deg)`,
       }}
     >
-      <img src={src} width={width} height={height} style={{ objectFit: "cover", objectPosition }} />
+      {/* next/image cannot render inside ImageResponse; this image is decorative. */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img alt="" src={src} width={width} height={height} style={{ objectFit: "cover", objectPosition }} />
     </div>
   );
   return new ImageResponse(

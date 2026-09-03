@@ -406,7 +406,6 @@ const allTools: Tool[] = [
   },
   {
     key: "weight-on-planets",
-    status: "draft",
     slug: { en: "weight-on-other-planets", hr: "koliko-tezim-na-drugim-planetima" },
     icon: "🪐",
     title: {
@@ -427,8 +426,8 @@ const allTools: Tool[] = [
         hr: "gdje-zivimo-u-svemiru",
       },
       label: {
-        en: "Take the tour of all nine worlds",
-        hr: "Prošećite se kroz svih devet svjetova",
+        en: "Find your address in the Universe",
+        hr: "Pronađite svoju adresu u svemiru",
       },
     },
   },
@@ -558,6 +557,7 @@ const TOOL_RECOMMENDATIONS: Record<string, readonly string[]> = {
   "multiplication-visualizer": ["fraction-visualizer", "pattern-maker", "tower-of-hanoi"],
   "pattern-maker": ["multiplication-visualizer", "color-mixer", "activity-spinner"],
   "find-birthday-in-pi": ["fraction-visualizer", "tower-of-hanoi", "clock"],
+  "weight-on-planets": ["fraction-visualizer", "multiplication-visualizer", "find-birthday-in-pi"],
   clock: ["fraction-visualizer", "pattern-maker", "activity-spinner"],
   "morse-code": ["caesar-cipher", "name-in-binary", "activity-spinner"],
   "developmental-leaps": ["clock", "pattern-maker", "activity-spinner"],

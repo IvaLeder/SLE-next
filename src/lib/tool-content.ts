@@ -229,6 +229,36 @@ export const TOOL_CONTENT: Record<string, ToolContent> = {
       hr: "Pretraga obuhvaća točno 1.000.000 znamenki nakon decimalnog zareza. Unos je ograničen na 12 znamenki; primjerice, 14. 3. postaje 143, a 14. 03. 1990. postaje 14031990. Pretraga se izvršava u vašem pregledniku i datum nam se ne šalje.",
     },
   },
+  "weight-on-planets": {
+    steps: {
+      en: [
+        "Enter a weight and choose kilograms or pounds.",
+        "Compare what a scale would read and how strong gravity is across nine worlds.",
+        "Open the extra worlds to compare jump estimates and places with no solid surface.",
+      ],
+      hr: [
+        "Upišite težinu i odaberite kilograme ili funte.",
+        "Usporedite što bi vaga pokazala i koliko je jaka gravitacija na devet svjetova.",
+        "Otvorite dodatne svjetove i usporedite procjene skoka te mjesta bez čvrste površine.",
+      ],
+    },
+    learns: {
+      en: [
+        "Your mass stays the same while your weight depends on the gravity of each world.",
+        "A large planet does not always pull harder because its radius also matters.",
+        "Gas giants have no solid ground, so their quoted gravity is measured near the cloud tops.",
+      ],
+      hr: [
+        "Vaša masa ostaje ista, a težina ovisi o gravitaciji svakog svijeta.",
+        "Velik planet ne privlači uvijek jače jer je važan i njegov polumjer.",
+        "Plinoviti divovi nemaju čvrsto tlo, pa se navedena gravitacija računa blizu vrhova oblaka.",
+      ],
+    },
+    note: {
+      en: "Jump heights are simple gravity-only estimates for comparison. They ignore air resistance, terrain, spacesuits and human limits. Gas giants and the Sun have no solid surface on which to stand.",
+      hr: "Visine skoka jednostavne su procjene samo prema gravitaciji. Zanemaruju otpor zraka, teren, svemirska odijela i ljudska ograničenja. Plinoviti divovi i Sunce nemaju čvrstu površinu na kojoj biste mogli stajati.",
+    },
+  },
   clock: {
     steps: {
       en: [
