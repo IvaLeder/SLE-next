@@ -1,5 +1,5 @@
 ﻿---
-title: Kako napraviti i riješiti Hanoi toranj
+title: "Hanojski toranj: pravila, rješenje i najmanji broj poteza"
 translationKey: make-and-solve-tower-of-hanoi
 slug: kako-napraviti-rijesiti-hanoi-toranj
 lang: hr
@@ -10,10 +10,10 @@ subtitle: >-
   riješiti Hanoi toranj koji je pogodan za sve uzraste radi lakog prilagođavanja
   težine.
 description: >-
-  Naučite napraviti Hanoi toranj i uživajte u odličnoj mozgalici. Vježbajte
-  algoritme, uzorke i učite matematiku uz ovu zabavnu aktivnost.
+  Pravila Hanojskog tornja, rješenje korak po korak, formula 2ⁿ − 1 za najmanji
+  broj poteza te upute za izradu vlastite mozgalice.
 date: '2020-06-25'
-dateModified: '2026-06-23'
+dateModified: "2026-09-02"
 author: Vedran Leder
 coverImage: /images/posts/Kako-napraviti-i-riješiti-Hanoi-toranj.jpg
 heroAlt: "Hanojski toranj"
@@ -28,6 +28,16 @@ tags:
 />
 
 <Callout type="tip" title="🎮 Zaigrajte dok čitate">Niže u članku naći ćete digitalni Hanojski toranj koji možete odmah probati. Želite cijelu stranicu? Otvorite [alat Hanojski toranj](/hr/alati/hanojski-toranj).</Callout>
+
+## Pravila Hanojskog tornja u 30 sekundi
+
+Cilj je premjestiti cijeli toranj sa štapa **A** na štap **C**, dok štap **B** služi kao privremeno mjesto:
+
+1. Pomičite samo **jedan disk odjednom**.
+2. Pomičite samo **gornji disk** s hrpe.
+3. Nikada ne stavljajte **veći disk na manji**.
+
+Počnite s tri diska u digitalnoj mozgalici niže ili [odmah prijeđite na potpuno rješenje u sedam poteza](#rješenje-hanojskog-tornja-s-3-diska).
 
 > Postoji legenda o hramu u Indiji s tri stupa na kojima se nalaze 64 zlatna diska. Svećenici u hramu rješavaju zagonetku od početka vremena, i kada konačno riješe Hanoi toranj, doći će do smaka svijeta.
 
@@ -119,7 +129,7 @@ Postoje dva algoritma, a koji ćemo koristiti ovisi o tome radimo li s parnim il
 
 Da bi riješili Hanoi Toranj s 3 diska, potrebno je napraviti minimalno 7 poteza.
 
-## Ako imamo parni broj diskova
+### Ako imamo parni broj diskova
 
 1. Napravite dozvoljeni potez između polja A i B
 2. Napravite dozvoljeni potez između polja A i C
@@ -128,7 +138,7 @@ Da bi riješili Hanoi Toranj s 3 diska, potrebno je napraviti minimalno 7 poteza
 
 **Dozvoljeni potez -** manji disk može ići na veći disk, ne obratno.
 
-## Ako imamo neparni broj diskova
+### Ako imamo neparni broj diskova
 
 1. Napravite dozvoljeni potez između polja A i C
 2. Napravite dozvoljeni potez između polja A i B
@@ -138,6 +148,45 @@ Da bi riješili Hanoi Toranj s 3 diska, potrebno je napraviti minimalno 7 poteza
 **Dozvoljeni potez -** manji disk može ići na veći disk, ne obratno.
 
 Ovako gledajući djeluje pomalo apstraktno i teško za vizualizirati, ali kada pokušate slijediti ovaj obrazac, vidjet ćete kako jednostavno funkcionira. Držeći se koraka možemo pomoću algoritma riješiti izazov s bilo kojim brojem diskova u najmanjem mogućem broju poteza.
+
+## Rješenje Hanojskog tornja s 3 diska
+
+Najmanji disk nazovite **1**, srednji **2**, a najveći **3**. Ako su sva tri na štapu A, ovih sedam dozvoljenih poteza složit će cijeli toranj na štapu C:
+
+| Potez | Disk | Od → do |
+|---|---:|---|
+| 1 | 1 | A → C |
+| 2 | 2 | A → B |
+| 3 | 1 | C → B |
+| 4 | 3 | A → C |
+| 5 | 1 | B → A |
+| 6 | 2 | B → C |
+| 7 | 1 | A → C |
+
+To je najmanji mogući broj jer je **2³ − 1 = 7**. Isprobajte slijed u mozgalici iznad, zatim otvorite [alat Hanojski toranj preko cijele stranice](/hr/alati/hanojski-toranj) i pokušajte ga ponoviti bez gledanja.
+
+## Obrazac za rješavanje Hanojskog tornja
+
+Nakon nekoliko pokušaja primijetit ćete obrazac koji pretvara nagađanje u pouzdan postupak:
+
+**Svaki drugi potez pripada najmanjem disku.** Pomaknite najmanji disk, napravite jedini drugi dozvoljeni potez, ponovno pomaknite najmanji i nastavite izmjenjivati ta dva koraka.
+
+**Najmanji disk stalno se kreće u istom smjeru:**
+
+- Kod **neparnog broja diskova** (3, 5, 7) kreće se A → C → B → A i tako dalje.
+- Kod **parnog broja diskova** (4, 6) kreće se A → B → C → A i tako dalje.
+
+Između njegovih poteza uvijek postoji samo jedan dozvoljeni potez koji ne uključuje najmanji disk. Slijedite li taj obrazac, dobit ćete rješenje s najmanjim brojem poteza:
+
+| Diskovi | Najmanje poteza |
+|---:|---:|
+| 3 | 7 |
+| 4 | 15 |
+| 5 | 31 |
+| 6 | 63 |
+| 7 | 127 |
+
+Ako izgubite redoslijed, nemojte počinjati ispočetka. Pogledajte gdje je najmanji disk, prisjetite se u kojem se smjeru kretao i nastavite obrazac.
 
 ## Što ćete naučiti i koje vještine ćete unaprijediti rješavajući Hanoi Toranj
 

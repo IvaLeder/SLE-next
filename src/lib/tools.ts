@@ -108,8 +108,8 @@ const allTools: Tool[] = [
     slug: { en: "tower-of-hanoi", hr: "hanojski-toranj" },
     icon: "🗼",
     title: {
-      en: "Tower of Hanoi",
-      hr: "Hanojski toranj",
+      en: "Play Tower of Hanoi Online",
+      hr: "Igrajte Hanojski toranj online",
     },
     tagline: {
       en: "Move the whole stack to the last peg in as few moves as you can. Test yourself in this classic puzzle of logic and patience.",
@@ -241,12 +241,12 @@ const allTools: Tool[] = [
     slug: { en: "find-your-birthday-in-pi", hr: "pronadi-rodendan-u-piju" },
     icon: "🎂",
     title: {
-      en: "Find your birthday in Pi",
-      hr: "Pronađi svoj rođendan u broju π",
+      en: "Find Your Birthday in Pi: Million-Digit Search Tool",
+      hr: "Pronađite rođendan u broju pi: pretraga milijun znamenki",
     },
     tagline: {
-      en: "Type your birthday and discover exactly where those digits appear in the never-ending number π.",
-      hr: "Upišite svoj rođendan i otkrijte gdje se točno te znamenke pojavljuju u beskonačnom broju π.",
+      en: "Type a birthday and discover whether—and where—those digits appear in the first million decimal places of π.",
+      hr: "Upišite rođendan i otkrijte pojavljuju li se—i gdje—te znamenke u prvih milijun decimala broja π.",
     },
     description: {
       en: "Search one million digits of Pi for your birthday or any number and see exactly where it appears. A free, playful way for kids to explore π.",
@@ -257,7 +257,7 @@ const allTools: Tool[] = [
         en: "explore-number-pi",
         hr: "istrazimo-broj-pi",
       },
-      label: { en: "Read all about the number Pi", hr: "Pročitajte sve o broju Pi" },
+      label: { en: "Measure pi and learn why it works", hr: "Izmjerite pi i saznajte kako funkcionira" },
     },
   },
   {

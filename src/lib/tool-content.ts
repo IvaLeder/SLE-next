@@ -90,6 +90,10 @@ export const TOOL_CONTENT: Record<string, ToolContent> = {
         "Planiranje unaprijed dovodi do cilja brže od nasumičnog pokušavanja.",
       ],
     },
+    note: {
+      en: "The fewest possible moves for n disks is 2ⁿ − 1: 3 disks need 7 moves, 4 need 15, 5 need 31 and 6 need 63. Start with 3 disks, then increase the difficulty when you can solve it without undoing a move.",
+      hr: "Najmanji mogući broj poteza za n diskova iznosi 2ⁿ − 1: za 3 diska treba 7 poteza, za 4 treba 15, za 5 treba 31, a za 6 treba 63. Počnite s 3 diska pa povećajte težinu kada zagonetku možete riješiti bez vraćanja poteza.",
+    },
   },
   "activity-spinner": {
     steps: {
@@ -198,12 +202,12 @@ export const TOOL_CONTENT: Record<string, ToolContent> = {
   "find-birthday-in-pi": {
     steps: {
       en: [
-        "Enter a birthday or another short sequence of digits.",
+        "Enter a birthday or another short sequence; punctuation is removed, so 14/3 becomes 143.",
         "Search the first million decimal places of pi.",
         "Read the position and surrounding digits when the sequence is found.",
       ],
       hr: [
-        "Upišite datum rođenja ili neki drugi kratki niz znamenki.",
+        "Upišite datum rođenja ili drugi kratki niz; znakovi se uklanjaju pa 14. 3. postaje 143.",
         "Pretražite prvih milijun decimala broja pi.",
         "Pogledajte položaj i okolne znamenke pronađenog niza.",
       ],
@@ -219,6 +223,10 @@ export const TOOL_CONTENT: Record<string, ToolContent> = {
         "Kratak niz znamenki može se pojaviti duboko unutar dugog broja.",
         "Položaj pokazuje na kojoj decimali broja pi počinje podudaranje.",
       ],
+    },
+    note: {
+      en: "The search covers exactly 1,000,000 digits after the decimal point. Input is limited to 12 digits; for example, 14/3 becomes 143 and 14/03/1990 becomes 14031990. The search runs in your browser, and your date is not submitted to us.",
+      hr: "Pretraga obuhvaća točno 1.000.000 znamenki nakon decimalnog zareza. Unos je ograničen na 12 znamenki; primjerice, 14. 3. postaje 143, a 14. 03. 1990. postaje 14031990. Pretraga se izvršava u vašem pregledniku i datum nam se ne šalje.",
     },
   },
   clock: {

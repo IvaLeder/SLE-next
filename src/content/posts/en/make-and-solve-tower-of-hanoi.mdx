@@ -14,7 +14,7 @@ description: >-
   Tower of Hanoi rules, the algorithm to solve it, the minimum-moves formula
   (2^n − 1: 7 moves for 3 disks, 31 for 5), and how to make your own puzzle.
 date: '2020-06-25'
-dateModified: "2026-07-27"
+dateModified: "2026-09-02"
 author: Iva Leder
 coverImage: /images/posts/How-to-make-and-solve-the-Tower-of-Hanoi.jpg
 heroAlt: "The Tower of Hanoi puzzle"
@@ -31,6 +31,16 @@ title="Tower of Hanoi (Lucas Tower): How to Make and Solve It"
 
 <Callout type="tip" title="🎮 Play as you read">This article has a playable Tower of Hanoi built in - scroll down to try it with 3 to 6 disks. Prefer a full page? Open the [Tower of Hanoi puzzle tool](/en/tools/tower-of-hanoi).</Callout>
 
+## Tower of Hanoi rules in 30 seconds
+
+The goal is to move the complete stack from peg **A** to peg **C**, using peg **B** as temporary storage:
+
+1. Move only **one disk at a time**.
+2. Move only the **top disk** of a stack.
+3. Never place a **larger disk on a smaller disk**.
+
+Start with three disks in the playable puzzle below, or [jump to the complete seven-move solution](#tower-of-hanoi-solution-for-3-disks).
+
 > The legend goes that there is a temple in Asia where the monks have been solving the Tower of Hanoi puzzle with 64 disks since the beginning of the time. According to this legend, when the monks finish moving all the pieces, the world will end.
 
 ## Tower of Hanoi - Origin of the Name
@@ -41,7 +51,7 @@ It’s also referred to as the **Tower of Brahma** because some believed that th
 
 The third and most popular name is the **Tower of Hanoi**. The name refers to a place from the legend, it’s said that the tower is in the capital city of Vietnam, Hanoi.
 
-## Tower of Hanoi rules: how the puzzle works
+## How the Tower of Hanoi puzzle works
 
 You start with the **three spots** (most often wooden sticks) and a certain **number of disks** (pieces) stacked on the first spot.
 
@@ -132,14 +142,14 @@ The algorithm depends on the starting number of pieces. If there is an even numb
 
 To solve the Hanoi Tower with 3 disks, we will need a minimum of 7 moves.
 
-## If we have even number of pieces
+### If we have an even number of pieces
 
 1. make the legal move between positions A and B
 2. make the legal move between positions A and C
 3. make the legal move between positions B and C
 4. Go to **step 1** and repeat steps 1, 2, and 3 until you complete the puzzle.
 
-## If we have an odd number of pieces
+### If we have an odd number of pieces
 
 1. make the legal move between positions A and C
 2. make the legal move between positions A and B
@@ -149,6 +159,22 @@ To solve the Hanoi Tower with 3 disks, we will need a minimum of 7 moves.
 **Legal move** - piece can go only on a bigger piece or on the empty spot.
 
 Although it seems very abstract and it’s hard to visualize, when you start moving the pieces you will appreciate this algorithm. We say it's an algorithm because it’s a recipe to solve this problem for any number of inputs (pieces) in the minimum number of moves. Try with 6 or 7 pieces and see that it still works!
+
+## Tower of Hanoi solution for 3 disks
+
+Call the smallest disk **1**, the middle disk **2** and the largest disk **3**. Starting with all three on peg A, these seven legal moves build the complete tower on peg C:
+
+| Move | Disk | From → to |
+|---|---:|---|
+| 1 | 1 | A → C |
+| 2 | 2 | A → B |
+| 3 | 1 | C → B |
+| 4 | 3 | A → C |
+| 5 | 1 | B → A |
+| 6 | 2 | B → C |
+| 7 | 1 | A → C |
+
+That is the minimum because **2³ − 1 = 7**. Try the sequence in the puzzle above, then open the [full-page Tower of Hanoi tool](/en/tools/tower-of-hanoi) and see whether you can repeat it without looking.
 
 ## The Tower of Hanoi pattern (the trick)
 
