@@ -2,23 +2,25 @@ import Link from "next/link";
 import { TOOLS_SLUG, type Tool, type Lang } from "@/lib/tools";
 import { MINDS_SLUG } from "@/lib/minds";
 import Printable from "@/components/mdx/Printable";
-import NameInBinary from "@/components/tools/NameInBinary";
-import CaesarCipher from "@/components/tools/CaesarCipher";
-import TowerOfHanoi from "@/components/tools/TowerOfHanoi";
-import SpinActivity from "@/components/tools/SpinActivity";
-import FractionVisualizer from "@/components/tools/FractionVisualizer";
-import MultiplicationVisualizer from "@/components/tools/MultiplicationVisualizer";
-import FindBirthdayInPi from "@/components/tools/FindBirthdayInPi";
-import MorseCode from "@/components/tools/MorseCode";
-import ClockTool from "@/components/tools/ClockTool";
-import DevelopmentalLeaps from "@/components/tools/DevelopmentalLeaps";
-import PatternMaker from "@/components/tools/PatternMaker";
-import ColorMixer from "@/components/tools/ColorMixer";
-import NumberSystems from "@/components/tools/NumberSystems";
-import WeightOnPlanets from "@/components/tools/WeightOnPlanets";
-import PrimeExplorer from "@/components/tools/PrimeExplorer";
-import GuessMyNumber from "@/components/tools/GuessMyNumber";
-import TrussTester from "@/components/tools/TrussTester";
+import {
+  NameInBinary,
+  CaesarCipher,
+  TowerOfHanoi,
+  SpinActivity,
+  FractionVisualizer,
+  MultiplicationVisualizer,
+  FindBirthdayInPi,
+  MorseCode,
+  ClockTool,
+  DevelopmentalLeaps,
+  PatternMaker,
+  ColorMixer,
+  NumberSystems,
+  WeightOnPlanets,
+  PrimeExplorer,
+  GuessMyNumber,
+  TrussTester,
+} from "@/components/tools/LazyToolUi";
 import ToolFrame from "@/components/tools/ToolFrame";
 import ToolPageAnalytics from "@/components/tools/ToolPageAnalytics";
 import { ToolRecommendations } from "@/components/tools/ToolDiscovery";
@@ -30,7 +32,7 @@ import { siteConfig } from "@/config/site";
 
 // Maps a tool's `key` to its interactive UI. Add new tools here. (The activity
 // spinner is special-cased below because it needs a server-fetched post list.)
-const TOOL_UI: Record<string, React.ComponentType<{ lang: Lang }>> = {
+const TOOL_UI: Record<string, React.ComponentType<{ lang?: Lang }>> = {
   "name-in-binary": NameInBinary,
   "caesar-cipher": CaesarCipher,
   "tower-of-hanoi": TowerOfHanoi,

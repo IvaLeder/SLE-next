@@ -98,7 +98,7 @@ export default async function TagPage({ params }: Props) {
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {posts.map((post, i) => (
-            <PostCard key={post.slug} post={post} lang="en" priority={i < 3} headingLevel="h2" />
+            <PostCard key={post.slug} post={post} lang="en" priority={i === 0} headingLevel="h2" />
           ))}
         </div>
       </main>

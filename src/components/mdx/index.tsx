@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { imageSize } from "image-size";
-import YouTube from "./YouTube";
+import YouTube from "./LazyYouTube";
 import { Callout } from "./Callout";
 import ActivityInfo from "./ActivityInfo";
 import Steps, { Step } from "./Steps";
@@ -22,21 +22,23 @@ import Materials from "./Materials";
 import Material from "./Material";
 import AdSlot from "../AdSlot";
 import { AD_SLOTS } from "@/lib/ads";
-import NameInBinary from "../tools/NameInBinary";
-import CaesarCipher from "../tools/CaesarCipher";
-import TowerOfHanoi from "../tools/TowerOfHanoi";
-import FractionVisualizer from "../tools/FractionVisualizer";
-import MultiplicationVisualizer from "../tools/MultiplicationVisualizer";
-import FindBirthdayInPi from "../tools/FindBirthdayInPi";
-import MorseCode from "../tools/MorseCode";
-import ClockTool from "../tools/ClockTool";
-import PatternMaker from "../tools/PatternMaker";
-import ColorMixer from "../tools/ColorMixer";
-import NumberSystems from "../tools/NumberSystems";
-import WeightOnPlanets from "../tools/WeightOnPlanets";
-import PrimeExplorer from "../tools/PrimeExplorer";
-import GuessMyNumber from "../tools/GuessMyNumber";
-import TrussTester from "../tools/TrussTester";
+import {
+  NameInBinary,
+  CaesarCipher,
+  TowerOfHanoi,
+  FractionVisualizer,
+  MultiplicationVisualizer,
+  FindBirthdayInPi,
+  MorseCode,
+  ClockTool,
+  PatternMaker,
+  ColorMixer,
+  NumberSystems,
+  WeightOnPlanets,
+  PrimeExplorer,
+  GuessMyNumber,
+  TrussTester,
+} from "../tools/LazyToolUi";
 import { SubscribeButton } from "../SubscribeButton";
 
 // Markdown ![alt](src) and <Image src=…/> in MDX both flow through here.

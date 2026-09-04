@@ -11,6 +11,11 @@ const fraunces = Fraunces({
   axes: ["SOFT", "opsz"],
   variable: "--font-fraunces",
   display: "swap",
+  // This component is imported by shared article/category/tool routes so they
+  // can choose the theme at build time. Preloading here therefore put the
+  // large variable font on every STEM page too. The scoped theme still loads
+  // Fraunces normally when a Mind Explorers heading actually uses it.
+  preload: false,
 });
 
 /**

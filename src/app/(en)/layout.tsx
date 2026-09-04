@@ -16,8 +16,19 @@ const lora = Lora({
   subsets: ["latin", "latin-ext"],
   display: "swap",
   weight: ["400", "700"],
-  style: ["normal", "italic"],
+  style: "normal",
   variable: "--font-lora",
+});
+
+// Keep real Lora italics available without preloading them on listing, tool
+// and form pages that never use italic prose above the fold.
+const loraItalic = Lora({
+  subsets: ["latin", "latin-ext"],
+  display: "swap",
+  weight: ["400", "700"],
+  style: "italic",
+  variable: "--font-lora-italic",
+  preload: false,
 });
 
 // Inter drives UI chrome (Header, Footer, buttons, filter chips, form inputs).
@@ -67,7 +78,7 @@ export default function EnRootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${lora.variable} ${inter.variable}`}>
+    <html lang="en" className={`${lora.variable} ${loraItalic.variable} ${inter.variable}`}>
       <body>
         {/* Keyboard-first skip link — visible only when focused */}
         <a

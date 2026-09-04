@@ -12,8 +12,17 @@ const lora = Lora({
   subsets: ["latin", "latin-ext"],
   display: "swap",
   weight: ["400", "700"],
-  style: ["normal", "italic"],
+  style: "normal",
   variable: "--font-lora",
+});
+
+const loraItalic = Lora({
+  subsets: ["latin", "latin-ext"],
+  display: "swap",
+  weight: ["400", "700"],
+  style: "italic",
+  variable: "--font-lora-italic",
+  preload: false,
 });
 
 // preload:false — Inter is UI chrome (nav, buttons, meta), never the LCP
@@ -60,7 +69,7 @@ export default function HrRootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="hr" className={`${lora.variable} ${inter.variable}`}>
+    <html lang="hr" className={`${lora.variable} ${loraItalic.variable} ${inter.variable}`}>
       <body>
         {/* Keyboard-first skip link — visible only when focused */}
         <a

@@ -25,22 +25,24 @@ export default async function PostLayout({
     ? `/hr/${translatedPost.slug}`
     : "/hr";
 
+  const post = getPostBySlug("en", slug);
+
   // Psychology articles are Mind Explorers surfaces: the whole page, Header
   // and Footer included, sits inside the theme scope (BACKLOG §1c Phase 0/3).
   // Resolved statically per slug, so every page stays prerendered.
-  const minds = isMindsPost(getPostBySlug("en", slug)?.categories);
+  const minds = isMindsPost(post?.categories);
+  const hasYouTube = post?.content.includes("<YouTube") ?? false;
+  const hasAds = Boolean(process.env.NEXT_PUBLIC_ADSENSE_CLIENT);
   const Wrap = minds ? MindsTheme : Fragment;
 
   return (
     <Wrap>
-      {/* Many activity posts embed YouTube — warm up the connection so the
-          first click on a video saves ~200–400 ms of DNS + TLS. */}
-      <link rel="preconnect" href="https://www.youtube.com" />
-      <link rel="preconnect" href="https://i.ytimg.com" />
-      <link rel="preconnect" href="https://img.youtube.com" />
+      {/* The click-to-play embed initially requests only its thumbnail. Avoid
+          opening three third-party connections on articles with no video. */}
+      {hasYouTube && <link rel="preconnect" href="https://i.ytimg.com" />}
 
       {/* AdSense library (no-op until NEXT_PUBLIC_ADSENSE_CLIENT is set) */}
-      <link rel="preconnect" href="https://pagead2.googlesyndication.com" />
+      {hasAds && <link rel="preconnect" href="https://pagead2.googlesyndication.com" />}
       <AdSenseScript />
 
       <Header
