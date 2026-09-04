@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { statusCopy, exploreCopy, type Lang } from "@/lib/newsletter";
+import NewsletterStatusAnalytics from "@/components/NewsletterStatusAnalytics";
 
 // Body of the two post-signup status pages. The welcome page is the completed
 // single-opt-in conversion; the thank-you page remains for the optional
@@ -16,6 +17,7 @@ export default function NewsletterStatusPage({
 
   return (
     <div className="text-center">
+      <NewsletterStatusAnalytics lang={lang} kind={kind} />
       <p aria-hidden="true" className="text-5xl">
         {c.emoji}
       </p>

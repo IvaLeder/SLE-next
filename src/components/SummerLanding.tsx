@@ -78,6 +78,11 @@ export default function SummerLanding({ lang }: { lang: Lang }) {
           <a
             href={pdf}
             id="summer"
+            data-analytics-event="resource_download"
+            data-analytics-resource-id="summer-ebook"
+            data-analytics-source="summer"
+            data-analytics-placement="hero"
+            data-analytics-lang={lang}
             className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 font-sans text-sm font-semibold transition-transform hover:scale-[1.03]"
             style={{ color: "#B23A1B" }}
           >
@@ -159,6 +164,11 @@ export default function SummerLanding({ lang }: { lang: Lang }) {
             <a
               id="summer"
               href={pdf}
+              data-analytics-event="resource_download"
+              data-analytics-resource-id="summer-ebook"
+              data-analytics-source="summer"
+              data-analytics-placement="download-card"
+              data-analytics-lang={lang}
               className="mt-4 inline-flex items-center gap-2 rounded-full px-6 py-3 font-sans text-sm font-semibold text-white transition-transform hover:scale-[1.03]"
               style={{ background: "#FB6F52" }}
             >

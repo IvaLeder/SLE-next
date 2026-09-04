@@ -1,6 +1,6 @@
 import Link from "next/link";
 import NewsletterSignupForm from "./NewsletterSignupForm";
-import { SUBSCRIBE_SLUG, type Lang } from "@/lib/newsletter";
+import { newsletterHref, type Lang } from "@/lib/newsletter";
 
 const COPY = {
   en: {
@@ -68,7 +68,10 @@ export default function NewsletterPromo({
             </h2>
             <p className="mt-2 text-sm leading-relaxed text-gray-600 md:text-base">{c.body}</p>
             <Link
-              href={`/${lang}/${SUBSCRIBE_SLUG[lang]}`}
+              href={newsletterHref(lang, placement)}
+              data-analytics-event="newsletter_cta_click"
+              data-analytics-source={placement}
+              data-analytics-placement="learn-more"
               className="mt-3 inline-block font-sans text-sm font-semibold text-brand hover:text-brand-hover hover:underline"
             >
               {t.more} →

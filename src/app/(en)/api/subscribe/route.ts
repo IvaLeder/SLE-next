@@ -6,7 +6,19 @@ const MAX_EMAIL = 254;
 
 // Where on the site the signup came from. Whitelisted so the Mailchimp tag set
 // stays clean; unknown values fall back to the landing-page tag.
-const KNOWN_SOURCES = new Set(["subscribe-page", "home", "article", "floating", "footer", "minds"]);
+// Keep this list aligned with NEWSLETTER_SOURCES in src/lib/newsletter.ts. It is
+// duplicated here because the route's direct Node test does not resolve the @/
+// runtime alias used by browser-safe shared modules.
+const KNOWN_SOURCES = new Set([
+  "subscribe-page",
+  "home",
+  "article",
+  "floating",
+  "footer",
+  "header",
+  "mdx",
+  "minds",
+]);
 const MAX_NAME = 100;
 const DEFAULT_SOURCE = "subscribe-page";
 

@@ -20,6 +20,8 @@ function pageCount(lang: Lang, n: number): string {
 
 interface PrintableProps {
   lang?: Lang;
+  /** Page family where the card is rendered, for download attribution. */
+  source?: "article" | "tool";
   /** Stable tracking id on the download link; GTM's Click ID reads it.
    *  Same value in both languages so EN + HR report as one printable. */
   id?: string;
@@ -49,6 +51,7 @@ interface PrintableProps {
  */
 export default function Printable({
   lang = "en",
+  source = "article",
   id,
   href,
   title,
@@ -57,6 +60,7 @@ export default function Printable({
   children,
 }: PrintableProps) {
   const t = COPY[lang];
+  const resourceId = id ?? href.split("/").pop()?.replace(/\.[^.]+$/, "") ?? "download";
   const meta = [
     pages != null ? pageCount(lang, Number(pages)) : null,
     size ?? null,
@@ -89,6 +93,11 @@ export default function Printable({
           id={id}
           href={href}
           download
+          data-analytics-event="resource_download"
+          data-analytics-resource-id={resourceId}
+          data-analytics-source={source}
+          data-analytics-placement="printable-card"
+          data-analytics-lang={lang}
           className="shrink-0 rounded-full bg-brand px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-hover"
         >
           {t.download}

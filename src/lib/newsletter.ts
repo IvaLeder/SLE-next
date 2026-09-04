@@ -18,6 +18,28 @@ export const SUBSCRIBE_SLUG: L = { en: "subscribe", hr: "pretplata" };
 export const THANK_YOU_SLUG: L = { en: "thank-you", hr: "hvala" };
 export const WELCOME_SLUG: L = { en: "welcome", hr: "dobrodosli" };
 
+export const NEWSLETTER_SOURCES = [
+  "subscribe-page",
+  "home",
+  "article",
+  "floating",
+  "footer",
+  "header",
+  "mdx",
+  "minds",
+] as const;
+export type NewsletterSource = (typeof NEWSLETTER_SOURCES)[number];
+
+export function parseNewsletterSource(value: unknown): NewsletterSource | null {
+  return typeof value === "string" && NEWSLETTER_SOURCES.includes(value as NewsletterSource)
+    ? (value as NewsletterSource)
+    : null;
+}
+
+export function newsletterHref(lang: Lang, source: NewsletterSource): string {
+  return `/${lang}/${SUBSCRIBE_SLUG[lang]}?source=${source}`;
+}
+
 export const subscribeCopy: Record<
   Lang,
   {

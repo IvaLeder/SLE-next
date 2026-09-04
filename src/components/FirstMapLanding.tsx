@@ -200,6 +200,11 @@ export default function FirstMapLanding({ lang }: { lang: Lang }) {
               <a
                 href={a.pdf}
                 id="first-map"
+                data-analytics-event="resource_download"
+                data-analytics-resource-id="first-map"
+                data-analytics-source="first-map"
+                data-analytics-placement="hero"
+                data-analytics-lang={lang}
                 className="inline-flex items-center gap-2 rounded-full px-6 py-3 font-sans text-sm font-semibold transition-transform hover:scale-[1.03]"
                 style={{ background: "var(--me-gold)", color: "var(--me-plum-deep)" }}
               >
@@ -210,7 +215,17 @@ export default function FirstMapLanding({ lang }: { lang: Lang }) {
           </div>
 
           {/* Cover thumbnail */}
-          <a href={a.pdf} id="first-map" download className="mx-auto block w-40 shrink-0 sm:w-44">
+          <a
+            href={a.pdf}
+            id="first-map"
+            download
+            data-analytics-event="resource_download"
+            data-analytics-resource-id="first-map"
+            data-analytics-source="first-map"
+            data-analytics-placement="cover"
+            data-analytics-lang={lang}
+            className="mx-auto block w-40 shrink-0 sm:w-44"
+          >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={a.cover}
@@ -279,6 +294,11 @@ export default function FirstMapLanding({ lang }: { lang: Lang }) {
         <a
           href={a.pdf}
           id="first-map"
+          data-analytics-event="resource_download"
+          data-analytics-resource-id="first-map"
+          data-analytics-source="first-map"
+          data-analytics-placement="download-card"
+          data-analytics-lang={lang}
           className="mt-5 inline-flex items-center gap-2 rounded-full px-6 py-3 font-sans text-sm font-semibold transition-transform hover:scale-[1.03]"
           style={{ background: "var(--me-gold)", color: "var(--me-plum-deep)" }}
         >

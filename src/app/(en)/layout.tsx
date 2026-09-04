@@ -8,6 +8,7 @@ import { searchPreviewRobots, siteConfig } from "@/config/site";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import GtmWithConsent from "@/components/GtmWithConsent";
+import SiteInteractionAnalytics from "@/components/SiteInteractionAnalytics";
 
 // Lora drives body copy + article prose + page titles (editorial feel).
 // Italic is now included so MDX *italics* render with a real italic face
@@ -88,6 +89,7 @@ export default function EnRootLayout({
           Skip to content
         </a>
         {children}
+        <SiteInteractionAnalytics />
         <Analytics />
         <SpeedInsights />
         {/* GTM + Consent Mode v2 regional defaults — no-ops when NEXT_PUBLIC_GTM_ID is unset.

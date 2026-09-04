@@ -401,6 +401,11 @@ export default function BackToSchoolLanding({ lang }: { lang: BackToSchoolLang }
               id="curious-calm-school-kit"
               href={BACK_TO_SCHOOL_PDF[lang]}
               download
+              data-analytics-event="resource_download"
+              data-analytics-resource-id="curious-calm-school-kit"
+              data-analytics-source="back-to-school"
+              data-analytics-placement="download-card"
+              data-analytics-lang={lang}
               className="mt-4 inline-flex items-center gap-2 rounded-full bg-indigo-600 px-5 py-3 font-sans text-sm font-semibold text-white transition hover:bg-indigo-700"
             >
               {c.download}

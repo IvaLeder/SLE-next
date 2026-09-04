@@ -7,6 +7,7 @@ import { searchPreviewRobots, siteConfig } from "@/config/site";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import GtmWithConsent from "@/components/GtmWithConsent";
+import SiteInteractionAnalytics from "@/components/SiteInteractionAnalytics";
 
 const lora = Lora({
   subsets: ["latin", "latin-ext"],
@@ -79,6 +80,7 @@ export default function HrRootLayout({
           Preskoči na sadržaj
         </a>
         {children}
+        <SiteInteractionAnalytics />
         <Analytics />
         <SpeedInsights />
         {/* GTM + Consent Mode v2 regional defaults — no-ops when NEXT_PUBLIC_GTM_ID is unset.

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import NewsletterSignupForm from "./NewsletterSignupForm";
-import { SUBSCRIBE_SLUG } from "@/lib/newsletter";
+import { newsletterHref } from "@/lib/newsletter";
 
 // Desktop-only floating subscribe card. Below xl we use the inline CTA at the
 // end of the article instead (see (en|hr)/[slug]/page.tsx) — at lg widths
@@ -37,7 +37,10 @@ export default function FloatingSubscribeCard({
           <NewsletterSignupForm lang={lang} variant="compact" source="floating" />
         </div>
         <Link
-          href={`/${lang}/${SUBSCRIBE_SLUG[lang]}`}
+          href={newsletterHref(lang, "floating")}
+          data-analytics-event="newsletter_cta_click"
+          data-analytics-source="floating"
+          data-analytics-placement="learn-more"
           className="mt-2 inline-block font-sans text-[11px] font-semibold text-brand hover:underline"
         >
           {copy.more} →

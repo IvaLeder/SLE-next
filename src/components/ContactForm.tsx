@@ -2,6 +2,7 @@
 
 import { useState, useRef } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
+import { trackSiteEvent } from "@/lib/site-analytics";
 
 type Props = {
   lang: "en" | "hr";
@@ -82,7 +83,7 @@ export default function ContactForm({ lang }: Props) {
         setFormData({ name: "", email: "", message: "", website: "" });
         // Conversion signal for Google Tag Manager. The success message below
         // also carries id="contact-success" as a DOM-based trigger fallback.
-        window.dataLayer?.push({ event: "contact_form_success", lang });
+        trackSiteEvent("contact_form_success", { lang, source: "contact-page" });
         return;
       }
 

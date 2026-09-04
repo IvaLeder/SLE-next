@@ -5,7 +5,7 @@ import { TOOLS_SLUG } from "@/lib/tools";
 import { MILESTONE_GUIDE_SLUG } from "@/lib/milestone-guide";
 import { MINDS_SLUG } from "@/lib/minds";
 import { subjectHref } from "@/lib/categories";
-import { SUBSCRIBE_SLUG } from "@/lib/newsletter";
+import { newsletterHref } from "@/lib/newsletter";
 import { CompassMark } from "@/components/minds/motifs";
 import CookieSettingsButton from "./CookieSettingsButton";
 import NewsletterSignupForm from "./NewsletterSignupForm";
@@ -150,7 +150,10 @@ export default function Footer({
             </h3>
             <p className="mt-1 text-sm leading-relaxed text-gray-600">{t.nlBody}</p>
             <Link
-              href={`/${lang}/${SUBSCRIBE_SLUG[lang]}`}
+              href={newsletterHref(lang, "footer")}
+              data-analytics-event="newsletter_cta_click"
+              data-analytics-source="footer"
+              data-analytics-placement="learn-more"
               className="mt-1 inline-block text-xs text-gray-500 underline hover:text-brand"
             >
               {t.nlMore}

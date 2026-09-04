@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import type { Lang } from "@/lib/tools";
 import { trackToolEvent } from "@/lib/tool-analytics";
+import { ToolAnalyticsProvider } from "@/components/tools/ToolAnalyticsContext";
 
 export default function ToolPageAnalytics({
   lang,
@@ -27,33 +28,35 @@ export default function ToolPageAnalytics({
   };
 
   return (
-    <div
-      onPointerDownCapture={(event) => startOnce(event.target)}
-      onKeyDownCapture={(event) => {
-        if (event.key !== "Tab" && event.key !== "Escape") startOnce(event.target);
-      }}
-      onClickCapture={(event) => {
-        if (!(event.target instanceof Element)) return;
-        if (event.target.closest("a[download]")) {
-          trackToolEvent("tool_download", { tool_key: toolKey, lang, source: "detail" });
-        } else if (event.target.closest("[data-tool-related]")) {
-          trackToolEvent("tool_related_click", { tool_key: toolKey, lang, source: "detail" });
-        } else {
-          const recommendation = event.target.closest<HTMLElement>("[data-tool-recommendation]");
-          const targetKey = recommendation?.dataset.toolRecommendation;
-          if (targetKey) {
-            trackToolEvent("tool_recommendation_click", {
-              tool_key: toolKey,
-              lang,
-              source: "detail",
-              placement: "recommendation",
-              action: targetKey,
-            });
+    <ToolAnalyticsProvider source="detail">
+      <div
+        onPointerDownCapture={(event) => startOnce(event.target)}
+        onKeyDownCapture={(event) => {
+          if (event.key !== "Tab" && event.key !== "Escape") startOnce(event.target);
+        }}
+        onClickCapture={(event) => {
+          if (!(event.target instanceof Element)) return;
+          if (event.target.closest("a[download]")) {
+            trackToolEvent("tool_download", { tool_key: toolKey, lang, source: "detail" });
+          } else if (event.target.closest("[data-tool-related]")) {
+            trackToolEvent("tool_related_click", { tool_key: toolKey, lang, source: "detail" });
+          } else {
+            const recommendation = event.target.closest<HTMLElement>("[data-tool-recommendation]");
+            const targetKey = recommendation?.dataset.toolRecommendation;
+            if (targetKey) {
+              trackToolEvent("tool_recommendation_click", {
+                tool_key: toolKey,
+                lang,
+                source: "detail",
+                placement: "recommendation",
+                action: targetKey,
+              });
+            }
           }
-        }
-      }}
-    >
-      {children}
-    </div>
+        }}
+      >
+        {children}
+      </div>
+    </ToolAnalyticsProvider>
   );
 }

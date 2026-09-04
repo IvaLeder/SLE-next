@@ -3,7 +3,14 @@
 import { useId, useRef, useState, useSyncExternalStore } from "react";
 import { createPortal } from "react-dom";
 import ReCAPTCHA from "react-google-recaptcha";
-import { THANK_YOU_SLUG, WELCOME_SLUG, type Lang } from "@/lib/newsletter";
+import {
+  parseNewsletterSource,
+  THANK_YOU_SLUG,
+  WELCOME_SLUG,
+  type Lang,
+  type NewsletterSource,
+} from "@/lib/newsletter";
+import { trackSiteEvent } from "@/lib/site-analytics";
 
 const MAX_EMAIL = 254;
 const MAX_NAME = 100;
@@ -118,7 +125,7 @@ export default function NewsletterSignupForm({
   compactLayout = "stacked",
 }: {
   lang: Lang;
-  source?: string;
+  source?: NewsletterSource;
   variant?: "full" | "compact";
   compactLayout?: "stacked" | "inline";
 }) {
@@ -142,19 +149,36 @@ export default function NewsletterSignupForm({
   const recaptchaRef = useRef<ReCAPTCHA>(null);
 
   const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
-  const fail = (code: string) => {
+  const resolveSource = (): NewsletterSource => {
+    if (source !== "subscribe-page" || typeof window === "undefined") return source;
+    const querySource = new URLSearchParams(window.location.search).get("source");
+    return parseNewsletterSource(querySource) ?? source;
+  };
+  const fail = (code: string, trackingSource = resolveSource()) => {
     setErrorCode(code);
     setStatus("error");
+    trackSiteEvent("newsletter_signup_error", {
+      lang,
+      source: trackingSource,
+      placement: variant,
+      error_code: CODE_MAP[code] ?? "generic",
+    });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const trackingSource = resolveSource();
+    trackSiteEvent("newsletter_signup_attempt", {
+      lang,
+      source: trackingSource,
+      placement: variant,
+    });
     if (!consent) {
-      fail("consent_required");
+      fail("consent_required", trackingSource);
       return;
     }
     if (!siteKey) {
-      fail("recaptcha");
+      fail("recaptcha", trackingSource);
       return;
     }
     setArmed(true); // safety net (e.g. autofill submitted without a focus event)
@@ -168,11 +192,11 @@ export default function NewsletterSignupForm({
       recaptchaRef.current?.reset();
     } catch {
       recaptchaRef.current?.reset();
-      fail("recaptcha");
+      fail("recaptcha", trackingSource);
       return;
     }
     if (!token) {
-      fail("recaptcha");
+      fail("recaptcha", trackingSource);
       return;
     }
 
@@ -187,7 +211,7 @@ export default function NewsletterSignupForm({
           consent,
           token,
           website,
-          source,
+          source: trackingSource,
           lang,
         }),
       });
@@ -201,12 +225,12 @@ export default function NewsletterSignupForm({
         // Full navigation (not router.push) so the thank-you pageview always
         // fires in GTM regardless of how its triggers handle SPA transitions.
         const slug = data?.code === "subscribed" ? WELCOME_SLUG[lang] : THANK_YOU_SLUG[lang];
-        window.location.assign(`/${lang}/${slug}`);
+        window.location.assign(`/${lang}/${slug}?source=${trackingSource}`);
         return;
       }
-      fail(typeof data?.code === "string" ? data.code : "generic");
+      fail(typeof data?.code === "string" ? data.code : "generic", trackingSource);
     } catch {
-      fail("network");
+      fail("network", trackingSource);
     }
   };
 

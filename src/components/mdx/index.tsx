@@ -40,6 +40,7 @@ import {
   TrussTester,
 } from "../tools/LazyToolUi";
 import { SubscribeButton } from "../SubscribeButton";
+import ToolEmbedAnalytics from "../tools/ToolEmbedAnalytics";
 
 // Markdown ![alt](src) and <Image src=…/> in MDX both flow through here.
 // Routed to <Lightbox> so any inline content image is tap-to-zoom.
@@ -140,21 +141,81 @@ export function mdxComponents(lang: Lang = "en") {
     Material: (props: React.ComponentProps<typeof Material>) => (
       <Material lang={lang} {...props} />
     ),
-    NameInBinary: () => <NameInBinary lang={lang} />,
-    CaesarCipher: () => <CaesarCipher lang={lang} />,
-    TowerOfHanoi: () => <TowerOfHanoi lang={lang} />,
-    FractionVisualizer: () => <FractionVisualizer lang={lang} />,
-    MultiplicationVisualizer: () => <MultiplicationVisualizer lang={lang} />,
-    FindBirthdayInPi: () => <FindBirthdayInPi lang={lang} />,
-    MorseCode: () => <MorseCode lang={lang} />,
-    ClockTool: () => <ClockTool lang={lang} />,
-    PatternMaker: () => <PatternMaker lang={lang} />,
-    ColorMixer: () => <ColorMixer lang={lang} />,
-    NumberSystems: () => <NumberSystems lang={lang} />,
-    WeightOnPlanets: () => <WeightOnPlanets lang={lang} />,
-    PrimeExplorer: () => <PrimeExplorer lang={lang} />,
-    GuessMyNumber: () => <GuessMyNumber lang={lang} />,
-    TrussTester: () => <TrussTester lang={lang} />,
+    NameInBinary: () => (
+      <ToolEmbedAnalytics lang={lang} toolKey="name-in-binary">
+        <NameInBinary lang={lang} />
+      </ToolEmbedAnalytics>
+    ),
+    CaesarCipher: () => (
+      <ToolEmbedAnalytics lang={lang} toolKey="caesar-cipher">
+        <CaesarCipher lang={lang} />
+      </ToolEmbedAnalytics>
+    ),
+    TowerOfHanoi: () => (
+      <ToolEmbedAnalytics lang={lang} toolKey="tower-of-hanoi">
+        <TowerOfHanoi lang={lang} />
+      </ToolEmbedAnalytics>
+    ),
+    FractionVisualizer: () => (
+      <ToolEmbedAnalytics lang={lang} toolKey="fraction-visualizer">
+        <FractionVisualizer lang={lang} />
+      </ToolEmbedAnalytics>
+    ),
+    MultiplicationVisualizer: () => (
+      <ToolEmbedAnalytics lang={lang} toolKey="multiplication-visualizer">
+        <MultiplicationVisualizer lang={lang} />
+      </ToolEmbedAnalytics>
+    ),
+    FindBirthdayInPi: () => (
+      <ToolEmbedAnalytics lang={lang} toolKey="find-birthday-in-pi">
+        <FindBirthdayInPi lang={lang} />
+      </ToolEmbedAnalytics>
+    ),
+    MorseCode: () => (
+      <ToolEmbedAnalytics lang={lang} toolKey="morse-code">
+        <MorseCode lang={lang} />
+      </ToolEmbedAnalytics>
+    ),
+    ClockTool: () => (
+      <ToolEmbedAnalytics lang={lang} toolKey="clock">
+        <ClockTool lang={lang} />
+      </ToolEmbedAnalytics>
+    ),
+    PatternMaker: () => (
+      <ToolEmbedAnalytics lang={lang} toolKey="pattern-maker">
+        <PatternMaker lang={lang} />
+      </ToolEmbedAnalytics>
+    ),
+    ColorMixer: () => (
+      <ToolEmbedAnalytics lang={lang} toolKey="color-mixer">
+        <ColorMixer lang={lang} />
+      </ToolEmbedAnalytics>
+    ),
+    NumberSystems: () => (
+      <ToolEmbedAnalytics lang={lang} toolKey="number-systems">
+        <NumberSystems lang={lang} />
+      </ToolEmbedAnalytics>
+    ),
+    WeightOnPlanets: () => (
+      <ToolEmbedAnalytics lang={lang} toolKey="weight-on-planets">
+        <WeightOnPlanets lang={lang} />
+      </ToolEmbedAnalytics>
+    ),
+    PrimeExplorer: () => (
+      <ToolEmbedAnalytics lang={lang} toolKey="prime-explorer">
+        <PrimeExplorer lang={lang} />
+      </ToolEmbedAnalytics>
+    ),
+    GuessMyNumber: () => (
+      <ToolEmbedAnalytics lang={lang} toolKey="guess-my-number">
+        <GuessMyNumber lang={lang} />
+      </ToolEmbedAnalytics>
+    ),
+    TrussTester: () => (
+      <ToolEmbedAnalytics lang={lang} toolKey="truss-tester">
+        <TrussTester lang={lang} />
+      </ToolEmbedAnalytics>
+    ),
     Subscribe: (props: React.ComponentProps<typeof SubscribeButton>) => (
       <SubscribeButton lang={lang} {...props} />
     ),
@@ -199,7 +260,7 @@ export function mdxComponents(lang: Lang = "en") {
       );
     },
     Printable: (props: React.ComponentProps<typeof Printable>) => (
-      <Printable lang={lang} {...props} />
+      <Printable lang={lang} source="article" {...props} />
     ),
     MilestoneChecklist: (
       props: React.ComponentProps<typeof MilestoneChecklist>

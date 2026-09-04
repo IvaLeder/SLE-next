@@ -8,7 +8,7 @@ import Search from "./Search";
 import LanguageSuggestion from "./LanguageSuggestion";
 import { TOOLS_SLUG } from "@/lib/tools";
 import { CATEGORY_DISPLAY, subjectHref, type CategorySlug } from "@/lib/categories";
-import { SUBSCRIBE_SLUG } from "@/lib/newsletter";
+import { newsletterHref, SUBSCRIBE_SLUG } from "@/lib/newsletter";
 
 type HeaderProps = {
   lang: "en" | "hr";
@@ -233,8 +233,11 @@ export default function Header({ lang, switchUrl }: HeaderProps) {
           </Link>
 
           <Link
-            href={`/${lang}/${SUBSCRIBE_SLUG[lang]}`}
+            href={newsletterHref(lang, "header")}
             aria-current={ariaCurrent(`/${lang}/${SUBSCRIBE_SLUG[lang]}`)}
+            data-analytics-event="newsletter_cta_click"
+            data-analytics-source="header"
+            data-analytics-placement="desktop-nav"
             className="inline-flex items-center gap-1 whitespace-nowrap rounded-full bg-newsletter px-3 py-1.5 font-semibold text-white transition-colors hover:bg-newsletter-hover"
           >
             <span aria-hidden="true">📨</span>
@@ -305,7 +308,10 @@ export default function Header({ lang, switchUrl }: HeaderProps) {
           </Link>
 
           <Link
-            href={`/${lang}/${SUBSCRIBE_SLUG[lang]}`}
+            href={newsletterHref(lang, "header")}
+            data-analytics-event="newsletter_cta_click"
+            data-analytics-source="header"
+            data-analytics-placement="mobile-menu"
             className="block border-b bg-brand-soft/50 px-4 py-3 font-semibold text-newsletter hover:bg-brand-soft"
             onClick={() => setOpen(false)}
           >
