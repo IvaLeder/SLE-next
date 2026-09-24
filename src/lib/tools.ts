@@ -541,10 +541,10 @@ export const tools: Tool[] = allTools.filter((tool) => tool.status !== "draft");
 
 /** Curated, stable set used on high-traffic discovery surfaces. */
 export const FEATURED_TOOL_KEYS = [
-  "clock",
+  "fraction-visualizer",
   "name-in-binary",
-  "color-mixer",
-  "developmental-leaps",
+  "pattern-maker",
+  "weight-on-planets",
 ] as const;
 
 const TOOL_RECOMMENDATIONS: Record<string, readonly string[]> = {
@@ -553,11 +553,12 @@ const TOOL_RECOMMENDATIONS: Record<string, readonly string[]> = {
   "tower-of-hanoi": ["fraction-visualizer", "multiplication-visualizer", "pattern-maker"],
   "activity-spinner": ["color-mixer", "pattern-maker", "clock"],
   "fraction-visualizer": ["multiplication-visualizer", "clock", "tower-of-hanoi"],
-  "multiplication-visualizer": ["fraction-visualizer", "pattern-maker", "tower-of-hanoi"],
+  "multiplication-visualizer": ["fraction-visualizer", "number-systems", "tower-of-hanoi"],
+  "number-systems": ["multiplication-visualizer", "fraction-visualizer", "weight-on-planets"],
   "pattern-maker": ["multiplication-visualizer", "color-mixer", "activity-spinner"],
   "find-birthday-in-pi": ["fraction-visualizer", "tower-of-hanoi", "clock"],
   "weight-on-planets": ["fraction-visualizer", "multiplication-visualizer", "find-birthday-in-pi"],
-  clock: ["fraction-visualizer", "pattern-maker", "activity-spinner"],
+  "clock": ["fraction-visualizer", "pattern-maker", "number-systems"],
   "morse-code": ["caesar-cipher", "name-in-binary", "activity-spinner"],
   "developmental-leaps": ["clock", "pattern-maker", "activity-spinner"],
   "color-mixer": ["pattern-maker", "activity-spinner", "fraction-visualizer"],

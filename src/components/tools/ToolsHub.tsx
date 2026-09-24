@@ -85,7 +85,7 @@ type GroupKey = keyof (typeof COPY)["en"]["groups"];
 const GROUPS: { key: GroupKey; toolKeys: readonly string[] }[] = [
   {
     key: "math",
-    toolKeys: ["tower-of-hanoi", "fraction-visualizer", "multiplication-visualizer", "find-birthday-in-pi", "clock"],
+    toolKeys: ["tower-of-hanoi", "fraction-visualizer", "multiplication-visualizer", "find-birthday-in-pi", "clock", "number-systems"],
   },
   {
     key: "science",

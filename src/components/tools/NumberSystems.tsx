@@ -12,7 +12,7 @@ const COPY = {
     hint: `Any whole number from 0 to ${MAX.toLocaleString("en")}.`,
     tooBig: `That is past ${MAX.toLocaleString("en")}. Try a smaller number.`,
     noZero: "This system has no symbol for zero. There is simply nothing to write.",
-    tooMany: (n: number) => `That would take ${n} marks in a row. Too many to draw, which is rather the point.`,
+    tooMany: (n: number) => `That would take ${n} marks in a row. Too many to draw, which is what we're trying to show.`,
     romanLimit: "Roman numerals stop being practical here. Above 3,999 the Romans drew a line over a numeral to multiply it by a thousand.",
     tryThese: "Try these:",
     shortest: "Fewest symbols",
