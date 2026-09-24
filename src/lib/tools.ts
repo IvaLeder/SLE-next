@@ -378,7 +378,6 @@ const allTools: Tool[] = [
   },
   {
     key: "number-systems",
-    status: "draft",
     slug: { en: "number-system-converter", hr: "pretvarac-brojevnih-sustava" },
     icon: "🔢",
     title: {
