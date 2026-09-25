@@ -9,13 +9,13 @@ const COPY = {
     question: "What do you think will happen?",
     hint: "Make your prediction, then tap an answer to check!",
     correct: "🎉 Great prediction!",
-    incorrect: "🤔 Not quite — but guessing is how science starts!",
+    incorrect: "🤔 Not quite, but guessing is how science starts!",
   },
   hr: {
     question: "Što misliš, što će se dogoditi?",
     hint: "Pogodi, a zatim dodirni odgovor i provjeri!",
     correct: "🎉 Odlično predviđanje!",
-    incorrect: "🤔 Ne baš — ali pogađanje je početak svake znanosti!",
+    incorrect: "🤔 Ne baš, ali pogađanje je početak svake znanosti!",
   },
 } as const;
 
