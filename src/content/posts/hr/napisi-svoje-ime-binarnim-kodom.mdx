@@ -11,6 +11,7 @@ description: >-
   Kako računala pohranjuju slova koristeći samo nule i jedinice? Naučite o
   binarnom kodu i ASCII-ju te izradite narukvicu sa svojim imenom u binarnom kodu.
 date: "2026-06-08"
+dateModified: "2026-07-19"
 author: Iva Leder
 coverImage: /images/posts/binary-bracelet-cover.jpg
 heroAlt: "Aktivnost izrade narukvice s imenom u binarnom kodu"
@@ -21,6 +22,8 @@ tags:
   - coding
 ---
 <YouTube id="NRikJD-5SBU" title="Binarna narukvica - napiši svoje ime binarnim kodom"/>
+
+<ActivityInfo age="7+" time="30 min" difficulty="Lako" mess="Malen" supervision="no" />
 
 <Callout type="tip" title="💻 Isprobajte dok čitate">Ovaj vodič sadrži prevoditelj u binarni kod  - pomaknite se niže i pogledajte svoje ime u jedinicama i nulama. Želite cijelu stranicu? Otvorite [alat Ime u binarnom kodu](/hr/alati/ime-u-binarnom-kodu).</Callout>
 
@@ -54,7 +57,7 @@ Već znamo da računalo ne može pohraniti slovo **A** izravno. Zato su se ljudi
 
 U ASCII-ju je veliko slovo **A** broj **65**, **B** je **66**, **C** je **67** i tako dalje. Nema ništa magično u tim specifičnim brojevima, to je samo dogovorena konvencija. Kada slovo jednom postane broj, računalo taj broj zapiše u **binarnom kodu**  - nizu nula i jedinica. Obični brojevi ne trebaju tablicu, jednostavno se direktno pohrane u binarnom kodu.
 
-Računalna arhitektura favorizira pohranu u setove od  **8 bita**. Skupina od 8 bita ima poseban naziv koji ste možda već čuli - **bajt** (engl. _byte_)!
+Računalna arhitektura favorizira pohranu u setove od  **8 bitova**. Skupina od 8 bitova ima poseban naziv koji ste možda već čuli - **bajt** (engl. _byte_)!
 
 Dakle, kada upišete slovo **A**, evo što se zapravo događa:
 
@@ -89,6 +92,15 @@ Pogledajmo za primjer veliko slovo **A**, za koje znamo da je pohranjeno kao bro
 
 Ako dodamo sve uključene žarulje: 64 + 1 = 65! To vrijedi za brojeve od 0 do 255.
 
+<Prediction question="Vaš red! Koje se slovo krije u binarnom kodu 01000010?">
+<PredictionOption>A</PredictionOption>
+<PredictionOption correct="true">B</PredictionOption>
+<PredictionOption>C</PredictionOption>
+<PredictionResult>
+Uključene su samo žarulje **64** i **2**, pa je 64 + 2 = **66**. Znamo da je **A broj 65**, pa sljedeći broj, 66, mora biti **B**. Upravo ste ručno dešifrirali binarni kod!
+</PredictionResult>
+</Prediction>
+
 ## Binarno pismo
 
 Evo tajnog dekodera za svako veliko slovo. Pronađite svako slovo svojeg imena i zapišite njegov 8-bitni kod.
@@ -113,9 +125,9 @@ Hrvatska abeceda ne koristi Q, W, X i Y, no strana imena ih mogu sadržavati: Q 
 
 Možda ste primijetili da u tablici iznad nema naših slova s kvačicama i crticom. Zato? **ASCII je smišljen davno (1960-ih, u Americi) i to samo za englesku abecedu** pa u njemu jednostavno nema mjesta za Č, Ć, Đ, Š ni Ž.
 
-Zato moderna računala koriste noviji sustav koji se zove **Unicode** (zapisan kao **UTF-8**) i koji ima mjesta za slova svih jezika svijeta. Cijena toga je da naša posebna slova trebaju **16 bita (2 bajta)** umjesto 8. Znači da će **ime s Č, Ć, Đ, Š ili Ž biti dulje** jer za ta slova treba 16 perli umjesto 8!
+Zato moderna računala koriste noviji sustav koji se zove **Unicode** (zapisan kao **UTF-8**) i koji ima mjesta za slova svih jezika svijeta. Cijena toga je da naša posebna slova trebaju **16 bitova (2 bajta)** umjesto 8. Znači da će **ime s Č, Ć, Đ, Š ili Ž biti dulje** jer za ta slova treba 16 perli umjesto 8!
 
-| Slovo | Binarni kod (16 bita) |
+| Slovo | Binarni kod (16 bitova) |
 |:---:|:---:|
 | Č | 11000100 10001100 |
 | Ć | 11000100 10000110 |
@@ -180,10 +192,40 @@ Spajanjem milijuna ovih sićušnih prekidača i dogovorom oko kodova poput ASCII
 - **Usmjerenost na detalje i strpljenje.** Pažljivo čitanje kodova i onda nizanje perli jednu po jednu, pomaže razvoju koncentracije i fokusa.
 - **Fina motorika.** Nizanje perli je odlična vježba za motoričku kontrolu i preciznost.
 
+<KeyTakeaways>
+- Računala razumiju samo **dva stanja - uključeno (1) i isključeno (0)** - jer se ta stanja lako i pouzdano razlikuju pomoću struje.
+- Svaka 0 ili 1 je **bit**; skupina od **8 bitova je bajt**, dovoljno za pohranu bilo kojeg slova, broja ili simbola.
+- Slova se pohranjuju pomoću tablice **ASCII**: **A je 65, B je 66** i tako dalje, a zatim se broj zapiše binarno (A = `01000001`).
+- Binarni kod je **baza 2**: čitajući zdesna nalijevo, svako mjesto se udvostručuje (1, 2, 4, 8, 16, 32, 64, 128); zbrojite uključene žarulje da dobijete broj.
+- Naša slova s kvačicama (Č, Ć, Đ, Š, Ž) trebaju **16 bitova (Unicode/UTF-8)**, a LJ, NJ i DŽ pohranjuju se kao **dva slova** - pa neka imena budu dulja.
+</KeyTakeaways>
+
+## Često postavljena pitanja
+
+<FAQ>
+<Question question="Kako napisati svoje ime binarnim kodom?">
+Napišite ime velikim slovima, zatim za svako slovo potražite njegov 8-bitni kod u tablici binarnog pisma (na primjer A = 01000001). Spojite kodove, slovo po slovo, i dobili ste svoje ime u binarnom kodu - spremno za izradu narukvice od perli.
+</Question>
+<Question question="Što je binarni kod?">
+Binarni kod je brojevni sustav koji koristi samo dvije znamenke, 0 i 1. Računala ga koriste jer njihovi sićušni prekidači (tranzistori) mogu biti samo isključeni (0) ili uključeni (1). Kombiniranjem mnogo nula i jedinica računalo može prikazati bilo koji broj, slovo, sliku ili zvuk.
+</Question>
+<Question question="Što je bit, a što bajt?">
+Bit je jedna 0 ili 1 - riječ dolazi od engleskog "binary digit" (binarna znamenka). Bajt je skupina od 8 bitova, standardna jedinica pohrane. Jedan bajt može sadržavati bilo koju vrijednost od 0 do 255, dovoljno za svako svakodnevno slovo, broj i simbol.
+</Question>
+<Question question="Što je ASCII?">
+ASCII (izgovara se "ASKI") je dogovorena tablica koja svakom slovu i simbolu dodjeljuje broj - veliko A je 65, B je 66 i tako dalje. Računalo taj broj zatim pohrani u binarnom kodu, i tako slova završe kao nizovi nula i jedinica.
+</Question>
+<Question question="Zašto računala koriste samo nule i jedinice?">
+Sve se svodi na struju. Pouzdano razlikovati deset različitih jačina struje bilo bi teško, ali razlikovati samo dva stanja - ima napona (1) ili nema (0) - lako je i bez pogreške, baš kao prekidač za svjetlo. Ta pouzdanost razlog je zašto sva digitalna tehnologija počiva na binarnom kodu.
+</Question>
+<Question question="Kako se naša slova s kvačicama (Č, Ć, Š, Ž, Đ) zapisuju binarno?">
+ASCII je smišljen 1960-ih samo za englesku abecedu pa u njemu nema mjesta za Č, Ć, Đ, Š i Ž. Zato računala koriste noviji sustav Unicode (UTF-8) u kojem naša posebna slova trebaju 16 bitova (2 bajta) umjesto 8 - pa je za njih potrebno 16 perli.
+</Question>
+</FAQ>
 
 Ako ste uživali u ovoj aktivnosti, evo još neke koje biste mogli isprobati:
 
-- Otkrijte kako su ljudi slali kodirane poruke prije računala u [povijesti komunikacije za djecu](/hr/povijest-komunikacije-za-djecu), od dimnih signala i Morseove abecede do današnjeg interneta.
-- Za još jedan način slanja tajnih poruka, izradite i koristite [**Kotač za šifriranje**](/hr/kako-napraviti-kotac-za-sifriranje) i kodirajte vlastite skrivene poruke.
-- Spremni ste naučiti računalo da slijedi _vaše_ upute? Naučite osnove programiranja uz [**Učenje programiranja pomoću Scratcha**](/hr/ucenje-programiranja-scratch).
-- A za istraživanje struje koja pokreće sve te sićušne prekidače, izradite [**Bateriju od krumpira**](/hr/kako-napraviti-bateriju-od-krumpira).
+- Otkrijte kako su ljudi slali kodirane poruke prije računala u [**povijesti komunikacije za djecu**](/hr/povijest-komunikacije-za-djecu), od dimnih signala i Morseove abecede do današnjeg interneta.
+- Za još jedan način slanja tajnih poruka, izradite i koristite [**kotač za šifriranje**](/hr/kako-napraviti-kotac-za-sifriranje) i kodirajte vlastite skrivene poruke.
+- Spremni ste naučiti računalo da slijedi _vaše_ upute? Naučite osnove programiranja uz [**učenje programiranja pomoću Scratcha**](/hr/ucenje-programiranja-scratch).
+- A za istraživanje struje koja pokreće sve te sićušne prekidače, izradite [**bateriju od krumpira**](/hr/kako-napraviti-bateriju-od-krumpira).
