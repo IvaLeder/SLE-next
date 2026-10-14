@@ -35,8 +35,7 @@ export type SeasonalCampaign = {
 
 /**
  * Seasonal campaigns, in calendar order. One entry per seasonal landing page;
- * `SeasonalBanner` shows whichever one's window contains the build date. To
- * add Christmas: build its landing page, then add an entry here.
+ * `SeasonalBanner` shows whichever one's window contains the build date.
  */
 export const CAMPAIGNS: SeasonalCampaign[] = [
   {
@@ -70,8 +69,8 @@ export const CAMPAIGNS: SeasonalCampaign[] = [
   {
     id: "pumpkins-and-potions",
     slug: { en: "pumpkins-and-potions", hr: "bundeve-i-carobni-napici" },
-    window: { start: "10-01", end: "11-08" },
-    live: false,
+    window: { start: "10-01", end: "11-02" },
+    live: true,
     icon: "🎃",
     background: "linear-gradient(135deg, #17121F 0%, #2B1B45 48%, #5B2A6E 78%, #C2591A 100%)",
     texture: "radial-gradient(rgba(255,214,150,.22) 1px, transparent 1.5px)",
@@ -94,6 +93,7 @@ export const CAMPAIGNS: SeasonalCampaign[] = [
       },
     },
   },
+
 ];
 
 export const PUMPKINS = CAMPAIGNS.find((c) => c.id === "pumpkins-and-potions")!;

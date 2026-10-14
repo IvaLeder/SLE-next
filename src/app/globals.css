@@ -220,3 +220,10 @@ body {
     break-after: avoid;
   }
 }
+
+/* Pumpkins & Potions hero: slow drifting leaves/bats. Applied via
+   motion-safe:animate-[drift_…] so reduced-motion users get a still scene. */
+@keyframes drift {
+  0%, 100% { transform: translate(0, 0) rotate(-6deg); }
+  50% { transform: translate(6px, -10px) rotate(8deg); }
+}

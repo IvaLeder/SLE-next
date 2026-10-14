@@ -51,6 +51,20 @@ const BACK_TO_SCHOOL: Record<Lang, { kicker: string; title: string; tagline: str
   },
 };
 
+const PUMPKINS: Record<Lang, { kicker: string; title: string; tagline: string }> = {
+  en: {
+    kicker: "STEM Little Explorers · Autumn science lab",
+    title: "Pumpkins & Potions",
+    tagline: "Slime, oobleck, bubbling cauldrons and glowing eggs. Friendly autumn experiments with kitchen ingredients.",
+  },
+  hr: {
+    kicker: "STEM Little Explorers · Jesenski laboratorij",
+    title: "Bundeve i čarobni napici",
+    tagline: "Sluz, oobleck, kotlići koji kipe i jaje koje svijetli. Prijateljski jesenski pokusi sa sastojcima iz kuhinje.",
+  },
+};
+
+
 function publicImageDataUri(publicPath: string): string {
   const absolutePath = path.join(process.cwd(), "public", publicPath.replace(/^\//, ""));
   const extension = path.extname(absolutePath).slice(1).toLowerCase();
@@ -281,5 +295,68 @@ export function renderBackToSchoolOg(lang: Lang): ImageResponse {
       </div>
     ),
     lang === "en" ? { ...OG_SIZE, fonts: backToSchoolOgFonts() } : { ...OG_SIZE },
+  );
+}
+
+/** Night-violet "Pumpkins & Potions" card with a harvest moon. */
+export function renderPumpkinsOg(lang: Lang): ImageResponse {
+  const c = PUMPKINS[lang];
+  return new ImageResponse(
+    (
+      <div
+        style={{
+          position: "relative",
+          width: "100%",
+          height: "100%",
+          display: "flex",
+          overflow: "hidden",
+          background: "linear-gradient(150deg, #17121F 0%, #2B1B45 55%, #4A2463 100%)",
+          color: "#FFF6E9",
+          fontFamily: "system-ui, sans-serif",
+        }}
+      >
+        <div
+          style={{
+            position: "absolute",
+            top: 95,
+            right: 90,
+            display: "flex",
+            width: 330,
+            height: 330,
+            borderRadius: 999,
+            background: "radial-gradient(circle at 38% 35%, #FFD9A0 0%, #F4A04A 45%, #D9661A 100%)",
+            boxShadow: "0 0 120px 30px rgba(244,160,74,.35)",
+          }}
+        />
+        <div style={{ position: "absolute", top: 70, right: 400, display: "flex", fontSize: 64 }}>🦇</div>
+        <div style={{ position: "absolute", top: 330, right: 50, display: "flex", fontSize: 56 }}>🍂</div>
+        <div style={{ position: "absolute", bottom: 40, right: 150, display: "flex", fontSize: 150 }}>🎃</div>
+
+        <div
+          style={{
+            position: "relative",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            width: 720,
+            height: "100%",
+            padding: "60px 20px 60px 72px",
+          }}
+        >
+          <div style={{ display: "flex", color: "#F7B267", fontSize: 24, fontWeight: 700, letterSpacing: 2.3, textTransform: "uppercase", marginBottom: 26 }}>
+            {c.kicker}
+          </div>
+          <div style={{ display: "flex", fontSize: lang === "en" ? 84 : 72, fontWeight: 800, lineHeight: 1.02, letterSpacing: -1.6 }}>
+            {c.title}
+          </div>
+          <div style={{ display: "flex", fontSize: 30, color: "#E9DDF7", marginTop: 26, lineHeight: 1.35, maxWidth: 620 }}>
+            {c.tagline}
+          </div>
+        </div>
+      </div>
+    ),
+    lang === "en"
+      ? { ...OG_SIZE, emoji: "twemoji", fonts: backToSchoolOgFonts() }
+      : { ...OG_SIZE, emoji: "twemoji" },
   );
 }

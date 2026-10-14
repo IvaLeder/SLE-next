@@ -16,6 +16,7 @@ import Term from "./Term";
 import NextImage, { type ImageProps } from "next/image";
 import Lightbox from "./Lightbox";
 import Figure from "./Figure";
+import FigurePair from "./FigurePair";
 import ArticleImage from "./ArticleImage";
 import { getImage } from "@/lib/assets";
 import Materials from "./Materials";
@@ -132,6 +133,7 @@ export function mdxComponents(lang: Lang = "en") {
     Figure: (props: React.ComponentProps<typeof Figure>) => (
       <Figure lang={lang} {...props} />
     ),
+    FigurePair,
     ArticleImage: (props: React.ComponentProps<typeof ArticleImage>) => (
       <ArticleImage lang={lang} {...props} />
     ),

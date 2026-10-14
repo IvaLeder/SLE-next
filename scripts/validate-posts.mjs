@@ -49,6 +49,7 @@ const KNOWN_MDX_COMPONENTS = new Set([
   "Callout",
   "Image",
   "Figure",
+  "FigurePair",
   "ArticleImage",
   "Materials",
   "Material",
@@ -322,6 +323,13 @@ function checkMdxContent(filePath, content, isDraft = false) {
         filePath,
         `<YouTube id="${id}"> — ids should be 11 characters; this looks truncated or malformed.`
       );
+    }
+  }
+  // The component only reads `id` — `videoId=` / `src=` render a broken embed.
+  const ytTagRegex = /<YouTube\b[^>]*>/g;
+  while ((m = ytTagRegex.exec(cleaned)) !== null) {
+    if (!/\bid\s*=\s*["']/.test(m[0])) {
+      error(filePath, `${m[0]} has no id="…" attribute (the component reads \`id\`, e.g. <YouTube id="dQw4w9WgXcQ" … />).`);
     }
   }
 
