@@ -38,7 +38,7 @@ const SECTIONS: LabSection[] = [
       hr: {
         eyebrow: "Bućkanje u kotliću",
         title: "Sluz i napici",
-        body: "Gnjecavo, rastezljivo i pjenušavo. Svaki pokus pokazuje kako se obični sastojci iz kuhinje mogu ponašati iznenađujuće.",
+        body: "Gnjecavo, rastezljivo i pjenušavo. Svaki pokus pokazuje kako od običnih sastojaka iz kuhinje mogu nastati iznenađujuće stvari.",
       },
     },
     items: [
@@ -47,15 +47,15 @@ const SECTIONS: LabSection[] = [
         level: 2,
         twist: {
           en: "Six recipes, five without borax: ghost slime, monster snot, frog-spawn potion and more.",
-          hr: "Šest recepata, pet bez boraksa: sluz duh, čudovišni šmrklji, žablji mrijest i još.",
+          hr: "Šest recepata, pet bez boraksa: duhosluz, čudovišni šmrklji, žablji mrijest i još.",
         },
       },
       {
         key: "how-to-make-oobleck",
         level: 2,
         twist: {
-          en: "Zombie goo that turns solid when you punch it and melts when you stop.",
-          hr: "Zombi-sluz koja se stvrdne kad je udarite, a rastopi se kad stanete.",
+          en: "Zombie goo that turns solid when you punch it and melts when you touch it gently.",
+          hr: "Zombi-sluz koja je tvrda kad je udarite, a tekuća kad je lagano dodirnete.",
         },
       },
       {
@@ -120,8 +120,8 @@ const SECTIONS: LabSection[] = [
         key: "why-leaves-change-color",
         level: 1,
         twist: {
-          en: "Where the green goes in autumn, and the colours that were hiding underneath all summer.",
-          hr: "Kamo nestaje zelena boja u jesen i koje su se boje skrivale ispod nje cijelo ljeto.",
+          en: "Where the green goes in autumn, and which colours were hiding under it all summer?",
+          hr: "Kamo nestaje zelena boja u jesen i koje su se boje skrivale ispod nje cijelo ljeto?",
         },
       },
       {
@@ -137,7 +137,7 @@ const SECTIONS: LabSection[] = [
         level: 1,
         twist: {
           en: "Why a bitten apple turns brown, and which kitchen trick slows it down.",
-          hr: "Zašto zagrižena jabuka posmeđi i koji ga kuhinjski trik usporava.",
+          hr: "Zašto zagrižena jabuka posmeđi i koji kuhinjski trik to usporava.",
         },
       },
       {
@@ -265,22 +265,22 @@ const COPY = {
   hr: {
     eyebrow: "Jesenski znanstveni laboratorij",
     title: "Bundeve i čarobni napici",
-    lede: "Ljepljiva sluz, kotlići koji kipe i oči koje svijetle, uz pravu znanost jeseni. Prijateljski pokusi sa sastojcima iz kuhinje, označeni prema tome koliko su strašni.",
+    lede: "Ljepljiva sluz, kotlići koji kipe i oči koje svijetle, uz prstohvat znanosti. Zabavni pokusi sa sastojcima iz kuhinje, označeni prema tome koliko su strašni.",
     primaryCta: "Počnite sa sluzi ↓",
     secondaryCta: "Koliko je strašno? ↓",
-    intro: <>Jesen je godišnje doba promjena: lišće mijenja boju, večeri postaju tamne, a na pragovima se pojavljuju bundeve. U ovom laboratoriju skupili smo omiljene pokuse za ovo doba godine. Neki su pomalo sablasni, nijedan nije strašan, a <strong>u svakome se krije prava znanost</strong>: polimeri, kiseline i lužine, svjetlost i sjena.</>,
+    intro: <>Jesen je godišnje doba promjena: lišće mijenja boju, večeri postaju tamne, a na pragovima se pojavljuju bundeve. U ovom laboratoriju skupili smo omiljene pokuse za ovo doba godine. Neki su pomalo sablasni, nijedan nije strašan, a <strong>u svakome se kriju znanstvena objašnjenja</strong>: polimeri, kiseline i lužine, svjetlost i sjena.</>,
     meterTitle: "Strašnometar",
     levels: [
       ["Slatko", "Bundeve, napici i boje. Ništa strašno."],
-      ["Malo fuj", "Sluz, oči i čudovišni šmrklji. Smijeh zajamčen."],
-      ["Pomalo jezivo", "Kosti i pauci, ali i dalje prijateljski."],
+      ["Malo fujkasto", "Sluz, oči i čudovišni šmrklji. Smijeh zajamčen."],
+      ["Pomalo jezivo", "Kosturi, pauci i strašne priče - ali još uvijek prijateljski."],
     ],
     levelLabel: (n: number) => `Razina strašnosti ${n} od 3`,
     rulesTitle: "Pravila laboratorija",
     rules: [
       "Odrasla osoba ostaje u laboratoriju tijekom svakog pokusa.",
-      "Oči za lutke, plastični pauci i drugi sitni dijelovi nisu za djecu mlađu od 3 godine.",
-      "Napici su za gledanje, ne za piće, osim ako recept kaže da su jestivi.",
+      "Plastične oči, plastični pauci i drugi sitni dijelovi nisu za djecu mlađu od 3 godine.",
+      "Napici su samo za gledanje, ne za pijenje, osim ako recept ne kaže da su sigurni za kušanje.",
       "Nakon pokusa operite ruke.",
     ],
     comingTitle: "Uskoro u kotliću",
@@ -293,9 +293,9 @@ const COPY = {
     download: "↓ Besplatno preuzmite",
     noSignup: "Bez e-pošte i registracije",
     parentsTitle: "Za odrasle: boji li se vaše dijete?",
-    parentsBody: "Maske, mrak, čudovišta ispod kreveta: koji su strahovi uobičajeni u kojoj dobi i kako nježno pomoći.",
-    parentsCta: "Pročitajte vodič →",
-    closing: "Iza svakog sablasnog efekta krije se pitanje vrijedno postavljanja. Sretno eksperimentiranje!",
+    parentsBody: "Maske, mrak, čudovišta ispod kreveta: koji su strahovi uobičajeni u kojoj dobi i kako im pristupiti.",
+    parentsCta: "Pročitajte članak →",
+    closing: "Iza svakog sablasnog efekta krije se pravi znanstveni koncept. Budite hrabri i sretno eksperimentiranje!",
   },
 } satisfies Record<SeasonalLang, Record<string, unknown>>;
 
