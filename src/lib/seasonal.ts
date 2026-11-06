@@ -69,7 +69,7 @@ export const CAMPAIGNS: SeasonalCampaign[] = [
   {
     id: "pumpkins-and-potions",
     slug: { en: "pumpkins-and-potions", hr: "bundeve-i-carobni-napici" },
-    window: { start: "10-01", end: "11-02" },
+    window: { start: "10-01", end: "11-05" },
     live: true,
     icon: "🎃",
     background: "linear-gradient(135deg, #17121F 0%, #2B1B45 48%, #5B2A6E 78%, #C2591A 100%)",
@@ -93,10 +93,37 @@ export const CAMPAIGNS: SeasonalCampaign[] = [
       },
     },
   },
-
+  {
+    id: "advent-calendar",
+    slug: { en: "stem-advent-calendar", hr: "adventski-kalendar" },
+    window: { start: "11-08", end: "01-06" },
+    live: false,
+    icon: "🎄",
+    background: "linear-gradient(135deg, #0B2E24 0%, #14532D 55%, #9F1F35 100%)",
+    texture: "radial-gradient(rgba(255,255,255,.32) 1px, transparent 1.6px)",
+    muted: "#E3F1E7",
+    ctaColor: "#14532D",
+    banner: {
+      en: {
+        eyebrow: "Christmas science lab",
+        title: "The STEM Advent Calendar",
+        body: "24 days of fake snow, six-armed snowflakes, snow globes and ornaments, with real science behind every door.",
+        cta: "Open the calendar →",
+        note: "Free printable · ages 3+",
+      },
+      hr: {
+        eyebrow: "Božićni znanstveni laboratorij",
+        title: "STEM adventski kalendar",
+        body: "24 dana umjetnog snijega, pahulja sa šest krakova, snježnih kugli i ukrasa, a iza svakih vrata krije se prava znanost.",
+        cta: "Otvorite kalendar →",
+        note: "Besplatno za ispis · od 3 godine",
+      },
+    },
+  },
 ];
 
 export const PUMPKINS = CAMPAIGNS.find((c) => c.id === "pumpkins-and-potions")!;
+export const ADVENT = CAMPAIGNS.find((c) => c.id === "advent-calendar")!;
 
 function inWindow({ start, end }: SeasonalCampaign["window"], mmdd: string): boolean {
   return start <= end ? mmdd >= start && mmdd <= end : mmdd >= start || mmdd <= end;
