@@ -8,7 +8,7 @@ import { tools, TOOLS_SLUG } from "@/lib/tools";
 import { MILESTONE_GUIDE_SLUG } from "@/lib/milestone-guide";
 import { MINDS_SLUG } from "@/lib/minds";
 import { BACK_TO_SCHOOL_SLUG } from "@/lib/back-to-school";
-import { PUMPKINS } from "@/lib/seasonal";
+import { PUMPKINS, ADVENT } from "@/lib/seasonal";
 import type { MetadataRoute } from "next";
 
 // IMPORTANT: must match the canonical host used everywhere else (no www).
@@ -95,6 +95,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const pumpkinsEntries: MetadataRoute.Sitemap = [
     { url: `${BASE_URL}/en/${PUMPKINS.slug.en}`, lastModified: now, changeFrequency: "weekly", priority: 0.8, alternates: pumpkinsAlternates },
     { url: `${BASE_URL}/hr/${PUMPKINS.slug.hr}`, lastModified: now, changeFrequency: "weekly", priority: 0.8, alternates: pumpkinsAlternates },
+  ];
+
+  // STEM Advent Calendar (the Christmas hub; live all year, banner is seasonal).
+  const adventAlternates = {
+    languages: {
+      en: `${BASE_URL}/en/${ADVENT.slug.en}`,
+      hr: `${BASE_URL}/hr/${ADVENT.slug.hr}`,
+      "x-default": `${BASE_URL}/en/${ADVENT.slug.en}`,
+    },
+  };
+  const adventEntries: MetadataRoute.Sitemap = [
+    { url: `${BASE_URL}/en/${ADVENT.slug.en}`, lastModified: now, changeFrequency: "weekly", priority: 0.8, alternates: adventAlternates },
+    { url: `${BASE_URL}/hr/${ADVENT.slug.hr}`, lastModified: now, changeFrequency: "weekly", priority: 0.8, alternates: adventAlternates },
   ];
 
   // Summer e-book landing pages — slugs differ per language, so they can't use
@@ -235,7 +248,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Deduplicate by URL
   const seen = new Set<string>();
-  return [...staticEntries, ...backToSchoolEntries, ...pumpkinsEntries, /* ...summerEntries, */ ...subscribeEntries, ...toolsEntries, ...milestoneGuideEntries, ...mindsEntries, ...categoryEntries, ...tagEntries, ...authorEntries, ...postEntries].filter((e) => {
+  return [...staticEntries, ...backToSchoolEntries, ...pumpkinsEntries, ...adventEntries, /* ...summerEntries, */ ...subscribeEntries, ...toolsEntries, ...milestoneGuideEntries, ...mindsEntries, ...categoryEntries, ...tagEntries, ...authorEntries, ...postEntries].filter((e) => {
     if (seen.has(e.url)) return false;
     seen.add(e.url);
     return true;

@@ -1,0 +1,297 @@
+[
+  {
+    "day": 1,
+    "icon": "❄️",
+    "key": "how-to-make-fake-snow",
+    "time": "10 min",
+    "age": "3+",
+    "title": { "en": "Make fake snow", "hr": "Napravite umjetni snijeg" },
+    "how": {
+      "en": "Mix baking soda with a little white hair conditioner until it holds a snowball shape. Feel how cool it is, then build a tiny snowman.",
+      "hr": "Pomiješajte sodu bikarbonu s malo bijelog regeneratora za kosu dok se ne da oblikovati u grudu. Osjetite koliko je hladan pa napravite malenog snjegovića."
+    }
+  },
+  {
+    "day": 2,
+    "icon": "🎈",
+    "key": "5-amazing-balloon-experiments",
+    "anchor": { "en": "christmas-extension-dancing-snowflakes-", "hr": "božićni-dodatak-pahuljice-koje-plešu-" },
+    "time": "10 min",
+    "age": "3+",
+    "title": { "en": "Dancing snowflakes", "hr": "Pahuljice koje plešu" },
+    "how": {
+      "en": "Cut tiny snowflakes from tissue paper. Rub a balloon on your hair, hold it above them and watch them jump up and dance.",
+      "hr": "Izrežite sitne pahuljice od tankog papira. Protrljajte balon o kosu, držite ga iznad njih i gledajte kako skaču i plešu."
+    }
+  },
+  {
+    "day": 3,
+    "icon": "✂️",
+    "key": "how-to-make-paper-snowflakes",
+    "time": "20 min",
+    "age": "5+",
+    "title": { "en": "Six-armed paper snowflakes", "hr": "Pahulje sa šest krakova" },
+    "how": {
+      "en": "Fold a square of paper into six sections instead of eight, then cut and unfold. Real snowflakes always have six arms.",
+      "hr": "Presavijte kvadrat papira na šest dijelova umjesto na osam pa režite i rastvorite. Prave pahulje uvijek imaju šest krakova."
+    }
+  },
+  {
+    "day": 4,
+    "icon": "☕",
+    "key": "heat-conduction-experiment",
+    "anchor": { "en": "christmas-extension-hot-chocolate-spoon-race-", "hr": "božićni-dodatak-utrka-žličica-u-toploj-čokoladi-" },
+    "time": "15 min",
+    "age": "4+",
+    "title": { "en": "Hot chocolate spoon race", "hr": "Utrka žličica u toploj čokoladi" },
+    "how": {
+      "en": "Stick a chocolate chip to a metal, a wooden and a plastic spoon with a dab of butter. Stand them in hot chocolate: whose chip slides off first?",
+      "hr": "Komadićem maslaca zalijepite čokoladnu kapljicu na metalnu, drvenu i plastičnu žličicu. Stavite ih u toplu čokoladu: čija će kapljica prva skliznuti?"
+    }
+  },
+  {
+    "day": 5,
+    "icon": "⭐",
+    "key": "salt-dough-ornaments",
+    "time": { "en": "1 h + drying", "hr": "1 h + sušenje" },
+    "age": "3+",
+    "title": { "en": "Salt dough ornaments", "hr": "Ukrasi od slanog tijesta" },
+    "how": {
+      "en": "Mix flour, salt and water, roll the dough out and cut stars, hearts and trees. Bake them low and slow, or let them air-dry.",
+      "hr": "Zamijesite brašno, sol i vodu, razvaljajte tijesto i izrežite zvijezde, srca i borove. Polako ih sušite u pećnici na niskoj temperaturi ili na zraku."
+    }
+  },
+  {
+    "day": 6,
+    "icon": "🖌️",
+    "key": "salt-dough-ornaments",
+    "anchor": { "en": "painting-and-sealing-your-ornaments", "hr": "bojanje-i-lakiranje-ukrasa" },
+    "time": "45 min",
+    "age": "3+",
+    "title": { "en": "Paint your ornaments", "hr": "Obojite svoje ukrase" },
+    "how": {
+      "en": "Paint yesterday's ornaments, thread a ribbon through the hole and seal them so damp air can't soften them.",
+      "hr": "Obojite jučerašnje ukrase, provucite vrpcu kroz rupicu i premažite ih lakom da ih vlaga iz zraka ne omekša."
+    }
+  },
+  {
+    "day": 7,
+    "icon": "⛄",
+    "key": "how-to-make-fake-snow",
+    "anchor": { "en": "fizzing-melting-snowman", "hr": "snjegović-koji-se-pjeni-i-topi" },
+    "time": "15 min",
+    "age": "3+",
+    "title": { "en": "Fizzing, melting snowman", "hr": "Snjegović koji se pjeni i topi" },
+    "how": {
+      "en": "Build a snowman from fake snow, then drip vinegar on it. It fizzes, melts away and even gets a little colder.",
+      "hr": "Od umjetnog snijega napravite snjegovića pa ga pokapajte octom. Pjeni se, topi i čak se malo ohladi."
+    }
+  },
+  {
+    "day": 8,
+    "icon": "🔗",
+    "key": "mobius-strip-activity",
+    "time": "20 min",
+    "age": "6+",
+    "title": { "en": "Möbius paper chain", "hr": "Lanac od Möbiusovih vrpci" },
+    "how": {
+      "en": "Make Möbius loops from red, green and gold paper. Predict, then cut one down the middle and one a third of the way in. Link the surprises into a garland.",
+      "hr": "Napravite Möbiusove vrpce od crvenog, zelenog i zlatnog papira. Predvidite pa jednu prerežite po sredini, a drugu na trećini širine. Iznenađenja spojite u girlandu."
+    }
+  },
+  {
+    "day": 9,
+    "icon": "🎁",
+    "key": "make-and-solve-tower-of-hanoi",
+    "time": "15 min",
+    "age": "5+",
+    "title": { "en": "Stack the presents", "hr": "Složite darove" },
+    "how": {
+      "en": "Cut out 3 paper presents in different sizes and stack them. Move the whole stack to Santa's sleigh one present at a time, never putting a big one on a small one. It takes 7 moves. Then try 4 presents!",
+      "hr": "Izrežite 3 papirnata dara različitih veličina i složite ih jedan na drugi. Premjestite cijelu hrpu u Djedove saonice, jedan po jedan dar, a da veći nikad ne stavite na manji. Treba vam 7 poteza. Zatim probajte s 4 dara!"
+    }
+  },
+  {
+    "day": 10,
+    "icon": "🍭",
+    "key": "make-sugar-crystals-stem-activity-kids",
+    "anchor": { "en": "christmas-extension-crystal-candy-canes-", "hr": "božićni-dodatak-kristalni-božićni-štapići-" },
+    "time": { "en": "30 min + a week", "hr": "30 min + tjedan dana" },
+    "age": "6+",
+    "title": { "en": "Crystal candy canes", "hr": "Kristalni božićni štapići" },
+    "how": {
+      "en": "Bend a red-and-white pipe cleaner into a candy cane and hang it in strong sugar syrup. Then wait: new crystals grow on it every day.",
+      "hr": "Savijte crveno-bijelu žicu za čišćenje lula u obliku štapa i objesite je u gusti šećerni sirup. Zatim čekajte: svaki dan na njoj narastu novi kristali."
+    }
+  },
+  {
+    "day": 11,
+    "icon": "🔔",
+    "key": "how-to-make-colored-rice",
+    "anchor": { "en": "christmas-extension-christmas-sensory-bin-", "hr": "božićni-dodatak-božićna-senzorna-kutija-" },
+    "time": "30 min",
+    "age": "3+",
+    "title": { "en": "Christmas sensory bin", "hr": "Božićna senzorna kutija" },
+    "how": {
+      "en": "Dye rice red, green and gold, then hide jingle bells, pinecones and cinnamon sticks in it. Shake the bin and listen: where are the bells?",
+      "hr": "Obojite rižu u crveno, zeleno i zlatno pa u nju sakrijte praporce, šišarke i štapiće cimeta. Protresite kutiju i osluškujte: gdje su praporci?"
+    }
+  },
+  {
+    "day": 12,
+    "icon": "🔮",
+    "key": "how-to-make-a-snow-globe",
+    "time": "1 h",
+    "age": "4+",
+    "title": { "en": "Snow globe in a jar", "hr": "Snježna kugla u staklenci" },
+    "how": {
+      "en": "Glue a small figure to a jar lid, fill the jar with water, glycerin and glitter, and close it tight. Shake it and watch the snow fall slowly.",
+      "hr": "Zalijepite malu figuricu na poklopac staklenke, napunite staklenku vodom, glicerinom i šljokicama i čvrsto je zatvorite. Protresite je i gledajte kako snijeg polako pada."
+    }
+  },
+  {
+    "day": 13,
+    "icon": "☃️",
+    "key": "make-popsicle-catapult",
+    "anchor": { "en": "christmas-extension-snowball-catapult-", "hr": "božićni-dodatak-katapult-za-grudve-snijega-" },
+    "time": "45 min",
+    "age": "5+",
+    "title": { "en": "Snowball catapult", "hr": "Katapult za grudve snijega" },
+    "how": {
+      "en": "Build the popsicle stick catapult and launch pom-pom snowballs at a paper-cup snowman. Which angle knocks him down?",
+      "hr": "Napravite katapult od štapića za sladoled i ispaljujte grudve od pompona u snjegovića od papirnatih čaša. Pod kojim ga kutom srušite?"
+    }
+  },
+  {
+    "day": 14,
+    "icon": "🌨️",
+    "key": "make-lava-lamp",
+    "time": "15 min",
+    "age": "4+",
+    "title": { "en": "Snowstorm in a jar", "hr": "Snježna oluja u staklenci" },
+    "how": {
+      "en": "Make the lava lamp with white paint mixed into the water and a pinch of silver glitter. Drop in a piece of fizzing tablet and watch a blizzard swirl up and down.",
+      "hr": "Napravite lava lampu, ali u vodu umiješajte bijelu boju i malo srebrnih šljokica. Ubacite komadić šumeće tablete i gledajte kako se mećava kovitla gore-dolje."
+    }
+  },
+  {
+    "day": 15,
+    "icon": "🔐",
+    "key": "how-to-make-cipher-wheel",
+    "time": "20 min",
+    "age": "7+",
+    "title": { "en": "Secret Santa code", "hr": "Tajna poruka Djeda Božićnjaka" },
+    "how": {
+      "en": "Make a cipher wheel, then write a coded clue telling someone where their present is hidden. Whisper them the key number.",
+      "hr": "Napravite kotač za šifriranje pa napišite šifriranu poruku koja otkriva gdje je skriven nečiji dar. Ključ mu šapnite na uho."
+    }
+  },
+  {
+    "day": 16,
+    "icon": "🏠",
+    "key": "how-to-make-origami-house",
+    "anchor": { "en": "christmas-extension-origami-gingerbread-house-", "hr": "božićni-dodatak-kućica-od-medenjaka-" },
+    "time": "20 min",
+    "age": "5+",
+    "title": { "en": "Origami gingerbread house", "hr": "Kućica od medenjaka" },
+    "how": {
+      "en": "Fold the origami house from brown paper and decorate it with white icing lines and paper sweets. Then fold a whole gingerbread village.",
+      "hr": "Presavijte origami kućicu od smeđeg papira i ukrasite je bijelim linijama poput šećerne glazure i papirnatim bombonima. Zatim napravite cijelo selo."
+    }
+  },
+  {
+    "day": 17,
+    "icon": "💻",
+    "key": "write-your-name-in-binary",
+    "time": "30 min",
+    "age": "6+",
+    "title": { "en": "Binary bead ornament", "hr": "Ukras od perlica u binarnom kodu" },
+    "how": {
+      "en": "Look up your name in binary code. Thread a red bead for every 1 and a white bead for every 0, then bend it into a ring for the tree. JOY needs 24 beads; how many does your name need?",
+      "hr": "Pronađite svoje ime u binarnom kodu. Nanižite crvenu perlicu za svaku jedinicu i bijelu za svaku nulu pa ih savijte u prsten za bor. Za riječ MIR treba 24 perlice. Koliko ih treba za vaše ime?"
+    }
+  },
+  {
+    "day": 18,
+    "icon": "🦌",
+    "key": "make-christmas-reindeer-decoration",
+    "time": "30 min",
+    "age": "4+",
+    "title": { "en": "Cinnamon reindeer", "hr": "Božićni sob" },
+    "how": {
+      "en": "Glue three cinnamon sticks into a reindeer face with antlers and hang it on the tree. Did you know that both male and female reindeer grow antlers?",
+      "hr": "Zalijepite tri štapića cimeta u glavu soba s rogovima i objesite je na bor. Jeste li znali da rogove imaju i mužjaci i ženke sobova?"
+    }
+  },
+  {
+    "day": 19,
+    "icon": "🌲",
+    "key": "pinecone-christmas-tree",
+    "time": { "en": "1 h + a walk", "hr": "1 h + šetnja" },
+    "age": "4+",
+    "title": { "en": "Pinecone Christmas trees", "hr": "Božićna drvca od šišarki" },
+    "how": {
+      "en": "Collect pinecones on a walk and decorate them as tiny trees. Bonus: put one in a glass of water and watch it close up.",
+      "hr": "U šetnji skupite šišarke i ukrasite ih kao mala drvca. Dodatak: jednu stavite u čašu vode i gledajte kako se zatvara."
+    }
+  },
+  {
+    "day": 20,
+    "icon": "🧻",
+    "key": "toilet-roll-christmas-tree",
+    "time": "1 h",
+    "age": "4+",
+    "title": { "en": "Toilet roll Christmas tree", "hr": "Božićno drvce od rola papira" },
+    "how": {
+      "en": "Glue painted cardboard rolls into a tree: 6 in the bottom row and one fewer in every row above. How many rolls do you need in total?",
+      "hr": "Zalijepite obojene kartonske role u oblik bora: 6 u donjem redu i jednu manje u svakom redu iznad. Koliko rola trebate ukupno?"
+    }
+  },
+  {
+    "day": 21,
+    "icon": "🌍",
+    "time": "10 min",
+    "age": "5+",
+    "title": { "en": "The shortest day", "hr": "Najkraći dan" },
+    "how": {
+      "en": "Today is the winter solstice. Push a skewer through an orange, tilt it a little and walk it around a lamp. When the top half leans away from the light, it's winter up there.",
+      "hr": "Danas je zimski solsticij. Probodite naranču štapićem za ražnjiće, malo je nagnite i nosite oko svjetiljke. Kad je gornja polovica nagnuta od svjetla, ondje je zima."
+    }
+  },
+  {
+    "day": 22,
+    "icon": "💡",
+    "key": "how-to-make-potato-battery",
+    "time": "45 min",
+    "age": "7+",
+    "title": { "en": "Potato-powered star", "hr": "Zvijezda na krumpirov pogon" },
+    "how": {
+      "en": "Build a potato battery, push the LED through a paper star and light up the top of your Christmas tree. How many potatoes does it take?",
+      "hr": "Napravite bateriju od krumpira, provucite LED žaruljicu kroz papirnatu zvijezdu i upalite vrh svog božićnog drvca. Koliko krumpira treba?"
+    }
+  },
+  {
+    "day": 23,
+    "icon": "🪐",
+    "tool": "weight-on-planets",
+    "time": "10 min",
+    "age": "6+",
+    "title": { "en": "Santa's sack on Mars", "hr": "Djedova vreća na Marsu" },
+    "how": {
+      "en": "Estimate how heavy Santa's sack is (number of presents × weight of one present), then find out what it would weigh on the Moon, Mars and Jupiter.",
+      "hr": "Procijenite koliko je teška Djedova vreća (broj darova × težina jednog dara) pa provjerite koliko bi težila na Mjesecu, Marsu i Jupiteru."
+    }
+  },
+  {
+    "day": 24,
+    "icon": "🌕",
+    "key": "moon-phases-for-kids",
+    "time": "5 min",
+    "age": "3+",
+    "title": { "en": "The Christmas Eve moon", "hr": "Badnjački Mjesec" },
+    "how": {
+      "en": "On Christmas Eve 2026 the Moon is full. Look out of the window before bed: the Sun is lighting up the whole side that faces us.",
+      "hr": "Na Badnjak 2026. Mjesec je pun. Pogledajte kroz prozor prije spavanja: Sunce obasjava cijelu stranu koja je okrenuta prema nama."
+    }
+  }
+]

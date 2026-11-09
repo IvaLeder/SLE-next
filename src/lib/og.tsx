@@ -51,6 +51,19 @@ const BACK_TO_SCHOOL: Record<Lang, { kicker: string; title: string; tagline: str
   },
 };
 
+const ADVENT: Record<Lang, { kicker: string; title: string; tagline: string }> = {
+  en: {
+    kicker: "STEM Little Explorers · Christmas science lab",
+    title: "The STEM Advent Calendar",
+    tagline: "24 days of fake snow, six-armed snowflakes, snow globes and ornaments. Free printable.",
+  },
+  hr: {
+    kicker: "STEM Little Explorers · Božićni laboratorij",
+    title: "STEM adventski kalendar",
+    tagline: "24 dana umjetnog snijega, pahulja, snježnih kugli i ukrasa. Besplatno za ispis.",
+  },
+};
+
 function publicImageDataUri(publicPath: string): string {
   const absolutePath = path.join(process.cwd(), "public", publicPath.replace(/^\//, ""));
   const extension = path.extname(absolutePath).slice(1).toLowerCase();
@@ -284,3 +297,84 @@ export function renderBackToSchoolOg(lang: Lang): ImageResponse {
   );
 }
 
+/** Pine-green "STEM Advent Calendar" card with a stack of advent doors. */
+export function renderAdventOg(lang: Lang): ImageResponse {
+  const c = ADVENT[lang];
+  const doors = [24, 6, 13, 1, 19, 8, 21, 3, 15];
+  return new ImageResponse(
+    (
+      <div
+        style={{
+          position: "relative",
+          width: "100%",
+          height: "100%",
+          display: "flex",
+          overflow: "hidden",
+          background: "linear-gradient(150deg, #0B2E24 0%, #14532D 58%, #1F6B45 100%)",
+          color: "#FBF7EE",
+          fontFamily: "system-ui, sans-serif",
+        }}
+      >
+        <div
+          style={{
+            position: "absolute",
+            top: 150,
+            right: 70,
+            display: "flex",
+            flexWrap: "wrap",
+            width: 380,
+            gap: 14,
+          }}
+        >
+          {doors.map((n, i) => (
+            <div
+              key={n}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: 114,
+                height: 114,
+                borderRadius: 22,
+                background: i % 2 ? "#9F1F35" : "#2A7A52",
+                boxShadow: "inset 0 0 0 4px rgba(255,255,255,.18)",
+                fontSize: 52,
+                fontWeight: 800,
+              }}
+            >
+              {n}
+            </div>
+          ))}
+        </div>
+        <div style={{ position: "absolute", top: 40, right: 222, display: "flex", fontSize: 92 }}>⭐</div>
+        <div style={{ position: "absolute", top: 70, right: 70, display: "flex", fontSize: 50 }}>❄️</div>
+        <div style={{ position: "absolute", top: 90, right: 420, display: "flex", fontSize: 40 }}>❄️</div>
+
+        <div
+          style={{
+            position: "relative",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            width: 720,
+            height: "100%",
+            padding: "60px 20px 60px 72px",
+          }}
+        >
+          <div style={{ display: "flex", color: "#E9B949", fontSize: 24, fontWeight: 700, letterSpacing: 2.3, textTransform: "uppercase", marginBottom: 26 }}>
+            {c.kicker}
+          </div>
+          <div style={{ display: "flex", fontSize: lang === "en" ? 80 : 74, fontWeight: 800, lineHeight: 1.02, letterSpacing: -1.6 }}>
+            {c.title}
+          </div>
+          <div style={{ display: "flex", fontSize: 30, color: "#E3F1E7", marginTop: 26, lineHeight: 1.35, maxWidth: 620 }}>
+            {c.tagline}
+          </div>
+        </div>
+      </div>
+    ),
+    lang === "en"
+      ? { ...OG_SIZE, emoji: "twemoji", fonts: backToSchoolOgFonts() }
+      : { ...OG_SIZE, emoji: "twemoji" },
+  );
+}

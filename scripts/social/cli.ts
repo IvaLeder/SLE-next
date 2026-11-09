@@ -8,6 +8,7 @@
  *
  *   npm run social -- <post-slug>...     # article cards from cover + title
  *   npm run social -- --summer           # summer e-book card
+ *   npm run social -- --advent           # STEM Advent Calendar (Christmas hub)
  *   npm run social -- --back-to-school   # campaign hub, 3 articles + multiplication series
  *   npm run social -- --tools-hub        # tools hub Pinterest + Instagram cards/copy
  *   npm run social -- --tool <slug>      # one interactive-tool card
@@ -71,6 +72,13 @@ const SUMMER: BrandedContent = {
   emoji: "☀️",
   title: "Summer of curiosity",
   tagline: "30+ screen-free science activities for kids, sorted by age. Free PDF - no sign-up.",
+};
+
+const ADVENT: BrandedContent = {
+  kicker: "Free printable · STEM Little Explorers",
+  emoji: "🎄",
+  title: "The STEM Advent Calendar",
+  tagline: "24 days of Christmas science for kids: fake snow, six-armed snowflakes, snow globes and ornaments.",
 };
 
 const TOOLS_HUB_PIN: ToolsHubSocialContent = {
@@ -184,6 +192,19 @@ function summerJob(): Job {
       url: `${siteConfig.url}/${LANG}/summer`,
       title: "Summer of curiosity: a free STEM activity e-book for kids",
       description: `${SUMMER.tagline} Grab the free PDF and keep kids busy and learning all summer.`,
+    },
+  };
+}
+
+function adventJob(): Job {
+  return {
+    name: "stem-advent-calendar",
+    kind: "branded",
+    content: ADVENT,
+    pin: {
+      url: `${siteConfig.url}/${LANG}/stem-advent-calendar`,
+      title: "STEM Advent Calendar: 24 easy Christmas science activities for kids",
+      description: `${ADVENT.tagline} One small experiment behind every door from 1 December to Christmas Eve, with a free printable calendar.`,
     },
   };
 }
@@ -689,6 +710,7 @@ async function main() {
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     if (a === "--summer") jobs.push(summerJob());
+    else if (a === "--advent") jobs.push(adventJob());
     else if (a === "--back-to-school") jobs.push(...backToSchoolCampaignJobs());
     else if (a === "--tools-hub") jobs.push(toolsHubJob());
     else if (a === "--tool") jobs.push(toolJob(argv[++i]));
