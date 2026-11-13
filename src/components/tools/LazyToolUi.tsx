@@ -25,3 +25,4 @@ export const WeightOnPlanets = dynamic(() => import("./WeightOnPlanets"));
 export const PrimeExplorer = dynamic(() => import("./PrimeExplorer"));
 export const GuessMyNumber = dynamic(() => import("./GuessMyNumber"));
 export const TrussTester = dynamic(() => import("./TrussTester"));
+export const SnowflakeMaker = dynamic(() => import("./SnowflakeMaker"));

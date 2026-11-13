@@ -68,6 +68,8 @@ const KNOWN_MDX_COMPONENTS = new Set([
   "PrimeExplorer",
   "GuessMyNumber",
   "TrussTester",
+  "MoonPhase",
+  "SnowflakeMaker",
   "ActivityInfo",
   "Steps",
   "Step",

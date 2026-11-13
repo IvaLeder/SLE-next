@@ -20,6 +20,7 @@ import {
   PrimeExplorer,
   GuessMyNumber,
   TrussTester,
+  SnowflakeMaker,
 } from "@/components/tools/LazyToolUi";
 import ToolFrame from "@/components/tools/ToolFrame";
 import ToolPageAnalytics from "@/components/tools/ToolPageAnalytics";
@@ -49,6 +50,7 @@ const TOOL_UI: Record<string, React.ComponentType<{ lang?: Lang }>> = {
   "prime-explorer": PrimeExplorer,
   "guess-my-number": GuessMyNumber,
   "truss-tester": TrussTester,
+  "snowflake-maker": SnowflakeMaker,
 };
 
 const COPY = {

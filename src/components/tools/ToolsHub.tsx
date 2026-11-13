@@ -97,7 +97,7 @@ const GROUPS: { key: GroupKey; toolKeys: readonly string[] }[] = [
   },
   {
     key: "create",
-    toolKeys: ["pattern-maker", "activity-spinner"],
+    toolKeys: ["pattern-maker", "snowflake-maker", "activity-spinner"],
   },
   {
     key: "parents",

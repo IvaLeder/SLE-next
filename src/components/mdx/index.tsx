@@ -39,6 +39,7 @@ import {
   PrimeExplorer,
   GuessMyNumber,
   TrussTester,
+  SnowflakeMaker,
 } from "../tools/LazyToolUi";
 import { SubscribeButton } from "../SubscribeButton";
 import ToolEmbedAnalytics from "../tools/ToolEmbedAnalytics";
@@ -201,6 +202,11 @@ export function mdxComponents(lang: Lang = "en") {
     WeightOnPlanets: () => (
       <ToolEmbedAnalytics lang={lang} toolKey="weight-on-planets">
         <WeightOnPlanets lang={lang} />
+      </ToolEmbedAnalytics>
+    ),
+    SnowflakeMaker: () => (
+      <ToolEmbedAnalytics lang={lang} toolKey="snowflake-maker">
+        <SnowflakeMaker lang={lang} />
       </ToolEmbedAnalytics>
     ),
     PrimeExplorer: () => (

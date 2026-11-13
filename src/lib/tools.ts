@@ -533,6 +533,33 @@ const allTools: Tool[] = [
       size: { en: "180 KB", hr: "183 KB" },
     },
   },
+  {
+    key: "snowflake-maker",
+    slug: { en: "paper-snowflake-maker", hr: "dizajner-pahulja-od-papira" },
+    icon: "❄️",
+    title: {
+      en: "Paper snowflake maker",
+      hr: "Dizajner pahulja od papira",
+    },
+    tagline: {
+      en: "Pick the arm tips and decorations, watch your six-armed snowflake appear, then see exactly how to cut it from folded paper.",
+      hr: "Odaberite vrhove krakova i ukrase, gledajte kako nastaje pahulja sa šest krakova, a zatim pogledajte kako je točno izrezati iz presavijenog papira.",
+    },
+    description: {
+      en: "Free paper snowflake maker for kids: design a six-armed snowflake, see exactly where to cut the folded paper, and print a cutting sheet with fold lines.",
+      hr: "Besplatan alat za djecu: osmislite pahulju sa šest krakova, pogledajte gdje rezati presavijeni papir i ispišite list za rezanje s linijama pregiba.",
+    },
+    related: {
+      slug: {
+        en: "how-to-make-paper-snowflakes",
+        hr: "kako-napraviti-pahulje-od-papira",
+      },
+      label: {
+        en: "Fold a six-armed snowflake step by step",
+        hr: "Presavijte pahulju sa šest krakova korak po korak",
+      },
+    },
+  },
 ];
 
 /** The only tool collection public surfaces may consume. Keeping the filter
@@ -562,6 +589,7 @@ const TOOL_RECOMMENDATIONS: Record<string, readonly string[]> = {
   "morse-code": ["caesar-cipher", "name-in-binary", "activity-spinner"],
   "developmental-leaps": ["clock", "pattern-maker", "activity-spinner"],
   "color-mixer": ["pattern-maker", "activity-spinner", "fraction-visualizer"],
+  "snowflake-maker": ["pattern-maker", "color-mixer", "fraction-visualizer"],
 };
 
 export function toolsByKey(keys: readonly string[]): Tool[] {

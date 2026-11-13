@@ -367,6 +367,36 @@ export const TOOL_CONTENT: Record<string, ToolContent> = {
       ],
     },
   },
+  "snowflake-maker": {
+    steps: {
+      en: [
+        "Choose the arm tips, the decorations along and between the arms, and the centre, or press Surprise me.",
+        "Fold a square of paper into a narrow wedge and copy the numbered cuts from the picture, or print the cutting sheet.",
+        "Cut away the striped parts, unfold slowly, and count the holes before you check the number on screen.",
+      ],
+      hr: [
+        "Odaberite vrhove krakova, ukrase duž krakova i između njih te središte, ili pritisnite Iznenadi me.",
+        "Presavijte kvadrat papira u uzak klin i precrtajte numerirane rezove sa slike, ili ispišite list za rezanje.",
+        "Izrežite iscrtkane dijelove, polako rastvorite i prebrojite rupe prije nego što provjerite broj na zaslonu.",
+      ],
+    },
+    learns: {
+      en: [
+        "A snowflake has six lines of symmetry, so one folded slice holds the whole design.",
+        "A snip on a folded edge appears six times when the paper opens, which is why a few cuts make so many holes.",
+        "Real snowflakes have six arms because water molecules freeze into six-sided rings.",
+      ],
+      hr: [
+        "Pahulja ima šest osi simetrije, pa jedan presavijeni isječak sadrži cijeli uzorak.",
+        "Rez na presavijenom rubu pojavi se šest puta kad se papir rastvori, zato nekoliko rezova stvara toliko rupa.",
+        "Prave pahulje imaju šest krakova jer se molekule vode smrzavaju u šesterokutne prstenove.",
+      ],
+    },
+    note: {
+      en: "Twelve layers of paper are hard to cut, so thin paper and sharp, child-safe scissors work best, and an adult should help with the small cuts. Every design in the tool is checked to stay in one piece, but a fold that is off by a few millimetres can still leave a thin bridge, so cut a little inside the lines.",
+      hr: "Dvanaest slojeva papira teško je rezati, pa su najbolji tanak papir i oštre dječje škare, a kod sitnih rezova neka pomogne odrasla osoba. Svaki je uzorak u alatu provjeren da ostane u jednom komadu, ali pregib koji odstupa nekoliko milimetara može ostaviti tanak mostić, pa režite malo unutar linija.",
+    },
+  },
 };
 
 export function getToolContent(toolKey: string): ToolContent | undefined {
