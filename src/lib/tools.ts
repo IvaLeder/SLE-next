@@ -568,10 +568,10 @@ export const tools: Tool[] = allTools.filter((tool) => tool.status !== "draft");
 
 /** Curated, stable set used on high-traffic discovery surfaces. */
 export const FEATURED_TOOL_KEYS = [
-  "fraction-visualizer",
-  "name-in-binary",
-  "pattern-maker",
-  "weight-on-planets",
+  "clock",
+  "color-mixer",
+  "caesar-cipher",
+  "snowflake-maker",
 ] as const;
 
 const TOOL_RECOMMENDATIONS: Record<string, readonly string[]> = {
