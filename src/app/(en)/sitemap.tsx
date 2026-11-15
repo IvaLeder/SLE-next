@@ -5,6 +5,7 @@ import { siteConfig } from "@/config/site";
 // import { SUMMER_SLUG } from "@/lib/summer-ebook";
 import { SUBSCRIBE_SLUG } from "@/lib/newsletter";
 import { tools, TOOLS_SLUG } from "@/lib/tools";
+import { PRINTABLES_SLUG } from "@/lib/printables";
 import { MILESTONE_GUIDE_SLUG } from "@/lib/milestone-guide";
 import { MINDS_SLUG } from "@/lib/minds";
 import { BACK_TO_SCHOOL_SLUG } from "@/lib/back-to-school";
@@ -166,6 +167,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }),
   ];
 
+  // Printables hub — slugs differ per language, hand-build both sides.
+  const printablesAlternates = {
+    languages: {
+      en: `${BASE_URL}/en/${PRINTABLES_SLUG.en}`,
+      hr: `${BASE_URL}/hr/${PRINTABLES_SLUG.hr}`,
+      "x-default": `${BASE_URL}/en/${PRINTABLES_SLUG.en}`,
+    },
+  };
+  const printablesEntries: MetadataRoute.Sitemap = [
+    { url: `${BASE_URL}/en/${PRINTABLES_SLUG.en}`, lastModified: now, changeFrequency: "weekly", priority: 0.8, alternates: printablesAlternates },
+    { url: `${BASE_URL}/hr/${PRINTABLES_SLUG.hr}`, lastModified: now, changeFrequency: "weekly", priority: 0.8, alternates: printablesAlternates },
+  ];
+
   // Baby-development pillar — slugs differ per language, hand-build both sides.
   const milestoneGuideAlternates = {
     languages: {
@@ -248,7 +262,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Deduplicate by URL
   const seen = new Set<string>();
-  return [...staticEntries, ...backToSchoolEntries, ...pumpkinsEntries, ...adventEntries, /* ...summerEntries, */ ...subscribeEntries, ...toolsEntries, ...milestoneGuideEntries, ...mindsEntries, ...categoryEntries, ...tagEntries, ...authorEntries, ...postEntries].filter((e) => {
+  return [...staticEntries, ...backToSchoolEntries, ...pumpkinsEntries, ...adventEntries, /* ...summerEntries, */ ...subscribeEntries, ...toolsEntries, ...printablesEntries, ...milestoneGuideEntries, ...mindsEntries, ...categoryEntries, ...tagEntries, ...authorEntries, ...postEntries].filter((e) => {
     if (seen.has(e.url)) return false;
     seen.add(e.url);
     return true;

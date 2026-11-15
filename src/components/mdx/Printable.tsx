@@ -1,9 +1,11 @@
 import React from "react";
+import Link from "next/link";
 import { type Lang } from "@/lib/affiliate";
+import { PRINTABLES_SLUG } from "@/lib/printables";
 
 const COPY = {
-  en: { eyebrow: "Free printable", download: "⬇ Download PDF" },
-  hr: { eyebrow: "Besplatno za ispis", download: "⬇ Preuzmi PDF" },
+  en: { eyebrow: "Free printable", download: "⬇ Download PDF", more: "More free printables" },
+  hr: { eyebrow: "Besplatno za ispis", download: "⬇ Preuzmi PDF", more: "Još materijala za ispis" },
 } as const;
 
 /** "3 pages" / "3 stranice" — Croatian needs real pluralization:
@@ -110,6 +112,14 @@ export default function Printable({
           {children}
         </div>
       )}
+
+      {/* Someone who just downloaded one is the likeliest to want another. */}
+      <Link
+        href={`/${lang}/${PRINTABLES_SLUG[lang]}`}
+        className="mt-3 inline-block text-xs font-semibold text-brand hover:text-brand-hover hover:underline"
+      >
+        {t.more} <span aria-hidden="true">→</span>
+      </Link>
     </div>
   );
 }

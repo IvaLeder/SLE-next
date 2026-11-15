@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import Search from "./Search";
 import LanguageSuggestion from "./LanguageSuggestion";
 import { TOOLS_SLUG } from "@/lib/tools";
+import { PRINTABLES_SLUG } from "@/lib/printables";
 import { CATEGORY_DISPLAY, subjectHref, type CategorySlug } from "@/lib/categories";
 import { newsletterHref, SUBSCRIBE_SLUG } from "@/lib/newsletter";
 
@@ -142,8 +143,8 @@ export default function Header({ lang, switchUrl }: HeaderProps) {
 
         {/* Desktop nav — switches on at lg because the Croatian labels need the
             full 1024px container (brand + nav ≈ 992px at `gap-4`); they overflow
-            below that. `gap-4` (not `gap-5`) keeps a small headroom buffer so
-            adding a nav item doesn't tip HR into overflow at exactly 1024px. */}
+            below that. With Printables added, the lg-only narrower search box is
+            what keeps it fitting; past that the brand wraps onto two lines. */}
         <nav className="hidden lg:flex gap-4 items-center text-sm">
           {/* Activities — tag-based page */}
           <Link
@@ -233,6 +234,14 @@ export default function Header({ lang, switchUrl }: HeaderProps) {
           </Link>
 
           <Link
+            href={`/${lang}/${PRINTABLES_SLUG[lang]}`}
+            aria-current={ariaCurrent(`/${lang}/${PRINTABLES_SLUG[lang]}`)}
+            className="whitespace-nowrap hover:opacity-70 aria-[current=page]:font-semibold"
+          >
+            {lang === "en" ? "Printables" : "Za ispis"}
+          </Link>
+
+          <Link
             href={newsletterHref(lang, "header")}
             aria-current={ariaCurrent(`/${lang}/${SUBSCRIBE_SLUG[lang]}`)}
             data-analytics-event="newsletter_cta_click"
@@ -259,7 +268,11 @@ export default function Header({ lang, switchUrl }: HeaderProps) {
             {switchLang.toUpperCase()}
           </Link>
 
-          <Search lang={lang} />
+          {/* Narrower search between lg and xl: at 1024px the nav (brand +
+              8 items) only fits if the box gives up ~40px; xl has room again. */}
+          <div className="w-36 xl:w-auto">
+            <Search lang={lang} />
+          </div>
         </nav>
 
         {/* Mobile controls. The language toggle lives in the bar itself, not
@@ -352,6 +365,14 @@ export default function Header({ lang, switchUrl }: HeaderProps) {
             onClick={() => setOpen(false)}
           >
             🧰 {lang === "en" ? "Tools & games" : "Alati i igre"}
+          </Link>
+
+          <Link
+            href={`/${lang}/${PRINTABLES_SLUG[lang]}`}
+            className="block px-4 py-3 border-b font-semibold text-brand hover:bg-brand-soft"
+            onClick={() => setOpen(false)}
+          >
+            🖨️ {lang === "en" ? "Free printables" : "Besplatno za ispis"}
           </Link>
 
           <Link

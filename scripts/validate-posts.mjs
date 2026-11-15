@@ -566,6 +566,43 @@ function checkInternalAnchors(allPosts) {
 }
 
 // ────────────────────────────────────────────────────────────────────────────
+// Printables hub registry (src/lib/printables.ts)
+// ────────────────────────────────────────────────────────────────────────────
+// Read as text rather than imported, so the validator keeps running on any Node
+// without TypeScript support. Catches the two ways the hub drifts: a new PDF
+// nobody registered, and an article card whose tracking id the hub doesn't know.
+const PRINTABLES_FILE = "src/lib/printables.ts";
+
+function checkPrintables(allPosts) {
+  const registry = readFileSync(PRINTABLES_FILE, "utf8");
+  const files = new Set(registry.match(/\/downloads\/[\w.-]+\.pdf/g) ?? []);
+  const ids = new Set([...registry.matchAll(/^\s{4}id: "([^"]+)"/gm)].map((m) => m[1]));
+
+  for (const file of files) {
+    if (!existsSync(join(PUBLIC_DIR, file))) {
+      error(PRINTABLES_FILE, `${file} is listed but doesn't exist in public/`);
+      continue;
+    }
+    const thumb = file.replace(/^\/downloads\//, "/images/printables/").replace(/\.pdf$/, ".jpg");
+    if (!existsSync(join(PUBLIC_DIR, thumb))) {
+      warn(PRINTABLES_FILE, `${file} has no preview ${thumb} - run: node scripts/build-printable-thumbs.mjs`);
+    }
+  }
+
+  for (const name of readdirSync(join(PUBLIC_DIR, "downloads")).sort()) {
+    if (name.endsWith(".pdf") && !files.has(`/downloads/${name}`)) {
+      warn(PRINTABLES_FILE, `/downloads/${name} isn't on the printables hub - add an entry`);
+    }
+  }
+
+  for (const { file, content } of allPosts) {
+    for (const [, id] of content.matchAll(/<Printable\b[^>]*\bid="([^"]+)"/g)) {
+      if (!ids.has(id)) warn(file, `<Printable id="${id}"> has no entry in ${PRINTABLES_FILE}`);
+    }
+  }
+}
+
+// ────────────────────────────────────────────────────────────────────────────
 // Main
 // ────────────────────────────────────────────────────────────────────────────
 function main() {
@@ -588,6 +625,7 @@ function main() {
   checkTranslationPairing(allPosts);
   checkTagParity(allPosts);
   checkInternalAnchors(allPosts);
+  checkPrintables(allPosts);
 
   // ── Report ──────────────────────────────────────────────────────────────
   const errors = findings.filter((f) => f.level === "error");

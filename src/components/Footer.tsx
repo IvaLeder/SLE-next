@@ -2,6 +2,7 @@ import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import { SURFACED_TAGS, TAG_DISPLAY } from "@/lib/tags";
 import { TOOLS_SLUG } from "@/lib/tools";
+import { PRINTABLES_SLUG } from "@/lib/printables";
 import { MILESTONE_GUIDE_SLUG } from "@/lib/milestone-guide";
 import { MINDS_SLUG } from "@/lib/minds";
 import { subjectHref } from "@/lib/categories";
@@ -76,6 +77,7 @@ export default function Footer({
       explore:     "Explore",
       activities:  "All activities",
       tools:       "Tools & games",
+      printables:  "Free printables",
       guide:       "Baby milestones",
       subjects:    "Subjects",
       topics:      "Topics",
@@ -104,6 +106,7 @@ export default function Footer({
       explore:     "Istraži",
       activities:  "Sve aktivnosti",
       tools:       "Alati i igre",
+      printables:  "Besplatno za ispis",
       guide:       "Razvoj po mjesecima",
       subjects:    "Kategorije",
       topics:      "Teme",
@@ -214,6 +217,14 @@ export default function Footer({
                 className="text-brand hover:text-brand-hover hover:underline font-medium"
               >
                 🧰 {t.tools}
+              </Link>
+            </li>
+            <li>
+              <Link
+                href={`/${lang}/${PRINTABLES_SLUG[lang]}`}
+                className="text-brand hover:text-brand-hover hover:underline font-medium"
+              >
+                🖨️ {t.printables}
               </Link>
             </li>
             <li>

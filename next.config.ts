@@ -647,6 +647,15 @@ const config: NextConfig = {
           { key: 'X-Robots-Tag', value: 'noindex, nofollow, noarchive' },
         ],
       },
+      // Subscriber-only bonus printables (SUBSCRIBER_BONUS in printables.ts):
+      // linked from the welcome page + welcome email only, so keep the PDFs
+      // out of search results.
+      {
+        source: '/downloads/subscribers/:path*',
+        headers: [
+          { key: 'X-Robots-Tag', value: 'noindex, nofollow, noarchive' },
+        ],
+      },
       // RSS feeds: crawlable, but never a search result. Each feed's
       // <channel><link> points at the language homepage and its items repeat
       // that page's listing, so Google indexes the feed, picks the homepage as

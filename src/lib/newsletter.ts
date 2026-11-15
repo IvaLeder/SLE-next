@@ -27,6 +27,7 @@ export const NEWSLETTER_SOURCES = [
   "header",
   "mdx",
   "minds",
+  "printables",
 ] as const;
 export type NewsletterSource = (typeof NEWSLETTER_SOURCES)[number];
 
@@ -92,7 +93,7 @@ export const subscribeCopy: Record<
     frequency:
       "Jednom do dvaput mjesečno. Bez spama, uz odjavu u svakom trenutku.",
     formTitle: "Pridružite se znatiželjnoj ekipi",
-    formNote: "Unesite email, označite pristanak i odmah ste na popisu—bez dodatne potvrde.",
+    formNote: "Unesite email, označite pristanak i odmah ste na popisu, bez dodatne potvrde.",
   },
 };
 
@@ -159,12 +160,12 @@ export const statusCopy: Record<
   welcome: {
     en: {
       emoji: "🎉",
-      title: "You’re on the list—welcome aboard!",
+      title: "You’re on the list, welcome aboard!",
       body: "You're on the list. From now on, new experiments, activities and Mind Explorers articles land straight in your inbox. To make sure we never end up in spam, add our address to your contacts.",
     },
     hr: {
       emoji: "🎉",
-      title: "Na popisu ste—dobro došli!",
+      title: "Na popisu ste, dobro došli!",
       body: "Na popisu ste. Od sada novi pokusi, aktivnosti i Mind Explorers članci stižu ravno u vaš inbox. Da nikad ne završimo u spamu, dodajte našu adresu u svoje kontakte.",
     },
   },

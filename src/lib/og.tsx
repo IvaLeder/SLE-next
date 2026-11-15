@@ -378,3 +378,93 @@ export function renderAdventOg(lang: Lang): ImageResponse {
       : { ...OG_SIZE, emoji: "twemoji" },
   );
 }
+
+const PRINTABLES: Record<Lang, { kicker: string; title: string[]; tagline: string; sheets: string[] }> = {
+  en: {
+    kicker: "STEM Little Explorers",
+    title: ["Free STEM", "printables", "for kids"],
+    tagline: "Worksheets, lab sheets, cut-out templates and journals. Free PDFs, no sign-up.",
+    sheets: ["color-mixing-lab", "cipher-wheel-template", "your-cosmic-address"],
+  },
+  hr: {
+    kicker: "STEM Little Explorers",
+    title: ["Besplatni STEM", "materijali", "za ispis"],
+    tagline: "Radni listovi, predlošci za izrezivanje i dnevnici promatranja. Besplatni PDF-ovi, bez registracije.",
+    sheets: ["laboratorij-boja", "kotac-za-sifriranje-predlozak", "tvoja-svemirska-adresa"],
+  },
+};
+
+/** Printables hub: brand gradient with three real page-1 previews fanned out
+ *  (thumbnails from scripts/build-printable-thumbs.mjs). */
+export function renderPrintablesOg(lang: Lang): ImageResponse {
+  const c = PRINTABLES[lang];
+  const fan = [
+    { rotate: -9, left: 0, top: 70 },
+    { rotate: 7, left: 230, top: 92 },
+    { rotate: -1, left: 112, top: 40 },
+  ];
+  return new ImageResponse(
+    (
+      <div
+        style={{
+          position: "relative",
+          width: "100%",
+          height: "100%",
+          display: "flex",
+          overflow: "hidden",
+          background: "linear-gradient(135deg, #4f46e5 0%, #7c3aed 55%, #ec4899 100%)",
+          color: "white",
+          fontFamily: "Inter",
+        }}
+      >
+        <div style={{ position: "absolute", top: 0, right: 40, width: 520, height: 630, display: "flex" }}>
+          {c.sheets.map((sheet, i) => (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              key={sheet}
+              src={publicImageDataUri(`/images/printables/${sheet}.jpg`)}
+              width={262}
+              height={371}
+              alt=""
+              style={{
+                position: "absolute",
+                left: fan[i].left,
+                top: fan[i].top + 70,
+                transform: `rotate(${fan[i].rotate}deg)`,
+                borderRadius: 6,
+                boxShadow: "0 18px 40px rgba(30, 20, 80, .35)",
+              }}
+            />
+          ))}
+        </div>
+
+        <div
+          style={{
+            position: "relative",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            width: 660,
+            height: "100%",
+            padding: "60px 20px 60px 72px",
+          }}
+        >
+          <div style={{ display: "flex", fontSize: 24, fontWeight: 700, letterSpacing: 2.3, textTransform: "uppercase", opacity: 0.9, marginBottom: 26 }}>
+            {c.kicker}
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", fontSize: lang === "en" ? 80 : 64, fontWeight: 800, lineHeight: 1.04, letterSpacing: -1.5 }}>
+            {c.title.map((line) => (
+              <span key={line}>{line}</span>
+            ))}
+          </div>
+          <div style={{ display: "flex", fontSize: 29, opacity: 0.92, marginTop: 26, lineHeight: 1.35, maxWidth: 560 }}>
+            {c.tagline}
+          </div>
+        </div>
+      </div>
+    ),
+    // Inter for both languages: it covers č ć đ š ž, and the system fallback
+    // has no bold weight.
+    { ...OG_SIZE, fonts: backToSchoolOgFonts() },
+  );
+}
