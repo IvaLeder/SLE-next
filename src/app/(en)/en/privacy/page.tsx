@@ -2,6 +2,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 import type { Metadata } from "next";
+import { IS_AMAZON_ASSOCIATE } from "@/lib/affiliate";
 
 export const metadata: Metadata = {
   title: "Privacy Policy | STEM Little Explorers",
@@ -87,8 +88,8 @@ export default function PrivacyPage() {
           <li>We use regular malware scanning.</li>
         </ul>
         <p>
-          We do not use an SSL certificate, because we never ask for credit card
-          numbers or share any data with third-party services.
+          The whole site is served over a secure HTTPS (SSL/TLS) connection. We never
+          ask for credit card numbers.
         </p>
 
         <h2>Do we use &lsquo;cookies&rsquo;?</h2>
@@ -137,9 +138,36 @@ export default function PrivacyPage() {
           other parties for marketing, advertising, or other uses.
         </p>
 
-        <h2>Third-party links</h2>
+        <h2>Affiliate links (Amazon)</h2>
         <p>
-          We do not include or offer third-party products or services on our website.
+          Some articles include a &ldquo;Need supplies?&rdquo; box that links to
+          products on Amazon. These links open Amazon&rsquo;s website in a new tab.
+        </p>
+        {IS_AMAZON_ASSOCIATE && (
+          <p>
+            STEM Little Explorers is a participant in the Amazon Services LLC
+            Associates Program, an affiliate advertising program designed to provide a
+            means for sites to earn advertising fees by advertising and linking to
+            Amazon.com. As an Amazon Associate I earn from qualifying purchases. If you
+            click one of these links and buy something, we may earn a small commission.
+            It costs you nothing extra.
+          </p>
+        )}
+        <p>
+          When you follow a link to Amazon, Amazon may place its own cookies in your
+          browser, for example to remember your shopping basket and to record which
+          website referred you. These cookies are set by Amazon on Amazon&rsquo;s
+          website, not by us, and we never learn who you are. Amazon explains how it
+          uses cookies and personal information in the{" "}
+          <a
+            href="https://www.amazon.com/gp/help/customer/display.html?nodeId=GX7NJQ4ZB8MHFRNJ"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Amazon.com Privacy Notice
+          </a>
+          . You can delete or block these cookies in your browser settings, or visit
+          Amazon directly instead of using our links.
         </p>
 
         <h2>Google</h2>
@@ -312,7 +340,7 @@ export default function PrivacyPage() {
             stem.littleexplorers@gmail.com
           </a>
         </address>
-        <p className="text-gray-500 text-sm">Last edited on 2017-08-11.</p>
+        <p className="text-gray-500 text-sm">Last edited on 2026-11-17.</p>
         <p>
           You can also reach us anytime via the{" "}
           <Link href="/en/contact">contact page</Link>.

@@ -4,7 +4,8 @@
  * Amazon Associates is PER-REGION — each storefront (.com, .de, .sg, …) is a
  * separate program with its own tracking tag — so we keep one storefront + tag
  * per language:
- *   - en: a global English audience (currently Singapore-heavy) → amazon.sg.
+ *   - en: the USA is the largest English-speaking audience → amazon.com.
+ *         (Singapore shows up in analytics but is probably bot traffic.)
  *         For true multi-country geo-routing, set up Amazon OneLink and pass a
  *         full OneLink URL per item via `href` instead of a search `q`.
  *   - hr: Croatians order from Germany → amazon.de.
@@ -17,7 +18,7 @@
 export type Lang = "en" | "hr";
 
 export interface Storefront {
-  /** Amazon domain, no protocol (e.g. "www.amazon.sg"). */
+  /** Amazon domain, no protocol (e.g. "www.amazon.com"). */
   host: string;
   /** Associates tracking id (e.g. "stemlittle-20"). "" = not yet configured. */
   tag: string;
@@ -26,9 +27,16 @@ export interface Storefront {
 }
 
 export const STOREFRONTS: Record<Lang, Storefront> = {
-  en: { host: "www.amazon.sg", tag: "", label: "Amazon" },
+  en: { host: "www.amazon.com", tag: "", label: "Amazon" },
   hr: { host: "www.amazon.de", tag: "", label: "Amazon.de" },
 };
+
+/**
+ * True once any storefront has a tag, i.e. the site is an Amazon Associate.
+ * Gates every "As an Amazon Associate…" claim (Materials box, Advent shopping
+ * list, privacy pages) so nothing claims membership before signup.
+ */
+export const IS_AMAZON_ASSOCIATE = Object.values(STOREFRONTS).some((s) => s.tag !== "");
 
 /** Build an Amazon search-result affiliate link for a generic material. */
 export function affiliateSearchUrl(lang: Lang, query: string): string {

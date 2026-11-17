@@ -1,15 +1,15 @@
-import { type Lang } from "@/lib/affiliate";
+import { STOREFRONTS, type Lang } from "@/lib/affiliate";
 
 const COPY = {
   en: {
     title: "What you'll need",
     disclosure:
-      "As an Amazon Associate, we earn from qualifying purchases — at no extra cost to you.",
+      "As an Amazon Associate I earn from qualifying purchases. It costs you nothing extra.",
   },
   hr: {
     title: "Što vam je potrebno",
     disclosure:
-      "Kao Amazon suradnik zarađujemo od kvalificiranih kupnji — bez dodatnog troška za vas.",
+      "Kao Amazon suradnik zarađujemo od kvalificiranih kupnji, bez dodatnog troška za vas.",
   },
 } as const;
 
@@ -48,7 +48,10 @@ export default function Materials({
         <span aria-hidden="true">🛒</span> {title ?? t.title}
       </p>
       <ul className="space-y-1.5">{children}</ul>
-      <p className="mt-3 text-xs leading-relaxed text-gray-400">{t.disclosure}</p>
+      {/* Only claim to be an Associate once that storefront's tag is set. */}
+      {STOREFRONTS[lang].tag && (
+        <p className="mt-3 text-[13px] leading-relaxed text-gray-600">{t.disclosure}</p>
+      )}
     </aside>
   );
 }

@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import ResponsiveImage from "./ResponsiveImage";
 import AdventCalendar, { type AdventDoorView } from "./AdventCalendar";
+import AdventShoppingList from "./AdventShoppingList";
 import { getAllPosts, type Post } from "@/lib/posts";
 import { tools, TOOLS_SLUG } from "@/lib/tools";
 import type { SeasonalLang } from "@/lib/seasonal";
@@ -512,6 +513,8 @@ export default function AdventLanding({ lang }: { lang: SeasonalLang }) {
           </div>
         </div>
       </section>
+
+      <AdventShoppingList lang={lang} />
 
       <section className="mt-6 grid gap-5 lg:grid-cols-2">
         <div className="rounded-3xl p-6 sm:p-8" style={{ background: SNOW }}>

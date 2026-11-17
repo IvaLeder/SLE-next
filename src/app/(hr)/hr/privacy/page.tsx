@@ -2,6 +2,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 import type { Metadata } from "next";
+import { IS_AMAZON_ASSOCIATE } from "@/lib/affiliate";
 
 export const metadata: Metadata = {
   title: "Politika privatnosti | STEM Little Explorers",
@@ -89,8 +90,8 @@ export default function PrivacyPage() {
           <li>Koristimo redovito skeniranje zlonamjernog softvera.</li>
         </ul>
         <p>
-          Ne upotrebljavamo SSL certifikat jer nikada ne tražimo brojeve kreditnih
-          kartica niti dijelimo podatke s uslugama trećih strana.
+          Cijela stranica poslužuje se preko sigurne HTTPS (SSL/TLS) veze. Nikada ne
+          tražimo brojeve kreditnih kartica.
         </p>
 
         <h2>Koristimo li &ldquo;kolačiće&rdquo;?</h2>
@@ -140,10 +141,36 @@ export default function PrivacyPage() {
           drugim stranama za marketing, oglašavanje ili druge svrhe.
         </p>
 
-        <h2>Veze trećih strana</h2>
+        <h2>Partnerske poveznice (Amazon)</h2>
         <p>
-          Na našoj web stranici ne uključujemo niti nudimo proizvode ili usluge trećih
-          strana.
+          Neki članci sadrže okvir s popisom potrebnog materijala i poveznicama na
+          proizvode na Amazonu. Te se poveznice otvaraju na Amazonovoj web stranici u
+          novoj kartici.
+        </p>
+        {IS_AMAZON_ASSOCIATE && (
+          <p>
+            STEM Little Explorers sudjeluje u programu Amazon Services LLC Associates,
+            partnerskom programu oglašavanja koji web stranicama omogućuje zaradu od
+            oglašavanja i povezivanja na Amazon. Kao Amazon suradnik zarađujemo od
+            kvalificiranih kupnji. Ako kliknete na takvu poveznicu i nešto kupite,
+            možemo dobiti malu proviziju, bez dodatnog troška za vas.
+          </p>
+        )}
+        <p>
+          Kada otvorite poveznicu na Amazon, Amazon u vašem pregledniku može spremiti
+          vlastite kolačiće, na primjer kako bi zapamtio vašu košaricu i zabilježio s
+          koje ste stranice došli. Te kolačiće postavlja Amazon na svojoj stranici, a
+          ne mi, i nikada ne saznajemo tko ste. Amazon objašnjava kako upotrebljava
+          kolačiće i osobne podatke u svojoj{" "}
+          <a
+            href="https://www.amazon.com/gp/help/customer/display.html?nodeId=GX7NJQ4ZB8MHFRNJ"
+            target="_blank"
+            rel="noreferrer"
+          >
+            obavijesti o privatnosti
+          </a>
+          . Te kolačiće možete obrisati ili blokirati u postavkama preglednika, a
+          možete i otići na Amazon izravno, bez naših poveznica.
         </p>
 
         <h2>Google</h2>
@@ -322,7 +349,7 @@ export default function PrivacyPage() {
             stem.littleexplorers@gmail.com
           </a>
         </address>
-        <p className="text-gray-500 text-sm">Posljednja izmjena: 2017-08-11.</p>
+        <p className="text-gray-500 text-sm">Posljednja izmjena: 2026-11-17.</p>
         <p>
           Možete nas kontaktirati i u bilo kojem trenutku putem{" "}
           <Link href="/hr/contact">stranice za kontakt</Link>.
