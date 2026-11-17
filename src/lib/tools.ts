@@ -201,6 +201,16 @@ const allTools: Tool[] = [
         hr: "Naučite svih 12 strategija množenja",
       },
     },
+    download: {
+      id: "multiplication-practice",
+      href: {
+        en: "/downloads/multiplication-practice-pack.pdf",
+        hr: "/downloads/tablica-mnozenja-listovi-za-vjezbu.pdf",
+      },
+      title: { en: "Multiplication practice pack", hr: "Tablica množenja: listovi za vježbu" },
+      pages: 4,
+      size: { en: "327 KB", hr: "329 KB" },
+    },
   },
   {
     key: "pattern-maker",

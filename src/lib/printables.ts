@@ -195,6 +195,22 @@ export const printables: PrintableEntry[] = [
     home: { post: "make-cardboard-clock-learn-tell-time" },
   },
   {
+    id: "multiplication-practice",
+    group: "math",
+    file: {
+      en: "/downloads/multiplication-practice-pack.pdf",
+      hr: "/downloads/tablica-mnozenja-listovi-za-vjezbu.pdf",
+    },
+    title: { en: "Multiplication practice pack", hr: "Tablica množenja: listovi za vježbu" },
+    blurb: {
+      en: "A blank times table to fill in, dot arrays to flip and break apart, the 15 target facts with a route tracker, and a mixed practice page with answers.",
+      hr: "Prazna tablica množenja za popunjavanje, polja točaka za okretanje i rastavljanje, 15 ciljnih činjenica s praćenjem puteva i list pomiješanih zadataka s rješenjima.",
+    },
+    pages: 4,
+    ages: { en: "Ages 8+", hr: "Od 8 godina" },
+    home: { post: "how-to-learn-multiplication-tables" },
+  },
+  {
     id: "mobius-strips",
     group: "math",
     file: { en: "/downloads/mobius-strip-pack.pdf", hr: "/downloads/mobiusova-vrpca-predlozak.pdf" },
