@@ -27,7 +27,7 @@ export interface Storefront {
 }
 
 export const STOREFRONTS: Record<Lang, Storefront> = {
-  en: { host: "www.amazon.com", tag: "", label: "Amazon" },
+  en: { host: "www.amazon.com", tag: "explorers0b3-20", label: "Amazon" },
   hr: { host: "www.amazon.de", tag: "", label: "Amazon.de" },
 };
 
