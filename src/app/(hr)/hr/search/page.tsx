@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SearchResults from "@/components/SearchResults";
+import { getAllPosts } from "@/lib/posts";
 
 export const metadata: Metadata = {
   title: "Pretraga | STEM Little Explorers",
@@ -23,7 +24,7 @@ export default function SearchPage() {
       <Header lang="hr" switchUrl="/en/search" />
       <main id="main-content" className="max-w-3xl mx-auto px-4 py-10">
         <Suspense fallback={<p className="text-gray-500">Učitavam…</p>}>
-          <SearchResults lang="hr" />
+          <SearchResults lang="hr" postCount={getAllPosts("hr").length} />
         </Suspense>
       </main>
       <Footer lang="hr" />

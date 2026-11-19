@@ -3,21 +3,17 @@
 import { useState, useTransition, useEffect, useRef, useId } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { searchPostsServer } from "@/lib/search-action";
-
-type Result = {
-  slug: string;
-  lang: "en" | "hr";
-  title: string;
-  excerpt?: string;
-};
+import { searchPostsServer, type SearchHit, type SearchResponse } from "@/lib/search-action";
+import { Highlight, ResultThumb } from "./SearchHighlight";
 
 const DEBOUNCE_MS = 250;
 const MAX_SHOWN = 6;
 
 export default function Search({ lang }: { lang: "en" | "hr" }) {
   const [query, setQuery] = useState("");
-  const [results, setResults] = useState<Result[]>([]);
+  // The last response, tagged with the exact input it answers. Comparing that
+  // tag with the live input tells us whether what's on screen is stale.
+  const [response, setResponse] = useState<(SearchResponse & { input: string }) | null>(null);
   const [isPending, startTransition] = useTransition();
   const [open, setOpen] = useState(false);
   // Index of the keyboard-highlighted option (-1 = none). Spans the result
@@ -26,6 +22,8 @@ export default function Search({ lang }: { lang: "en" | "hr" }) {
 
   const containerRef = useRef<HTMLDivElement>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // Latest input, so a slow response for an older one can't overwrite it.
+  const latestQuery = useRef(query);
   const router = useRouter();
   // Search renders twice (desktop nav + mobile menu), so listbox/option ids
   // must be unique per instance for aria-controls/activedescendant.
@@ -35,24 +33,28 @@ export default function Search({ lang }: { lang: "en" | "hr" }) {
   const placeholder    = lang === "en" ? "Search posts…" : "Pretraži članke…";
   const noResultsLabel = lang === "en" ? "No matches" : "Nema rezultata";
   const searchingLabel = lang === "en" ? "Searching…" : "Tražim…";
-  const viewAllLabel   = lang === "en" ? "View all results →" : "Pogledaj sve rezultate →";
+  const viewAllLabel = (n: number) =>
+    lang === "en"
+      ? n > MAX_SHOWN ? `View all ${n} results →` : "Open results page →"
+      : n > MAX_SHOWN ? `Pogledaj sve rezultate (${n}) →` : "Otvori stranicu rezultata →";
   const countLabel = (n: number) =>
     lang === "en"
       ? `${n} ${n === 1 ? "result" : "results"}`
-      : `${n} ${n === 1 ? "rezultat" : "rezultata"}`;
+      : `${n} ${n % 10 === 1 && n % 100 !== 11 ? "rezultat" : "rezultata"}`;
 
   // Debounced fetch — schedule a server call DEBOUNCE_MS after the last keystroke.
-  // We don't clear `results` here; instead we filter at render time via
-  // `displayedResults` below. That keeps this effect free of setState calls
-  // (React 19's react-hooks/set-state-in-effect rule).
+  // We don't clear `response` here; instead the render works out whether it
+  // is stale. That keeps this effect free of setState calls (React 19's
+  // react-hooks/set-state-in-effect rule).
   useEffect(() => {
+    latestQuery.current = query;
     if (timerRef.current) clearTimeout(timerRef.current);
     if (query.trim().length < 2) return;
 
     timerRef.current = setTimeout(() => {
       startTransition(async () => {
-        const data = await searchPostsServer(query, lang);
-        setResults(data as unknown as Result[]);
+        const data = await searchPostsServer(query, lang, MAX_SHOWN);
+        if (latestQuery.current === query) setResponse({ ...data, input: query });
       });
     }, DEBOUNCE_MS);
 
@@ -62,9 +64,14 @@ export default function Search({ lang }: { lang: "en" | "hr" }) {
   }, [query, lang]);
 
   // Render-time gate: only show results once the query is long enough.
-  // The underlying `results` state may still hold the last fetched batch.
-  const displayedResults: Result[] = query.trim().length >= 2 ? results : [];
-  const shown = displayedResults.slice(0, MAX_SHOWN);
+  // `response` may still hold the batch for an earlier input; while the next
+  // one is on its way we keep showing it (dimmed) instead of flashing
+  // "No matches" during the debounce.
+  const longEnough = query.trim().length >= 2;
+  const isFresh = response?.input === query;
+  const loading = longEnough && (!isFresh || isPending);
+  const shown: SearchHit[] = longEnough && response ? response.hits.slice(0, MAX_SHOWN) : [];
+  const total = longEnough && response ? response.total : 0;
   // Options = result links + the "view all" link (when there are results).
   const optionCount = shown.length > 0 ? shown.length + 1 : 0;
   // Clamp: the result set may have shrunk under the highlighted index.
@@ -156,27 +163,34 @@ export default function Search({ lang }: { lang: "en" | "hr" }) {
       {/* Screen-reader status — announces result count without stealing focus.
           Rendered persistently so live-region changes are reliably picked up. */}
       <span role="status" aria-live="polite" className="sr-only">
-        {query.trim().length >= 2
-          ? isPending
+        {longEnough
+          ? loading
             ? searchingLabel
-            : displayedResults.length === 0
+            : total === 0
               ? noResultsLabel
-              : countLabel(displayedResults.length)
+              : countLabel(total)
           : ""}
       </span>
 
       {showDropdown && (
-        <div className="absolute left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg max-h-80 overflow-auto z-50">
-          {isPending && (
-            <p className="px-4 py-3 text-sm text-gray-500">{searchingLabel}</p>
+        // Desktop: the header box is only ~9rem wide at lg, too narrow for
+        // thumbnail + title + snippet, so the panel grows leftwards from the
+        // box's right edge. Mobile menu: the box is full width already.
+        <div className="absolute left-0 right-0 lg:left-auto lg:w-[26rem] lg:min-w-full lg:max-w-[calc(100vw-2rem)] mt-1 bg-white border border-gray-200 rounded-lg shadow-lg max-h-[min(70vh,32rem)] overflow-auto z-50">
+          {shown.length === 0 && (
+            <p className="px-4 py-3 text-sm text-gray-500">
+              {loading ? searchingLabel : noResultsLabel}
+            </p>
           )}
 
-          {!isPending && shown.length === 0 && (
-            <p className="px-4 py-3 text-sm text-gray-500">{noResultsLabel}</p>
-          )}
-
-          {!isPending && shown.length > 0 && (
-            <ul role="listbox" id={listboxId} aria-label={placeholder}>
+          {shown.length > 0 && (
+            <ul
+              role="listbox"
+              id={listboxId}
+              aria-label={placeholder}
+              aria-busy={loading}
+              className={`transition-opacity ${loading ? "opacity-60" : ""}`}
+            >
               {shown.map((r, i) => (
                 <li key={r.slug} role="presentation">
                   <Link
@@ -190,14 +204,21 @@ export default function Search({ lang }: { lang: "en" | "hr" }) {
                       setActive(-1);
                     }}
                     onMouseEnter={() => setActive(i)}
-                    className={`block px-4 py-2 hover:bg-brand-soft ${
+                    className={`flex items-start gap-3 px-3 py-2 hover:bg-brand-soft ${
                       activeIndex === i ? "bg-brand-soft" : ""
                     }`}
                   >
-                    <p className="font-semibold text-sm">{r.title}</p>
-                    {r.excerpt && (
-                      <p className="text-xs text-gray-500 line-clamp-2">{r.excerpt}</p>
-                    )}
+                    <ResultThumb hit={r} className="mt-0.5 h-10 w-14" />
+                    <span className="min-w-0">
+                      <span className="block font-semibold text-sm leading-snug text-gray-900">
+                        <Highlight text={r.title} terms={r.terms} />
+                      </span>
+                      {r.snippet && (
+                        <span className="mt-0.5 text-xs text-gray-500 line-clamp-2">
+                          <Highlight text={r.snippet} terms={r.terms} />
+                        </span>
+                      )}
+                    </span>
                   </Link>
                 </li>
               ))}
@@ -219,7 +240,7 @@ export default function Search({ lang }: { lang: "en" | "hr" }) {
                     activeIndex === shown.length ? "bg-brand-soft" : ""
                   }`}
                 >
-                  {viewAllLabel}
+                  {viewAllLabel(total)}
                 </Link>
               </li>
             </ul>

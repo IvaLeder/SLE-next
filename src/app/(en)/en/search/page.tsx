@@ -3,6 +3,7 @@ import { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import SearchResults from "@/components/SearchResults";
+import { getAllPosts } from "@/lib/posts";
 
 export const metadata: Metadata = {
   title: "Search | STEM Little Explorers",
@@ -25,7 +26,7 @@ export default function SearchPage() {
       <main id="main-content" className="max-w-3xl mx-auto px-4 py-10">
         {/* useSearchParams requires a Suspense boundary in App Router. */}
         <Suspense fallback={<p className="text-gray-500">Loading…</p>}>
-          <SearchResults lang="en" />
+          <SearchResults lang="en" postCount={getAllPosts("en").length} />
         </Suspense>
       </main>
       <Footer lang="en" />
