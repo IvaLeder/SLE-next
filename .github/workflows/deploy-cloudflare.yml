@@ -42,8 +42,9 @@ jobs:
           key: asset-pipeline-${{ github.run_id }}
           restore-keys: asset-pipeline-
 
-      - name: Validate posts
-        run: npm run validate
+      # No `npm run validate` here: like Vercel, a deploy only needs a green
+      # build. Validation (stricter, e.g. printables registered before their
+      # PDF is committed) runs in the CI workflow instead.
 
       # prebuild → images, build → out/, postbuild → _headers, _redirects and
       # worker/generated/routes.json.
