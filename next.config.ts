@@ -19,9 +19,9 @@ const withMDX = createMDX({
 // ROLLOUT: ships in **Report-Only** mode — it logs violations to the browser
 // console and blocks nothing. Flip CSP_REPORT_ONLY to `false` to ENFORCE, but
 // only after confirming the live deploy logs zero CSP violations while
-// exercising: the contact form (reCAPTCHA), a YouTube embed, GTM/Analytics, and
-// Speed Insights. (Some directives like upgrade-insecure-requests are inert in
-// report-only mode — that's expected; they activate on enforce.)
+// exercising: the contact form (reCAPTCHA), a YouTube embed and GTM/Analytics.
+// (Some directives like upgrade-insecure-requests are inert in report-only
+// mode — that's expected; they activate on enforce.)
 const CSP_REPORT_ONLY = true;
 
 // The Vercel toolbar / Live comments run ONLY on preview & dev deployments and
@@ -50,18 +50,18 @@ const contentSecurityPolicy = [
   "object-src 'none'",
   "frame-ancestors 'none'",          // clickjacking — complements X-Frame-Options
   "form-action 'self'",              // contact form posts to same-origin /api/contact
-  // Scripts: app bundles (self) + Vercel + GTM/GA + reCAPTCHA. 'unsafe-inline'
+  // Scripts: app bundles (self) + GTM/GA + reCAPTCHA. 'unsafe-inline'
   // covers Next's hydration scripts and the GTM consent-defaults inline script.
   // (Nonces would be stricter but require per-request rendering — incompatible
   // with this site's fully-static output.)
-  `script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://www.google.com https://www.gstatic.com https://va.vercel-scripts.com${adsScript}${live}`,
+  `script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://www.google.com https://www.gstatic.com${adsScript}${live}`,
   // Styles: Tailwind sheet (self) + React/next-image/reCAPTCHA inline styles.
   `style-src 'self' 'unsafe-inline'${live}`,
   // Images: local/optimised + YouTube thumbnails + GTM/GA tracking pixels.
   `img-src 'self' data: blob: https://i.ytimg.com https://img.youtube.com https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://www.google.com https://www.gstatic.com${adsImg}${liveImg}`,
   `font-src 'self' data:${liveFont}`,  // Lora is self-hosted via next/font (no Google Fonts CDN)
-  // XHR/fetch/beacons: GA/GTM collect + Vercel Speed-Insights vitals.
-  `connect-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://analytics.google.com https://www.google.com https://vitals.vercel-insights.com https://va.vercel-scripts.com${adsConnect}${liveConnect}`,
+  // XHR/fetch/beacons: GA/GTM collect.
+  `connect-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://analytics.google.com https://www.google.com${adsConnect}${liveConnect}`,
   // Iframes: YouTube embeds + reCAPTCHA challenge + AdSense ad frames.
   `frame-src https://www.youtube.com https://www.youtube-nocookie.com https://www.google.com https://recaptcha.google.com${adsFrame}${live}`,
   "worker-src 'self' blob:",

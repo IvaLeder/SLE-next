@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/components/Link";
 import { CATEGORY_SLUGS, CATEGORY_DISPLAY, CATEGORY_ICONS, subjectHref } from "@/lib/categories";
 
 /**

@@ -1,7 +1,7 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
-import Link from "next/link";
+import Link from "@/components/Link";
 import Image from "next/image";
 import { Metadata } from "next";
 import { authors, authorSlug } from "@/lib/authors";

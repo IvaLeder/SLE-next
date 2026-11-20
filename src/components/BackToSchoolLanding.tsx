@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import Link from "@/components/Link";
 import { BACK_TO_SCHOOL_PDF, type BackToSchoolLang } from "@/lib/back-to-school";
 
 const ASKA_PEEK_IMAGE = "/images/posts/aska-seven-day-peek.png";

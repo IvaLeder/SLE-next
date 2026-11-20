@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/components/Link";
 
 /**
  * "The First Map" / "Prva karta" — a lightweight landing page for the free

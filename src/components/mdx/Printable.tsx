@@ -1,5 +1,5 @@
 import React from "react";
-import Link from "next/link";
+import Link from "@/components/Link";
 import { type Lang } from "@/lib/affiliate";
 import { PRINTABLES_SLUG } from "@/lib/printables";
 

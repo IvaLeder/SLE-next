@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import Link from "@/components/Link";
 import ResponsiveImage from "./ResponsiveImage";
 import AdventCalendar, { type AdventDoorView } from "./AdventCalendar";
 import AdventShoppingList from "./AdventShoppingList";

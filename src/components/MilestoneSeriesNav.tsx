@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/components/Link";
 import { getAllPosts } from "@/lib/posts";
 import { MILESTONE_GUIDE_SLUG, milestoneStages } from "@/lib/milestone-guide";
 

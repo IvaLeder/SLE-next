@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useTransition, useEffect, useRef, useId } from "react";
-import Link from "next/link";
+import Link from "@/components/Link";
 import { useRouter } from "next/navigation";
 import { searchPostsServer, type SearchHit, type SearchResponse } from "@/lib/search-action";
 import { Highlight, ResultThumb } from "./SearchHighlight";

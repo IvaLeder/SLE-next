@@ -5,8 +5,6 @@ import "../globals.css";
 import { Lora, Inter } from "next/font/google";
 import type { Metadata, Viewport } from "next";
 import { searchPreviewRobots, siteConfig } from "@/config/site";
-import { Analytics } from "@vercel/analytics/next";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import GtmWithConsent from "@/components/GtmWithConsent";
 import SiteInteractionAnalytics from "@/components/SiteInteractionAnalytics";
 
@@ -90,8 +88,6 @@ export default function EnRootLayout({
         </a>
         {children}
         <SiteInteractionAnalytics />
-        <Analytics />
-        <SpeedInsights />
         {/* GTM + Consent Mode v2 regional defaults — no-ops when NEXT_PUBLIC_GTM_ID is unset.
             The visible consent prompt is Google's CMP (AdSense Privacy & messaging). */}
         <GtmWithConsent />

@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/components/Link";
 import NewsletterSignupForm from "./NewsletterSignupForm";
 import { newsletterHref, type Lang } from "@/lib/newsletter";
 

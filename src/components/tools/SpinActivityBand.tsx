@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Link from "next/link";
+import Link from "@/components/Link";
 
 type Lang = "en" | "hr";
 type Activity = { slug: string; title: string; emoji: string };

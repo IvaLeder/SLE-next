@@ -2,7 +2,7 @@ import fs from "node:fs";
 import path from "node:path";
 import type { CSSProperties } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import Link from "@/components/Link";
 import { imageSize } from "image-size";
 import JsonLd from "@/components/JsonLd";
 import { CompassMark } from "@/components/minds/motifs";

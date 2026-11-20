@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/components/Link";
 import { TOOLS_SLUG, type Tool, type Lang } from "@/lib/tools";
 import { MINDS_SLUG } from "@/lib/minds";
 import Printable from "@/components/mdx/Printable";

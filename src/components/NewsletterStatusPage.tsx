@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/components/Link";
 import { statusCopy, exploreCopy, type Lang } from "@/lib/newsletter";
 import NewsletterStatusAnalytics from "@/components/NewsletterStatusAnalytics";
 import { SUBSCRIBER_BONUS } from "@/lib/printables";

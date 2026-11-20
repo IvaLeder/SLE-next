@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/components/Link";
 import { newsletterHref } from "@/lib/newsletter";
 
 const LABEL: Record<"en" | "hr", string> = {

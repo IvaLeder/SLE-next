@@ -5,6 +5,20 @@ import nextTs from "eslint-config-next/typescript";
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
+  // Links must go through src/components/Link.tsx (prefetch on hover, not on
+  // sight): viewport prefetching was ~65% of the site's Vercel CDN requests.
+  {
+    files: ["src/**/*.{ts,tsx}"],
+    ignores: ["src/components/Link.tsx"],
+    rules: {
+      "no-restricted-imports": ["error", {
+        paths: [{
+          name: "next/link",
+          message: 'Import Link from "@/components/Link" instead (hover-only prefetch keeps CDN requests down).',
+        }],
+      }],
+    },
+  },
   // Override default ignores of eslint-config-next.
   globalIgnores([
     // Default ignores of eslint-config-next:

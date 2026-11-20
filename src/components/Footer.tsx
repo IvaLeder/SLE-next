@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/components/Link";
 import { siteConfig } from "@/config/site";
 import { SURFACED_TAGS, TAG_DISPLAY } from "@/lib/tags";
 import { TOOLS_SLUG } from "@/lib/tools";

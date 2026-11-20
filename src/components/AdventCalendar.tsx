@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Link from "@/components/Link";
 import { useCallback, useRef, useState, useSyncExternalStore } from "react";
 
 type Lang = "en" | "hr";

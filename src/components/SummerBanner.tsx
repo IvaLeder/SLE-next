@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/components/Link";
 import { SUMMER_SLUG, type Lang } from "@/lib/summer-ebook";
 
 const COPY = {

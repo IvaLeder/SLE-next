@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/components/Link";
 import JsonLd from "@/components/JsonLd";
 import { siteConfig } from "@/config/site";
 import {

@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/components/Link";
 import ToolLinksAnalytics from "@/components/tools/ToolLinksAnalytics";
 import {
   FEATURED_TOOL_KEYS,

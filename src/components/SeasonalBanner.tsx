@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "@/components/Link";
 import { ACTIVE_CAMPAIGN, type SeasonalLang } from "@/lib/seasonal";
 
 /**

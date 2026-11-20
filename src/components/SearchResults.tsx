@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, useTransition } from "react";
 import { useSearchParams } from "next/navigation";
-import Link from "next/link";
+import Link from "@/components/Link";
 import { searchPostsServer, type SearchResponse } from "@/lib/search-action";
 import { CATEGORY_DISPLAY, CATEGORY_ICONS, CATEGORY_SLUGS, subjectHref } from "@/lib/categories";
 import { Highlight, ResultThumb } from "./SearchHighlight";
