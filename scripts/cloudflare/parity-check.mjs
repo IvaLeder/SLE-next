@@ -114,7 +114,11 @@ function normalizeXml(text) {
 }
 
 function summarize(r) {
-  const type = (r.headers.get("content-type") ?? "").replace(/\s+/g, "");
+  // Cloudflare's asset server sends text/html and text/plain without
+  // "; charset=utf-8". Harmless while every page declares <meta charSet> in
+  // its first 1024 bytes (checked below as page.metaCharset), so compare the
+  // media type alone.
+  const type = (r.headers.get("content-type") ?? "").replace(/\s+/g, "").replace(/;charset=utf-8$/i, "");
   const redirect = r.status >= 300 && r.status < 400;
   const s = {
     status: r.status,
@@ -126,6 +130,7 @@ function summarize(r) {
   if (r.status === 200) {
     if (type.startsWith("text/html")) {
       s.page = fingerprint(r.body.toString("utf8"));
+      s.page.metaCharset = /<meta charset="utf-8"/i.test(r.body.subarray(0, 1024).toString("latin1"));
       for (const k of ["og:image", "twitter:image"]) {
         if (s.page.meta[k]) s.page.meta[k] = s.page.meta[k].map(stripImageHash);
       }
