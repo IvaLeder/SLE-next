@@ -3,7 +3,8 @@
 import { useState, useTransition, useEffect, useRef, useId } from "react";
 import Link from "@/components/Link";
 import { useRouter } from "next/navigation";
-import { searchPostsServer, type SearchHit, type SearchResponse } from "@/lib/search-action";
+import { preloadSearch, searchPosts } from "@/lib/search-client";
+import type { SearchHit, SearchResponse } from "@/lib/search-core";
 import { Highlight, ResultThumb } from "./SearchHighlight";
 
 const DEBOUNCE_MS = 250;
@@ -42,7 +43,7 @@ export default function Search({ lang }: { lang: "en" | "hr" }) {
       ? `${n} ${n === 1 ? "result" : "results"}`
       : `${n} ${n % 10 === 1 && n % 100 !== 11 ? "rezultat" : "rezultata"}`;
 
-  // Debounced fetch — schedule a server call DEBOUNCE_MS after the last keystroke.
+  // Debounced search — run DEBOUNCE_MS after the last keystroke.
   // We don't clear `response` here; instead the render works out whether it
   // is stale. That keeps this effect free of setState calls (React 19's
   // react-hooks/set-state-in-effect rule).
@@ -53,7 +54,7 @@ export default function Search({ lang }: { lang: "en" | "hr" }) {
 
     timerRef.current = setTimeout(() => {
       startTransition(async () => {
-        const data = await searchPostsServer(query, lang, MAX_SHOWN);
+        const data = await searchPosts(query, lang, MAX_SHOWN);
         if (latestQuery.current === query) setResponse({ ...data, input: query });
       });
     }, DEBOUNCE_MS);
@@ -153,7 +154,11 @@ export default function Search({ lang }: { lang: "en" | "hr" }) {
           setOpen(true);
           setActive(-1);
         }}
-        onFocus={() => query.trim().length >= 2 && setOpen(true)}
+        onFocus={() => {
+          // Fetch the search index while the reader is still typing.
+          preloadSearch(lang);
+          if (query.trim().length >= 2) setOpen(true);
+        }}
         onKeyDown={onInputKeyDown}
         placeholder={placeholder}
         aria-label={placeholder}

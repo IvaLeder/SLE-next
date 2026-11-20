@@ -159,8 +159,16 @@ export function getPostBySlug(lang: "en" | "hr", slug: string): Post | null {
 }
 
 /**
+ * Every DRAFT post for a language — only used to emit the token-gated static
+ * preview pages at /{lang}/draft/{slug}/{previewToken}.
+ */
+export function getAllDrafts(lang: "en" | "hr"): Post[] {
+  return readAllPosts(lang).filter((p) => p.draft === true);
+}
+
+/**
  * Get a single DRAFT post by slug — only used by the token-gated preview
- * route at /{lang}/draft/{slug}. Published posts are not reachable here.
+ * route at /{lang}/draft/{slug}/{key}. Published posts are not reachable here.
  */
 export function getDraftBySlug(lang: "en" | "hr", slug: string): Post | null {
   return (

@@ -6,25 +6,36 @@ import CoverImage from "@/components/CoverImage";
 import TOC from "@/components/mdx/TOC";
 import PostBody from "@/components/PostBody";
 import ArticleHeader from "@/components/ArticleHeader";
-import { getDraftBySlug, Post } from "@/lib/posts";
+import { getAllDrafts, getDraftBySlug, Post } from "@/lib/posts";
 
 /**
- * Token-gated draft preview, shared by the EN and HR /draft/[slug] routes.
+ * Token-gated draft preview, shared by the EN and HR /draft/[slug]/[key] routes.
  *
- * Access model: the URL carries a per-file secret (?key=…) that must match
- * the post's `previewToken` frontmatter. Anything else — missing key, wrong
- * key, published post, unknown slug — is a plain 404, so the route leaks
- * nothing about whether a draft exists.
+ * Access model: each draft is exported as a static page at
+ * /{lang}/draft/{slug}/{previewToken}, so only someone holding the per-file
+ * secret can reach it. The shareable /{lang}/draft/{slug}?key={previewToken}
+ * links are mapped onto those files by worker/index.ts. Anything else (missing
+ * key, wrong key, published post, unknown slug) is a plain 404, so the route
+ * leaks nothing about whether a draft exists.
  *
  * Not indexed: robots noindex metadata below, plus an X-Robots-Tag header on
- * /draft/ paths (next.config.ts). Deliberately NOT robots.txt-disallowed —
- * crawlers must be able to fetch the page to see the noindex.
+ * /draft/ paths (next.config.ts headers() → out/_headers, and the Worker).
+ * Deliberately NOT robots.txt-disallowed — crawlers must be able to fetch the
+ * page to see the noindex.
  */
 
 export type DraftRouteProps = {
-  params: Promise<{ slug: string }>;
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+  params: Promise<{ slug: string; key: string }>;
 };
+
+/** One static page per draft that has a preview token. Static export can't
+ *  emit an empty dynamic route, so with no drafts a placeholder renders a 404. */
+export function draftStaticParams(lang: "en" | "hr") {
+  const params = getAllDrafts(lang)
+    .filter((p) => p.previewToken)
+    .map((p) => ({ slug: p.slug, key: p.previewToken as string }));
+  return params.length > 0 ? params : [{ slug: "_", key: "_" }];
+}
 
 const LABELS = {
   en: {
@@ -47,10 +58,9 @@ function tokenMatches(expected: string, provided: string): boolean {
 
 async function resolveDraft(
   lang: "en" | "hr",
-  { params, searchParams }: DraftRouteProps
+  { params }: DraftRouteProps
 ): Promise<Post | null> {
-  const { slug } = await params;
-  const { key } = await searchParams;
+  const { slug, key } = await params;
   const post = getDraftBySlug(lang, slug);
   if (
     !post?.previewToken ||

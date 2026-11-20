@@ -77,3 +77,8 @@ social-exports/
 /the-first-map-storybook-copy.md
 storybook/
 scripts/
+
+# Cloudflare (wrangler)
+/.wrangler/
+/.dev.vars*
+/worker/generated/

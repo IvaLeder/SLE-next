@@ -24,16 +24,6 @@ const withMDX = createMDX({
 // mode — that's expected; they activate on enforce.)
 const CSP_REPORT_ONLY = true;
 
-// The Vercel toolbar / Live comments run ONLY on preview & dev deployments and
-// load from vercel.live (+ Pusher websockets). Allow those origins on
-// non-production builds so the toolbar works and doesn't flood the Report-Only
-// console with preview-only noise — while keeping the production policy tight.
-const isProduction = process.env.VERCEL_ENV === "production";
-const live        = isProduction ? "" : " https://vercel.live";
-const liveConnect = isProduction ? "" : " https://vercel.live wss://*.pusher.com https://*.pusher.com";
-const liveImg     = isProduction ? "" : " https://vercel.live https://vercel.com";
-const liveFont    = isProduction ? "" : " https://vercel.live https://assets.vercel.com";
-
 // Google AdSense pulls scripts, frames, pixels and beacons from a broad set of
 // Google ad domains (the creative itself can load from many of them). We start
 // deliberately permissive here because the CSP is Report-Only — tighten from
@@ -54,16 +44,16 @@ const contentSecurityPolicy = [
   // covers Next's hydration scripts and the GTM consent-defaults inline script.
   // (Nonces would be stricter but require per-request rendering — incompatible
   // with this site's fully-static output.)
-  `script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://www.google.com https://www.gstatic.com${adsScript}${live}`,
+  `script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://www.google.com https://www.gstatic.com${adsScript}`,
   // Styles: Tailwind sheet (self) + React/next-image/reCAPTCHA inline styles.
-  `style-src 'self' 'unsafe-inline'${live}`,
+  `style-src 'self' 'unsafe-inline'`,
   // Images: local/optimised + YouTube thumbnails + GTM/GA tracking pixels.
-  `img-src 'self' data: blob: https://i.ytimg.com https://img.youtube.com https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://www.google.com https://www.gstatic.com${adsImg}${liveImg}`,
-  `font-src 'self' data:${liveFont}`,  // Lora is self-hosted via next/font (no Google Fonts CDN)
+  `img-src 'self' data: blob: https://i.ytimg.com https://img.youtube.com https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://www.google.com https://www.gstatic.com${adsImg}`,
+  `font-src 'self' data:`,  // Lora is self-hosted via next/font (no Google Fonts CDN)
   // XHR/fetch/beacons: GA/GTM collect.
-  `connect-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://analytics.google.com https://www.google.com${adsConnect}${liveConnect}`,
+  `connect-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://analytics.google.com https://www.google.com${adsConnect}`,
   // Iframes: YouTube embeds + reCAPTCHA challenge + AdSense ad frames.
-  `frame-src https://www.youtube.com https://www.youtube-nocookie.com https://www.google.com https://recaptcha.google.com${adsFrame}${live}`,
+  `frame-src https://www.youtube.com https://www.youtube-nocookie.com https://www.google.com https://recaptcha.google.com${adsFrame}`,
   "worker-src 'self' blob:",
   "manifest-src 'self'",
   "media-src 'self'",
@@ -80,27 +70,12 @@ const config: NextConfig = {
     root: process.cwd(),
   },
 
-  // Draft previews (/{lang}/draft/[slug]) render on demand at request time,
-  // so the serverless function needs the MDX sources at runtime — everything
-  // else reads them at build time only. Without this, tracing may miss the
-  // fs.readdirSync directory scan and drafts would 404 in production.
-  outputFileTracingIncludes: {
-    // The asset manifest is read with fs at request time (src/lib/assets),
-    // which tracing can't statically see — include it alongside the MDX.
-    '/en/draft/[slug]': ['./src/content/posts/**/*', './src/lib/assets/manifest.json'],
-    '/hr/draft/[slug]': ['./src/content/posts/**/*', './src/lib/assets/manifest.json'],
-  },
-
-  // localImageDimensions() (mdx/index.tsx) reads `public/<dynamic src>`, so
-  // the tracer conservatively globs ALL of public/images into every [slug]
-  // function — with the asset pipeline's generated variants that's >250 MB
-  // and Vercel rejects the function. Images are served from the CDN, never
-  // from function bundles, and image dimensions come from the traced
-  // manifest; the fs fallback simply misses at runtime for unknown files
-  // (caught → letterbox, same as before the pipeline).
-  outputFileTracingExcludes: {
-    '*': ['./public/images/**'],
-  },
+  // Cloudflare serves the site as plain files: `next build` writes every page
+  // to out/, and scripts/cloudflare/build-routing.mts turns redirects() and
+  // headers() below into out/_redirects + out/_headers (static export ignores
+  // them). The few things that need code at request time (the / language
+  // redirect, the forms, draft links, 404s) live in worker/index.ts.
+  output: "export",
 
   images: {
     // Serve images as-is, bypassing Vercel's optimizer. The Hobby plan's

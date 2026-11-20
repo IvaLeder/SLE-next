@@ -1,0 +1,14 @@
+{
+  // The Worker is bundled by wrangler, not Next. Type-checked on its own
+  // (npx tsc -p worker) because it imports the generated routes.json, which
+  // only exists after `npm run build`.
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "lib": ["esnext", "dom", "dom.iterable"],
+    "types": ["node"],
+    "plugins": [],
+    "incremental": false
+  },
+  "include": ["**/*.ts"],
+  "exclude": []
+}

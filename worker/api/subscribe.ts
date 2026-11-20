@@ -1,5 +1,5 @@
 import crypto from "node:crypto";
-import type { Lang } from "@/lib/newsletter";
+import type { Lang } from "../../src/lib/newsletter";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const MAX_EMAIL = 254;
@@ -28,6 +28,8 @@ const MAX_REQUESTS_PER_WINDOW = 5;
 const rateLimitStore = new Map<string, number[]>();
 
 function getClientIp(req: Request): string {
+  const cf = req.headers.get("cf-connecting-ip");
+  if (cf) return cf.trim();
   const fwd = req.headers.get("x-forwarded-for");
   if (fwd) return fwd.split(",")[0].trim();
   return req.headers.get("x-real-ip") ?? "anonymous";
@@ -72,7 +74,7 @@ async function logMailchimpFailure(
   const data: MailchimpErrorBody = await res.json().catch(() => ({}));
   // Deliberately omit the response `detail`: Mailchimp sometimes includes the
   // submitted address there. These fields are enough to diagnose auth, list-id
-  // and member-state failures without putting subscriber data in Vercel logs.
+  // and member-state failures without putting subscriber data in the Worker logs.
   const log = level === "warning" ? console.warn : console.error;
   log("Newsletter Mailchimp request failed", {
     operation,

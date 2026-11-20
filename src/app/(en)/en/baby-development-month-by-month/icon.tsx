@@ -1,3 +1,6 @@
+// Static export: rendered once at build time.
+export const dynamic = "force-static";
+
 // Segment favicon for the milestone pillar: the stitched compass. The pillar
 // is the hub's #1 pillar-card destination and already a themed Mind Explorers
 // surface — the tab icon follows the theme so the hub → pillar journey

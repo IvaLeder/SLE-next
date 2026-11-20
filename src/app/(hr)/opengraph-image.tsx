@@ -1,3 +1,6 @@
+// Static export: rendered once at build time.
+export const dynamic = "force-static";
+
 import { renderSiteDefaultOg, OG_SIZE, OG_CONTENT_TYPE } from "@/lib/og";
 
 // Default OG image for the Croatian route group — without this, every /hr/*

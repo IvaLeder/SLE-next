@@ -3,7 +3,8 @@
 import { useEffect, useRef, useState, useTransition } from "react";
 import { useSearchParams } from "next/navigation";
 import Link from "@/components/Link";
-import { searchPostsServer, type SearchResponse } from "@/lib/search-action";
+import { searchPosts } from "@/lib/search-client";
+import type { SearchResponse } from "@/lib/search-core";
 import { CATEGORY_DISPLAY, CATEGORY_ICONS, CATEGORY_SLUGS, subjectHref } from "@/lib/categories";
 import { Highlight, ResultThumb } from "./SearchHighlight";
 
@@ -72,7 +73,7 @@ export default function SearchResults({
     if (query.trim().length < 2) return;
     const timer = setTimeout(() => {
       startTransition(async () => {
-        const data = await searchPostsServer(query, lang);
+        const data = await searchPosts(query, lang);
         // A slow response for an older input must not overwrite a newer one.
         if (latestQuery.current === query) setResponse({ ...data, input: query });
       });

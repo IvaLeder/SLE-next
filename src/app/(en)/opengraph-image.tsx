@@ -1,3 +1,6 @@
+// Static export: rendered once at build time.
+export const dynamic = "force-static";
+
 import { renderSiteDefaultOg, OG_SIZE, OG_CONTENT_TYPE } from "@/lib/og";
 
 // Default OG image for the English route group — used when a page doesn't

@@ -1,6 +1,8 @@
-import nodemailer from "nodemailer";
+import { WorkerMailer } from "worker-mailer";
 
-const RECAPTCHA_SECRET = process.env.RECAPTCHA_SECRET_KEY;
+// Contact form endpoint, served by the Cloudflare Worker (worker/index.ts) at
+// POST /api/contact. Secrets come from `process.env`, which the Worker's
+// nodejs_compat flag fills from its environment variables and secrets.
 
 // Loose RFC 5322 email check — server-side guard, not a substitute for real validation.
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -11,17 +13,20 @@ const MAX_EMAIL   = 254;        // RFC 5321 hard limit
 const MAX_MESSAGE = 5000;       // ~1000 words — plenty for any legitimate inquiry
 
 // ─── Rate limiting ────────────────────────────────────────────────────────
-// In-memory sliding window. Lives for the lifetime of the serverless container.
-// Trade-off: a cold start resets state, so a determined attacker who triggers
-// cold starts could bypass — for a low-traffic blog this is acceptable.
-// Upgrade path: swap for Upstash Redis or Vercel KV if abuse becomes real.
+// In-memory sliding window. Lives for the lifetime of the Worker isolate.
+// Trade-off: a fresh isolate resets state, so a determined attacker could
+// bypass it — for a low-traffic blog this is acceptable.
+// Upgrade path: Cloudflare's Rate Limiting binding if abuse becomes real.
 const WINDOW_MS = 10 * 60 * 1000;        // 10 minutes
 const MAX_REQUESTS_PER_WINDOW = 5;
 const rateLimitStore = new Map<string, number[]>();
 
 function getClientIp(req: Request): string {
-  // Vercel/Cloudflare/most proxies put the real IP in x-forwarded-for.
-  // Falls back to a stable string so something is rate-limited even locally.
+  // Cloudflare puts the visitor's IP in cf-connecting-ip; x-forwarded-for
+  // covers other proxies. Falls back to a stable string so something is
+  // rate-limited even locally.
+  const cf = req.headers.get("cf-connecting-ip");
+  if (cf) return cf.trim();
   const fwd = req.headers.get("x-forwarded-for");
   if (fwd) return fwd.split(",")[0].trim();
   return req.headers.get("x-real-ip") ?? "anonymous";
@@ -91,37 +96,47 @@ export async function POST(req: Request) {
     const verifyRes = await fetch("https://www.google.com/recaptcha/api/siteverify", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: `secret=${RECAPTCHA_SECRET}&response=${encodeURIComponent(token)}`,
+      body: `secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${encodeURIComponent(token)}`,
     });
-    const verifyData = await verifyRes.json();
+    const verifyData: { success?: boolean } = await verifyRes.json();
     if (!verifyData.success) {
       return Response.json({ error: "reCAPTCHA verification failed", code: "recaptcha_failed" }, { status: 400 });
     }
 
     // ── Send mail ──────────────────────────────────────────────────────────
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-    });
+    // Gmail SMTP over implicit TLS (port 465) with the same account + app
+    // password as before. Workers can't open port 25, but 465/587 are fine.
+    const user = process.env.EMAIL_USER;
+    const pass = process.env.EMAIL_PASS;
+    if (!user || !pass) {
+      console.error("Contact form configuration is missing", { hasUser: Boolean(user), hasPass: Boolean(pass) });
+      return Response.json({ error: "Failed to send message", code: "send_failed" }, { status: 500 });
+    }
 
     // CRITICAL: `from` MUST be our own authenticated sender (SPF/DKIM aligned).
-    // The user's email goes in `replyTo` so we can hit Reply directly.
+    // The user's email goes in `reply` (Reply-To) so we can hit Reply directly.
     // Previously this had `from: email` which got messages caught by spam
     // filters or, worse, treated as a spoofed sender by strict providers.
     // Newlines never belong in a header value (header-injection guard); the
     // raw name still appears intact in the body below.
     const subjectName = name.replace(/[\r\n]+/g, " ").trim();
 
-    await transporter.sendMail({
-      from:    process.env.EMAIL_USER,
-      to:      process.env.EMAIL_TO || process.env.EMAIL_USER,
-      replyTo: email,
-      subject: `[Contact form] ${subjectName}`,
-      text: `From: ${name} <${email}>\n\n${message}`,
-    });
+    await WorkerMailer.send(
+      {
+        host: "smtp.gmail.com",
+        port: 465,
+        secure: true,
+        credentials: { username: user, password: pass },
+        authType: "plain",
+      },
+      {
+        from:    user,
+        to:      process.env.EMAIL_TO || user,
+        reply:   email,
+        subject: `[Contact form] ${subjectName}`,
+        text:    `From: ${name} <${email}>\n\n${message}`,
+      },
+    );
 
     return Response.json({ success: true });
   } catch (error) {

@@ -1,3 +1,6 @@
+// Static export: rendered once at build time.
+export const dynamic = "force-static";
+
 import { tools, toolBySlug } from "@/lib/tools";
 import { renderToolOg, OG_SIZE, OG_CONTENT_TYPE } from "@/lib/tool-og";
 

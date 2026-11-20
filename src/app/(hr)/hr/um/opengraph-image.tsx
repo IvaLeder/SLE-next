@@ -1,3 +1,6 @@
+// Static export: rendered once at build time.
+export const dynamic = "force-static";
+
 import { renderMindsOg, OG_SIZE, OG_CONTENT_TYPE } from "@/lib/minds-og";
 
 export const size = OG_SIZE;

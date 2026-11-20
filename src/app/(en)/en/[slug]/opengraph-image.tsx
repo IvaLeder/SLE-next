@@ -1,3 +1,6 @@
+// Static export: rendered once at build time.
+export const dynamic = "force-static";
+
 import { ImageResponse } from "next/og";
 import { getAllPosts, getPostBySlug } from "@/lib/posts";
 import { CATEGORY_DISPLAY, categorySlugFromName } from "@/lib/categories";
@@ -17,8 +20,11 @@ export function generateStaticParams() {
 // root /opengraph-image automatically).
 export const alt = "STEM Little Explorers";
 
-export default async function Image({ params }: { params: { slug: string } }) {
-  const post = getPostBySlug("en", params.slug);
+export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
+  // Next 15+ passes params as a promise; reading .slug directly gave
+  // undefined, so every per-post image used to be a 404.
+  const { slug } = await params;
+  const post = getPostBySlug("en", slug);
   if (!post) return new Response("Not found", { status: 404 });
 
   const isActivity   = post.tags?.includes("activity") ?? false;

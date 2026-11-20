@@ -1,10 +1,11 @@
-"use server";
-
 import MiniSearch, { type SearchOptions, type SearchResult } from "minisearch";
-import { getAllPosts } from "./posts";
-import { CATEGORY_DISPLAY, CATEGORY_ICONS } from "./categories";
-import { baseVariants } from "./assets/helpers";
-import { bestWindow, fold, hasHit, mdxToPlainText } from "./search-text";
+import { bestWindow, fold, hasHit } from "./search-text";
+
+// Site search, shared by the build (which writes the per-language document
+// list to /search-{lang}.json) and the browser (which loads that file once and
+// searches it locally). The matching rules are the same ones the old server
+// action used; only where they run changed, because a static host has no
+// server to run them on.
 
 /** One search result, already shaped for display (no MDX, no index internals). */
 export type SearchHit = {
@@ -24,25 +25,28 @@ export type SearchHit = {
 
 export type SearchResponse = { query: string; total: number; hits: SearchHit[] };
 
-type IndexedDoc = {
+/** One published post as written to /search-{lang}.json at build time. */
+export type SearchDoc = {
   slug: string;
+  lang: "en" | "hr";
   title: string;
   description: string;
   tags: string;
   categories: string;
+  /** Article prose with the MDX stripped. */
   text: string;
+  category?: string;
+  categoryIcon?: string;
+  thumb?: { url: string; color?: string };
 };
 
-type LangIndex = {
+type IndexedDoc = Pick<SearchDoc, "slug" | "title" | "description" | "tags" | "categories" | "text">;
+
+export type LangIndex = {
   mini: MiniSearch<IndexedDoc>;
   /** Per-slug display data, kept outside MiniSearch so the index stays lean. */
-  docs: Map<
-    string,
-    Omit<SearchHit, "terms" | "snippet"> & { description: string; text: string; folded: string }
-  >;
+  docs: Map<string, SearchDoc & { folded: string }>;
 };
-
-const cachedIndex: { [lang: string]: LangIndex } = {};
 
 /** Function words dropped from queries (already folded). Kept in the index;
  *  they just shouldn't decide what matches or get highlighted. */
@@ -70,53 +74,10 @@ function stem(lang: "en" | "hr", term: string): string {
   return suffix ? term.slice(0, -suffix.length) : term;
 }
 
-/** English display name → slug, per language, for category icons. */
-function categoryIcon(lang: "en" | "hr", display?: string) {
-  if (!display) return undefined;
-  const entry = Object.entries(CATEGORY_DISPLAY[lang]).find(
-    ([, name]) => name.toLowerCase() === display.trim().toLowerCase(),
-  );
-  return entry ? CATEGORY_ICONS[entry[0]] : undefined;
-}
-
-/** Build (or reuse) the search index for a language. */
-function buildSearchIndex(lang: "en" | "hr"): LangIndex {
-  if (cachedIndex[lang]) return cachedIndex[lang];
-
-  const posts = getAllPosts(lang);
+/** Build the in-memory index for one language from its document list. */
+export function buildLangIndex(list: SearchDoc[]): LangIndex {
   const docs: LangIndex["docs"] = new Map();
-  const indexed: IndexedDoc[] = posts.map((p) => {
-    // Article bodies are raw MDX; index (and later quote) only the prose.
-    const text = mdxToPlainText(p.content);
-    const description = p.description || p.excerpt || "";
-    // 400w WebP is plenty for a ≤160px thumbnail at DPR 2-3.
-    const smallest = p.cover
-      ? (p.cover.variants.webp?.[0] ?? baseVariants(p.cover)?.[0])
-      : undefined;
-    docs.set(p.slug, {
-      slug: p.slug,
-      lang,
-      title: p.title,
-      category: p.categories?.[0],
-      categoryIcon: categoryIcon(lang, p.categories?.[0]),
-      thumb: smallest
-        ? { url: smallest.url, color: p.cover?.dominantColor }
-        : p.coverImage
-          ? { url: p.coverImage }
-          : undefined,
-      description,
-      text,
-      folded: fold(text),
-    });
-    return {
-      slug: p.slug,
-      title: p.title,
-      description,
-      tags: (p.tags ?? []).join(" "),
-      categories: (p.categories ?? []).join(" "),
-      text,
-    };
-  });
+  for (const d of list) docs.set(d.slug, { ...d, folded: fold(d.text) });
 
   const mini = new MiniSearch<IndexedDoc>({
     idField: "slug",
@@ -131,10 +92,17 @@ function buildSearchIndex(lang: "en" | "hr"): LangIndex {
       boost: { title: 4, tags: 2.5, description: 2, categories: 1.5, text: 1 },
     },
   });
-  mini.addAll(indexed);
-
-  cachedIndex[lang] = { mini, docs };
-  return cachedIndex[lang];
+  mini.addAll(
+    list.map(({ slug, title, description, tags, categories, text }) => ({
+      slug,
+      title,
+      description,
+      tags,
+      categories,
+      text,
+    })),
+  );
+  return { mini, docs };
 }
 
 function toHit(index: LangIndex, r: SearchResult): SearchHit | null {
@@ -161,22 +129,20 @@ function toHit(index: LangIndex, r: SearchResult): SearchHit | null {
   };
 }
 
-export async function searchPostsServer(
+export function runSearch(
+  index: LangIndex,
   query: string,
   lang: "en" | "hr",
   limit = 50,
-): Promise<SearchResponse> {
+): SearchResponse {
   if (typeof query !== "string" || query.trim().length === 0) {
     return { query: "", total: 0, hits: [] };
   }
-  if (lang !== "en" && lang !== "hr") lang = "en";
-
-  // This is a public server action — cap the input so an oversized query
-  // can't make MiniSearch chew through an arbitrary amount of work.
+  // Cap the input so an oversized query can't make MiniSearch chew through
+  // an arbitrary amount of work.
   const q = query.slice(0, 100);
   const max = Math.min(Math.max(1, Number(limit) || 50), 50);
 
-  const index = buildSearchIndex(lang);
   // Drop stop words ("how to", "kako", "s") unless that would leave nothing.
   const words = q.split(/[\n\r\p{Z}\p{P}]+/u).map(fold).filter(Boolean);
   const stops = STOP_WORDS[lang];

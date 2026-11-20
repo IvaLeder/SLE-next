@@ -1,0 +1,77 @@
+name: Deploy to Cloudflare
+
+# Builds the static site and uploads it, with worker/index.ts, to the
+# Cloudflare Worker "stemlittleexplorers" (see wrangler.jsonc).
+#
+# Until the DNS switch this deploys the cloudflare-migration branch to the
+# preview address (*.workers.dev). At cutover, change the branch to main.
+on:
+  push:
+    branches: [cloudflare-migration]
+  workflow_dispatch:
+
+# Never run two deploys at once; a newer push waits for the current one.
+concurrency:
+  group: cloudflare-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    # A cold image cache means re-encoding all ~1,100 images (15–30 min).
+    timeout-minutes: 60
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      # The image pipeline (npm run assets, run by prebuild) skips images it
+      # has already encoded, using this cache. Restored after `npm ci`, which
+      # wipes node_modules. A fresh key each run, so the newest cache is saved.
+      - name: Restore image cache
+        uses: actions/cache@v4
+        with:
+          path: node_modules/.cache/asset-pipeline
+          key: asset-pipeline-${{ github.run_id }}
+          restore-keys: asset-pipeline-
+
+      - name: Validate posts
+        run: npm run validate
+
+      # prebuild → images, build → out/, postbuild → _headers, _redirects and
+      # worker/generated/routes.json.
+      # These values end up in the public HTML, so they are repository
+      # variables (Settings → Secrets and variables → Actions → Variables).
+      - name: Build
+        run: npm run build
+        env:
+          NEXT_PUBLIC_ADSENSE_CLIENT: ${{ vars.NEXT_PUBLIC_ADSENSE_CLIENT }}
+          NEXT_PUBLIC_ADSENSE_SLOT_IN_ARTICLE: ${{ vars.NEXT_PUBLIC_ADSENSE_SLOT_IN_ARTICLE }}
+          NEXT_PUBLIC_ADSENSE_SLOT_IN_FEED: ${{ vars.NEXT_PUBLIC_ADSENSE_SLOT_IN_FEED }}
+          NEXT_PUBLIC_ADSENSE_SLOT_END: ${{ vars.NEXT_PUBLIC_ADSENSE_SLOT_END }}
+          NEXT_PUBLIC_ADSENSE_SLOT_TOOLS: ${{ vars.NEXT_PUBLIC_ADSENSE_SLOT_TOOLS }}
+          NEXT_PUBLIC_GTM_ID: ${{ vars.NEXT_PUBLIC_GTM_ID }}
+          NEXT_PUBLIC_RECAPTCHA_SITE_KEY: ${{ vars.NEXT_PUBLIC_RECAPTCHA_SITE_KEY }}
+          PINTEREST_DOMAIN_VERIFY: ${{ vars.PINTEREST_DOMAIN_VERIFY }}
+
+      - name: Type-check the Worker
+        run: npx tsc -p worker --noEmit
+
+      - name: Newsletter handler tests
+        run: npm run test:newsletter
+
+      # The form secrets (Mailchimp, reCAPTCHA, Gmail) live on the Worker
+      # itself, set once with `npx wrangler secret put NAME`, not here.
+      - name: Deploy
+        run: npx wrangler deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          WRANGLER_SEND_METRICS: "false"

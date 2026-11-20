@@ -1,5 +1,5 @@
 import { highlight } from "@/lib/search-text";
-import type { SearchHit } from "@/lib/search-action";
+import type { SearchHit } from "@/lib/search-core";
 
 /** Renders `text` with every word matching one of `terms` wrapped in <mark>.
  *  Matching ignores case and diacritics, like the search index itself. */

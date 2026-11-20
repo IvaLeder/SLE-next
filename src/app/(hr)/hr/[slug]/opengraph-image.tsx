@@ -1,3 +1,6 @@
+// Static export: rendered once at build time.
+export const dynamic = "force-static";
+
 import { ImageResponse } from "next/og";
 import { getAllPosts, getPostBySlug } from "@/lib/posts";
 import { CATEGORY_DISPLAY, categorySlugFromName } from "@/lib/categories";
@@ -11,8 +14,11 @@ export function generateStaticParams() {
   return getAllPosts("hr").map((post) => ({ slug: post.slug }));
 }
 
-export default async function Image({ params }: { params: { slug: string } }) {
-  const post = getPostBySlug("hr", params.slug);
+export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
+  // Next 15+ passes params as a promise; reading .slug directly gave
+  // undefined, so every per-post image used to be a 404.
+  const { slug } = await params;
+  const post = getPostBySlug("hr", slug);
   if (!post) return new Response("Not found", { status: 404 });
 
   const isActivity   = post.tags?.includes("activity") ?? false;

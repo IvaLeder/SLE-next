@@ -22,7 +22,10 @@
     "new-post": "node scripts/new-post.mjs",
     "drafts": "node scripts/drafts.mjs list",
     "publish-post": "node scripts/drafts.mjs publish",
-    "prepare": "husky"
+    "prepare": "husky",
+    "postbuild": "node --disable-warning=ExperimentalWarning --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/cloudflare/build-routing.mts",
+    "preview": "wrangler dev",
+    "deploy:cloudflare": "wrangler deploy"
   },
   "dependencies": {
     "@next/mdx": "^16.1.1",
@@ -45,7 +48,8 @@
     "rehype-autolink-headings": "^7.1.0",
     "rehype-prism-plus": "^2.0.1",
     "rehype-slug": "^6.0.0",
-    "remark-gfm": "^4.0.1"
+    "remark-gfm": "^4.0.1",
+    "worker-mailer": "1.3.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
@@ -60,7 +64,8 @@
     "sharp": "^0.34.5",
     "svgo": "^4.0.1",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "wrangler": "4.158.0"
   },
   "overrides": {
     "postcss": "^8.5.15"

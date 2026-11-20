@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { POST } from "../../app/(en)/api/subscribe/route.ts";
+import { POST } from "../../../worker/api/subscribe.ts";
 
 let requestNumber = 0;
 

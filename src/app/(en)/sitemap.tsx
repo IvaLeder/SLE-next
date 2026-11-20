@@ -1,3 +1,6 @@
+// Static export: rendered once at build time.
+export const dynamic = "force-static";
+
 import { getAllPosts, CATEGORY_SLUGS } from "@/lib/posts";
 import { KNOWN_TAGS } from "@/lib/tags";
 import { getAllAuthorSlugs } from "@/lib/authors";

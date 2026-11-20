@@ -1,3 +1,6 @@
+// Static export: rendered once at build time.
+export const dynamic = "force-static";
+
 // Segment favicon for /en/minds: the stitched-compass logo mark.
 // Drawing + rationale live in src/lib/minds-icon.tsx (shared by all
 // Mind Explorers navigation surfaces).

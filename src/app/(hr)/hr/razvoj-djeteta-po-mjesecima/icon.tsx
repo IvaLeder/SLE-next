@@ -1,3 +1,6 @@
+// Static export: rendered once at build time.
+export const dynamic = "force-static";
+
 // Segment favicon for the HR milestone pillar: the stitched compass. Same
 // rationale as the EN twin — the pillar is a themed Mind Explorers surface
 // reached straight from the hub. Drawing + the navigation-surfaces rule live

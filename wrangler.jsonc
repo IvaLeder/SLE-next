@@ -1,0 +1,23 @@
+{
+  // Cloudflare Workers config for stemlittleexplorers.com.
+  // `npm run build` writes the static site to out/; `npx wrangler deploy`
+  // uploads it plus worker/index.ts. See dev-quickstart.md → Hosting.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "stemlittleexplorers",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-11-01",
+  // nodejs_compat gives the form handlers node:crypto, Buffer and a
+  // process.env filled from the Worker's variables and secrets.
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "directory": "./out",
+    "binding": "ASSETS",
+    // /en/foo serves out/en/foo.html; /en/foo/ redirects to /en/foo (as on Vercel).
+    "html_handling": "drop-trailing-slash",
+    // Misses go to the Worker, which runs the redirects and picks the 404 page.
+    "not_found_handling": "none",
+    // These paths always run the Worker, even when a file would match.
+    "run_worker_first": ["/", "/api/*", "/en/draft/*", "/hr/draft/*"]
+  },
+  "observability": { "enabled": true }
+}
