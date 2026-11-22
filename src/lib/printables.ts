@@ -333,7 +333,7 @@ export const printables: PrintableEntry[] = [
     title: { en: "STEM Advent Calendar", hr: "STEM adventski kalendar" },
     blurb: {
       en: "A 24-door calendar to colour in, a six-fold snowflake guide with three cutting templates, and gift tags.",
-      hr: "Kalendar s 24 vrata za bojanje, vodič za pahulje sa šest krakova s tri predloška za rezanje i privjesci za darove.",
+      hr: "Kalendar s 24 prozorčića za bojanje, vodič za pahulje sa šest krakova s tri predloška za rezanje i privjesci za darove.",
     },
     pages: 4,
     ages: { en: "Ages 3+", hr: "Od 3 godine" },

@@ -114,7 +114,7 @@ export const CAMPAIGNS: SeasonalCampaign[] = [
       hr: {
         eyebrow: "Božićni znanstveni laboratorij",
         title: "STEM adventski kalendar",
-        body: "24 dana umjetnog snijega, pahulja sa šest krakova, snježnih kugli i ukrasa, a iza svakih vrata krije se prava znanost.",
+        body: "24 dana umjetnog snijega, pahulja, snježnih kugli i ukrasa, uz dašak znanosti iza svakog prozorčića.",
         cta: "Otvorite kalendar →",
         note: "Besplatno za ispis · od 3 godine",
       },

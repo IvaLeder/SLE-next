@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "STEM adventski kalendar: 24 dana božićne znanosti",
     description:
-      "Iza svakih vrata mali pokus: umjetni snijeg, pahulje sa šest krakova, snježne kugle i ukrasi, a u svemu prava znanost. Besplatno za ispis.",
+      "Iza svakog prozorčića skriva se jedna aktivnost: umjetni snijeg, pahulje sa šest krakova, snježne kugle i ukrasi, a sve uz dašak prave znanosti. Besplatno za ispis.",
     url,
     type: "website",
   },

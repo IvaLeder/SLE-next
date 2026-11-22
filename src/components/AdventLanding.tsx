@@ -55,7 +55,7 @@ const SHELVES: Shelf[] = [
       hr: {
         eyebrow: "Neka padne snijeg",
         title: "Snijeg i led",
-        body: "Snijeg koji možete napraviti za kuhinjskim stolom, pahulje s pravim brojem krakova i mećava koja pada usporeno.",
+        body: "Snijeg koji možete napraviti za kuhinjskim stolom, prekrasne pahulje i mećava u kugli.",
       },
     },
     items: [
@@ -63,21 +63,21 @@ const SHELVES: Shelf[] = [
         key: "how-to-make-fake-snow",
         twist: {
           en: "Two ingredients, cool to the touch, and a snowman that fizzes away when you add vinegar.",
-          hr: "Dva sastojka, hladan na dodir i snjegović koji se zapjeni i nestane kad dodate ocat.",
+          hr: "Samo dva sastojka, rezultat hladan na dodir i snjegović koji se zapjeni i otopi kad dodate ocat.",
         },
       },
       {
         key: "how-to-make-paper-snowflakes",
         twist: {
           en: "Fold six arms like a real snowflake, and find out why nature never makes one with eight.",
-          hr: "Presavijte šest krakova kao na pravoj pahulji i saznajte zašto priroda nikad ne napravi pahulju s osam.",
+          hr: "Uz malo savijanja papira napravite šesterokraku pahulju i saznajte zašto baš takve nastaju u prirodi.",
         },
       },
       {
         key: "how-to-make-a-snow-globe",
         twist: {
           en: "A slow-motion blizzard in a jar, plus a glycerin race to find the slowest snow.",
-          hr: "Usporena mećava u staklenci i utrka s glicerinom: tko će imati najsporiji snijeg?",
+          hr: "Spora mećava u staklenci i utrka s glicerinom: čiji će snijeg biti najsporiji?"
         },
       },
       {
@@ -115,7 +115,7 @@ const SHELVES: Shelf[] = [
       hr: {
         eyebrow: "Napravite pa poklonite",
         title: "Djedova radionica",
-        body: "Ukrasi, dekoracije i mali darovi koje djeca mogu napraviti sama, a u svakome se krije malo znanosti.",
+        body: "Ukrasi, dekoracije i mali darovi koje djeca mogu napraviti sama, a u svaki smo ubacili malo znanosti.",
       },
     },
     items: [
@@ -123,14 +123,14 @@ const SHELVES: Shelf[] = [
         key: "salt-dough-ornaments",
         twist: {
           en: "Stars, hearts and handprints that last for years, and the reason salt stops them going mouldy.",
-          hr: "Licitarska srca, zvijezde i otisci ruku koji traju godinama, i razlog zašto zbog soli ne pljesnive.",
+          hr: "Licitarska srca, zvijezde i otisci ruku koji traju godinama, i objašnjenje zašto ne pljesnive.",
         },
       },
       {
         key: "how-to-make-origami-house",
         twist: {
           en: "Christmas extension: fold a whole gingerbread village from brown paper.",
-          hr: "Božićni dodatak: presavijte cijelo selo kućica od medenjaka od smeđeg papira.",
+          hr: "Božićni dodatak: složite cijelo selo kućica od medenjaka od smeđeg papira.",
         },
       },
       {
@@ -151,7 +151,7 @@ const SHELVES: Shelf[] = [
         key: "toilet-roll-christmas-tree",
         twist: {
           en: "A table-top tree from cardboard rolls, with a counting puzzle hiding in every row.",
-          hr: "Stolno drvce od kartonskih rola, a u svakom redu krije se mala matematička zagonetka.",
+          hr: "Ekološko drvce od kartonskih rola, a u svakom redu krije se mala matematička zagonetka.",
         },
       },
       {
@@ -183,7 +183,7 @@ const SHELVES: Shelf[] = [
         key: "make-popsicle-catapult",
         twist: {
           en: "Christmas extension: a snowball catapult and a paper-cup snowman to knock down.",
-          hr: "Božićni dodatak: katapult za grudve snijega i snjegović od papirnatih čaša koji treba srušiti.",
+          hr: "Božićni dodatak: katapult za grudve snijega i snjegović od papirnatih čaša kojeg treba srušiti.",
         },
       },
       {
@@ -271,36 +271,36 @@ const COPY = {
   hr: {
     eyebrow: "Božićni znanstveni laboratorij",
     title: "STEM adventski kalendar",
-    lede: "24 dana umjetnog snijega, pahulja sa šest krakova, snježnih kugli i ukrasa. Iza svakih vrata čeka mali pokus, od 1. prosinca do Badnjaka.",
+    lede: "24 dana umjetnog snijega, papirnatih pahulja, snježnih kugli i ukrasa. Iza svakog prozorčića čeka mali pokus, od 1. prosinca do Badnjaka.",
     primaryCta: "Otvorite kalendar ↓",
     secondaryCta: "Preuzmite za ispis ↓",
-    intro: <>Iza svakih vrata krije se aktivnost koju možete napraviti s onim što imate u kuhinji, kutiji za kreativne radove i u otpadu za recikliranje. Radnim danima aktivnosti su kratke (10 do 20 minuta), a veći projekti, poput pečenja ukrasa i izrade snježnih kugli, padaju vikendom. <strong>Iza svakih vrata krije se prava znanost</strong>: kemija, fizika, matematika i malo inženjerstva.</>,
-    calendarTitle: "Otvorite vrata",
+    intro: <>Iza svakog prozorčića krije se aktivnost koju možete napraviti s onim što imate u kuhinji, kutiji za kreativne radove i u otpadu za recikliranje. Radnim danima aktivnosti su kratke (10 do 20 minuta), a veći projekti, poput pečenja ukrasa i izrade snježnih kugli, padaju vikendom. <strong>Iza svakog prozorčića otkrijte pravu znanost</strong>: kemija, fizika, matematika i malo inženjerstva.</>,
+    calendarTitle: "Otvorite prozorčić",
     shelvesTitle: "Svi božićni pokusi",
     packEyebrow: "Besplatno, 4 stranice za ispis",
     packTitle: "STEM adventski kalendar",
-    packBody: "Zalijepite ga na hladnjak i neka dijete svaki dan oboji jedna vrata. Na drugoj stranici su kratke upute za svaki dan, pa možete unaprijed isplanirati tjedan i pripremiti materijale.",
-    packItems: ["Kalendar s 24 vrata za bojanje", "Popis s uputama za svaki dan", "Vodič za pahulje sa šest krakova + 3 predloška", "8 privjesaka za darove sa znanošću"],
+    packBody: "Zalijepite ga na hladnjak i neka dijete svaki dan oboji jedan prozorčić. Na drugoj stranici su kratke upute za svaki dan, pa možete unaprijed isplanirati tjedan i pripremiti materijale.",
+    packItems: ["Kalendar s 24 prozorčića za bojanje", "Popis s uputama za svaki dan", "Vodič za pahulje sa šest krakova + 3 predloška", "8 privjesaka za darove sa znanošću"],
     packFile: "4 stranice A4 · 1 MB",
     download: "↓ Besplatno preuzmite",
     noSignup: "Bez e-pošte i registracije",
     parentsTitle: "Za odrasle: \"Postoji li Djed Božićnjak?\"",
-    parentsBody: "Kada djeca obično sama otkriju istinu, kako se pritom osjećaju i kako nježno odgovoriti na veliko pitanje.",
-    parentsCta: "Pročitajte vodič →",
+    parentsBody: "Kada djeca obično sama otkriju istinu, kako se pritom osjećaju i kako nježno odgovoriti na to veliko pitanje.",
+    parentsCta: "Pročitajte članak →",
     waitTitle: "Zašto je čekanje dobro za djecu",
     waitBody: [
-      "Advent je mjesec čekanja, a i samo čekanje je dar. Psiholozi su otkrili da radovanje nečemu lijepom može donijeti jednako mnogo sreće kao i sam događaj.",
-      "Čekanje je i vještina koja raste s dobi i vježbom. Maloj djeci lakše je čekati kad čekanje ima oblik: jednu malu stvar svaki dan, vrata koja treba otvoriti, kvadratić koji treba označiti. Upravo to im daje adventski kalendar.",
-      "Zajedno brojite koliko je vrata ostalo, neka dijete samo označava dane i razgovarajte o tome čemu se veseli.",
+      "Advent je vrijeme čekanja, a i samo čekanje je dar. Psiholozi su otkrili da radovanje nečemu lijepom može donijeti jednako mnogo sreće kao i sam događaj.",
+      "Čekanje je i vještina koja raste s dobi i vježbom. Maloj djeci lakše je čekati kad je čekanje strukturirano: jedna mala stvar svaki dan, prozorčić koji treba otvoriti, kvadratić koji treba označiti. Upravo to im daje adventski kalendar.",
+      "Zajedno brojite koliko je prozorčića ostalo, neka dijete samo označava dane i razgovarajte o tome čemu se veseli.",
     ],
     rulesTitle: "Pravila radionice",
     rules: [
-      "Odrasla osoba ostaje u radionici tijekom svakog pokusa.",
+      "Odrasla osoba ostaje u radionici tijekom svake aktivnosti.",
       "Vrući poslovi (pećnica, vrući sirup, topla čokolada, pištolj za vruće ljepilo) su za odrasle.",
       "Perlice, šljokice, praporci i drugi sitni dijelovi nisu za djecu mlađu od 3 godine.",
-      "Kušajte samo ono što je hrana. Umjetni snijeg i slano tijesto su za ruke, ne za usta.",
+      "Kušajte samo ono što je hrana. Umjetni snijeg i slano tijesto nisu za jelo.",
     ],
-    closing: "Iza svakih vrata krije se pitanje vrijedno postavljanja. Sretno eksperimentiranje i sretan Božić!",
+    closing: "Iza svakog prozorčića krije se pitanje vrijedno postavljanja. Sretno eksperimentiranje i sretan Božić!",
   },
 } satisfies Record<SeasonalLang, Record<string, unknown>>;
 
