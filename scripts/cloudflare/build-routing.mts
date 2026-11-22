@@ -79,6 +79,31 @@ function walk(dir: string, base = ""): string[] {
     return e.isDirectory() ? walk(path.join(dir, e.name), rel) : [rel];
   });
 }
+
+// ─── Pages that called notFound() at build time ─────────────────────────────
+// On Vercel a prerendered notFound() page answers with a 404 status. A static
+// export still writes that page's HTML (the not-found screen) to out/, so
+// Cloudflare would serve it as a 200 "soft 404". Example: an unreleased
+// product page (src/lib/products.ts). Delete those files so the request falls
+// through to the Worker, which answers with a real 404.
+const NOT_FOUND_MARKER = "NEXT_HTTP_ERROR_FALLBACK;404";
+const notFoundPages = walk(outDir).filter(
+  (f) => f.endsWith(".html") && fs.readFileSync(path.join(outDir, f), "utf8").includes(NOT_FOUND_MARKER),
+);
+for (const f of notFoundPages) {
+  const base = f.slice(0, -".html".length);
+  fs.rmSync(path.join(outDir, f));
+  fs.rmSync(path.join(outDir, `${base}.txt`), { force: true });
+  // The page's own RSC segment payloads; never touch real child pages.
+  const segDir = path.join(outDir, base);
+  if (fs.existsSync(segDir)) {
+    for (const e of fs.readdirSync(segDir, { withFileTypes: true })) {
+      if (e.isFile() && e.name.startsWith("__next.")) fs.rmSync(path.join(segDir, e.name));
+    }
+    if (fs.readdirSync(segDir).length === 0) fs.rmdirSync(segDir);
+  }
+}
+
 const files = walk(outDir);
 const urlPaths = new Set<string>();
 for (const f of files) {
@@ -208,3 +233,6 @@ console.log(
   `routing: ${redirects.length} redirects + ${headerRules.length} header rules → worker/generated/routes.json; ` +
     `${ruleCount} rules → out/_headers; ${pages.length} trailing-slash rules → out/_redirects`,
 );
+if (notFoundPages.length > 0) {
+  console.log(`routing: removed ${notFoundPages.length} notFound() page(s) so they 404: ${notFoundPages.join(", ")}`);
+}
