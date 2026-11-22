@@ -80,6 +80,18 @@ const config: NextConfig = {
     root: process.cwd(),
   },
 
+  // gray-matter 2 declares CoffeeScript and TOML parsers as optional runtime
+  // requires. All site content uses its bundled YAML parser, so tell webpack
+  // not to resolve the two unused engines instead of warning on every build.
+  webpack(config) {
+    config.resolve.fallback = {
+      ...config.resolve.fallback,
+      "coffee-script": false,
+      toml: false,
+    };
+    return config;
+  },
+
   // Draft previews (/{lang}/draft/[slug]) render on demand at request time,
   // so the serverless function needs the MDX sources at runtime — everything
   // else reads them at build time only. Without this, tracing may miss the
