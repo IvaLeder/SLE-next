@@ -97,7 +97,7 @@ export const CAMPAIGNS: SeasonalCampaign[] = [
     id: "advent-calendar",
     slug: { en: "stem-advent-calendar", hr: "adventski-kalendar" },
     window: { start: "11-08", end: "01-06" },
-    live: false,
+    live: true,
     icon: "🎄",
     background: "linear-gradient(135deg, #0B2E24 0%, #14532D 55%, #9F1F35 100%)",
     texture: "radial-gradient(rgba(255,255,255,.32) 1px, transparent 1.6px)",
