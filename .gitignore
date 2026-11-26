@@ -47,9 +47,11 @@ convert-gifs.mjs
 audit-image-sizes.mjs
 dev-quickstart.md
 BACKLOG.md
+publish-queue.md
 mind-explorers-brand-sheet.md
 mind-explorers-hub-covers-prompts.md
 mind-explorers-inline-figures-prompts.md
+learning-study-content-plan.md
 
 # asset pipeline (npm run images / assets) — generated variants + manifest are
 # rebuilt by the prebuild hook; the encode cache lives in node_modules/.cache
@@ -82,3 +84,6 @@ scripts/
 /.wrangler/
 /.dev.vars*
 /worker/generated/
+
+# Paid products (sold, never served from public/ and never committed)
+/products/

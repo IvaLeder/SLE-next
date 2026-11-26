@@ -77,6 +77,18 @@ const config: NextConfig = {
   // redirect, the forms, draft links, 404s) live in worker/index.ts.
   output: "export",
 
+  // gray-matter 2 declares CoffeeScript and TOML parsers as optional runtime
+  // requires. All site content uses its bundled YAML parser, so tell webpack
+  // not to resolve the two unused engines instead of warning on every build.
+  webpack(config) {
+    config.resolve.fallback = {
+      ...config.resolve.fallback,
+      "coffee-script": false,
+      toml: false,
+    };
+    return config;
+  },
+
   images: {
     // Serve images as-is, bypassing Vercel's optimizer. The Hobby plan's
     // monthly transformation quota was exhausted (the optimizer 402s —
