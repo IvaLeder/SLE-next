@@ -1,13 +1,14 @@
 name: Deploy to Cloudflare
 
 # Builds the static site and uploads it, with worker/index.ts, to the
-# Cloudflare Worker "stemlittleexplorers" (see wrangler.jsonc).
+# Cloudflare Worker "stemlittleexplorers" (see wrangler.jsonc). The live site
+# (custom domain stemlittleexplorers.com, added in the Cloudflare dashboard)
+# and the *.workers.dev preview both serve the latest deploy.
 #
-# Until the DNS switch this deploys the cloudflare-migration branch to the
-# preview address (*.workers.dev). At cutover, change the branch to main.
+# Every push to main deploys, like Vercel did before the 2026-11-26 switch.
 on:
   push:
-    branches: [cloudflare-migration]
+    branches: [main]
   workflow_dispatch:
 
 # Never run two deploys at once; a newer push waits for the current one.
