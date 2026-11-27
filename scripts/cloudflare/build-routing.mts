@@ -155,6 +155,13 @@ for (const rule of headerRules) {
 // Hashed build assets never change, so browsers may cache them for a year.
 addRule("/_next/static/*", [{ key: "Cache-Control", value: "public,max-age=31536000,immutable" }]);
 
+// Not a Vercel default: image-pipeline variants (name.<hash8>.<width>.<ext>)
+// get a new name whenever the source image changes, so browsers needn't
+// re-check them on every page view. The hash covers the source only, not the
+// encoder settings, so a quality change keeps the old name: 30 days (not a
+// year) bounds how long returning readers keep the old encode.
+addRule("/images/_opt/*", [{ key: "Cache-Control", value: "public,max-age=2592000,immutable" }]);
+
 // Generated images (opengraph-image, icon, apple-icon) are written without a
 // file extension, so Cloudflare can't guess their type. They are all PNGs.
 const GENERATED_IMAGE = /\/(opengraph-image|twitter-image|icon|apple-icon)-[a-z0-9]+$/;
